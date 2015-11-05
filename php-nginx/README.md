@@ -104,8 +104,7 @@ moved to an appropriate directory and included from the main nginx
 configuration file.
 
 Assumption is that you don't often need to entirely modify the
-[default nginx file]
-(http://cs/apphosting/ext/vmruntime/docker/php56_nginx/nginx.conf).
+[default nginx file](nginx.conf).
 There is an `include` directive in the `server` section and your
 configuration file will be included there.
 
