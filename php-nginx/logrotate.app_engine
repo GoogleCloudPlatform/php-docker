@@ -1,0 +1,12 @@
+/var/log/app_engine/*.log {
+  daily
+  missingok
+  rotate 1
+  notifempty
+  nocompress
+  sharedscripts
+  postrotate
+    [ -f /var/run/supervisord.pid ] && kill -HUP `cat /var/run/supervisord.pid`
+  endscript
+  su root root
+}
