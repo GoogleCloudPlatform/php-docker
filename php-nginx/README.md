@@ -125,7 +125,7 @@ know if you found otherwise.
 ## Change the PHP version
 
 You can use `composer` for this purpose. If you want to run your
-application with PHP 7.0.0RC5, you can add `php` to your
+application with PHP 7.0.0RC6, you can add `php` to your
 `composer.json`.
 
 composer.json:
