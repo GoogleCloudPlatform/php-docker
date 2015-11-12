@@ -217,7 +217,7 @@ function build_php56 {
 
 # Build PHP
 function build_php7 {
-  curl -SL "https://downloads.php.net/~ab/php-7.0.0RC5.tar.gz" -o php7.tar.gz
+  curl -SL "https://downloads.php.net/~ab/php-7.0.0RC6.tar.gz" -o php7.tar.gz
   mkdir -p /usr/src/php7
   tar -zxf php7.tar.gz -C /usr/src/php7 --strip-components=1
   rm php7.tar.gz

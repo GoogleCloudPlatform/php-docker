@@ -20,7 +20,7 @@ require_once __DIR__.'/vendor/autoload.php';
 use Composer\Semver\Semver;
 
 // Available versions in the order we want to check.
-$available_versions = array('7.0.0', '5.6.14');
+$available_versions = array('7.0.0', '5.6.15');
 
 if (count($argv) < 2) {
     die("Usage:\n".$argv[0]." filename\n");
