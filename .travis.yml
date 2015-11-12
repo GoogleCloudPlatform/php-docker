@@ -1,0 +1,18 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+- sudo apt-get update
+- sudo apt-get install -y php5-cli
+- curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+- cd ${TRAVIS_BUILD_DIR}/php-nginx && docker build -t php-nginx .
+- cd ${TRAVIS_BUILD_DIR}/testapps/php56 && docker build -t php56 .
+- cd ${TRAVIS_BUILD_DIR}/testapps/php70 && docker build -t php70 .
+
+install:
+- cd ${TRAVIS_BUILD_DIR} && composer install
+
+script:
+- cd ${TRAVIS_BUILD_DIR} && ./vendor/bin/phpunit
