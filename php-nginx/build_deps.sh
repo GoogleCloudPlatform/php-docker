@@ -247,6 +247,7 @@ function build_php7 {
       --enable-soap=shared \
       --enable-sockets \
       --enable-zip \
+      --enable-phpdbg=no \
       --with-bz2 \
       --with-mcrypt \
       --with-curl \
@@ -274,7 +275,6 @@ function build_php7 {
   popd
   rm -rf /usr/src/php7
   strip ${PHP7_DIR}/bin/php ${PHP7_DIR}/sbin/php-fpm
-  rm ${PHP7_DIR}/bin/phpdbg
 }
 
 function install_composer {
