@@ -51,7 +51,7 @@ ENV NGINX_DIR=/usr/local/nginx \
     OPENSSL_VERSION=1.0.1p \
     NGINX_VERSION=1.8.0 \
     PHP56_VERSION=5.6.15 \
-    PHP70_VERSION=7.0.0RC6
+    PHP70_VERSION=7.0.0RC7
 
 # BUILD PHP, nginx and other dependancies.
 ADD openssl-version-script.patch /tmp/openssl-version-script.patch
@@ -64,7 +64,7 @@ EXPOSE 8080
 RUN mkdir -p $APP_DIR $LOG_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
         $NGINX_USER_CONF_DIR \
     && chown -R www-data.www-data \
-        $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH $APP_LOG_DIR \
+        $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH $LOG_DIR \
         $NGINX_USER_CONF_DIR \
     && chmod 755 $UPLOAD_DIR $SESSION_SAVE_PATH
 
@@ -100,6 +100,9 @@ ONBUILD RUN chown -R www-data.www-data $APP_DIR
 WORKDIR $APP_DIR
 
 ONBUILD RUN /composer.sh
+# Now suhosin.log might be owned by root.
+ONBUILD RUN touch $LOG_DIR/suhosin.log
+ONBUILD RUN chown www-data.www-data $LOG_DIR/suhosin.log
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord"]

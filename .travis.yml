@@ -7,12 +7,13 @@ before_install:
 - sudo apt-get update
 - sudo apt-get install -y php5-cli
 - curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-- cd ${TRAVIS_BUILD_DIR}/php-nginx && docker build -t php-nginx .
-- cd ${TRAVIS_BUILD_DIR}/testapps/php56 && docker build -t php56 .
-- cd ${TRAVIS_BUILD_DIR}/testapps/php70 && docker build -t php70 .
+- docker build -t php-nginx php-nginx
+- docker build -t php56 testapps/php56
+- docker build -t php56_custom testapps/php56_custom
+- docker build -t php70 testapps/php70
 
 install:
-- cd ${TRAVIS_BUILD_DIR} && composer install
+- composer install
 
 script:
-- cd ${TRAVIS_BUILD_DIR} && ./vendor/bin/phpunit
+- vendor/bin/phpunit

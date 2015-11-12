@@ -17,7 +17,7 @@
  */
 namespace Google\Cloud\tests;
 
-class ImageTest extends \PHPUnit_Framework_TestCase
+class VersionTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
