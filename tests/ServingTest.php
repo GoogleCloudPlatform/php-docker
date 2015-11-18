@@ -24,28 +24,35 @@ class ServingTest extends \PHPUnit_Framework_TestCase
     private $pid;
     private $client;
 
-    public function setUp()
+    public static function setUpBeforeClass()
     {
         exec('docker run -d --name php56 -p 127.0.0.1:8080:8080 php56');
         // Wait for nginx to start
         sleep(3);
-        $this->client = new Client(['base_uri' => 'http://localhost:8080/']);
     }
 
-    public function tearDown()
+    public static function tearDownAfterClass()
     {
         exec('docker kill php56');
         exec('docker rm php56');
     }
 
-    public function testPages()
+    public function setUp()
+    {
+        $this->client = new Client(['base_uri' => 'http://localhost:8080/']);
+    }
+
+    public function testIndex()
     {
         // Index serves succesfully with 'Hello World'.
         $resp = $this->client->get('index.php');
         $this->assertEquals('200', $resp->getStatusCode(),
                             'index.php status code');
         $this->assertContains('Hello World', $resp->getBody()->getContents());
+    }
 
+    public function testPhpInfo()
+    {
         // Access to phpinfo.php, while phpinfo() is disabled by default.
         $resp = $this->client->get('phpinfo.php');
         $this->assertEquals('200', $resp->getStatusCode(),
@@ -53,16 +60,13 @@ class ServingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $resp->getBody()->getContents(),
                             'phpinfo() should be disabled and the content'
                             . ' should be empty.');
+    }
 
+    public function testPdoSqlite()
+    {
         // Access to pdo_sqlite.php, while the extention is not available.
-        try {
-            $resp = $this->client->get('pdo_sqlite.php');
-        } catch (\GuzzleHttp\Exception\ServerException $e) {
-            $this->assertEquals('500', $e->getResponse()->getStatusCode(),
-                                'pdo_sqlite.php status code');
-
-            return;
-        }
-        $this->fail('Access to pdo_sqlite.php should error with status 500.');
+        // ServerException is thrown when the server returns 500 status code.
+        $this->setExpectedException('\GuzzleHttp\Exception\ServerException');
+        $resp = $this->client->get('pdo_sqlite.php');
     }
 }

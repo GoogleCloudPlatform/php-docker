@@ -24,22 +24,26 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
     private $pid;
     private $client;
 
-    public function setUp()
+    public static function setUpBeforeClass()
     {
         exec('docker run -d --name php56_custom -p 127.0.0.1:8080:8080 '
              . 'php56_custom');
         // Wait for nginx to start
         sleep(3);
-        $this->client = new Client(['base_uri' => 'http://localhost:8080/']);
     }
 
-    public function tearDown()
+    public static function tearDownAfterClass()
     {
         exec('docker kill php56_custom');
         exec('docker rm php56_custom');
     }
 
-    public function testPages()
+    public function setUp()
+    {
+        $this->client = new Client(['base_uri' => 'http://localhost:8080/']);
+    }
+
+    public function testIndex()
     {
         // Index serves succesfully with 'Hello World'.
         // This works because the custom DOCUMENT_ROOT is working.
@@ -47,7 +51,10 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('200', $resp->getStatusCode(),
                             'index.php status code');
         $this->assertContains('Hello World', $resp->getBody()->getContents());
+    }
 
+    public function testGoodbye()
+    {
         // The URL '/goodbye' works with 'Goodbye World'.
         // This works because the nginx-app.conf is effective.
         $resp = $this->client->get('/goodbye');
@@ -55,14 +62,20 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
                             '/goodbye status code');
         $this->assertContains('Goodbye World',
                               $resp->getBody()->getContents());
+    }
 
+    public function testPhpInfo()
+    {
         // Access to phpinfo.php, while phpinfo() should be enabled this time.
         $resp = $this->client->get('phpinfo.php');
         $this->assertEquals('200', $resp->getStatusCode(),
                             'phpinfo.php status code');
         $this->assertTrue(strlen($resp->getBody()->getContents()) > 1000,
                           'phpinfo() should be enabled.');
+    }
 
+    public function testPdoSqlite()
+    {
         // Access to pdo_sqlite.php, which should work.
         $resp = $this->client->get('pdo_sqlite.php');
         $this->assertEquals('200', $resp->getStatusCode(),
