@@ -17,13 +17,31 @@ sudo: required
 services:
   - docker
 
+env:
+  globals:
+    - GCLOUD_DIR=${HOME}/gcloud
+    - PATH=${PATH}:${GCLOUD_DIR}/google-cloud-sdk/bin
+
 before_install:
 - sudo apt-get update
 - sudo apt-get install -y php5-cli
-- curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+- curl -sS https://getcomposer.org/installer | sudo php -- \
+      --install-dir=/usr/local/bin --filename=composer
 - wget http://get.sensiolabs.org/php-cs-fixer.phar -O php-cs-fixer
 - sudo mv php-cs-fixer /usr/local/bin
 - sudo chmod +x /usr/local/bin/php-cs-fixer
+# We want to fail fast for coding standard violations.
+- php-cs-fixer fix --dry-run --diff --level=psr2 --fixers=concat_with_spaces .
+- if [ ! -d ${HOME}/gcloud/google-cloud-sdk ]; then
+      mkdir -p ${HOME}/gcloud &&
+      wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz \
+          --directory-prefix=${HOME}/gcloud &&
+      cd ${HOME}/gcloud &&
+      tar xzf google-cloud-sdk.tar.gz &&
+      printf '\ny\n\ny\ny\n' | ./google-cloud-sdk/install.sh &&
+      cd ${TRAVIS_BUILD_DIR};
+  fi
+- gcloud components update app
 - docker build -t php-nginx php-nginx
 - docker build -t php56 testapps/php56
 - docker build -t php56_custom testapps/php56_custom
@@ -34,4 +52,3 @@ install:
 
 script:
 - vendor/bin/phpunit
-- php-cs-fixer fix --dry-run --diff --level=psr2 --fixers=concat_with_spaces .
