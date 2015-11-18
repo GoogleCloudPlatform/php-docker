@@ -1,3 +1,17 @@
+# Copyright 2015 Google Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 sudo: required
 
 services:
@@ -7,12 +21,17 @@ before_install:
 - sudo apt-get update
 - sudo apt-get install -y php5-cli
 - curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-- cd ${TRAVIS_BUILD_DIR}/php-nginx && docker build -t php-nginx .
-- cd ${TRAVIS_BUILD_DIR}/testapps/php56 && docker build -t php56 .
-- cd ${TRAVIS_BUILD_DIR}/testapps/php70 && docker build -t php70 .
+- wget http://get.sensiolabs.org/php-cs-fixer.phar -O php-cs-fixer
+- sudo mv php-cs-fixer /usr/local/bin
+- sudo chmod +x /usr/local/bin/php-cs-fixer
+- docker build -t php-nginx php-nginx
+- docker build -t php56 testapps/php56
+- docker build -t php56_custom testapps/php56_custom
+- docker build -t php70 testapps/php70
 
 install:
-- cd ${TRAVIS_BUILD_DIR} && composer install
+- composer install
 
 script:
-- cd ${TRAVIS_BUILD_DIR} && ./vendor/bin/phpunit
+- vendor/bin/phpunit
+- php-cs-fixer fix --dry-run --diff --level=psr2 --fixers=concat_with_spaces .
