@@ -12,5 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM php-nginx
+FROM gcr.io/php-mvm-a/php-nginx:testing
 
+ENV DOCUMENT_ROOT=/app/web

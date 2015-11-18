@@ -19,27 +19,31 @@ namespace Google\Cloud\tests;
 
 use GuzzleHttp\Client;
 
-class CustomServingTest extends \PHPUnit_Framework_TestCase
+class EndToEndTest extends \PHPUnit_Framework_TestCase
 {
     private $client;
 
     public static function setUpBeforeClass()
     {
-        exec('docker run -d --name php56_custom -p 127.0.0.1:8080:8080 '
-             . 'php56_custom');
-        // Wait for nginx to start
-        sleep(3);
+        // TODO: check the return value and maybe retry?
+        exec('gcloud -q preview app deploy --version '
+             . getenv('E2E_TEST_VERSION')
+             . ' testapps/php56_e2e/app.yaml');
     }
 
     public static function tearDownAfterClass()
     {
-        exec('docker kill php56_custom');
-        exec('docker rm php56_custom');
+        // TODO: check the return value and maybe retry?
+        exec('gcloud -q preview app modules delete default --version '
+             . getenv('E2E_TEST_VERSION'));
     }
 
     public function setUp()
     {
-        $this->client = new Client(['base_uri' => 'http://localhost:8080/']);
+        $url = sprintf('https://%s-dot-%s.appspot.com/',
+                       getenv('E2E_TEST_VERSION'),
+                       getenv('GOOGLE_PROJECT_ID'));
+        $this->client = new Client(['base_uri' => $url]);
     }
 
     public function testIndex()

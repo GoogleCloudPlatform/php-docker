@@ -1,3 +1,4 @@
+#!/bin/sh
 # Copyright 2015 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,5 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM php-nginx
+set -ev
 
+# Upload the local image to gcr.io with a tag `testing`.
+docker tag php-nginx gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:testing
+gcloud docker push gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:testing
+
+# Run e2e tests
+vendor/bin/phpunit -c e2e.xml
+
+# If all succeeds and if it is a push to the master, upload the image.
+if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]
+then
+    docker tag php-nginx gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:latest
+    gcloud docker push gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:latest
+fi

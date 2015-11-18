@@ -21,7 +21,6 @@ use GuzzleHttp\Client;
 
 class ServingTest extends \PHPUnit_Framework_TestCase
 {
-    private $pid;
     private $client;
 
     public static function setUpBeforeClass()

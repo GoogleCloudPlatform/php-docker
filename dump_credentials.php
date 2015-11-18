@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2015 Google Inc.
  *
@@ -15,4 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-require __DIR__ . '/../vendor/autoload.php';
+
+/**
+ * Dumps the contents of the environment variable GOOGLE_CREDENTIALS_BASE64 to
+ * a file.
+ *
+ * To setup Travis to run on your fork, read TRAVIS.md.
+ */
+file_put_contents(
+    getenv('GOOGLE_APPLICATION_CREDENTIALS'),
+    base64_decode(getenv('GOOGLE_CREDENTIALS_BASE64'))
+);
