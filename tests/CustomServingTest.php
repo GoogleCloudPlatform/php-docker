@@ -21,14 +21,13 @@ use GuzzleHttp\Client;
 
 class CustomServingTest extends \PHPUnit_Framework_TestCase
 {
-
     private $pid;
     private $client;
 
     public function setUp()
     {
         exec('docker run -d --name php56_custom -p 127.0.0.1:8080:8080 '
-             .'php56_custom');
+             . 'php56_custom');
         // Wait for nginx to start
         sleep(3);
         $this->client = new Client(['base_uri' => 'http://localhost:8080/']);
@@ -57,14 +56,13 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('Goodbye World',
                               $resp->getBody()->getContents());
 
-
         // Access to phpinfo.php, while phpinfo() should be enabled this time.
         $resp = $this->client->get('phpinfo.php');
         $this->assertEquals('200', $resp->getStatusCode(),
                             'phpinfo.php status code');
         $this->assertTrue(strlen($resp->getBody()->getContents()) > 1000,
                           'phpinfo() should be enabled.');
-            
+
         // Access to pdo_sqlite.php, which should work.
         $resp = $this->client->get('pdo_sqlite.php');
         $this->assertEquals('200', $resp->getStatusCode(),

@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 use Composer\Semver\Semver;
 
@@ -23,7 +23,7 @@ use Composer\Semver\Semver;
 $available_versions = [getenv('PHP70_VERSION'), getenv('PHP56_VERSION')];
 
 if (count($argv) < 2) {
-    die("Usage:\n".$argv[0]." filename\n");
+    die("Usage:\n" . $argv[0] . " filename\n");
 }
 
 $composer = json_decode(file_get_contents($argv[1]), true);

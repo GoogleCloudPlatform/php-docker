@@ -21,6 +21,9 @@ before_install:
 - sudo apt-get update
 - sudo apt-get install -y php5-cli
 - curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+- wget http://get.sensiolabs.org/php-cs-fixer.phar -O php-cs-fixer
+- sudo mv php-cs-fixer /usr/local/bin
+- sudo chmod +x /usr/local/bin/php-cs-fixer
 - docker build -t php-nginx php-nginx
 - docker build -t php56 testapps/php56
 - docker build -t php56_custom testapps/php56_custom
@@ -31,3 +34,4 @@ install:
 
 script:
 - vendor/bin/phpunit
+- php-cs-fixer fix --dry-run --diff --level=psr2 --fixers=concat_with_spaces .

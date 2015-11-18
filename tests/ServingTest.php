@@ -21,7 +21,6 @@ use GuzzleHttp\Client;
 
 class ServingTest extends \PHPUnit_Framework_TestCase
 {
-
     private $pid;
     private $client;
 
@@ -53,7 +52,7 @@ class ServingTest extends \PHPUnit_Framework_TestCase
                             'phpinfo.php status code');
         $this->assertEquals('', $resp->getBody()->getContents(),
                             'phpinfo() should be disabled and the content'
-                            .' should be empty.');
+                            . ' should be empty.');
 
         // Access to pdo_sqlite.php, while the extention is not available.
         try {
@@ -61,6 +60,7 @@ class ServingTest extends \PHPUnit_Framework_TestCase
         } catch (\GuzzleHttp\Exception\ServerException $e) {
             $this->assertEquals('500', $e->getResponse()->getStatusCode(),
                                 'pdo_sqlite.php status code');
+
             return;
         }
         $this->fail('Access to pdo_sqlite.php should error with status 500.');
