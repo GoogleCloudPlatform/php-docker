@@ -23,11 +23,26 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
 {
     private $client;
 
+    const PROJECT_ENV = 'GOOGLE_PROJECT_ID';
+    const VERSION_ENV = 'E2E_TEST_VERSION';
+
     public static function setUpBeforeClass()
     {
+        $project_id = getenv(self::PROJECT_ENV);
+        $e2e_test_version = getenv(self::VERSION_ENV);
+        if ($project_id == false) {
+            self::fail('Please set ' . self::PROJECT_ENV . ' env var.');
+        }
+        if ($e2e_test_version == false) {
+            self::fail('Please set ' . self::VERSION_ENV . ' env var.');
+        }
+        $dockerfilePath = __DIR__ . '/../testapps/php56_e2e/Dockerfile';
+        $dockerfile = array("FROM gcr.io/$project_id/php-nginx:latest\n",
+                            "ENV DOCUMENT_ROOT /app/web\n");
+        file_put_contents($dockerfilePath, $dockerfile);
         // TODO: check the return value and maybe retry?
         exec('gcloud -q preview app deploy --version '
-             . getenv('E2E_TEST_VERSION')
+             . $e2e_test_version
              . ' testapps/php56_e2e/app.yaml');
     }
 
@@ -35,14 +50,14 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
     {
         // TODO: check the return value and maybe retry?
         exec('gcloud -q preview app modules delete default --version '
-             . getenv('E2E_TEST_VERSION'));
+             . getenv(self::VERSION_ENV));
     }
 
     public function setUp()
     {
         $url = sprintf('https://%s-dot-%s.appspot.com/',
-                       getenv('E2E_TEST_VERSION'),
-                       getenv('GOOGLE_PROJECT_ID'));
+                       getenv(self::VERSION_ENV),
+                       getenv(self::PROJECT_ENV));
         $this->client = new Client(['base_uri' => $url]);
     }
 
