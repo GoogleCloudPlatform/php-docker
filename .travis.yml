@@ -26,6 +26,7 @@ env:
     - GCLOUD_DIR=${HOME}/gcloud
     - PATH=${GCLOUD_DIR}/google-cloud-sdk/bin:${PATH}
     - GOOGLE_APPLICATION_CREDENTIALS=$TRAVIS_BUILD_DIR/credentials.json
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 
 before_install:
 - sudo apt-get update
@@ -41,7 +42,7 @@ before_install:
       wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz --directory-prefix=${HOME}/gcloud &&
       cd ${HOME}/gcloud &&
       tar xzf google-cloud-sdk.tar.gz &&
-      printf '\ny\n\ny\ny\n' | ./google-cloud-sdk/install.sh &&
+      ./google-cloud-sdk/install.sh --usage-reporting false --path-update false --command-completion false &&
       cd ${TRAVIS_BUILD_DIR};
   fi
 - gcloud -q components update app gsutil
