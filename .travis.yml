@@ -47,8 +47,6 @@ before_install:
   fi
 - gcloud -q components update app gsutil
 - gcloud config set project ${GOOGLE_PROJECT_ID}
-- php dump_credentials.php
-- gcloud auth activate-service-account --key-file ${GOOGLE_APPLICATION_CREDENTIALS}
 - docker build -t php-nginx php-nginx
 - docker build -t php56 testapps/php56
 - docker build -t php56_custom testapps/php56_custom

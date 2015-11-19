@@ -15,6 +15,19 @@
 
 set -ev
 
+if [ -z "${GOOGLE_APPLICATION_CREDENTIALS}"  ]; then
+    # This must be a pull request from other repository.
+    # Skipping all of the following.
+    echo "Skipping e2e test"
+    exit 0
+fi
+
+# Dump the credentials from the environment variable.
+php dump_credentials.php
+
+# Use the service account for gcloud operations.
+gcloud auth activate-service-account --key-file ${GOOGLE_APPLICATION_CREDENTIALS}
+
 # Upload the local image to gcr.io with a tag `testing`.
 docker tag php-nginx gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:testing
 gcloud docker push gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:testing
