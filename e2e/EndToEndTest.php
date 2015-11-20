@@ -19,27 +19,46 @@ namespace Google\Cloud\tests;
 
 use GuzzleHttp\Client;
 
-class CustomServingTest extends \PHPUnit_Framework_TestCase
+class EndToEndTest extends \PHPUnit_Framework_TestCase
 {
     private $client;
 
+    const PROJECT_ENV = 'GOOGLE_PROJECT_ID';
+    const VERSION_ENV = 'E2E_TEST_VERSION';
+
     public static function setUpBeforeClass()
     {
-        exec('docker run -d --name php56_custom -p 127.0.0.1:8080:8080 '
-             . 'php56_custom');
-        // Wait for nginx to start
-        sleep(3);
+        $project_id = getenv(self::PROJECT_ENV);
+        $e2e_test_version = getenv(self::VERSION_ENV);
+        if ($project_id == false) {
+            self::fail('Please set ' . self::PROJECT_ENV . ' env var.');
+        }
+        if ($e2e_test_version == false) {
+            self::fail('Please set ' . self::VERSION_ENV . ' env var.');
+        }
+        $dockerfilePath = __DIR__ . '/../testapps/php56_e2e/Dockerfile';
+        $dockerfile = array("FROM gcr.io/$project_id/php-nginx:latest\n",
+                            "ENV DOCUMENT_ROOT /app/web\n");
+        file_put_contents($dockerfilePath, $dockerfile);
+        // TODO: check the return value and maybe retry?
+        exec('gcloud -q preview app deploy --version '
+             . $e2e_test_version
+             . ' testapps/php56_e2e/app.yaml');
     }
 
     public static function tearDownAfterClass()
     {
-        exec('docker kill php56_custom');
-        exec('docker rm php56_custom');
+        // TODO: check the return value and maybe retry?
+        exec('gcloud -q preview app modules delete default --version '
+             . getenv(self::VERSION_ENV));
     }
 
     public function setUp()
     {
-        $this->client = new Client(['base_uri' => 'http://localhost:8080/']);
+        $url = sprintf('https://%s-dot-%s.appspot.com/',
+                       getenv(self::VERSION_ENV),
+                       getenv(self::PROJECT_ENV));
+        $this->client = new Client(['base_uri' => $url]);
     }
 
     public function testIndex()
