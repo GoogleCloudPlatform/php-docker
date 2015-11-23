@@ -37,12 +37,14 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
             self::fail('Please set ' . self::VERSION_ENV . ' env var.');
         }
         $dockerfilePath = __DIR__ . '/../testapps/php56_e2e/Dockerfile';
-        $dockerfile = array("FROM gcr.io/$project_id/php-nginx:latest\n",
-                            "ENV DOCUMENT_ROOT /app/web\n");
+        $dockerfile = array(
+            "FROM gcr.io/$project_id/php-nginx:$e2e_test_version\n",
+            "ENV DOCUMENT_ROOT /app/web\n"
+        );
         file_put_contents($dockerfilePath, $dockerfile);
         // TODO: check the return value and maybe retry?
-        exec('gcloud -q preview app deploy --version '
-             . $e2e_test_version
+        exec("gcloud -q preview app deploy --version $e2e_test_version"
+             . " --project $project_id"
              . ' testapps/php56_e2e/app.yaml');
     }
 
@@ -50,7 +52,9 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
     {
         // TODO: check the return value and maybe retry?
         exec('gcloud -q preview app modules delete default --version '
-             . getenv(self::VERSION_ENV));
+             . getenv(self::VERSION_ENV)
+             . ' --project '
+             . getenv(self::PROJECT_ENV));
     }
 
     public function setUp()

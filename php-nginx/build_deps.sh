@@ -145,7 +145,8 @@ function build_php56 {
   rm mailparse.tar.gz
 
   mkdir -p /usr/src/php/ext/apcu
-  curl -SL "https://pecl.php.net/get/APCu" -o apcu.tar.gz
+  # The new apcu-4.0.8 doesn't compile
+  curl -SL "https://pecl.php.net/get/apcu-4.0.7.tgz" -o apcu.tar.gz
   tar -zxf apcu.tar.gz -C /usr/src/php/ext/apcu --strip-components=1
   rm apcu.tar.gz
 

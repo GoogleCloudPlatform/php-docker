@@ -63,6 +63,5 @@ EOF
         --no-dev \
         --prefer-dist \
         --optimize-autoloader \
-        --no-interaction \
-        --quiet
+        --no-interaction
 fi
