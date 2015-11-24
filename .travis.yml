@@ -33,23 +33,7 @@ before_install:
 - docker --version
 
 install:
-- sudo apt-get update
-- sudo apt-get install -y php5-cli
-- curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-- wget http://get.sensiolabs.org/php-cs-fixer.phar -O php-cs-fixer
-- sudo mv php-cs-fixer /usr/local/bin
-- sudo chmod +x /usr/local/bin/php-cs-fixer
-- composer install
-- if [ ! -d ${HOME}/gcloud/google-cloud-sdk ]; then
-      mkdir -p ${HOME}/gcloud &&
-      wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz --directory-prefix=${HOME}/gcloud &&
-      cd ${HOME}/gcloud &&
-      tar xzf google-cloud-sdk.tar.gz &&
-      ./google-cloud-sdk/install.sh --usage-reporting false --path-update false --command-completion false &&
-      cd ${TRAVIS_BUILD_DIR};
-  fi
-- gcloud -q components update app gsutil
-- gcloud config set project ${GOOGLE_PROJECT_ID}
+- scripts/install_test_dependencies.sh
 
 script:
 - scripts/run_test_suite.sh
