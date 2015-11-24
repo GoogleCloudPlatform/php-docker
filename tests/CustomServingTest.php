@@ -25,7 +25,7 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        exec('docker run -d --name php56_custom -p 127.0.0.1:8080:8080 '
+        exec('docker run -d --name php56_custom -p 127.0.0.1:65080:8080 '
              . 'php56_custom');
         // Wait for nginx to start
         sleep(3);
@@ -39,7 +39,7 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->client = new Client(['base_uri' => 'http://localhost:8080/']);
+        $this->client = new Client(['base_uri' => 'http://localhost:65080/']);
     }
 
     public function testIndex()

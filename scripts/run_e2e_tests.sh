@@ -39,9 +39,12 @@ if [ "${TRAVIS}" = "true" ]; then
     # Dump the credentials from the environment variable.
     php scripts/dump_credentials.php
 
+fi
+
+if [ -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
     # Use the service account for gcloud operations.
     gcloud auth activate-service-account \
-        --key-file ${GOOGLE_APPLICATION_CREDENTIALS}
+        --key-file "${PHP_DOCKER_GOOGLE_CREDENTIALS}"
 fi
 
 # Upload the local image to gcr.io with a tag `testing`.
