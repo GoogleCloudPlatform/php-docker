@@ -50,8 +50,8 @@ ENV NGINX_DIR=/usr/local/nginx \
     SESSION_SAVE_PATH=/tmp/sessions \
     OPENSSL_VERSION=1.0.1p \
     NGINX_VERSION=1.8.0 \
-    PHP56_VERSION=5.6.15 \
-    PHP70_VERSION=7.0.0RC7
+    PHP56_VERSION=5.6.16 \
+    PHP70_VERSION=7.0.0RC8
 
 # BUILD PHP, nginx and other dependancies.
 ADD openssl-version-script.patch /tmp/openssl-version-script.patch
