@@ -58,6 +58,7 @@ EOF
         ${PHP_DIR}/bin/php \
         -d suhosin.executor.include.whitelist=phar \
         -d suhosin.executor.func.blacklist=none \
+        -d disable_functions= \
         /usr/local/bin/composer \
         install \
         --no-dev \
