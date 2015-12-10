@@ -218,7 +218,9 @@ function build_php56 {
 
 # Build PHP
 function build_php7 {
-  curl -SL "https://downloads.php.net/~ab/php-$PHP70_VERSION.tar.gz" -o php7.tar.gz
+  curl -SL "http://php.net/get/php-$PHP70_VERSION.tar.gz/from/this/mirror" -o php7.tar.gz
+  curl -SL "http://us2.php.net/get/php-$PHP70_VERSION.tar.gz.asc/from/this/mirror" -o php7.tar.gz.asc
+  gpg --verify php7.tar.gz.asc
   mkdir -p /usr/src/php7
   tar -zxf php7.tar.gz -C /usr/src/php7 --strip-components=1
   rm php7.tar.gz
@@ -299,7 +301,8 @@ function import_gpg_keys {
 
   local PHP_GPG_KEYS=" \
       0BD78B5F97500D450838F95DFE857D9A90D90EC1 \
-      6E4F6AB321FDC07F2C332E3AC2BF0BC433CFC8B3"
+      6E4F6AB321FDC07F2C332E3AC2BF0BC433CFC8B3 \
+      1A4E8B7277C42E53DBA9C7B9BCAA30EA9C0D5763"
 
   gpg --keyserver pgp.mit.edu --recv-keys $PHP_GPG_KEYS
 }
