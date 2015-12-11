@@ -60,13 +60,41 @@ is as follows:
 suhosin.executor.func.blacklist="escapeshellarg, escapeshellcmd, exec, highlight_file, lchgrp, lchown, link, symlink, passthru, pclose, popen, proc_close, prog_get_status, proc_nice, proc_open, proc_terminate, shell_exec, show_source, system, gc_collect_cycles, gc_enable, gc_disable, gc_enabled, getmypid, getmyuid, getmygid, getrusage, getmyinode, get_current_user, libxml_disable_entity_loader, parse_str, phpinfo, phpversion, php_uname"
 ```
 
-To enable them, you can add `php.ini` file in the project directory
+To enable them, you can add a `php.ini` file in the project root directory
 and override the default settings above. Here is an example for only
 enabling `phpinfo()`.
 
 ```ini
 suhosin.executor.func.blacklist="escapeshellarg, escapeshellcmd, exec, highlight_file, lchgrp, lchown, link, symlink, passthru, pclose, popen, proc_close, prog_get_status, proc_nice, proc_open, proc_terminate, shell_exec, show_source, system, gc_collect_cycles, gc_enable, gc_disable, gc_enabled, getmypid, getmyuid, getmygid, getrusage, getmyinode, get_current_user, libxml_disable_entity_loader, parse_str, phpversion, php_uname"
 ```
+
+Additionally, a few functions are disabled with `disable_functions`. Those are
+the following:
+
+- `exec`
+- `passthru`
+- `proc_open`
+- `proc_close`
+- `shell_exec`
+- `show_source`
+- `symlink`
+- `system`
+
+If you need one of those (think of composer post-install scripts for example),
+you need to add something like the following to your php.ini:
+
+```ini
+; None is needed, as an empty string won't take effect
+disable_functions=none
+```
+
+Or just one function like `proc_open`:
+
+```ini
+disable_functions=exec,passthru,proc_close,shell_exec,show_source,symlink,system
+```
+
+Please remember that allowing one of those makes your attack surface bigger.
 
 ## How to change Document Root (and you should change it)
 
