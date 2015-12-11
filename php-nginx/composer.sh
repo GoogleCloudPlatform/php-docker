@@ -49,6 +49,23 @@ EOF
         ln -sf ${PHP56_DIR} ${PHP_DIR}
     fi
 
+    # Handle custom oauth keys (Adapted from https://github.com/heroku/heroku-buildpack-php/blob/master/bin/compile)
+    COMPOSER_GITHUB_OAUTH_TOKEN=${COMPOSER_GITHUB_OAUTH_TOKEN:-}
+    if [[ -n "$COMPOSER_GITHUB_OAUTH_TOKEN" ]]; then
+        if curl --fail --silent -H "Authorization: token $COMPOSER_GITHUB_OAUTH_TOKEN" https://api.github.com/rate_limit > /dev/null; then
+            ${PHP_DIR}/bin/php \
+              -d suhosin.executor.include.whitelist=phar \
+              -d suhosin.executor.func.blacklist=none \
+              -d disable_functions= \
+              /usr/local/bin/composer config -g github-oauth.github.com "$COMPOSER_GITHUB_OAUTH_TOKEN" &> /dev/null # redirect outdated version warnings (Composer sends those to STDOUT instead of STDERR)
+            echo 'Using $COMPOSER_GITHUB_OAUTH_TOKEN for GitHub OAuth.'
+        else
+            echo 'Invalid $COMPOSER_GITHUB_OAUTH_TOKEN for GitHub OAuth!'
+        fi
+    fi
+    # no need for the token to stay around in the env
+    unset COMPOSER_GITHUB_OAUTH_TOKEN
+
     # Remove the vendor directory if it exists.
     if [ -d ${APP_DIR}/vendor ]; then
         rm -rf ${APP_DIR}/vendor
