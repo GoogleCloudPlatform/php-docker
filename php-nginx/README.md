@@ -201,6 +201,7 @@ php.ini):
 - gettext (gettext)
 - intl (intl)
 - mbstring (mbstring)
+- memcached (shared, experimental support for PHP7)
 - MySQL (mysql; it's removed with PHP7.0)
 - PCNTL (pcntl)
 - Shmop (shmop)
@@ -213,7 +214,6 @@ php.ini):
 These extensions are only available with PHP 5.6:
 
 - memcache (shared)
-- memcached (shared)
 - mailparse (builtin)
 - apcu (builtin)
 - suhosin (shared, but enabled by default)
