@@ -223,6 +223,19 @@ These extensions are only available with PHP 5.6:
 You can just have php.ini file in your project directory. This file is
 added to the main configuration file.
 
+## GitHub oAuth token
+
+If you see messages like `Failed to download vendor/package from dist: Could not
+authenticate against github.com`, it means your IP (or effectively the IP of
+the ComputeEngine builder VM when you deploy to AppEngine) exceeded the
+API rate limit for anonymous access and composer can now only use the
+(significantly slower) VCS source method for fetching packages. To fix it,
+you can add a environment variable `COMPOSER_GITHUB_OAUTH_TOKEN` to your
+deployment (`app.yaml` or `Dockerfile` are both fine).
+
+As this is your personal credential for GitHub, please make sure you do not
+commit this token to your repository.
+
 ## Deploy with gcloud
 
 You can deploy the app by:
