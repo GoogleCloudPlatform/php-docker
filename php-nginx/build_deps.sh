@@ -224,8 +224,12 @@ function build_php7 {
   mkdir -p /usr/src/php7
   tar -zxf php7.tar.gz -C /usr/src/php7 --strip-components=1
   rm php7.tar.gz
+  rm php7.tar.gz.asc
 
-  # TODO: Install 3rd party extensions.
+  # TODO: Install more 3rd party extensions.
+
+  # TODO: Use stable version of memcached from pecl once available
+  git clone -b php7 https://github.com/php-memcached-dev/php-memcached /usr/src/php7/ext/memcached
 
   pushd /usr/src/php7
   rm -f configure
@@ -234,6 +238,7 @@ function build_php7 {
       --prefix=$PHP7_DIR \
       --with-config-file-scan-dir=$APP_DIR \
       --disable-cgi \
+      --disable-memcached-sasl \
       --enable-bcmath=shared \
       --enable-calendar=shared \
       --enable-exif=shared \
@@ -242,6 +247,7 @@ function build_php7 {
       --enable-gd-native-ttf \
       --enable-intl=shared \
       --enable-mbstring=shared \
+      --enable-memcached=shared \
       --enable-mysqlnd \
       --enable-opcache \
       --enable-pcntl=shared \
