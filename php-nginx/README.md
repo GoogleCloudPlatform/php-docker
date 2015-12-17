@@ -316,10 +316,12 @@ This image does the following:
   workers. It only works with the default nginx configuration file.
 - Then start supervisord.
 
-## Files in this directory
+## Directories and Files in this directory
 
-- build_deps.sh: Bash script to build dependancies from source. By isolating
-  all of the builds into one Docker step we minimize the resulting image size.
+- build-scripts: Bash scripts to build dependancies from source. By
+  isolating builds into multiple pieces we can develop
+  quickly. Consider combine them again to minimize the image size when
+  we go GA.
 - composer.sh: Bash script to dynamically change the runtime PHP
   version and run composer to install app's dependencies.
 - detect_php_version.php: PHP script to parse user supplied
