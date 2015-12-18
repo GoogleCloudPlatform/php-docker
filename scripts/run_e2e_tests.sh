@@ -19,12 +19,12 @@ set -ex
 # This file can be used directly for running e2e tests in local environment.
 
 if [ -z "${GOOGLE_PROJECT_ID}" ]; then
-    echo "Please set `GOOGLE_PROJECT_ID` env var to run the e2e test."
+    echo "Please set GOOGLE_PROJECT_ID env var to run the e2e test."
     exit 1
 fi
 
 if [ -z "${E2E_TEST_VERSION}" ]; then
-    echo "Please set `E2E_TEST_VERSION` env var to run the e2e test."
+    echo "Please set E2E_TEST_VERSION env var to run the e2e test."
     exit 1
 fi
 

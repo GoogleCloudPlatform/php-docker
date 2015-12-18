@@ -52,7 +52,7 @@ ENV NGINX_DIR=/usr/local/nginx \
     OPENSSL_VERSION=1.0.1p \
     NGINX_VERSION=1.8.0 \
     PHP56_VERSION=5.6.16 \
-    PHP70_VERSION=7.0.0 \
+    PHP70_VERSION=7.0.1 \
     PATH=/usr/local/php/bin:$PATH
 
 # BUILD PHP, nginx and other dependancies.
