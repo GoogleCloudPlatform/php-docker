@@ -37,8 +37,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxslt1.1 \
     logrotate \
     supervisor \
-    zlib1g \
-    && rm -r /var/lib/apt/lists/*
+    zlib1g
 
 ENV NGINX_DIR=/usr/local/nginx \
     PHP_DIR=/usr/local/php \
@@ -50,15 +49,39 @@ ENV NGINX_DIR=/usr/local/nginx \
     UPLOAD_DIR=/upload \
     SESSION_SAVE_PATH=/tmp/sessions \
     OPENSSL_VERSION=1.0.1p \
-    NGINX_VERSION=1.8.0 \
-    PHP56_VERSION=5.6.16 \
-    PHP70_VERSION=7.0.1 \
     PATH=/usr/local/php/bin:$PATH
 
-# BUILD PHP, nginx and other dependancies.
-ADD openssl-version-script.patch /tmp/openssl-version-script.patch
-ADD build_deps.sh /tmp/build_deps.sh
-RUN /bin/bash /tmp/build_deps.sh
+# BUILD PHP, nginx and other dependencies.
+COPY openssl-version-script.patch /tmp/openssl-version-script.patch
+
+RUN mkdir /build-scripts
+
+# Copy files one by one so we can leverage cache
+COPY build-scripts/apt_build_deps.sh /build-scripts/apt_build_deps.sh
+RUN /bin/bash /build-scripts/apt_build_deps.sh install
+
+COPY build-scripts/import_pgp_keys.sh /build-scripts/import_pgp_keys.sh
+RUN /bin/bash /build-scripts/import_pgp_keys.sh
+
+# COPY build-scripts/build_openssl.sh /build-scripts/build_openssl.sh
+# RUN /bin/bash /build-scripts/build_openssl.sh
+
+# Build nginx
+ENV NGINX_VERSION=1.8.0
+COPY build-scripts/build_nginx.sh /build-scripts/build_nginx.sh
+RUN /bin/bash /build-scripts/build_nginx.sh
+
+# Build PHP 5.6
+ENV PHP56_VERSION=5.6.16
+COPY build-scripts/build_php56.sh /build-scripts/build_php56.sh
+RUN /bin/bash /build-scripts/build_php56.sh
+
+# Build PHP 7.0
+ENV PHP70_VERSION=7.0.1
+COPY build-scripts/build_php70.sh /build-scripts/build_php70.sh
+RUN /bin/bash /build-scripts/build_php70.sh
+
+RUN /bin/bash /build-scripts/apt_build_deps.sh uninstall
 
 EXPOSE 8080
 
@@ -95,7 +118,7 @@ RUN cd /tmp && ${PHP_DIR}/bin/php \
         /usr/local/bin/composer \
         require composer/semver
 
-ONBUILD ADD . $APP_DIR
+ONBUILD COPY . $APP_DIR
 ONBUILD RUN chmod -R 550 $APP_DIR
 ONBUILD RUN chown -R www-data.www-data $APP_DIR
 
