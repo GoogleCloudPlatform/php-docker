@@ -35,7 +35,8 @@ fastcgi_param   SERVER_ADDR             $server_addr;
 fastcgi_param   SERVER_PORT             $server_port;
 fastcgi_param   SERVER_NAME             $server_name;
 
-fastcgi_param   HTTPS                   $https;
+fastcgi_param   HTTPS                   on;
+fastcgi_param   HTTP_SCHEME             https;
 
 # PHP only, required if PHP was built with --enable-force-cgi-redirect
 fastcgi_param   REDIRECT_STATUS         200;
