@@ -81,5 +81,7 @@ EOF
         --no-dev \
         --prefer-dist \
         --optimize-autoloader \
-        --no-interaction
+        --no-interaction \
+        --no-ansi \
+        --no-progress
 fi
