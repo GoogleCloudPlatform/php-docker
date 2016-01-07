@@ -18,44 +18,42 @@
 # A shell script for installing PHP 5.6.
 set -xe
 
+PHP_SRC=/usr/src/php
+
 curl -SL "http://php.net/get/php-$PHP56_VERSION.tar.gz/from/this/mirror" -o php.tar.gz
 curl -SL "http://us2.php.net/get/php-$PHP56_VERSION.tar.gz.asc/from/this/mirror" -o php.tar.gz.asc
 gpg --verify php.tar.gz.asc
-mkdir -p /usr/src/php
-tar -zxf php.tar.gz -C /usr/src/php --strip-components=1
+mkdir -p ${PHP_SRC}
+tar -zxf php.tar.gz -C ${PHP_SRC} --strip-components=1
 rm php.tar.gz
 rm php.tar.gz.asc
 
-mkdir -p /usr/src/php/ext/memcache
-curl -SL "http://pecl.php.net/get/memcache" -o memcache.tar.gz
-tar -zxf memcache.tar.gz -C /usr/src/php/ext/memcache --strip-components=1
-rm memcache.tar.gz
-
-mkdir -p /usr/src/php/ext/memcached
+mkdir -p ${PHP_SRC}/ext/memcached
 curl -SL "http://pecl.php.net/get/memcached" -o memcached.tar.gz
-tar -zxf memcached.tar.gz -C /usr/src/php/ext/memcached --strip-components=1
+tar -zxf memcached.tar.gz -C ${PHP_SRC}/ext/memcached --strip-components=1
 rm memcached.tar.gz
 
-rm -rf /usr/src/php/ext/json
-mkdir -p /usr/src/php/ext/json
+rm -rf ${PHP_SRC}/ext/json
+mkdir -p ${PHP_SRC}/ext/json
 curl -SL "https://pecl.php.net/get/jsonc" -o jsonc.tar.gz
-tar -zxf jsonc.tar.gz -C /usr/src/php/ext/json --strip-components=1
+tar -zxf jsonc.tar.gz -C ${PHP_SRC}/ext/json --strip-components=1
 rm jsonc.tar.gz
 
-mkdir -p /usr/src/php/ext/mailparse
-curl -SL "https://pecl.php.net/get/mailparse" -o mailparse.tar.gz
-tar -zxf mailparse.tar.gz -C /usr/src/php/ext/mailparse --strip-components=1
+# The newest 3.0.0 doesn't build with PHP56.
+mkdir -p ${PHP_SRC}/ext/mailparse
+curl -SL "https://pecl.php.net/get/mailparse-2.1.6.tgz" -o mailparse.tar.gz
+tar -zxf mailparse.tar.gz -C ${PHP_SRC}/ext/mailparse --strip-components=1
 rm mailparse.tar.gz
 
-mkdir -p /usr/src/php/ext/apcu
+mkdir -p ${PHP_SRC}/ext/apcu
 # The newest 5.1.2 doesn't build with PHP 5.6.
 curl -SL "https://pecl.php.net/get/apcu-4.0.10.tgz" -o apcu.tar.gz
-tar -zxf apcu.tar.gz -C /usr/src/php/ext/apcu --strip-components=1
+tar -zxf apcu.tar.gz -C ${PHP_SRC}/ext/apcu --strip-components=1
 rm apcu.tar.gz
 
-mkdir -p /usr/src/php/ext/suhosin
+mkdir -p ${PHP_SRC}/ext/suhosin
 curl -SL "https://github.com/stefanesser/suhosin/archive/0.9.38.tar.gz" -o suhosin.tar.gz
-tar -zxf suhosin.tar.gz -C /usr/src/php/ext/suhosin --strip-components=1
+tar -zxf suhosin.tar.gz -C ${PHP_SRC}/ext/suhosin --strip-components=1
 rm suhosin.tar.gz
 
 pushd /usr/src/php
@@ -76,7 +74,6 @@ rm -f configure
     --enable-intl=shared \
     --enable-mailparse \
     --enable-mbstring=shared \
-    --enable-memcache=shared \
     --enable-memcached=shared \
     --enable-mysqlnd \
     --enable-opcache \
@@ -117,6 +114,10 @@ rm -rf /usr/src/php
 strip ${PHP56_DIR}/bin/php ${PHP56_DIR}/sbin/php-fpm
 # Defaults to PHP5.6
 ln -s ${PHP56_DIR} ${PHP_DIR}
+
+# Install shared extensions
+${PHP56_DIR}/bin/pecl install memcache
+${PHP56_DIR}/bin/pecl install mongodb
 
 # Install composer
 curl -sS https://getcomposer.org/installer | \
