@@ -74,6 +74,7 @@ class Extensions
         'memcached',
         'mysql',
         'pcntl',
+        'redis',
         'shmop',
         'soap',
         'sqlite3',

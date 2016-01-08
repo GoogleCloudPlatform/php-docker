@@ -118,6 +118,9 @@ ln -s ${PHP56_DIR} ${PHP_DIR}
 # Install shared extensions
 ${PHP56_DIR}/bin/pecl install memcache
 ${PHP56_DIR}/bin/pecl install mongodb
+${PHP56_DIR}/bin/pecl install redis
+
+rm -rf /tmp/pear
 
 # Install composer
 curl -sS https://getcomposer.org/installer | \
