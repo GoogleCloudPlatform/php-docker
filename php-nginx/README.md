@@ -203,15 +203,16 @@ php.ini):
 - mbstring (mbstring)
 - memcache (shared, experimental support for PHP7)
 - memcached (shared, experimental support for PHP7)
+- mongodb (shared, experimental support for PHP7)
 - MySQL (mysql; it's removed with PHP7.0)
 - PCNTL (pcntl)
+- redis (shared, experimental support for PHP7)
 - Shmop (shmop)
 - SOAP (soap)
 - SQLite3 (sqlite3)
 - SQLite (PDO) (pdo_sqlite)
 - XMLRPC (xmlrpc)
 - XSL (xsl)
-- mongodb
 
 These extensions are only available with PHP 5.6:
 
