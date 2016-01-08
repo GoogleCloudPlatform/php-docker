@@ -112,8 +112,20 @@ ${PHP7_DIR}/bin/pecl install mongodb
 git clone https://github.com/websupport-sk/pecl-memcache.git /tmp/memcache
 pushd /tmp/memcache
 ${PHP7_DIR}/bin/phpize
-./configure
+./configure --with-php-config=${PHP7_DIR}/bin/php-config
 make
 make install
 popd
 rm -rf /tmp/memcache
+
+# TODO: Use stable version of redis from pecl once available
+git clone -b php7 https://github.com/phpredis/phpredis.git /tmp/redis
+pushd /tmp/redis
+${PHP7_DIR}/bin/phpize
+./configure --with-php-config=${PHP7_DIR}/bin/php-config
+make
+make install
+popd
+rm -rf /tmp/redis
+
+rm -rf /tmp/pear
