@@ -74,12 +74,12 @@ COPY build-scripts/build_nginx.sh /build-scripts/build_nginx.sh
 RUN /bin/bash /build-scripts/build_nginx.sh
 
 # Build PHP 5.6
-ENV PHP56_VERSION=5.6.16
+ENV PHP56_VERSION=5.6.17
 COPY build-scripts/build_php56.sh /build-scripts/build_php56.sh
 RUN /bin/bash /build-scripts/build_php56.sh
 
 # Build PHP 7.0
-ENV PHP70_VERSION=7.0.1
+ENV PHP70_VERSION=7.0.2
 COPY build-scripts/build_php70.sh /build-scripts/build_php70.sh
 RUN /bin/bash /build-scripts/build_php70.sh
 
