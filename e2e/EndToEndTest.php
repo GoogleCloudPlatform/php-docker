@@ -42,11 +42,24 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
             "ENV DOCUMENT_ROOT /app/web\n"
         );
         file_put_contents($dockerfilePath, $dockerfile);
-        // TODO: check the return value and maybe retry?
-        exec("gcloud -q preview app deploy --version $e2e_test_version"
-             . " --project $project_id"
-             . ' testapps/php56_e2e/app.yaml');
+        self::deploy($project_id, $e2e_test_version);
     }
+
+    public static function deploy($project_id, $e2e_test_version)
+    {
+        for ($i = 0; $i <= 3; $i++) {
+            $ret = exec("gcloud -q preview app deploy --version $e2e_test_version"
+                        . " --project $project_id"
+                        . ' testapps/php56_e2e/app.yaml');
+            if ($ret == 0) {
+                return;
+            } else {
+                echo 'Retrying deployment';
+            }
+        }
+        self::fail('Deployment failed.');
+    }
+
 
     public static function tearDownAfterClass()
     {
@@ -104,5 +117,17 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
                             'pdo_sqlite.php status code');
         $this->assertContains('Hello pdo_sqlite',
                               $resp->getBody()->getContents());
+    }
+
+    public function testSessionIniEnvVar()
+    {
+        $resp = $this->client->get('session_ini_envvars.php');
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'session_ini_envvars.php status code');
+        $body = $resp->getBody()->getContents();
+        $this->assertContains('SESSION_INI_SAVE_HANDLER:memcached', $body);
+        $this->assertContains('SESSION_INI_SAVE_PATH is set.', $body);
+        // TODO check the format of SESSION_INI_SAVE_PATH.
+        echo $body;
     }
 }
