@@ -54,7 +54,7 @@ rm -f configure
 ./buildconf --force
 ./configure \
     --prefix=$PHP7_DIR \
-    --with-config-file-scan-dir=$APP_DIR \
+    --with-config-file-scan-dir=$APP_DIR:${PHP7_DIR}/lib/conf.d \
     --disable-cgi \
     --disable-memcached-sasl \
     --enable-apcu \
@@ -104,6 +104,9 @@ make clean
 popd
 rm -rf ${PHP_SRC}
 strip ${PHP7_DIR}/bin/php ${PHP7_DIR}/sbin/php-fpm
+
+# Create a directory for additional config files.
+mkdir -p ${PHP7_DIR}/lib/conf.d
 
 # Install shared extensions
 ${PHP7_DIR}/bin/pecl install mongodb

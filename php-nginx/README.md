@@ -202,7 +202,7 @@ php.ini):
 - intl (intl)
 - mbstring (mbstring)
 - memcache (shared, experimental support for PHP7)
-- memcached (shared, experimental support for PHP7)
+- memcached (shared, enabled by default, experimental support for PHP7)
 - mongodb (shared, experimental support for PHP7)
 - MySQL (mysql; it's removed with PHP7.0)
 - PCNTL (pcntl)
@@ -222,6 +222,12 @@ These extensions are only available with PHP 5.6:
 
 You can just have php.ini file in your project directory. This file is
 added to the main configuration file.
+
+## Use memcached based sessions
+
+If your app is on Google App Engine, we automatically configure the
+memcached based session through the [memcache proxy]
+(https://cloud.google.com/appengine/docs/managed-vms/custom-runtimes#memcached).
 
 ## GitHub oAuth token
 
@@ -312,6 +318,8 @@ This image does the following:
 - If there is a file named `nginx-app.conf` in the project root
   directory, move it as an additional configuration file, included in
   the `server` directive of the default main nginx configuration file.
+- If there are environment variables for memcached proxy, configure
+  the memcached based session.
 - Detect the number of processors and configure the number of nginx
   workers. It only works with the default nginx configuration file.
 - Then start supervisord.

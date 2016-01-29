@@ -18,6 +18,7 @@
 namespace Google\Cloud\tests;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Cookie\CookieJar;
 
 class EndToEndTest extends \PHPUnit_Framework_TestCase
 {
@@ -42,11 +43,28 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
             "ENV DOCUMENT_ROOT /app/web\n"
         );
         file_put_contents($dockerfilePath, $dockerfile);
-        // TODO: check the return value and maybe retry?
-        exec("gcloud -q preview app deploy --version $e2e_test_version"
-             . " --project $project_id"
-             . ' testapps/php56_e2e/app.yaml');
+        self::deploy($project_id, $e2e_test_version);
     }
+
+    public static function deploy($project_id, $e2e_test_version)
+    {
+        for ($i = 0; $i <= 3; $i++) {
+            exec(
+                "gcloud -q preview app deploy --version $e2e_test_version"
+                . " --project $project_id"
+                . ' testapps/php56_e2e/app.yaml',
+                $output,
+                $ret
+            );
+            if ($ret === 0) {
+                return;
+            } else {
+                echo 'Retrying deployment';
+            }
+        }
+        self::fail('Deployment failed.');
+    }
+
 
     public static function tearDownAfterClass()
     {
@@ -104,5 +122,28 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
                             'pdo_sqlite.php status code');
         $this->assertContains('Hello pdo_sqlite',
                               $resp->getBody()->getContents());
+    }
+
+    public function testSessionSaveHandler()
+    {
+        $resp = $this->client->get('session_save_handler.php');
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'session_save_handler status code');
+        $this->assertContains('memcached',
+                              $resp->getBody()->getContents());
+    }
+
+    public function testSession()
+    {
+        $jar = new CookieJar();
+        $resp = $this->client->get('session.php', ['cookies' => $jar]);
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'session.php status code');
+        $this->assertEquals('0', $body = $resp->getBody()->getContents());
+
+        $resp = $this->client->get('session.php', ['cookies' => $jar]);
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'session.php status code');
+        $this->assertEquals('1', $body = $resp->getBody()->getContents());
     }
 }
