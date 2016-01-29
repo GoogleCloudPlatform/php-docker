@@ -20,6 +20,13 @@
 
 set -xe
 
+# Set the SESSION_INI_SAVE_HANDLER and SESSION_INI_SAVE_PATH
+
+if [ -n ${MEMCACHE_PORT_11211_TCP_ADDR} ]; then
+    export SESSION_INI_SAVE_HANDLER=memcached
+    export SESSION_INI_SAVE_PATH=${MEMCACHE_PORT_11211_TCP_ADDR}:${MEMCACHE_PORT_11211_TCP_PORT}
+fi
+
 # App specific piece of the config file which is included from the
 # main configuration file.
 APP_NGINX_ADDITIONAL_CONF=${APP_DIR}/nginx-app.conf
