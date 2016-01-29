@@ -69,7 +69,7 @@ RUN /bin/bash /build-scripts/import_pgp_keys.sh
 # RUN /bin/bash /build-scripts/build_openssl.sh
 
 # Build nginx
-ENV NGINX_VERSION=1.8.0
+ENV NGINX_VERSION=1.8.1
 COPY build-scripts/build_nginx.sh /build-scripts/build_nginx.sh
 RUN /bin/bash /build-scripts/build_nginx.sh
 
