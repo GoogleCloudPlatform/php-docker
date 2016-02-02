@@ -61,7 +61,7 @@ rm -f configure
 ./buildconf --force
 ./configure \
     --prefix=$PHP56_DIR \
-    --with-config-file-scan-dir=$APP_DIR \
+    --with-config-file-scan-dir=$APP_DIR:${PHP56_DIR}/lib/conf.d \
     --disable-cgi \
     --disable-memcached-sasl \
     --enable-apcu \
@@ -114,6 +114,9 @@ rm -rf /usr/src/php
 strip ${PHP56_DIR}/bin/php ${PHP56_DIR}/sbin/php-fpm
 # Defaults to PHP5.6
 ln -s ${PHP56_DIR} ${PHP_DIR}
+
+# Create a directory for additional config files.
+mkdir -p ${PHP56_DIR}/lib/conf.d
 
 # Install shared extensions
 ${PHP56_DIR}/bin/pecl install memcache

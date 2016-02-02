@@ -38,6 +38,14 @@ if [ -f ${APP_NGINX_CONF} ]; then
     mv ${APP_NGINX_CONF} ${NGINX_DIR}
 fi
 
+# Configure memcached based session.
+if [ -n ${MEMCACHE_PORT_11211_TCP_ADDR} ] && [ -n ${MEMCACHE_PORT_11211_TCP_PORT} ]; then
+    cat <<EOF > ${PHP_DIR}/lib/conf.d/memcached-session.ini
+session.save_handler=memcached
+session.save_path="${MEMCACHE_PORT_11211_TCP_ADDR}:${MEMCACHE_PORT_11211_TCP_PORT}"
+EOF
+fi
+
 # Configure document root in php.ini and nginx.conf with DOCUMENT_ROOT
 # environment variable or APP_DIR if DOCUMENT_ROOT is not set.
 
