@@ -41,7 +41,7 @@ if [ ! -d ${HOME}/gcloud/google-cloud-sdk ]; then
 fi
 
 # gcloud configurations
-gcloud config configurations create php-docker || /bin/true # ignore failure
+gcloud config configurations create ${CLOUDSDK_ACTIVE_CONFIG_NAME} || /bin/true # ignore failure
 gcloud -q components update app gsutil
 gcloud config set project ${GOOGLE_PROJECT_ID}
 gcloud config set app/promote_by_default false
