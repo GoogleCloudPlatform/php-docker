@@ -47,4 +47,16 @@ class VersionTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertTrue($checked, 'Failed to check the version is 7.0.x');
     }
+    public function testDefaultIsPHP56()
+    {
+        $checked = false;
+        exec('docker run php56_70 /usr/local/php/bin/php -v', $output);
+        foreach ($output as $k => $v) {
+            if (strpos($v, 'PHP') === 0) {
+                $this->assertContains('PHP 5.6', $v);
+                $checked = true;
+            }
+        }
+        $this->assertTrue($checked, 'Failed to check the version is 5.6.x');
+    }
 }
