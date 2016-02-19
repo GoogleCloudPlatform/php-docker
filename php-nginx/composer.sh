@@ -77,6 +77,7 @@ EOF
         -d suhosin.executor.func.blacklist=none \
         -d disable_functions= \
         -d memory_limit=-1 \
+        -d max_input_time=-1 \
         /usr/local/bin/composer \
         install \
         --no-dev \
