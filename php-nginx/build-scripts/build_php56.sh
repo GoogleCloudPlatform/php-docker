@@ -122,6 +122,7 @@ mkdir -p ${PHP56_DIR}/lib/conf.d
 ${PHP56_DIR}/bin/pecl install memcache
 ${PHP56_DIR}/bin/pecl install mongodb
 ${PHP56_DIR}/bin/pecl install redis
+${PHP56_DIR}/bin/pecl install grpc-0.6.0
 
 rm -rf /tmp/pear
 

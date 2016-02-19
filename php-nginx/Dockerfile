@@ -17,12 +17,14 @@
 FROM gcr.io/google_appengine/base
 
 # persistent / runtime deps
+RUN echo "deb http://http.debian.net/debian jessie-backports main" >> /etc/apt/sources.list
 RUN apt-get update && apt-get install -y --no-install-recommends \
     cron \
     curl \
     gettext \
     git \
     libbz2-1.0 \
+    libgrpc0 \
     libicu52 \
     libmcrypt4 \
     libmemcached11 \

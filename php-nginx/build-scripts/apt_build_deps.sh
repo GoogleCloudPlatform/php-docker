@@ -40,6 +40,7 @@ BUILD_DEPS=" \
     libbz2-dev \
     libcurl4-openssl-dev \
     libgettextpo-dev \
+    libgrpc-dev \
     libicu-dev \
     libmcrypt-dev \
     libmemcached-dev \
