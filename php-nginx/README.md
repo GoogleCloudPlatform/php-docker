@@ -217,6 +217,7 @@ php.ini):
 These extensions are only available with PHP 5.6:
 
 - suhosin (shared, but enabled by default)
+- gRPC (shared)
 
 ## Add something to php.ini
 

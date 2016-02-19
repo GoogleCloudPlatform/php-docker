@@ -54,6 +54,7 @@ class PHP5ExtensionsTest extends \PHPUnit_Framework_TestCase
                 'mysql',
                 # Only available for PHP < 7 right now.
                 'suhosin',
+                'grpc',
             )
         );
         $resp = $this->client->get('extensions.php');
