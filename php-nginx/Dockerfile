@@ -17,7 +17,9 @@
 FROM gcr.io/google_appengine/base
 
 # persistent / runtime deps
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && \
+    apt-get -y upgrade && \
+    apt-get install -y --no-install-recommends \
     cron \
     curl \
     gettext \
