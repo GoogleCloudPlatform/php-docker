@@ -146,4 +146,11 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
                             'session.php status code');
         $this->assertEquals('1', $body = $resp->getBody()->getContents());
     }
+
+    public function testGrpcPubsub()
+    {
+        $resp = $this->client->get('grpc_pubsub.php');
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'grpc_pubsub.php status code');
+    }
 }
