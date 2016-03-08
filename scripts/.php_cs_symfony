@@ -1,0 +1,7 @@
+<?php
+$finder = Symfony\CS\Finder\DefaultFinder::create()
+    ->in(__DIR__ . '/../testapps/php56_symfony2/');
+
+return Symfony\CS\Config\Config::create()
+    ->level(Symfony\CS\FixerInterface::SYMFONY_LEVEL)
+    ->finder($finder);
