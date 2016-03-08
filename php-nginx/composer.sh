@@ -80,7 +80,6 @@ EOF
         -d max_input_time=-1 \
         /usr/local/bin/composer \
         install \
-        --no-dev \
         --prefer-dist \
         --optimize-autoloader \
         --no-interaction \
