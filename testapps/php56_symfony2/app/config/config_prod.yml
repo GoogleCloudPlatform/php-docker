@@ -13,15 +13,14 @@ imports:
 #        result_cache_driver: apc
 #        query_cache_driver: apc
 
+# not original. Just so we can read the logs on error events.
 monolog:
     handlers:
         main:
-            type:         fingers_crossed
-            action_level: error
-            handler:      nested
-        nested:
-            type:  stream
-            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
+            channels: [!event]
         console:
-            type:  console
+            type:   console
+            channels: [!event, !doctrine]
