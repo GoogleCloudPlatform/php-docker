@@ -243,6 +243,10 @@ deployment (`app.yaml` or `Dockerfile` are both fine).
 As this is your personal credential for GitHub, please make sure you do not
 commit this token to your repository.
 
+## Reserved TCP port
+
+Nginx and php-fpm are communicating via the TCP port 9000.
+
 ## Deploy with gcloud
 
 You can deploy the app by:
