@@ -32,6 +32,9 @@ class ServingTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
+        exec('docker exec -t php56 find /var/log/app_engine '
+             . '-type f -exec tail {} \;', $output);
+        var_dump($output);
         exec('docker kill php56');
         exec('docker rm php56');
     }
@@ -59,6 +62,18 @@ class ServingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $resp->getBody()->getContents(),
                             'phpinfo() should be disabled and the content'
                             . ' should be empty.');
+    }
+
+    public function testNumberOfPhpFpmChildren()
+    {
+        exec(
+            'docker exec -t php56 ps auxww|grep php-fpm|grep -v grep',
+            $output);
+        $this->assertGreaterThan(
+            2, count($output),
+            'There should be more than 2 php-fpm processes, actual: '
+            . count($output)
+        );
     }
 
     public function testPdoSqlite()

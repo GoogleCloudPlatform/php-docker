@@ -28,6 +28,9 @@ APP_NGINX_ADDITIONAL_CONF=${APP_DIR}/nginx-app.conf
 # replace our default main configuration file with this file.
 APP_NGINX_CONF=${APP_DIR}/nginx.conf
 
+# User provided php-fpm.conf
+PHP_FPM_CONF_OVERRIDE=${APP_DIR}/php-fpm.conf
+
 # Move user-provided nginx config files.
 
 if [ -f ${APP_NGINX_ADDITIONAL_CONF} ]; then
@@ -36,6 +39,12 @@ fi
 
 if [ -f ${APP_NGINX_CONF} ]; then
     mv ${APP_NGINX_CONF} ${NGINX_DIR}
+fi
+
+# Move user-provided php-fpm config file.
+
+if [ -f ${PHP_FPM_CONF_OVERRIDE} ]; then
+    mv ${PHP_FPM_CONF_OVERRIDE} ${PHP_DIR}/etc/php-fpm-user.conf
 fi
 
 # Configure memcached based session.

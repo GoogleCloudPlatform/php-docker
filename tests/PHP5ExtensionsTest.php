@@ -35,6 +35,9 @@ class PHP5ExtensionsTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
+        exec('docker exec -t php56_custom find /var/log/app_engine '
+             . '-type f -exec tail {} \;', $output);
+        var_dump($output);
         exec('docker kill php56_custom');
         exec('docker rm php56_custom');
     }
