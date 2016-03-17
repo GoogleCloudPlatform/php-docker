@@ -124,7 +124,7 @@ RUN cd /tmp && ${PHP_DIR}/bin/php \
 
 ONBUILD COPY . $APP_DIR
 ONBUILD RUN chmod -R 550 $APP_DIR
-ONBUILD RUN chown -R www-data.www-data $APP_DIR
+ONBUILD RUN chown -R root.www-data $APP_DIR
 
 WORKDIR $APP_DIR
 
