@@ -33,6 +33,9 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
+        exec('docker exec -t php56_custom find /var/log/app_engine '
+             . '-type f -exec tail {} \;', $output);
+        var_dump($output);
         exec('docker kill php56_custom');
         exec('docker rm php56_custom');
     }
@@ -81,5 +84,17 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
                             'pdo_sqlite.php status code');
         $this->assertContains('Hello pdo_sqlite',
                               $resp->getBody()->getContents());
+    }
+
+    public function testNumberOfPhpFpmChildren()
+    {
+        exec(
+            'docker exec -t php56_custom ps auxww|grep php-fpm|grep -v grep',
+            $output);
+        $this->assertEquals(
+            2, count($output),
+            'There should be only 2 php-fpm processes, actual: '
+            . count($output)
+        );
     }
 }
