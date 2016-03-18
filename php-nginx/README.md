@@ -37,7 +37,7 @@ These functions are disabled by default:
 - `lchgrp()`, `lchown()`, `link()`, and `symlink()`
 - `passthru()`
 - `pclose()` and `popen()`
-- `proc_close()`, `prog_get_status()`, `proc_nice()`, `proc_open()`, and `proc_terminate()`
+- `proc_close()`, `proc_get_status()`, `proc_nice()`, `proc_open()`, and `proc_terminate()`
 - `shell_exec()`
 - `show_source()`
 - `system()`
@@ -47,7 +47,6 @@ These functions are disabled by default:
 - `getrusage()`
 - `getmyinode()`
 - `get_current_user()`
-- `libxml_disable_entity_loader()`
 - `parse_str()`
 - `phpinfo()`
 - `phpversion()`
@@ -57,7 +56,7 @@ These functions are disabled by suhosin extension. The default setting
 is as follows:
 
 ```ini
-suhosin.executor.func.blacklist="escapeshellarg, escapeshellcmd, exec, highlight_file, lchgrp, lchown, link, symlink, passthru, pclose, popen, proc_close, prog_get_status, proc_nice, proc_open, proc_terminate, shell_exec, show_source, system, gc_collect_cycles, gc_enable, gc_disable, gc_enabled, getmypid, getmyuid, getmygid, getrusage, getmyinode, get_current_user, libxml_disable_entity_loader, parse_str, phpinfo, phpversion, php_uname"
+suhosin.executor.func.blacklist="escapeshellarg, escapeshellcmd, exec, highlight_file, lchgrp, lchown, link, symlink, passthru, pclose, popen, proc_close, proc_get_status, proc_nice, proc_open, proc_terminate, shell_exec, show_source, system, gc_collect_cycles, gc_enable, gc_disable, gc_enabled, getmypid, getmyuid, getmygid, getrusage, getmyinode, get_current_user, parse_str, phpinfo, phpversion, php_uname"
 ```
 
 To enable them, you can add a `php.ini` file in the project root directory
@@ -65,7 +64,7 @@ and override the default settings above. Here is an example for only
 enabling `phpinfo()`.
 
 ```ini
-suhosin.executor.func.blacklist="escapeshellarg, escapeshellcmd, exec, highlight_file, lchgrp, lchown, link, symlink, passthru, pclose, popen, proc_close, prog_get_status, proc_nice, proc_open, proc_terminate, shell_exec, show_source, system, gc_collect_cycles, gc_enable, gc_disable, gc_enabled, getmypid, getmyuid, getmygid, getrusage, getmyinode, get_current_user, libxml_disable_entity_loader, parse_str, phpversion, php_uname"
+suhosin.executor.func.blacklist="escapeshellarg, escapeshellcmd, exec, highlight_file, lchgrp, lchown, link, symlink, passthru, pclose, popen, proc_close, proc_get_status, proc_nice, proc_open, proc_terminate, shell_exec, show_source, system, gc_collect_cycles, gc_enable, gc_disable, gc_enabled, getmypid, getmyuid, getmygid, getrusage, getmyinode, get_current_user, parse_str, phpversion, php_uname"
 ```
 
 Additionally, a few functions are disabled with `disable_functions`. Those are
