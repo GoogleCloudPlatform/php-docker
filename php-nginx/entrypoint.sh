@@ -65,10 +65,4 @@ fi
 sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" $NGINX_DIR/conf/nginx.conf
 sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" $PHP_DIR/lib/php.ini
 
-# Detect the number of processors and configure the number of nginx
-# workers according to the number.
-
-NPROC=`nproc`
-sed -i "s|%%NPROC%%|${NPROC}|g" $NGINX_DIR/conf/nginx.conf
-
 exec "$@"

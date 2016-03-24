@@ -76,6 +76,17 @@ class ServingTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testNumberOfNginxChildren()
+    {
+        exec('nproc', $nproc);
+        exec('docker exec -t php56 ps auxww|grep nginx|grep -v grep', $output);
+        $this->assertGreaterThan(
+            $nproc[0], count($output),
+            "There should be more than $nproc[0] nginx processes, actual: "
+            . count($output)
+        );
+    }
+
     public function testPdoSqlite()
     {
         // Access to pdo_sqlite.php, while the extention is not available.
