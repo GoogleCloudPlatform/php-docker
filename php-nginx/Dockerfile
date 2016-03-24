@@ -120,6 +120,8 @@ COPY detect_php_version.php /tmp/detect_php_version.php
 RUN cd /tmp && ${PHP_DIR}/bin/php \
         -d suhosin.executor.include.whitelist=phar \
         -d suhosin.executor.func.blacklist=none \
+        -d memory_limit=-1 \
+        -d max_input_time=-1 \
         /usr/local/bin/composer \
         require composer/semver
 
