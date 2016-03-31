@@ -55,4 +55,17 @@ class PHP7ExtensionsTest extends \PHPUnit_Framework_TestCase
             $this->assertContains($ext, $loaded);
         }
     }
+
+    public function testApcIsAbleToExecuteCommonOperations()
+    {
+        $resp = $this->client->get('apc.php');
+        $body = $resp->getBody()->getContents();
+
+        $this->assertContains('success storing in apc bc', $body);
+        $this->assertContains('success fetching from apc bc', $body);
+        $this->assertContains('success deleting from apc bc', $body);
+        $this->assertContains('success storing in apcu', $body);
+        $this->assertContains('success fetching from apcu', $body);
+        $this->assertContains('success deleting from apcu', $body);
+    }
 }
