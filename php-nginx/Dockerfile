@@ -78,11 +78,15 @@ RUN /bin/bash /build-scripts/build_nginx.sh
 # Build PHP 5.6
 ENV PHP56_VERSION=5.6.19
 COPY build-scripts/build_php56.sh /build-scripts/build_php56.sh
+COPY build-scripts/php5-parse_str_harden.patch \
+    /build-scripts/php5-parse_str_harden.patch
 RUN /bin/bash /build-scripts/build_php56.sh
 
 # Build PHP 7.0
 ENV PHP70_VERSION=7.0.5
 COPY build-scripts/build_php70.sh /build-scripts/build_php70.sh
+COPY build-scripts/php7-parse_str_harden.patch \
+    /build-scripts/php7-parse_str_harden.patch
 RUN /bin/bash /build-scripts/build_php70.sh
 
 RUN /bin/bash /build-scripts/apt_build_deps.sh uninstall
