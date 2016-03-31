@@ -97,4 +97,15 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
             . count($output)
         );
     }
+
+    public function testParseStrIsSafe()
+    {
+        // Access to parse_str.php and make sure it doesn't override global
+        // variables.
+        $resp = $this->client->get('parse_str.php');
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'parse_str.php status code');
+        $this->assertContains('This is an important variable',
+                              $resp->getBody()->getContents());
+    }
 }

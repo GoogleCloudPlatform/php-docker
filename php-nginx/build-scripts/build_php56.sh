@@ -57,6 +57,7 @@ tar -zxf suhosin.tar.gz -C ${PHP_SRC}/ext/suhosin --strip-components=1
 rm suhosin.tar.gz
 
 pushd /usr/src/php
+patch -p1 < /build-scripts/php5-parse_str_harden.patch
 rm -f configure
 ./buildconf --force
 ./configure \

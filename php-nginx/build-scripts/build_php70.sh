@@ -53,6 +53,7 @@ tar -zxf apcu-bc.tar.gz -C ${PHP_SRC}/ext/apcu-bc --strip-components=1
 rm apcu-bc.tar.gz
 
 pushd ${PHP_SRC}
+patch -p1 < /build-scripts/php7-parse_str_harden.patch
 rm -f configure
 ./buildconf --force
 ./configure \
