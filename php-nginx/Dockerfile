@@ -81,7 +81,7 @@ COPY build-scripts/build_php56.sh /build-scripts/build_php56.sh
 RUN /bin/bash /build-scripts/build_php56.sh
 
 # Build PHP 7.0
-ENV PHP70_VERSION=7.0.4
+ENV PHP70_VERSION=7.0.5
 COPY build-scripts/build_php70.sh /build-scripts/build_php70.sh
 RUN /bin/bash /build-scripts/build_php70.sh
 
