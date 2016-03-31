@@ -174,6 +174,7 @@ composer.json:
 
 These extensions are enabled as builtin:
 
+- APCu
 - Bzip2
 - cURL
 - FPM
@@ -217,6 +218,10 @@ These extensions are only available with PHP 5.6:
 
 - suhosin (shared, but enabled by default)
 - gRPC (shared)
+
+These extensions are only available with PHP 7:
+
+- APCu-BC (builtin)
 
 ## Add something to php.ini
 

@@ -40,14 +40,17 @@ curl -SL "https://pecl.php.net/get/mailparse" -o mailparse.tar.gz
 tar -zxf mailparse.tar.gz -C ${PHP_SRC}/ext/mailparse --strip-components=1
 rm mailparse.tar.gz
 
-# TODO: Use the stable version of apcu from pecl once available.
-# With the 5.1.2 source from the PECL, it doesn'r recognize the
-# --enable-apcu option.
-# mkdir -p ${PHP_SRC}/ext/apcu
-# curl -SL "https://pecl.php.net/get/apcu" -o apcu.tar.gz
-# tar -zxf apcu.tar.gz -C ${PHP_SRC}/ext/apcu --strip-components=1
-# rm apcu.tar.gz
-git clone https://github.com/krakjoe/apcu.git ${PHP_SRC}/ext/apcu
+# APCu
+mkdir -p ${PHP_SRC}/ext/apcu
+curl -SL "https://pecl.php.net/get/apcu-5.1.3.tgz" -o apcu.tar.gz
+tar -zxf apcu.tar.gz -C ${PHP_SRC}/ext/apcu --strip-components=1
+rm apcu.tar.gz
+
+# APC compatibility layer for APCu
+mkdir -p ${PHP_SRC}/ext/apcu-bc
+curl -SL "https://pecl.php.net/get/apcu_bc-1.0.3.tgz" -o apcu-bc.tar.gz
+tar -zxf apcu-bc.tar.gz -C ${PHP_SRC}/ext/apcu-bc --strip-components=1
+rm apcu-bc.tar.gz
 
 pushd ${PHP_SRC}
 rm -f configure
@@ -57,6 +60,7 @@ rm -f configure
     --with-config-file-scan-dir=$APP_DIR:${PHP7_DIR}/lib/conf.d \
     --disable-cgi \
     --disable-memcached-sasl \
+    --enable-apc \
     --enable-apcu \
     --enable-bcmath=shared \
     --enable-calendar=shared \
