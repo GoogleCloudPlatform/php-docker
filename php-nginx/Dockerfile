@@ -76,7 +76,7 @@ COPY build-scripts/build_nginx.sh /build-scripts/build_nginx.sh
 RUN /bin/bash /build-scripts/build_nginx.sh
 
 # Build PHP 5.6
-ENV PHP56_VERSION=5.6.19
+ENV PHP56_VERSION=5.6.20
 COPY build-scripts/build_php56.sh /build-scripts/build_php56.sh
 COPY build-scripts/php5-parse_str_harden.patch \
     /build-scripts/php5-parse_str_harden.patch
