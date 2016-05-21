@@ -47,7 +47,7 @@ rm mailparse.tar.gz
 
 mkdir -p ${PHP_SRC}/ext/apcu
 # The newest 5.1.2 doesn't build with PHP 5.6.
-curl -SL "https://pecl.php.net/get/apcu-4.0.10.tgz" -o apcu.tar.gz
+curl -SL "https://pecl.php.net/get/apcu-4.0.11.tgz" -o apcu.tar.gz
 tar -zxf apcu.tar.gz -C ${PHP_SRC}/ext/apcu --strip-components=1
 rm apcu.tar.gz
 
