@@ -53,43 +53,21 @@ ENV NGINX_DIR=/usr/local/nginx \
     UPLOAD_DIR=/upload \
     SESSION_SAVE_PATH=/tmp/sessions \
     OPENSSL_VERSION=1.0.1p \
+    NGINX_VERSION=1.10.0 \
+    PHP56_VERSION=5.6.21 \
+    PHP70_VERSION=7.0.6 \
     PATH=/usr/local/php/bin:$PATH
 
 # BUILD PHP, nginx and other dependencies.
 COPY openssl-version-script.patch /tmp/openssl-version-script.patch
+COPY build-scripts /build-scripts
 
-RUN mkdir /build-scripts
-
-# Copy files one by one so we can leverage cache
-COPY build-scripts/apt_build_deps.sh /build-scripts/apt_build_deps.sh
-RUN /bin/bash /build-scripts/apt_build_deps.sh install
-
-COPY build-scripts/import_pgp_keys.sh /build-scripts/import_pgp_keys.sh
-RUN /bin/bash /build-scripts/import_pgp_keys.sh
-
-# COPY build-scripts/build_openssl.sh /build-scripts/build_openssl.sh
-# RUN /bin/bash /build-scripts/build_openssl.sh
-
-# Build nginx
-ENV NGINX_VERSION=1.10.0
-COPY build-scripts/build_nginx.sh /build-scripts/build_nginx.sh
-RUN /bin/bash /build-scripts/build_nginx.sh
-
-# Build PHP 5.6
-ENV PHP56_VERSION=5.6.21
-COPY build-scripts/build_php56.sh /build-scripts/build_php56.sh
-COPY build-scripts/php5-parse_str_harden.patch \
-    /build-scripts/php5-parse_str_harden.patch
-RUN /bin/bash /build-scripts/build_php56.sh
-
-# Build PHP 7.0
-ENV PHP70_VERSION=7.0.6
-COPY build-scripts/build_php70.sh /build-scripts/build_php70.sh
-COPY build-scripts/php7-parse_str_harden.patch \
-    /build-scripts/php7-parse_str_harden.patch
-RUN /bin/bash /build-scripts/build_php70.sh
-
-RUN /bin/bash /build-scripts/apt_build_deps.sh uninstall
+RUN /bin/bash /build-scripts/apt_build_deps.sh install && \
+    /bin/bash /build-scripts/import_pgp_keys.sh && \
+    /bin/bash /build-scripts/build_nginx.sh && \
+    /bin/bash /build-scripts/build_php56.sh && \
+    /bin/bash /build-scripts/build_php70.sh && \
+    /bin/bash /build-scripts/apt_build_deps.sh uninstall
 
 EXPOSE 8080
 
@@ -113,11 +91,10 @@ COPY logrotate.app_engine /etc/logrotate.d/app_engine
 
 # A script for dynamic configuration.
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 
 # A script for installing dependencies.
 COPY composer.sh /composer.sh
-RUN chmod +x /composer.sh
+RUN chmod +x /entrypoint.sh /composer.sh
 
 # A script for extracting PHP version from composer.json.
 COPY detect_php_version.php /tmp/detect_php_version.php
