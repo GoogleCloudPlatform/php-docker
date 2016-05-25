@@ -66,10 +66,6 @@ EOF
     # no need for the token to stay around in the env
     unset COMPOSER_GITHUB_OAUTH_TOKEN
 
-    # Remove the vendor directory if it exists.
-    if [ -d ${APP_DIR}/vendor ]; then
-        rm -rf ${APP_DIR}/vendor
-    fi
     # Run Composer.
     cd ${APP_DIR} && \
         ${PHP_DIR}/bin/php \
