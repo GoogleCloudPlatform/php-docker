@@ -52,14 +52,12 @@ ENV NGINX_DIR=/usr/local/nginx \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
     UPLOAD_DIR=/upload \
     SESSION_SAVE_PATH=/tmp/sessions \
-    OPENSSL_VERSION=1.0.1p \
     NGINX_VERSION=1.10.0 \
     PHP56_VERSION=5.6.21 \
     PHP70_VERSION=7.0.6 \
     PATH=/usr/local/php/bin:$PATH
 
 # BUILD PHP, nginx and other dependencies.
-COPY openssl-version-script.patch /tmp/openssl-version-script.patch
 COPY build-scripts /build-scripts
 
 RUN /bin/bash /build-scripts/apt_build_deps.sh install && \
