@@ -3365,7 +3365,6 @@ namespace google\pubsub\v1 {
 
   class SubscriberClient extends \Grpc\BaseStub
   {
-
       public function __construct($hostname, $opts)
       {
           parent::__construct($hostname, $opts);
@@ -3432,7 +3431,6 @@ namespace google\pubsub\v1 {
 
   class PublisherClient extends \Grpc\BaseStub
   {
-
       public function __construct($hostname, $opts)
       {
           parent::__construct($hostname, $opts);
