@@ -52,9 +52,9 @@ ENV NGINX_DIR=/usr/local/nginx \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
     UPLOAD_DIR=/upload \
     SESSION_SAVE_PATH=/tmp/sessions \
-    NGINX_VERSION=1.10.0 \
-    PHP56_VERSION=5.6.21 \
-    PHP70_VERSION=7.0.6 \
+    NGINX_VERSION=1.10.1 \
+    PHP56_VERSION=5.6.22 \
+    PHP70_VERSION=7.0.7 \
     PATH=/usr/local/php/bin:$PATH
 
 # BUILD PHP, nginx and other dependencies.
