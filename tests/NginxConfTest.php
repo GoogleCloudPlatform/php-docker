@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Copyright 2015 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,21 +15,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-require_once __DIR__ . '/../vendor/autoload.php';
+namespace Google\Cloud\tests;
 
-$app = new Silex\Application();
+class NginxConfTest extends \PHPUnit_Framework_TestCase
+{
+    public function setUp()
+    {
+    }
 
-$app->get('/', function () {
-    return 'Hello World';
-});
-
-$app->get('/goodbye', function () {
-    return 'Goodbye World';
-});
-
-$app->get('/sleep', function () {
-    sleep(61);
-    return 'Slept 61 seconds';
-});
-
-$app->run();
+    public function testPHP56Version()
+    {
+        $checked = false;
+        exec(
+            'docker run php56_nginx_conf grep user_supplied_conf '
+            . '/usr/local/nginx/conf/nginx.conf', $output
+        );
+        $ls = array_pop($output);
+        $this->assertContains('user_supplied_conf', $ls);
+    }
+}
