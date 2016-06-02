@@ -29,6 +29,8 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
              . 'php56_custom');
         // Wait for nginx to start
         sleep(3);
+        // For a test for long running requests
+        ini_set("default_socket_timeout", 70);
     }
 
     public static function tearDownAfterClass()
@@ -97,7 +99,6 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
             . count($output)
         );
     }
-
     public function testParseStrIsSafe()
     {
         // Access to parse_str.php and make sure it doesn't override global
@@ -106,6 +107,16 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('200', $resp->getStatusCode(),
                             'parse_str.php status code');
         $this->assertContains('This is an important variable',
+                              $resp->getBody()->getContents());
+    }
+
+    public function testSleep()
+    {
+        // Access to pdo_sqlite.php, which should work.
+        $resp = $this->client->get('sleep');
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'sleep status code');
+        $this->assertContains('Slept 61 seconds',
                               $resp->getBody()->getContents());
     }
 }

@@ -38,7 +38,7 @@ if [ -f ${APP_NGINX_ADDITIONAL_CONF} ]; then
 fi
 
 if [ -f ${APP_NGINX_CONF} ]; then
-    mv ${APP_NGINX_CONF} ${NGINX_DIR}
+    mv ${APP_NGINX_CONF} ${NGINX_DIR}/conf
 fi
 
 # Move user-provided php-fpm config file.
