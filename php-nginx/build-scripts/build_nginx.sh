@@ -20,7 +20,13 @@ set -xe
 
 curl -SL "http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz" -o nginx.tar.gz
 curl -SL "http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz.asc" -o nginx.tar.gz.asc
-gpg --verify nginx.tar.gz.asc
+
+# Create combined binary keys
+cat /gpgkeys/nginx/* | gpg --dearmor > /gpgkeys/nginx.gpg
+
+# Verify only with specific public keys
+gpg --no-default-keyring --keyring /gpgkeys/nginx.gpg --verify nginx.tar.gz.asc
+
 mkdir -p /usr/src/nginx
 tar -zxf nginx.tar.gz -C /usr/src/nginx --strip-components=1
 rm nginx.tar.gz

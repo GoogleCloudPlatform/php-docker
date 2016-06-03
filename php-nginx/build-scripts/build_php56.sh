@@ -22,7 +22,13 @@ PHP_SRC=/usr/src/php
 
 curl -SL "http://php.net/get/php-$PHP56_VERSION.tar.gz/from/this/mirror" -o php.tar.gz
 curl -SL "http://us2.php.net/get/php-$PHP56_VERSION.tar.gz.asc/from/this/mirror" -o php.tar.gz.asc
-gpg --verify php.tar.gz.asc
+
+# Create combined binary keys
+cat /gpgkeys/php56/* | gpg --dearmor > /gpgkeys/php56.gpg
+
+# Verify only with specific public keys
+gpg --no-default-keyring --keyring /gpgkeys/php56.gpg --verify php.tar.gz.asc
+
 mkdir -p ${PHP_SRC}
 tar -zxf php.tar.gz -C ${PHP_SRC} --strip-components=1
 rm php.tar.gz

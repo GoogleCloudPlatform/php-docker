@@ -57,11 +57,13 @@ ENV NGINX_DIR=/usr/local/nginx \
     PHP70_VERSION=7.0.7 \
     PATH=/usr/local/php/bin:$PATH
 
+# gpgkeys for verifying the tarballs
+COPY gpgkeys /gpgkeys
+
 # BUILD PHP, nginx and other dependencies.
 COPY build-scripts /build-scripts
 
 RUN /bin/bash /build-scripts/apt_build_deps.sh install && \
-    /bin/bash /build-scripts/import_pgp_keys.sh && \
     /bin/bash /build-scripts/build_nginx.sh && \
     /bin/bash /build-scripts/build_php56.sh && \
     /bin/bash /build-scripts/build_php70.sh && \

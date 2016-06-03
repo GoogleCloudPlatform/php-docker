@@ -22,7 +22,13 @@ PHP_SRC=/usr/src/php7
 
 curl -SL "http://php.net/get/php-$PHP70_VERSION.tar.gz/from/this/mirror" -o php7.tar.gz
 curl -SL "http://us2.php.net/get/php-$PHP70_VERSION.tar.gz.asc/from/this/mirror" -o php7.tar.gz.asc
-gpg --verify php7.tar.gz.asc
+
+# Create combined binary keys
+cat /gpgkeys/php70/* | gpg --dearmor > /gpgkeys/php70.gpg
+
+# Verify only with specific public keys
+gpg --no-default-keyring --keyring /gpgkeys/php70.gpg --verify php7.tar.gz.asc
+
 mkdir -p ${PHP_SRC}
 tar -zxf php7.tar.gz -C ${PHP_SRC} --strip-components=1
 rm php7.tar.gz
