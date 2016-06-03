@@ -43,10 +43,10 @@ RUN apt-get update && \
     supervisor \
     zlib1g
 
-ENV NGINX_DIR=/usr/local/nginx \
-    PHP_DIR=/usr/local/php \
-    PHP56_DIR=/usr/local/php56 \
-    PHP7_DIR=/usr/local/php7 \
+ENV NGINX_DIR=/opt/nginx \
+    PHP_DIR=/opt/php \
+    PHP56_DIR=/opt/php56 \
+    PHP7_DIR=/opt/php7 \
     LOG_DIR=/var/log/app_engine \
     APP_DIR=/app \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
@@ -55,7 +55,7 @@ ENV NGINX_DIR=/usr/local/nginx \
     NGINX_VERSION=1.10.1 \
     PHP56_VERSION=5.6.22 \
     PHP70_VERSION=7.0.7 \
-    PATH=/usr/local/php/bin:$PATH
+    PATH=${PHP_DIR}/bin:$PATH
 
 # gpgkeys for verifying the tarballs
 COPY gpgkeys /gpgkeys

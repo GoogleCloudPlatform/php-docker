@@ -19,16 +19,12 @@ namespace Google\Cloud\tests;
 
 class NginxConfTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-    }
-
     public function testPHP56Version()
     {
         $checked = false;
         exec(
             'docker run php56_nginx_conf grep user_supplied_conf '
-            . '/usr/local/nginx/conf/nginx.conf', $output
+            . '/opt/nginx/conf/nginx.conf', $output
         );
         $ls = array_pop($output);
         $this->assertContains('user_supplied_conf', $ls);

@@ -26,7 +26,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
     public function testPHP56Version()
     {
         $checked = false;
-        exec('docker run php56 /usr/local/php/bin/php -v', $output);
+        exec('docker run php56 /opt/php/bin/php -v', $output);
         foreach ($output as $k => $v) {
             if (strpos($v, 'PHP') === 0) {
                 $this->assertContains('PHP 5.6', $v);
@@ -38,7 +38,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
     public function testPHP70Version()
     {
         $checked = false;
-        exec('docker run php70 /usr/local/php/bin/php -v', $output);
+        exec('docker run php70 /opt/php/bin/php -v', $output);
         foreach ($output as $k => $v) {
             if (strpos($v, 'PHP') === 0) {
                 $this->assertContains('PHP 7.0', $v);
@@ -50,7 +50,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
     public function testDefaultIsPHP56()
     {
         $checked = false;
-        exec('docker run php56_70 /usr/local/php/bin/php -v', $output);
+        exec('docker run php56_70 /opt/php/bin/php -v', $output);
         foreach ($output as $k => $v) {
             if (strpos($v, 'PHP') === 0) {
                 $this->assertContains('PHP 5.6', $v);
