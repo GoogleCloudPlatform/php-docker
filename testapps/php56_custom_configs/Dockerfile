@@ -1,4 +1,3 @@
-#!/bin/sh
 # Copyright 2015 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,13 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -ex
-
-docker build -t php-nginx php-nginx
-docker build -t php56 testapps/php56
-docker build -t php56_custom testapps/php56_custom
-docker build -t php70 testapps/php70
-docker build -t php56_70 testapps/php56_70
-docker build -t php70_custom testapps/php70_custom
-docker build -t php56_nginx_conf testapps/php56_nginx_conf
-docker build -t php56_custom_configs testapps/php56_custom_configs
+FROM php-nginx
+ENV APP_NGINX_ADDITIONAL_CONF=nginx-user.conf \
+    APP_NGINX_CONF=nginx-custom.conf \
+    APP_PHP_FPM_CONF=php-fpm-user.conf \
+    APP_PHP_INI=php-user.ini \
+    APP_SUPERVISORD_CONF=app-supervisord.conf

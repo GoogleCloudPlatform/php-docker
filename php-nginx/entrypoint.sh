@@ -22,33 +22,71 @@ set -xe
 
 # App specific piece of the config file which is included from the
 # main configuration file.
-APP_NGINX_ADDITIONAL_CONF=${APP_DIR}/nginx-app.conf
+if [ -n "${APP_NGINX_ADDITIONAL_CONF}" ]; then
+    APP_NGINX_ADDITIONAL_CONF="${APP_DIR}/${APP_NGINX_ADDITIONAL_CONF}"
+else
+    APP_NGINX_ADDITIONAL_CONF="${APP_DIR}/nginx-app.conf"
+fi
 
 # App specific main configuration file. If this file exists, we
 # replace our default main configuration file with this file.
-APP_NGINX_CONF=${APP_DIR}/nginx.conf
-
-# User provided php-fpm.conf
-PHP_FPM_CONF_OVERRIDE=${APP_DIR}/php-fpm.conf
-
-# Move user-provided nginx config files.
-
-if [ -f ${APP_NGINX_ADDITIONAL_CONF} ]; then
-    mv ${APP_NGINX_ADDITIONAL_CONF} $NGINX_USER_CONF_DIR
+if [ -n "${APP_NGINX_CONF}" ]; then
+    APP_NGINX_CONF="${APP_DIR}/${APP_NGINX_CONF}"
+else
+    APP_NGINX_CONF="${APP_DIR}/nginx.conf"
 fi
 
-if [ -f ${APP_NGINX_CONF} ]; then
-    mv ${APP_NGINX_CONF} ${NGINX_DIR}/conf
+# Move user-provided nginx config files.
+if [ -f "${APP_NGINX_ADDITIONAL_CONF}" ]; then
+    mv "${APP_NGINX_ADDITIONAL_CONF}" "${NGINX_USER_CONF_DIR}"
+fi
+
+if [ -f "${APP_NGINX_CONF}" ]; then
+    mv "${APP_NGINX_CONF}" "${NGINX_DIR}/conf/nginx.conf"
+fi
+
+
+# User provided php-fpm.conf
+if [ -n "${APP_PHP_FPM_CONF}" ]; then
+    APP_PHP_FPM_CONF="${APP_DIR}/${APP_PHP_FPM_CONF}"
+else
+    APP_PHP_FPM_CONF="${APP_DIR}/php-fpm.conf"
 fi
 
 # Move user-provided php-fpm config file.
-
-if [ -f ${PHP_FPM_CONF_OVERRIDE} ]; then
-    mv ${PHP_FPM_CONF_OVERRIDE} ${PHP_DIR}/etc/php-fpm-user.conf
+if [ -f "${APP_PHP_FPM_CONF}" ]; then
+    mv "${APP_PHP_FPM_CONF}" "${PHP_DIR}/etc/php-fpm-user.conf"
 fi
 
+
+# User provided php.ini
+if [ -n "${APP_PHP_INI}" ]; then
+    APP_PHP_INI="${APP_DIR}/${APP_PHP_INI}"
+else
+    APP_PHP_INI="${APP_DIR}/php.ini"
+fi
+
+# Move user-provided php.ini.
+if [ -f "${APP_PHP_INI}" ]; then
+    mv "${APP_PHP_INI}" "${PHP_DIR}/lib/conf.d"
+fi
+
+
+# User provided supervisord.conf
+if [ -n "${APP_SUPERVISORD_CONF}" ]; then
+    APP_SUPERVISORD_CONF="${APP_DIR}/${APP_SUPERVISORD_CONF}"
+else
+    APP_SUPERVISORD_CONF="${APP_DIR}/supervisord.conf"
+fi
+
+# Move user-provided supervisord.conf.
+if [ -f "${APP_SUPERVISORD_CONF}" ]; then
+    mv "${APP_SUPERVISORD_CONF}" /etc/supervisor/conf.d
+fi
+
+
 # Configure memcached based session.
-if [ -n ${MEMCACHE_PORT_11211_TCP_ADDR} ] && [ -n ${MEMCACHE_PORT_11211_TCP_PORT} ]; then
+if [ -n "${MEMCACHE_PORT_11211_TCP_ADDR}" ] && [ -n "${MEMCACHE_PORT_11211_TCP_PORT}" ]; then
     cat <<EOF > ${PHP_DIR}/lib/conf.d/memcached-session.ini
 session.save_handler=memcached
 session.save_path="${MEMCACHE_PORT_11211_TCP_ADDR}:${MEMCACHE_PORT_11211_TCP_PORT}"
@@ -59,10 +97,10 @@ fi
 # environment variable or APP_DIR if DOCUMENT_ROOT is not set.
 
 if [ -z "${DOCUMENT_ROOT}" ]; then
-    DOCUMENT_ROOT=${APP_DIR}
+    DOCUMENT_ROOT="${APP_DIR}"
 fi
 
-sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" $NGINX_DIR/conf/nginx.conf
-sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" $PHP_DIR/lib/php.ini
+sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" "${NGINX_DIR}/conf/nginx.conf"
+sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" "${PHP_DIR}/lib/php.ini"
 
 exec "$@"
