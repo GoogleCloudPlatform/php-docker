@@ -246,6 +246,8 @@ There are environment variables for adding config files.
   Additional php config file.
 - SUPERVISORD_CONF_ADDITION (defaults to additional-supervisord.conf)
   Additional supervisord config file.
+- SUPERVISORD_CONF_OVERRIDE (defaults to supervisord.conf)
+  The main supervisord config file.
 
 If those files are present, the runtime will copy those files to
 appropriate place.

@@ -45,7 +45,6 @@ if [ -f "${NGINX_CONF_OVERRIDE}" ]; then
     mv "${NGINX_CONF_OVERRIDE}" "${NGINX_DIR}/conf/nginx.conf"
 fi
 
-
 # User provided php-fpm.conf
 if [ -n "${PHP_FPM_CONF_OVERRIDE}" ]; then
     PHP_FPM_CONF_OVERRIDE="${APP_DIR}/${PHP_FPM_CONF_OVERRIDE}"
@@ -57,7 +56,6 @@ fi
 if [ -f "${PHP_FPM_CONF_OVERRIDE}" ]; then
     mv "${PHP_FPM_CONF_OVERRIDE}" "${PHP_DIR}/etc/php-fpm-user.conf"
 fi
-
 
 # User provided php.ini
 if [ -n "${PHP_INI_OVERRIDE}" ]; then
@@ -71,7 +69,6 @@ if [ -f "${PHP_INI_OVERRIDE}" ]; then
     mv "${PHP_INI_OVERRIDE}" "${PHP_DIR}/lib/conf.d"
 fi
 
-
 # User provided supervisord.conf
 if [ -n "${SUPERVISORD_CONF_ADDITION}" ]; then
     SUPERVISORD_CONF_ADDITION="${APP_DIR}/${SUPERVISORD_CONF_ADDITION}"
@@ -79,11 +76,20 @@ else
     SUPERVISORD_CONF_ADDITION="${APP_DIR}/additional-supervisord.conf"
 fi
 
+if [ -n "${SUPERVISORD_CONF_OVERRIDE}" ]; then
+    SUPERVISORD_CONF_OVERRIDE="${APP_DIR}/${SUPERVISORD_CONF_OVERRIDE}"
+else
+    SUPERVISORD_CONF_OVERRIDE="${APP_DIR}/supervisord.conf"
+fi
+
 # Move user-provided supervisord.conf.
 if [ -f "${SUPERVISORD_CONF_ADDITION}" ]; then
     mv "${SUPERVISORD_CONF_ADDITION}" /etc/supervisor/conf.d
 fi
 
+if [ -f "${SUPERVISORD_CONF_OVERRIDE}" ]; then
+    mv "${SUPERVISORD_CONF_OVERRIDE}" /etc/supervisor/supervisord.conf
+fi
 
 # Configure memcached based session.
 if [ -n "${MEMCACHE_PORT_11211_TCP_ADDR}" ] && [ -n "${MEMCACHE_PORT_11211_TCP_PORT}" ]; then

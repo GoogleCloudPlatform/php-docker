@@ -17,4 +17,6 @@ ENV NGINX_CONF_INCLUDE=nginx-user.conf \
     NGINX_CONF_OVERRIDE=nginx-custom.conf \
     PHP_FPM_CONF_OVERRIDE=php-fpm-user.conf \
     PHP_INI_OVERRIDE=php-user.ini \
-    SUPERVISORD_CONF_ADDITION=my-supervisord.conf
+    SUPERVISORD_CONF_ADDITION=my-supervisord.conf \
+    SUPERVISORD_CONF_OVERRIDE=custom-supervisord.conf
+

@@ -67,5 +67,11 @@ class CustomConfigTest extends \PHPUnit_Framework_TestCase
         );
         $grep = array_pop($output);
         $this->assertContains('my-supervisord.conf', $grep);
+        exec(
+            'docker run php56_custom_configs grep custom-supervisord.conf '
+            . '/etc/supervisor/supervisord.conf', $output
+        );
+        $grep = array_pop($output);
+        $this->assertContains('custom-supervisord.conf', $grep);
     }
 }
