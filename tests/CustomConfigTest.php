@@ -62,10 +62,10 @@ class CustomConfigTest extends \PHPUnit_Framework_TestCase
     public function testSupervisordConf()
     {
         exec(
-            'docker run php56_custom_configs grep app-supervisord.conf '
-            . '/etc/supervisor/conf.d/app-supervisord.conf', $output
+            'docker run php56_custom_configs grep my-supervisord.conf '
+            . '/etc/supervisor/conf.d/my-supervisord.conf', $output
         );
         $grep = array_pop($output);
-        $this->assertContains('app-supervisord.conf', $grep);
+        $this->assertContains('my-supervisord.conf', $grep);
     }
 }

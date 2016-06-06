@@ -13,8 +13,8 @@
 # limitations under the License.
 
 FROM php-nginx
-ENV APP_NGINX_ADDITIONAL_CONF=nginx-user.conf \
-    APP_NGINX_CONF=nginx-custom.conf \
-    APP_PHP_FPM_CONF=php-fpm-user.conf \
-    APP_PHP_INI=php-user.ini \
-    APP_SUPERVISORD_CONF=app-supervisord.conf
+ENV NGINX_CONF_INCLUDE=nginx-user.conf \
+    NGINX_CONF_OVERRIDE=nginx-custom.conf \
+    PHP_FPM_CONF_OVERRIDE=php-fpm-user.conf \
+    PHP_INI_OVERRIDE=php-user.ini \
+    SUPERVISORD_CONF_ADDITION=my-supervisord.conf

@@ -22,66 +22,66 @@ set -xe
 
 # App specific piece of the config file which is included from the
 # main configuration file.
-if [ -n "${APP_NGINX_ADDITIONAL_CONF}" ]; then
-    APP_NGINX_ADDITIONAL_CONF="${APP_DIR}/${APP_NGINX_ADDITIONAL_CONF}"
+if [ -n "${NGINX_CONF_INCLUDE}" ]; then
+    NGINX_CONF_INCLUDE="${APP_DIR}/${NGINX_CONF_INCLUDE}"
 else
-    APP_NGINX_ADDITIONAL_CONF="${APP_DIR}/nginx-app.conf"
+    NGINX_CONF_INCLUDE="${APP_DIR}/nginx-app.conf"
 fi
 
 # App specific main configuration file. If this file exists, we
 # replace our default main configuration file with this file.
-if [ -n "${APP_NGINX_CONF}" ]; then
-    APP_NGINX_CONF="${APP_DIR}/${APP_NGINX_CONF}"
+if [ -n "${NGINX_CONF_OVERRIDE}" ]; then
+    NGINX_CONF_OVERRIDE="${APP_DIR}/${NGINX_CONF_OVERRIDE}"
 else
-    APP_NGINX_CONF="${APP_DIR}/nginx.conf"
+    NGINX_CONF_OVERRIDE="${APP_DIR}/nginx.conf"
 fi
 
 # Move user-provided nginx config files.
-if [ -f "${APP_NGINX_ADDITIONAL_CONF}" ]; then
-    mv "${APP_NGINX_ADDITIONAL_CONF}" "${NGINX_USER_CONF_DIR}"
+if [ -f "${NGINX_CONF_INCLUDE}" ]; then
+    mv "${NGINX_CONF_INCLUDE}" "${NGINX_USER_CONF_DIR}"
 fi
 
-if [ -f "${APP_NGINX_CONF}" ]; then
-    mv "${APP_NGINX_CONF}" "${NGINX_DIR}/conf/nginx.conf"
+if [ -f "${NGINX_CONF_OVERRIDE}" ]; then
+    mv "${NGINX_CONF_OVERRIDE}" "${NGINX_DIR}/conf/nginx.conf"
 fi
 
 
 # User provided php-fpm.conf
-if [ -n "${APP_PHP_FPM_CONF}" ]; then
-    APP_PHP_FPM_CONF="${APP_DIR}/${APP_PHP_FPM_CONF}"
+if [ -n "${PHP_FPM_CONF_OVERRIDE}" ]; then
+    PHP_FPM_CONF_OVERRIDE="${APP_DIR}/${PHP_FPM_CONF_OVERRIDE}"
 else
-    APP_PHP_FPM_CONF="${APP_DIR}/php-fpm.conf"
+    PHP_FPM_CONF_OVERRIDE="${APP_DIR}/php-fpm.conf"
 fi
 
 # Move user-provided php-fpm config file.
-if [ -f "${APP_PHP_FPM_CONF}" ]; then
-    mv "${APP_PHP_FPM_CONF}" "${PHP_DIR}/etc/php-fpm-user.conf"
+if [ -f "${PHP_FPM_CONF_OVERRIDE}" ]; then
+    mv "${PHP_FPM_CONF_OVERRIDE}" "${PHP_DIR}/etc/php-fpm-user.conf"
 fi
 
 
 # User provided php.ini
-if [ -n "${APP_PHP_INI}" ]; then
-    APP_PHP_INI="${APP_DIR}/${APP_PHP_INI}"
+if [ -n "${PHP_INI_OVERRIDE}" ]; then
+    PHP_INI_OVERRIDE="${APP_DIR}/${PHP_INI_OVERRIDE}"
 else
-    APP_PHP_INI="${APP_DIR}/php.ini"
+    PHP_INI_OVERRIDE="${APP_DIR}/php.ini"
 fi
 
 # Move user-provided php.ini.
-if [ -f "${APP_PHP_INI}" ]; then
-    mv "${APP_PHP_INI}" "${PHP_DIR}/lib/conf.d"
+if [ -f "${PHP_INI_OVERRIDE}" ]; then
+    mv "${PHP_INI_OVERRIDE}" "${PHP_DIR}/lib/conf.d"
 fi
 
 
 # User provided supervisord.conf
-if [ -n "${APP_SUPERVISORD_CONF}" ]; then
-    APP_SUPERVISORD_CONF="${APP_DIR}/${APP_SUPERVISORD_CONF}"
+if [ -n "${SUPERVISORD_CONF_ADDITION}" ]; then
+    SUPERVISORD_CONF_ADDITION="${APP_DIR}/${SUPERVISORD_CONF_ADDITION}"
 else
-    APP_SUPERVISORD_CONF="${APP_DIR}/supervisord.conf"
+    SUPERVISORD_CONF_ADDITION="${APP_DIR}/additional-supervisord.conf"
 fi
 
 # Move user-provided supervisord.conf.
-if [ -f "${APP_SUPERVISORD_CONF}" ]; then
-    mv "${APP_SUPERVISORD_CONF}" /etc/supervisor/conf.d
+if [ -f "${SUPERVISORD_CONF_ADDITION}" ]; then
+    mv "${SUPERVISORD_CONF_ADDITION}" /etc/supervisor/conf.d
 fi
 
 

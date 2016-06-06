@@ -236,15 +236,15 @@ various config files" below).
 
 There are environment variables for adding config files.
 
-- APP_NGINX_ADDITIONAL_CONF (defaults to nginx-app.conf)
+- NGINX_CONF_INCLUDE (defaults to nginx-app.conf)
   This file will be inserted to the main nginx configuration.
-- APP_NGINX_CONF (defaults to nginx.conf)
+- NGINX_CONF_OVERRIDE (defaults to nginx.conf)
   This file will entirely override the main nginx configuration.
-- APP_PHP_FPM_CONF (defaults to php-fpm.conf)
+- PHP_FPM_CONF_OVERRIDE (defaults to php-fpm.conf)
   Additional config file for php-fpm.
-- APP_PHP_INI (defaults to php.ini)
+- PHP_INI_OVERRIDE (defaults to php.ini)
   Additional php config file.
-- APP_SUPERVISORD_CONF (defaults to supervisord.conf)
+- SUPERVISORD_CONF_ADDITION (defaults to additional-supervisord.conf)
   Additional supervisord config file.
 
 If those files are present, the runtime will copy those files to
