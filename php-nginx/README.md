@@ -229,7 +229,28 @@ These extensions are only available with PHP 7:
 ## Add something to php.ini
 
 You can just have php.ini file in your project directory. This file is
-added to the main configuration file.
+added to the main configuration file (See also "How to customize
+various config files" below).
+
+## How to customize various config files
+
+There are environment variables for adding config files.
+
+- NGINX_CONF_INCLUDE (defaults to nginx-app.conf)
+  This file will be inserted to the main nginx configuration.
+- NGINX_CONF_OVERRIDE (defaults to nginx.conf)
+  This file will entirely override the main nginx configuration.
+- PHP_FPM_CONF_OVERRIDE (defaults to php-fpm.conf)
+  Additional config file for php-fpm.
+- PHP_INI_OVERRIDE (defaults to php.ini)
+  Additional php config file.
+- SUPERVISORD_CONF_ADDITION (defaults to additional-supervisord.conf)
+  Additional supervisord config file.
+- SUPERVISORD_CONF_OVERRIDE (defaults to supervisord.conf)
+  The main supervisord config file.
+
+If those files are present, the runtime will copy those files to
+appropriate place.
 
 ## Use memcached based sessions
 

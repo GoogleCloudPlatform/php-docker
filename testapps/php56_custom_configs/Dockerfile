@@ -1,4 +1,3 @@
-#!/bin/sh
 # Copyright 2015 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,13 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -ex
+FROM php-nginx
+ENV NGINX_CONF_INCLUDE=nginx-user.conf \
+    NGINX_CONF_OVERRIDE=nginx-custom.conf \
+    PHP_FPM_CONF_OVERRIDE=php-fpm-user.conf \
+    PHP_INI_OVERRIDE=php-user.ini \
+    SUPERVISORD_CONF_ADDITION=my-supervisord.conf \
+    SUPERVISORD_CONF_OVERRIDE=custom-supervisord.conf
 
-docker build -t php-nginx php-nginx
-docker build -t php56 testapps/php56
-docker build -t php56_custom testapps/php56_custom
-docker build -t php70 testapps/php70
-docker build -t php56_70 testapps/php56_70
-docker build -t php70_custom testapps/php70_custom
-docker build -t php56_nginx_conf testapps/php56_nginx_conf
-docker build -t php56_custom_configs testapps/php56_custom_configs
