@@ -21,8 +21,7 @@ set -ex
 # Run php-cs-fixer.
 # We want to fail fast for coding standard violations.
 
-vendor/bin/php-cs-fixer fix --dry-run --diff --level=psr2 \
-    --fixers=concat_with_spaces,unused_use,trailing_spaces,indentation .
+vendor/bin/php-cs-fixer fix --dry-run --diff .
 
 # Then build images.
 scripts/build_images.sh
