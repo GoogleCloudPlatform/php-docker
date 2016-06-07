@@ -67,8 +67,8 @@ patch -p1 < /build-scripts/php5-parse_str_harden.patch
 rm -f configure
 ./buildconf --force
 ./configure \
-    --prefix=$PHP56_DIR \
-    --with-config-file-scan-dir=$APP_DIR:${PHP56_DIR}/lib/conf.d \
+    --prefix=${PHP56_DIR} \
+    --with-config-file-scan-dir=${APP_DIR}:${PHP56_DIR}/lib/conf.d \
     --disable-cgi \
     --disable-memcached-sasl \
     --enable-apcu \

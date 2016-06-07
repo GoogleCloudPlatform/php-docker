@@ -63,8 +63,8 @@ patch -p1 < /build-scripts/php7-parse_str_harden.patch
 rm -f configure
 ./buildconf --force
 ./configure \
-    --prefix=$APP_DIR:$PHP7_DIR \
-    --with-config-file-scan-dir=${PHP7_DIR}/lib/conf.d \
+    --prefix=${PHP7_DIR} \
+    --with-config-file-scan-dir=${APP_DIR}:${PHP7_DIR}/lib/conf.d \
     --disable-cgi \
     --disable-memcached-sasl \
     --enable-apc \
