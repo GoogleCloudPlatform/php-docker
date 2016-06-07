@@ -20,7 +20,6 @@ set -ex
 
 # Run php-cs-fixer.
 # We want to fail fast for coding standard violations.
-
 vendor/bin/php-cs-fixer fix --dry-run --diff .
 
 # Then build images.
