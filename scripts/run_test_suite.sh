@@ -20,7 +20,7 @@ set -ex
 
 # Run php-cs-fixer.
 # We want to fail fast for coding standard violations.
-php-cs-fixer fix --dry-run --diff \
+vendor/bin/php-cs-fixer fix --dry-run --diff \
     --rules=@PSR2,concat_with_spaces,no_unused_imports .
 
 # Then build images.

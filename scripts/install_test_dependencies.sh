@@ -23,11 +23,8 @@ if [ -z "${CLOUDSDK_ACTIVE_CONFIG_NAME}" ]; then
     exit 1
 fi
 
-# Install composer and php-cs-fixer
+# Install composer and defined dependencies
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-wget http://get.sensiolabs.org/php-cs-fixer.phar -O php-cs-fixer
-sudo mv php-cs-fixer /usr/local/bin
-sudo chmod +x /usr/local/bin/php-cs-fixer
 composer install --ignore-platform-reqs
 
 # Install gcloud
