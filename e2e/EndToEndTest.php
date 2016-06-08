@@ -69,10 +69,13 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
     public static function tearDownAfterClass()
     {
         // TODO: check the return value and maybe retry?
-        exec('gcloud -q preview app modules delete default --version '
-             . getenv(self::VERSION_ENV)
-             . ' --project '
-             . getenv(self::PROJECT_ENV));
+        $cmd = sprintf(
+            'gcloud -q preview app versions delete --service default '
+            . '--project %s %s',
+            getenv(self::PROJECT_ENV),
+            getenv(self::VERSION_ENV)
+        );
+        exec($cmd);
     }
 
     public function setUp()
