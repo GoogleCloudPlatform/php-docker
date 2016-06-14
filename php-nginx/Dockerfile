@@ -55,7 +55,7 @@ ENV NGINX_DIR=/opt/nginx \
     NGINX_VERSION=1.10.1 \
     PHP56_VERSION=5.6.22 \
     PHP70_VERSION=7.0.7 \
-    PATH=${PHP_DIR}/bin:$PATH
+    PATH=/opt/php/bin:$PATH
 
 # gpgkeys for verifying the tarballs
 COPY gpgkeys /gpgkeys
