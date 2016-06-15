@@ -42,4 +42,3 @@ gcloud config configurations create ${CLOUDSDK_ACTIVE_CONFIG_NAME} || /bin/true 
 gcloud -q components update app gsutil
 gcloud config set project ${GOOGLE_PROJECT_ID}
 gcloud config set app/promote_by_default false
-gcloud config set app/use_cloud_build true
