@@ -128,7 +128,7 @@ mkdir -p ${PHP56_DIR}/lib/conf.d
 # Install shared extensions
 ${PHP56_DIR}/bin/pecl install memcache
 ${PHP56_DIR}/bin/pecl install mongodb
-${PHP56_DIR}/bin/pecl install redis
+${PHP56_DIR}/bin/pecl install redis-2.2.8
 ${PHP56_DIR}/bin/pecl install grpc-beta
 
 rm -rf /tmp/pear
