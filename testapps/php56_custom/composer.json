@@ -1,6 +1,7 @@
 {
     "require": {
         "php": "^5.6",
+        "ext-bcmath": "*",
         "silex/silex": "^1.3"
     }
 }
