@@ -59,4 +59,11 @@ class VersionTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertTrue($checked, 'Failed to check the version is 5.6.x');
     }
+    public function testPhpInPath()
+    {
+        exec('docker run php56_70 env | grep "^PATH="', $output);
+        $grep = array_pop($output);
+        $paths = explode(':', str_replace('PATH=', '', $grep));
+        $this->assertContains('/opt/php/bin', $paths);
+    }
 }
