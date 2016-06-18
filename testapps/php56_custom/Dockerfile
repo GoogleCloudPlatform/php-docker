@@ -14,4 +14,5 @@
 
 FROM php-nginx
 
-ENV DOCUMENT_ROOT=/app/web
+ENV DOCUMENT_ROOT=/app/web \
+    WHITELIST_FUNCTIONS=phpinfo,exec

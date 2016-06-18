@@ -109,4 +109,9 @@ fi
 sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" "${NGINX_DIR}/conf/nginx.conf"
 sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" "${PHP_DIR}/lib/php.ini"
 
+# Enable functions whitelisted by the user. Running this script at
+# runtime is little bit fragile, but this is the only place we can
+# look up the environment variable.
+${PHP_DIR}/bin/php /whitelist_functions.php
+
 exec "$@"

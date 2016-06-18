@@ -15,4 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+// exec is disabled by default, but it should run
+if (exec('echo hello') !== 'hello') {
+    exit(1);
+}
 phpinfo();

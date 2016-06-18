@@ -89,11 +89,8 @@ RUN touch $PHP56_DIR/etc/php-fpm-user.conf $PHP7_DIR/etc/php-fpm-user.conf
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY logrotate.app_engine /etc/logrotate.d/app_engine
 
-# A script for dynamic configuration.
-COPY entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh composer.sh whitelist_functions.php /
 
-# A script for installing dependencies.
-COPY composer.sh /composer.sh
 RUN chmod +x /entrypoint.sh /composer.sh
 
 # A script for extracting PHP version from composer.json.
