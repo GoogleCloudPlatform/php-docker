@@ -16,4 +16,9 @@
  * limitations under the License.
  */
 
-phpinfo();
+// exec is disabled by default, but it should run
+if (exec('echo hello') !== 'hello') {
+    exit(1);
+}
+
+echo 'exec succeeded.';

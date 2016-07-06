@@ -117,6 +117,18 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
                           'phpinfo() should be enabled.');
     }
 
+    public function testExec()
+    {
+        // Access to exec.php; exec() should be enabled.
+        $resp = $this->client->get('exec.php');
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'exec.php status code');
+        $this->assertContains(
+            'exec succeeded.',
+            $resp->getBody()->getContents()
+        );
+    }
+
     public function testPdoSqlite()
     {
         // Access to pdo_sqlite.php, which should work.
