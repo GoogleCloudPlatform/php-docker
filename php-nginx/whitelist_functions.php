@@ -1,11 +1,5 @@
 <?php
 
-function filter_blacklist($val)
-{
-    global $whitelist;
-    return !in_array($val, $whitelist);
-}
-
 $phpDir = getenv("PHP_DIR");
 
 if ($phpDir === false) {
@@ -32,7 +26,7 @@ if ($suhosinBlacklist !== false) {
         "suhosin.executor.func.blacklist=\"%s\"\n",
         implode(
             ',',
-            array_filter($suhosinBlacklist, 'filter_blacklist')
+            array_diff($suhosinBlacklist, $whitelist)
         )
     );
 }
@@ -44,7 +38,7 @@ if ($disable_functions !== false) {
         "disable_functions = \"%s\"\n",
         implode(
             ',',
-            array_filter($disable_functions, 'filter_blacklist')
+            array_diff($disable_functions, $whitelist)
         )
     );
 }
