@@ -3,3 +3,6 @@ vm: true
 
 manual_scaling:
   instances: 1
+
+env_variables:
+  WHITELIST_FUNCTIONS: phpinfo,exec

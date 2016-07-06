@@ -121,8 +121,11 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
     {
         // Access to exec.php; exec() should be enabled.
         $resp = $this->client->get('exec.php');
-        $this->assertEquals('200', $resp->getStatusCode(),
-                            'exec.php status code');
+        $this->assertEquals(
+            '200',
+            $resp->getStatusCode(),
+            'exec.php status code'
+        );
         $this->assertContains(
             'exec succeeded.',
             $resp->getBody()->getContents()
