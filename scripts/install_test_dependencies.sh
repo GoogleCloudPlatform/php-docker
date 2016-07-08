@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Copyright 2015 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +25,7 @@ if [ "${CIRCLECI}" != "true" ]; then
         cd "${HOME}/gcloud" &&
             tar xzf google-cloud-sdk.tar.gz &&
             ./google-cloud-sdk/install.sh --usage-reporting false --path-update false --command-completion false &&
-            cd "${TRAVIS_BUILD_DIR}";
+            cd "${TEST_BUILD_DIR}";
     fi
 fi
 
