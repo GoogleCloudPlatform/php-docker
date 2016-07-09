@@ -21,6 +21,9 @@
  *
  * To setup Travis to run on your fork, read TRAVIS.md.
  */
+if (getenv('GOOGLE_CREDENTIALS_BASE64') === false) {
+    exit(0);
+}
 file_put_contents(
     getenv('PHP_DOCKER_GOOGLE_CREDENTIALS'),
     base64_decode(getenv('GOOGLE_CREDENTIALS_BASE64'))
