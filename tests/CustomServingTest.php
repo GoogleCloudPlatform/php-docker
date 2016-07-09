@@ -105,15 +105,30 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
 
     public function testNumberOfPhpFpmChildren()
     {
-        exec(
-            'docker exec -t php56_custom ps auxww|grep php-fpm|grep -v grep',
-            $output);
+        $resp = $this->client->get('php-fpm-count.php');
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'php-fpm-count.php status code');
         $this->assertEquals(
-            2, count($output),
+            2,
+            intval($resp->getBody()->getContents()),
             'There should be only 2 php-fpm processes, actual: '
-            . count($output)
+            . $resp->getBody()->getContents()
         );
     }
+
+    public function testNumberOfNginxChildren()
+    {
+        exec('nproc', $nproc);
+        $resp = $this->client->get('nginx-count.php');
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'nginx-count.php status code');
+        $count = intval($resp->getBody()->getContents());
+        $this->assertGreaterThan(
+            $nproc[0], $count,
+            "There should be more than $nproc[0] nginx processes, actual: $count"
+        );
+    }
+
     public function testParseStrIsSafe()
     {
         // Access to parse_str.php and make sure it doesn't override global
