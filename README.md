@@ -1,7 +1,7 @@
-# Docker images for a managed VM runtime using PHP.
+# Docker image for the App Engine Flexible PHP runtime
 
 This repository contains experimental PHP runtime(s) for Google Cloud
-App Engine Managed VMs. It is not covered by any SLA or deprecation
+App Engine Flexible. It is not covered by any SLA or deprecation
 policy.  It may change at any time.
 
 ## Contributing changes
