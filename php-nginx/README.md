@@ -1,7 +1,7 @@
-# Docker image for a managed VM runtime using PHP and nginx.
+# Docker image for the App Engine Flexible PHP runtime with nginx
 
 This is an experimental PHP runtime for Google Cloud App Engine
-Managed VMs. It is not covered by any SLA or deprecation policy.  It
+Flexible. It is not covered by any SLA or deprecation policy.  It
 may change at any time.
 
 ## How to use
@@ -21,7 +21,6 @@ app.yaml:
 ```yaml
 runtime: custom
 vm: true
-api_version: 1
 
 manual_scaling:
   instances: 1
@@ -280,7 +279,7 @@ Nginx and php-fpm are communicating via the TCP port 9000.
 You can deploy the app by:
 
 ```sh
-$ gcloud preview app deploy app.yaml
+$ gcloud app deploy
 ```
 
 ## Run it locally with docker
