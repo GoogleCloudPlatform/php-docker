@@ -1,33 +1,24 @@
 # Docker image for a managed VM runtime using PHP and nginx.
 
 This is an experimental PHP runtime for Google Cloud App Engine
-Managed VMs. It is not covered by any SLA or deprecation policy.  It
-may change at any time.
+Flexible environment. It is not covered by any SLA or deprecation
+policy.  It may change at any time.
 
 ## How to use
 
-As of Oct 28, 2015, this image is intended to use with `runtime:
-custom` configuration. Then you can have your own `Dockerfile` and
-`app.yaml` as follows.
-
-Dockerfile:
-
-```Dockerfile
-FROM gcr.io/php-mvm-a/php-nginx:latest
-```
+This image is intended to use with `runtime: php` configuration. The
+image is uploaded to `gcr.io/google_appengine/php:latest`. You can
+have your own `app.yaml` as follows:
 
 app.yaml:
 
 ```yaml
-runtime: custom
+runtime: php
 vm: true
 api_version: 1
-
-manual_scaling:
-  instances: 1
 ```
 
-# Disabled functions
+## Disabled functions
 
 These functions are disabled by default:
 
@@ -58,20 +49,8 @@ is as follows:
 suhosin.executor.func.blacklist="escapeshellarg, escapeshellcmd, exec, highlight_file, lchgrp, lchown, link, symlink, passthru, pclose, popen, proc_close, proc_get_status, proc_nice, proc_open, proc_terminate, shell_exec, show_source, system, gc_collect_cycles, gc_enable, gc_disable, gc_enabled, getmypid, getmyuid, getmygid, getrusage, getmyinode, get_current_user, phpinfo, phpversion, php_uname"
 ```
 
-To enable them, you can add a `php.ini` file in the project root directory
-and override the default settings above. Here is an example for only
-enabling `phpinfo()`.
-
-```ini
-suhosin.executor.func.blacklist="escapeshellarg, escapeshellcmd, exec, highlight_file, lchgrp, lchown, link, symlink, passthru, pclose, popen, proc_close, proc_get_status, proc_nice, proc_open, proc_terminate, shell_exec, show_source, system, gc_collect_cycles, gc_enable, gc_disable, gc_enabled, getmypid, getmyuid, getmygid, getrusage, getmyinode, get_current_user, phpversion, php_uname"
-```
-
-The function `parse_str` is patched and the 2nd parameter is
-mandatory.  If you call `parse_str` with only one parameter, it will
-throw a warning and nothing happens.
-
-Additionally, a few functions are disabled with `disable_functions`. Those are
-the following:
+Additionally, the following functions are also disabled with
+`disable_functions` directive:
 
 - `exec`
 - `passthru`
@@ -82,21 +61,27 @@ the following:
 - `symlink`
 - `system`
 
-If you need one of those (think of composer post-install scripts for example),
-you need to add something like the following to your php.ini:
+If you need any of those functions, you can add an environment
+variable `WHITELIST_FUNCTIONS`.
 
-```ini
-; None is needed, as an empty string won't take effect
-disable_functions=none
-```
+app.yaml:
 
-Or just one function like `proc_open`:
+```yaml
+runtime: php
+vm: true
+api_version: 1
 
-```ini
-disable_functions=exec,passthru,proc_close,shell_exec,show_source,symlink,system
+env_variables:
+  WHITELIST_FUNCTIONS: phpinfo,exec
 ```
 
 Please remember that allowing one of those makes your attack surface bigger.
+
+## Patched functions
+
+The function `parse_str` is patched and the 2nd parameter is
+mandatory.  If you call `parse_str` with only one parameter, it will
+throw a warning and nothing happens.
 
 ## How to change Document Root (and you should change it)
 
@@ -109,21 +94,20 @@ Here is an example `Dockerfile` for changing the document root to
 `/app/web`.
 
 ```Dockerfile
-FROM gcr.io/php-mvm-a/php-nginx:latest
+FROM gcr.io/google_appengine/php:latest
 ENV DOCUMENT_ROOT /app/web
 ```
 
-Here is an example `app.yaml` for the same thing.
+Here is an example `app.yaml` for the same thing (gcloud will turn
+this into the envvar):
 
 ```yaml
-runtime: custom
+runtime: php
 vm: true
 api_version: 1
 
-manual_scaling:
-  instances: 1
-env_variables:
-  DOCUMENT_ROOT: /app/web
+runtime_config:
+  document_root: web
 ```
 
 ## How to change nginx.config
