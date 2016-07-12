@@ -1,8 +1,8 @@
-# Docker image for a managed VM runtime using PHP and nginx.
+# Docker image for the App Engine Flexible PHP runtime with nginx
 
 This is an experimental PHP runtime for Google Cloud App Engine
-Flexible environment. It is not covered by any SLA or deprecation
-policy.  It may change at any time.
+Flexible Environment. It is not covered by any SLA or deprecation
+policy. It may change at any time.
 
 ## How to use
 
