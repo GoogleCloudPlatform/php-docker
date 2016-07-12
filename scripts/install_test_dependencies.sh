@@ -15,9 +15,12 @@
 
 set -ex
 
-if [ "${CIRCLECI}" != "true" ]; then
+if [ "${INSTALL_PHP5}" == "true" ]; then
     sudo apt-get update
     sudo apt-get install -y php5-cli
+fi
+
+if [ "${INSTALL_GCLOUD}" == "true" ]; then
     # Install gcloud
     if [ ! -d ${HOME}/gcloud/google-cloud-sdk ]; then
         mkdir -p ${HOME}/gcloud &&
@@ -35,7 +38,7 @@ if [ -z "${CLOUDSDK_ACTIVE_CONFIG_NAME}" ]; then
 fi
 
 # Install composer and defined dependencies
-curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+which composer || curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 composer install --ignore-platform-reqs
 
 # gcloud configurations
