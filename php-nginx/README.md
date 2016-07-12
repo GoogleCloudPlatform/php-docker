@@ -264,7 +264,7 @@ Nginx and php-fpm are communicating via the TCP port 9000.
 You can deploy the app by:
 
 ```sh
-$ gcloud preview app deploy app.yaml
+$ gcloud app deploy
 ```
 
 ## Run it locally with docker
