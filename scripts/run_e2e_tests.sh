@@ -36,10 +36,11 @@ if [ "${TRAVIS}" = "true" ]; then
         echo "Skipping e2e test for pull requests from other repo."
         exit 0
     fi
-    # Dump the credentials from the environment variable.
-    php scripts/dump_credentials.php
-
 fi
+
+
+# Dump the credentials from the environment variable.
+php scripts/dump_credentials.php
 
 if [ -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
     # Use the service account for gcloud operations.

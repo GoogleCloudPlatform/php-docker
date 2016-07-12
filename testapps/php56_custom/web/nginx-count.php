@@ -1,5 +1,6 @@
 <?php
-/**
+
+/*
  * Copyright 2015 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,16 +16,7 @@
  * limitations under the License.
  */
 
-/**
- * Dumps the contents of the environment variable GOOGLE_CREDENTIALS_BASE64 to
- * a file.
- *
- * To setup Travis to run on your fork, read TRAVIS.md.
- */
-if (getenv('GOOGLE_CREDENTIALS_BASE64') === false) {
-    exit(0);
-}
-file_put_contents(
-    getenv('PHP_DOCKER_GOOGLE_CREDENTIALS'),
-    base64_decode(getenv('GOOGLE_CREDENTIALS_BASE64'))
-);
+// Reports number of nginx processes.
+
+exec('ps auxww|grep nginx|grep -v grep', $output);
+echo count($output);
