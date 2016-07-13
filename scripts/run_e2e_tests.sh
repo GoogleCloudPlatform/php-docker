@@ -28,30 +28,20 @@ if [ -z "${E2E_TEST_VERSION}" ]; then
     exit 1
 fi
 
-# Dump the service account file from a secret envvar on travis.
-if [ "${TRAVIS}" = "true" ]; then
-    if [ "${TRAVIS_SECURE_ENV_VARS}" = "false" ]; then
-        # This must be a pull request from other repository.
-        # Skipping all of the following.
-        echo "Skipping e2e test for pull requests from other repo."
-        exit 0
-    fi
-fi
-
-
 # Dump the credentials from the environment variable.
 php scripts/dump_credentials.php
 
-if [ -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
-    # Use the service account for gcloud operations.
-    gcloud auth activate-service-account \
-        --key-file "${PHP_DOCKER_GOOGLE_CREDENTIALS}"
+if [ ! -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
+    echo "The credentials file not found, skipping the e2e test."
+    exit 0
 fi
 
+# Use the service account for gcloud operations.
+gcloud auth activate-service-account \
+    --key-file "${PHP_DOCKER_GOOGLE_CREDENTIALS}"
 # Upload the local image to gcr.io with a tag `testing`.
 docker tag -f \
     php-nginx gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${E2E_TEST_VERSION}
 gcloud docker push gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${E2E_TEST_VERSION}
-
 # Run e2e tests
 vendor/bin/phpunit -c e2e.xml
