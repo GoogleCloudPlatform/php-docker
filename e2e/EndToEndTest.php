@@ -50,7 +50,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
     {
         for ($i = 0; $i <= 3; $i++) {
             exec(
-                "gcloud -q preview app deploy --version $e2e_test_version"
+                "gcloud -q app deploy --version $e2e_test_version"
                 . " --project $project_id"
                 . ' testapps/php56_e2e/app.yaml',
                 $output,
@@ -70,7 +70,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
     {
         // TODO: check the return value and maybe retry?
         $cmd = sprintf(
-            'gcloud -q preview app versions delete --service default '
+            'gcloud -q app versions delete --service default '
             . '--project %s %s',
             getenv(self::PROJECT_ENV),
             getenv(self::VERSION_ENV)
