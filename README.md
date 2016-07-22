@@ -11,3 +11,5 @@ deprecation policy.  It may change at any time.
 ## Licensing
 
 * See [LICENSE](LICENSE)
+
+Just testing tests on CircleCI for PRs from other repos.
