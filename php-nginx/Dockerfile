@@ -53,8 +53,8 @@ ENV NGINX_DIR=/opt/nginx \
     UPLOAD_DIR=/upload \
     SESSION_SAVE_PATH=/tmp/sessions \
     NGINX_VERSION=1.10.1 \
-    PHP56_VERSION=5.6.23 \
-    PHP70_VERSION=7.0.8 \
+    PHP56_VERSION=5.6.24 \
+    PHP70_VERSION=7.0.9 \
     PATH=/opt/php/bin:$PATH
 
 # gpgkeys for verifying the tarballs
