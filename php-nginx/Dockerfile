@@ -47,6 +47,7 @@ ENV NGINX_DIR=/opt/nginx \
     PHP_DIR=/opt/php \
     PHP56_DIR=/opt/php56 \
     PHP7_DIR=/opt/php7 \
+    PHP71_DIR=/opt/php71 \
     LOG_DIR=/var/log/app_engine \
     APP_DIR=/app \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
@@ -55,6 +56,7 @@ ENV NGINX_DIR=/opt/nginx \
     NGINX_VERSION=1.10.1 \
     PHP56_VERSION=5.6.24 \
     PHP70_VERSION=7.0.9 \
+    PHP71_VERSION=7.1.0beta1 \
     PATH=/opt/php/bin:$PATH
 
 # gpgkeys for verifying the tarballs
@@ -67,6 +69,7 @@ RUN /bin/bash /build-scripts/apt_build_deps.sh install && \
     /bin/bash /build-scripts/build_nginx.sh && \
     /bin/bash /build-scripts/build_php56.sh && \
     /bin/bash /build-scripts/build_php70.sh && \
+    /bin/bash /build-scripts/build_php71.sh && \
     /bin/bash /build-scripts/apt_build_deps.sh uninstall
 
 EXPOSE 8080
@@ -85,7 +88,8 @@ COPY php.ini $PHP56_DIR/lib/php.ini
 COPY php.ini $PHP7_DIR/lib/php.ini
 COPY php-fpm.conf $PHP56_DIR/etc/php-fpm.conf
 COPY php-fpm.conf $PHP7_DIR/etc/php-fpm.conf
-RUN touch $PHP56_DIR/etc/php-fpm-user.conf $PHP7_DIR/etc/php-fpm-user.conf
+COPY php-fpm.conf $PHP71_DIR/etc/php-fpm.conf
+RUN touch $PHP56_DIR/etc/php-fpm-user.conf $PHP7_DIR/etc/php-fpm-user.conf $PHP71_DIR/etc/php-fpm-user.conf
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY logrotate.app_engine /etc/logrotate.d/app_engine
 

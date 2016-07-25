@@ -28,7 +28,7 @@ if [ -f ${APP_DIR}/composer.json ]; then
     # Remove the vendor directory for the temporary script above.
     rm -rf /tmp/vendor
 
-    if [ "${PHP_VERSION}" != "7.0" ] && [ "${PHP_VERSION}" != "5.6" ]; then
+    if [ "${PHP_VERSION}" != "7.1" ] && "${PHP_VERSION}" != "7.0" ] && [ "${PHP_VERSION}" != "5.6" ]; then
         cat<<EOF
 There is no PHP runtime version specified in composer.json, or we don't support the version you specified. Google App Engine uses the latest stable version of PHP by default. We recommend pinning your PHP version by running:
 
@@ -37,6 +37,11 @@ composer require php ~5.6
 Using PHP version 5.6.x...
 EOF
         PHP_VERSION=${DEFAULT_PHP_VERSION}
+    fi
+
+    if [ "${PHP_VERSION}" == "7.1" ]; then
+        rm ${PHP_DIR}
+        ln -sf ${PHP71_DIR} ${PHP_DIR}
     fi
 
     if [ "${PHP_VERSION}" == "7.0" ]; then
