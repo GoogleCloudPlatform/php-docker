@@ -37,6 +37,11 @@ if [ -z "${CLOUDSDK_ACTIVE_CONFIG_NAME}" ]; then
     exit 1
 fi
 
+if [ -z "${GOOGLE_PROJECT_ID}" ]; then
+    echo "You need to set GOOGLE_PROJECT_ID envvar."
+    exit 1
+fi
+
 # Install composer and defined dependencies
 which composer || curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 composer install --ignore-platform-reqs

@@ -15,7 +15,15 @@
 
 set -ex
 
-docker build -t php-nginx php-nginx
+TAG="rc"
+#docker build -t php-nginx php-nginx
+
+gcloud alpha container builds create php-nginx \
+    --tag "gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
+gcloud docker pull "gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
+docker tag \
+    "gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}" php-nginx
+
 docker build -t php56 testapps/php56
 docker build -t php56_custom testapps/php56_custom
 docker build -t php70 testapps/php70
