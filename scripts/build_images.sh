@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Copyright 2015 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,27 +20,39 @@ TAG="rc"
 # Dump the credentials from the environment variable.
 php scripts/dump_credentials.php
 
-if [ ! -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
-    # No credentials. Use local docker.
-    docker build -t php-nginx php-nginx
-else
+if [ -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
     # Use the service account for gcloud operations.
     gcloud auth activate-service-account \
         --key-file "${PHP_DOCKER_GOOGLE_CREDENTIALS}"
     # Set the timeout
     gcloud config set container/build_timeout 3600
-    # Build the image with container builder service.
-    gcloud alpha container builds create php-nginx \
-        --tag "gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
-    gcloud docker pull "gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
-    docker tag \
-        "gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}" php-nginx
 fi
 
-docker build -t php56 testapps/php56
-docker build -t php56_custom testapps/php56_custom
-docker build -t php70 testapps/php70
-docker build -t php56_70 testapps/php56_70
-docker build -t php70_custom testapps/php70_custom
-docker build -t php56_nginx_conf testapps/php56_nginx_conf
-docker build -t php56_custom_configs testapps/php56_custom_configs
+build_image () {
+    if [ "$#" -ne 2 ]; then
+        echo "Two arguments; the dir and the image name are required"
+        exit 1
+    fi
+    IMAGE="${1}"
+    DIR="${2}"
+    if [ -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
+        # Build the image with container builder service if we have
+        # credentials.
+        FULL_TAG="gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE}:${TAG}"
+        gcloud -q alpha container builds create "${DIR}" --tag "${FULL_TAG}"
+        gcloud docker pull "${FULL_TAG}"
+        docker tag "${FULL_TAG}" "${IMAGE}"
+    else
+        # No credentials. Use local docker.
+        docker build -t "${IMAGE}" "${DIR}"
+    fi
+}
+
+build_image php-nginx php-nginx
+build_iamge php56 testapps/php56
+build_iamge php56_custom  testapps/php56_custom
+build_iamge php70 testapps/php70
+build_iamge php56_70 testapps/php56_70
+build_iamge php70_custom testapps/php70_custom
+build_iamge php56_nginx_conf testapps/php56_nginx_conf
+build_iamge php56_custom_configs testapps/php56_custom_configs
