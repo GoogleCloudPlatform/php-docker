@@ -16,13 +16,24 @@
 set -ex
 
 TAG="rc"
-#docker build -t php-nginx php-nginx
 
-gcloud alpha container builds create php-nginx \
-    --tag "gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
-gcloud docker pull "gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
-docker tag \
-    "gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}" php-nginx
+# Dump the credentials from the environment variable.
+php scripts/dump_credentials.php
+
+if [ ! -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
+    # No credentials. Use local docker.
+    docker build -t php-nginx php-nginx
+else
+    # Use the service account for gcloud operations.
+    gcloud auth activate-service-account \
+        --key-file "${PHP_DOCKER_GOOGLE_CREDENTIALS}"
+    # Build the image with container builder service.
+    gcloud alpha container builds create php-nginx \
+        --tag "gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
+    gcloud docker pull "gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
+    docker tag \
+        "gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}" php-nginx
+fi
 
 docker build -t php56 testapps/php56
 docker build -t php56_custom testapps/php56_custom
