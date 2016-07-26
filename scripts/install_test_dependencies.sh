@@ -57,7 +57,7 @@ if [ "${CIRCLECI}" == "true" ]; then
     # They also overrides the PATH to use
     # /opt/google-cloud-sdk/bin/gcloud so we can not easily use our
     # own gcloud
-    sudo /opt/google-cloud-sdk/bin/gcloud -q components update gsutil
+    sudo /opt/google-cloud-sdk/bin/gcloud -q components update alpha app gsutil
 else
-    gcloud -q components update app
+    gcloud -q components update alpha app gsutil
 fi
