@@ -27,6 +27,8 @@ else
     # Use the service account for gcloud operations.
     gcloud auth activate-service-account \
         --key-file "${PHP_DOCKER_GOOGLE_CREDENTIALS}"
+    # Set the timeout
+    gcloud config set container/build_timeout 3600
     # Build the image with container builder service.
     gcloud alpha container builds create php-nginx \
         --tag "gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
