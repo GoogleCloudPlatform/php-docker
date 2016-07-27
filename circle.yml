@@ -19,4 +19,4 @@ dependencies:
 test:
   override:
     - scripts/run_test_suite.sh:
-        timeout: 3600
+        timeout: 5400
