@@ -1,0 +1,40 @@
+--- php-src-orig/ext/standard/string.c	2016-07-27 10:22:01.897742808 +0200
++++ php-src/ext/standard/string.c	2016-07-27 10:11:43.031499367 +0200
+@@ -4593,7 +4593,7 @@
+ }
+ /* }}} */
+ 
+-/* {{{ proto void parse_str(string encoded_string [, array result])
++/* {{{ proto void parse_str(string encoded_string , array result])
+    Parses GET/POST/COOKIE data and sets global variables */
+ PHP_FUNCTION(parse_str)
+ {
+@@ -4602,26 +4602,14 @@
+ 	char *res = NULL;
+ 	size_t arglen;
+ 
+-	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s|z/", &arg, &arglen, &arrayArg) == FAILURE) {
++	if (zend_parse_parameters(ZEND_NUM_ARGS(), "sz/", &arg, &arglen, &arrayArg) == FAILURE) {
+ 		return;
+ 	}
+ 
+ 	res = estrndup(arg, arglen);
+ 
+ 	if (arrayArg == NULL) {
+-		zval tmp;
+-		zend_array *symbol_table;
+-		if (zend_forbid_dynamic_call("parse_str() with a single argument") == FAILURE) {
+-			efree(res);
+-			return;
+-		}
+-
+-		symbol_table = zend_rebuild_symbol_table();
+-		ZVAL_ARR(&tmp, symbol_table);
+-		sapi_module.treat_data(PARSE_STRING, res, &tmp);
+-		if (UNEXPECTED(zend_hash_del(symbol_table, CG(known_strings)[ZEND_STR_THIS]) == SUCCESS)) {
+-			zend_throw_error(NULL, "Cannot re-assign $this");
+-		}
++		return;
+ 	} else 	{
+ 		zval ret;
+ 
