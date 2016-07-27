@@ -15,7 +15,7 @@
 # limitations under the License.
 
 
-# A shell script for installing PHP 7.0.
+# A shell script for installing PHP 7.1.
 set -xe
 
 PHP_SRC=/usr/src/php71
@@ -63,8 +63,7 @@ tar -zxf apcu-bc.tar.gz -C ${PHP_SRC}/ext/apcu-bc --strip-components=1
 rm apcu-bc.tar.gz
 
 pushd ${PHP_SRC}
-# Consider adding an equivalent patch in later stages
-# patch -p1 < /build-scripts/php7-parse_str_harden.patch
+patch -p1 < /build-scripts/php71-parse_str_harden.patch
 rm -f configure
 ./buildconf --force
 ./configure \
