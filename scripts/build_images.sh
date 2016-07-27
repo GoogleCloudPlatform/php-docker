@@ -15,7 +15,7 @@
 
 set -ex
 
-TAG="rc"
+TAG="test-build"
 
 # Dump the credentials from the environment variable.
 php scripts/dump_credentials.php
@@ -30,7 +30,7 @@ fi
 
 build_image () {
     if [ "$#" -ne 2 ]; then
-        echo "Two arguments; the dir and the image name are required"
+        echo "Two arguments; the image name and the dir are required"
         exit 1
     fi
     IMAGE="${1}"
@@ -49,10 +49,10 @@ build_image () {
 }
 
 build_image php-nginx php-nginx
-build_iamge php56 testapps/php56
-build_iamge php56_custom  testapps/php56_custom
-build_iamge php70 testapps/php70
-build_iamge php56_70 testapps/php56_70
-build_iamge php70_custom testapps/php70_custom
-build_iamge php56_nginx_conf testapps/php56_nginx_conf
-build_iamge php56_custom_configs testapps/php56_custom_configs
+build_image php56 testapps/php56
+build_image php56_custom  testapps/php56_custom
+build_image php70 testapps/php70
+build_image php56_70 testapps/php56_70
+build_image php70_custom testapps/php70_custom
+build_image php56_nginx_conf testapps/php56_nginx_conf
+build_image php56_custom_configs testapps/php56_custom_configs
