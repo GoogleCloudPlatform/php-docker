@@ -15,7 +15,7 @@
 
 set -ex
 
-TAG="test-build"
+TAG="${E2E_TEST_VERSION}"
 
 # Dump the credentials from the environment variable.
 php scripts/dump_credentials.php
@@ -26,6 +26,8 @@ if [ -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
         --key-file "${PHP_DOCKER_GOOGLE_CREDENTIALS}"
     # Set the timeout
     gcloud config set container/build_timeout 3600
+    SRC_TMP=$(mktemp -d)
+    BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
 fi
 
 build_image () {
@@ -39,7 +41,12 @@ build_image () {
         # Build the image with container builder service if we have
         # credentials.
         FULL_TAG="gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE}:${TAG}"
-        gcloud -q alpha container builds create "${DIR}" --tag "${FULL_TAG}"
+        SRC_DIR="${SRC_TMP}/${DIR}"
+        mkdir -p $(dirname ${SRC_DIR})
+        cp -R "${DIR}" "${SRC_DIR}"
+        # Replace the FROM line to point to our image in gcr.io.
+        sed -i -e "s|FROM php-nginx|FROM ${BASE_IMAGE}|" "${SRC_DIR}/Dockerfile"
+        gcloud -q alpha container builds create "${SRC_DIR}" --tag "${FULL_TAG}"
         gcloud docker pull "${FULL_TAG}"
         docker tag "${FULL_TAG}" "${IMAGE}"
     else

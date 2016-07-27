@@ -10,7 +10,7 @@ machine:
     TEST_BUILD_DIR: ${HOME}
     PHP_DOCKER_GOOGLE_CREDENTIALS: ${HOME}/credentials.json
     GOOGLE_PROJECT_ID: php-mvm-a
-    E2E_TEST_VERSION: circleci
+    E2E_TEST_VERSION: circle-${CIRCLE_BUILD_NUM}
 
 dependencies:
   override:
