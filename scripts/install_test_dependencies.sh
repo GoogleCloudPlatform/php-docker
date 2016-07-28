@@ -37,6 +37,11 @@ if [ -z "${CLOUDSDK_ACTIVE_CONFIG_NAME}" ]; then
     exit 1
 fi
 
+if [ -z "${GOOGLE_PROJECT_ID}" ]; then
+    echo "You need to set GOOGLE_PROJECT_ID envvar."
+    exit 1
+fi
+
 # Install composer and defined dependencies
 which composer || curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 composer install --ignore-platform-reqs
@@ -52,7 +57,7 @@ if [ "${CIRCLECI}" == "true" ]; then
     # They also overrides the PATH to use
     # /opt/google-cloud-sdk/bin/gcloud so we can not easily use our
     # own gcloud
-    sudo /opt/google-cloud-sdk/bin/gcloud -q components update gsutil
+    sudo /opt/google-cloud-sdk/bin/gcloud -q components update alpha app
 else
-    gcloud -q components update app
+    gcloud -q components update alpha app
 fi

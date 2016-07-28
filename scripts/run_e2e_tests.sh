@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Copyright 2015 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,17 +28,11 @@ if [ -z "${E2E_TEST_VERSION}" ]; then
     exit 1
 fi
 
-# Dump the credentials from the environment variable.
-php scripts/dump_credentials.php
-
 if [ ! -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
     echo "The credentials file not found, skipping the e2e test."
     exit 0
 fi
 
-# Use the service account for gcloud operations.
-gcloud auth activate-service-account \
-    --key-file "${PHP_DOCKER_GOOGLE_CREDENTIALS}"
 # Upload the local image to gcr.io with a tag `testing`.
 docker tag -f \
     php-nginx gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${E2E_TEST_VERSION}
