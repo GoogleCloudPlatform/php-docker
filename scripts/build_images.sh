@@ -48,7 +48,7 @@ build_image () {
         sed -i -e "s|FROM php-nginx|FROM ${BASE_IMAGE}|" "${SRC_DIR}/Dockerfile"
         gcloud -q alpha container builds create "${SRC_DIR}" --tag "${FULL_TAG}"
         gcloud docker pull "${FULL_TAG}"
-        docker tag "${FULL_TAG}" "${IMAGE}"
+        docker tag -f "${FULL_TAG}" "${IMAGE}"
     else
         # No credentials. Use local docker.
         docker build -t "${IMAGE}" "${DIR}"
