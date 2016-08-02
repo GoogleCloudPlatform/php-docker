@@ -114,4 +114,17 @@ sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" "${PHP_DIR}/lib/php.ini"
 # look up the environment variable.
 ${PHP_DIR}/bin/php /whitelist_functions.php
 
+# run the composer scripts for post-deploy
+COMPOSER_CMD="${PHP_DIR}/bin/php \
+    -d suhosin.executor.include.whitelist=phar \
+    -d suhosin.executor.func.blacklist=none \
+    -d disable_functions= \
+    -d memory_limit=-1 \
+    -d max_input_time=-1 \
+    /usr/local/bin/composer \
+    --no-ansi"
+if $COMPOSER_CMD run-script -l | grep -q "post-deploy-cmd"; then
+    $COMPOSER_CMD run-script --no-interaction post-deploy-cmd
+fi
+
 exec "$@"
