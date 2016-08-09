@@ -92,16 +92,15 @@ COPY logrotate.app_engine /etc/logrotate.d/app_engine
 
 COPY entrypoint.sh composer.sh whitelist_functions.php /
 
-RUN chgrp www-data composer.sh && chmod +x /entrypoint.sh /composer.sh
-
-# Temporary enable the shell for www-data
-# We will disable it in entrypoint.sh
-RUN chsh -s /bin/bash www-data
+RUN chgrp www-data composer.sh && chmod +x /entrypoint.sh /composer.sh \
+    # Temporary enable the shell for www-data
+    # We will disable it in entrypoint.sh
+    && chsh -s /bin/bash www-data
 
 # A script for extracting PHP version from composer.json.
 COPY detect_php_version.php /tmp/detect_php_version.php
-RUN chgrp www-data /tmp/detect_php_version.php
-RUN cd /tmp && su www-data -c "${PHP_DIR}/bin/php \
+RUN chgrp www-data /tmp/detect_php_version.php && cd /tmp \
+    && su www-data -c "${PHP_DIR}/bin/php \
         -d suhosin.executor.include.whitelist=phar \
         -d suhosin.executor.func.blacklist=none \
         -d memory_limit=-1 \
