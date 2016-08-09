@@ -76,6 +76,7 @@ EOF
         -d max_input_time=-1 \
         /usr/local/bin/composer \
         install \
+        --ignore-platform-reqs \
         --no-scripts \
         --no-dev \
         --prefer-dist \

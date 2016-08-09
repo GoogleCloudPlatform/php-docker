@@ -71,4 +71,12 @@ class ServingTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('\GuzzleHttp\Exception\ServerException');
         $resp = $this->client->get('pdo_sqlite.php');
     }
+
+    public function testMongodb()
+    {
+        // Access to mongodb.php, while the extention is not available.
+        // ServerException is thrown when the server returns 500 status code.
+        $this->setExpectedException('\GuzzleHttp\Exception\ServerException');
+        $resp = $this->client->get('mongodb.php');
+    }
 }

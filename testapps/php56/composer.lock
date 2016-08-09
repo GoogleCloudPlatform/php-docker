@@ -4,9 +4,65 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2defce64e28eb6d08b11ef3e861eb4ba",
-    "content-hash": "e61714099417d5acde53f13640c88ee6",
-    "packages": [],
+    "hash": "618b7a27aca6f9a06be1e1f13d3f319b",
+    "content-hash": "8171a11ff9d02774e4b237ee1c373b31",
+    "packages": [
+        {
+            "name": "mongodb/mongodb",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mongodb/mongo-php-library.git",
+                "reference": "faf8a1d86b5c10684ef91fa6c81475b0c7f95240"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/faf8a1d86b5c10684ef91fa6c81475b0c7f95240",
+                "reference": "faf8a1d86b5c10684ef91fa6c81475b0c7f95240",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mongodb": "^1.1.0",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MongoDB\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Mikola",
+                    "email": "jmikola@gmail.com"
+                },
+                {
+                    "name": "Hannes Magnusson",
+                    "email": "bjori@mongodb.com"
+                },
+                {
+                    "name": "Derick Rethans",
+                    "email": "github@derickrethans.nl"
+                }
+            ],
+            "description": "MongoDB driver library",
+            "homepage": "https://jira.mongodb.org/browse/PHPLIB",
+            "keywords": [
+                "database",
+                "driver",
+                "mongodb",
+                "persistence"
+            ],
+            "time": "2016-03-30 19:10:28"
+        }
+    ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
