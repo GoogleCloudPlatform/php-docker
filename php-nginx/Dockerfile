@@ -55,7 +55,8 @@ ENV NGINX_DIR=/opt/nginx \
     NGINX_VERSION=1.10.1 \
     PHP56_VERSION=5.6.24 \
     PHP70_VERSION=7.0.9 \
-    PATH=/opt/php/bin:$PATH
+    PATH=/opt/php/bin:$PATH \
+    WWW_HOME=/var/www
 
 # gpgkeys for verifying the tarballs
 COPY gpgkeys /gpgkeys
@@ -73,10 +74,10 @@ EXPOSE 8080
 
 # Lock down the web directories
 RUN mkdir -p $APP_DIR $LOG_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
-        $NGINX_USER_CONF_DIR \
+        $NGINX_USER_CONF_DIR $WWW_HOME\
     && chown -R www-data.www-data \
         $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH $LOG_DIR \
-        $NGINX_USER_CONF_DIR \
+        $NGINX_USER_CONF_DIR $WWW_HOME \
     && chmod 755 $UPLOAD_DIR $SESSION_SAVE_PATH
 
 # Put config files into place.
@@ -91,28 +92,29 @@ COPY logrotate.app_engine /etc/logrotate.d/app_engine
 
 COPY entrypoint.sh composer.sh whitelist_functions.php /
 
-RUN chmod +x /entrypoint.sh /composer.sh
+RUN chgrp www-data composer.sh && chmod +x /entrypoint.sh /composer.sh \
+    # Temporary enable the shell for www-data
+    # We will disable it in entrypoint.sh
+    && chsh -s /bin/bash www-data
 
 # A script for extracting PHP version from composer.json.
 COPY detect_php_version.php /tmp/detect_php_version.php
-RUN cd /tmp && ${PHP_DIR}/bin/php \
+RUN chgrp www-data /tmp/detect_php_version.php && cd /tmp \
+    && su www-data -c "${PHP_DIR}/bin/php \
         -d suhosin.executor.include.whitelist=phar \
         -d suhosin.executor.func.blacklist=none \
         -d memory_limit=-1 \
         -d max_input_time=-1 \
         /usr/local/bin/composer \
-        require composer/semver
+        require composer/semver"
 
+# Copy the app and change the owner
 ONBUILD COPY . $APP_DIR
-ONBUILD RUN chmod -R 550 $APP_DIR
-ONBUILD RUN chown -R root.www-data $APP_DIR
+ONBUILD RUN chown -R www-data.www-data $APP_DIR
 
 WORKDIR $APP_DIR
 
 ONBUILD RUN /composer.sh
-# Now suhosin.log might be owned by root.
-ONBUILD RUN touch $LOG_DIR/suhosin.log
-ONBUILD RUN chown www-data.www-data $LOG_DIR/suhosin.log
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord"]
