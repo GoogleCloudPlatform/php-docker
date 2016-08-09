@@ -23,10 +23,10 @@ DEFAULT_PHP_VERSION="5.6"
 if [ -f ${APP_DIR}/composer.json ]; then
     # Extract php version from the composer.json.
     CMD="${PHP_DIR}/bin/php /tmp/detect_php_version.php ${APP_DIR}/composer.json"
-    PHP_VERSION=`${CMD}`
+    PHP_VERSION=`su www-data -c "${CMD}"`
 
     # Remove the vendor directory for the temporary script above.
-    rm -rf /tmp/vendor
+    rm -rf /tmp/vendor /tmp/detect_php_version.php /tmp/composer.*
 
     if [ "${PHP_VERSION}" != "7.0" ] && [ "${PHP_VERSION}" != "5.6" ]; then
         cat<<EOF
@@ -53,11 +53,12 @@ EOF
     COMPOSER_GITHUB_OAUTH_TOKEN=${COMPOSER_GITHUB_OAUTH_TOKEN:-}
     if [[ -n "$COMPOSER_GITHUB_OAUTH_TOKEN" ]]; then
         if curl --fail --silent -H "Authorization: token $COMPOSER_GITHUB_OAUTH_TOKEN" https://api.github.com/rate_limit > /dev/null; then
-            ${PHP_DIR}/bin/php \
+            su www-data -c "${PHP_DIR}/bin/php \
               -d suhosin.executor.include.whitelist=phar \
               -d suhosin.executor.func.blacklist=none \
               -d disable_functions= \
-              /usr/local/bin/composer config -g github-oauth.github.com "$COMPOSER_GITHUB_OAUTH_TOKEN" &> /dev/null # redirect outdated version warnings (Composer sends those to STDOUT instead of STDERR)
+              /usr/local/bin/composer config -g github-oauth.github.com ${COMPOSER_GITHUB_OAUTH_TOKEN} &> /dev/null"
+            # redirect outdated version warnings (Composer sends those to STDOUT instead of STDERR)
             echo 'Using $COMPOSER_GITHUB_OAUTH_TOKEN for GitHub OAuth.'
         else
             echo 'Invalid $COMPOSER_GITHUB_OAUTH_TOKEN for GitHub OAuth!'
@@ -66,9 +67,13 @@ EOF
     # no need for the token to stay around in the env
     unset COMPOSER_GITHUB_OAUTH_TOKEN
 
+    # Workaround for https://github.com/docker/docker/issues/6047
+    # We want to remove when Container Builder starts to use newer Docker.
+    rm -rf ${APP_DIR}/vendor
+
     # Run Composer.
     cd ${APP_DIR} && \
-        ${PHP_DIR}/bin/php \
+        su www-data -c "${PHP_DIR}/bin/php \
         -d suhosin.executor.include.whitelist=phar \
         -d suhosin.executor.func.blacklist=none \
         -d disable_functions= \
@@ -82,5 +87,5 @@ EOF
         --optimize-autoloader \
         --no-interaction \
         --no-ansi \
-        --no-progress
+        --no-progress"
 fi

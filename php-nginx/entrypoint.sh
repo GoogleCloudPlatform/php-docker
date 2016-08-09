@@ -114,8 +114,9 @@ sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" "${PHP_DIR}/lib/php.ini"
 # look up the environment variable.
 ${PHP_DIR}/bin/php /whitelist_functions.php
 
-# run the composer scripts for post-deploy
-COMPOSER_CMD="${PHP_DIR}/bin/php \
+if [ -f "${APP_DIR}/composer.json" ]; then
+    # run the composer scripts for post-deploy
+    COMPOSER_CMD="${PHP_DIR}/bin/php \
     -d suhosin.executor.include.whitelist=phar \
     -d suhosin.executor.func.blacklist=none \
     -d disable_functions= \
@@ -123,8 +124,18 @@ COMPOSER_CMD="${PHP_DIR}/bin/php \
     -d max_input_time=-1 \
     /usr/local/bin/composer \
     --no-ansi"
-if $COMPOSER_CMD run-script -l | grep -q "post-deploy-cmd"; then
-    $COMPOSER_CMD run-script --no-interaction post-deploy-cmd
+    if su www-data -c "${COMPOSER_CMD} run-script -l" \
+        | grep -q "post-deploy-cmd"; then
+        su www-data -c \
+            "$COMPOSER_CMD run-script --no-interaction post-deploy-cmd"
+    fi
 fi
+
+# Lock down the DOCUMENT_ROOT
+chown -R root.www-data ${DOCUMENT_ROOT}
+chmod -R 550 ${DOCUMENT_ROOT}
+
+# Change the www-data's shell back to /usr/sbin/nologin
+chsh -s /usr/sbin/nologin www-data
 
 exec "$@"
