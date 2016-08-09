@@ -25,7 +25,8 @@ if [ -f ${APP_DIR}/composer.json ]; then
     CMD="${PHP_DIR}/bin/php /tmp/detect_php_version.php ${APP_DIR}/composer.json"
     PHP_VERSION=`su www-data -c "${CMD}"`
 
-    # Remove the vendor directory for the temporary script above.
+    # Remove files and directories for detecting PHP version.
+    # These files are created in Dockerfile.
     rm -rf /tmp/vendor /tmp/detect_php_version.php /tmp/composer.*
 
     if [ "${PHP_VERSION}" != "7.0" ] && [ "${PHP_VERSION}" != "5.6" ]; then
