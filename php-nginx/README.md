@@ -112,12 +112,9 @@ runtime_config:
 
 ## How to change nginx.config
 
-We put `nginx-app.conf` file which is included in the `server` section
-of the main configuration file. Here is the default configuration file
-which will likely just work with most of the modern web frameworks in
-simple cases.
-
-The default nginx-app.conf:
+An `nginx-app.conf` configuration file is included in the server
+section of the main nginx configuration file. The default
+configuration file looks like this:
 
 ```ini
 location / {
@@ -126,10 +123,22 @@ location / {
 }
 ```
 
-You might need to add some rewrite rules, or you might want to change
-the behavior. In those cases, put a file named `nginx-app.conf` in the
-project root directory. Then the runtime will override the default
-file with the file you provided.
+To define a custom configuration file, put a file named
+`nginx-app.conf` in the project root directory. The runtime will
+override the default file with the file you provided.
+
+By default, index.php is used as the framework front controller. You
+may need to change this to something different for your project. The
+Symfony framework, for instance, uses app.php instead of index.php.
+
+Here is an example `nginx-app.conf` for the Symfony framework:
+
+```ini
+location / {
+  # try to serve files directly, fallback to the front controller
+  try_files $uri /app.php$is_args$args;
+}
+```
 
 I hope this mechanism can cover most of your use cases, but let us
 know if you found otherwise.
