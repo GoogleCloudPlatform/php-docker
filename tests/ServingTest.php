@@ -53,6 +53,16 @@ class ServingTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('Hello World', $resp->getBody()->getContents());
     }
 
+    public function testNonExistentPath()
+    {
+        // Non-existent paths should be served by the `index.php` too, thanks
+        // to the default nginx-app.conf.
+        $resp = $this->client->get('non-existent-path');
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'non-existent-path status code');
+        $this->assertContains('Hello World', $resp->getBody()->getContents());
+    }
+
     public function testPhpInfo()
     {
         // Access to phpinfo.php, while phpinfo() is disabled by default.

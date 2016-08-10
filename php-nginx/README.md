@@ -112,28 +112,26 @@ runtime_config:
 
 ## How to change nginx.config
 
-Put `nginx-app.conf` file which includes piece of nginx configuration
-for the `server` section in the project top directory. Then it will be
-moved to an appropriate directory and included from the main nginx
-configuration file.
+We put `nginx-app.conf` file which is included in the `server` section
+of the main configuration file. Here is the default configuration file
+which will likely just work with most of the modern web frameworks in
+simple cases.
 
-Assumption is that you don't often need to entirely modify the
-[default nginx file](nginx.conf).
-There is an `include` directive in the `server` section and your
-configuration file will be included there.
-
-Here is an example configuration for silex.
-
-nginx-app.conf:
+The default nginx-app.conf:
 
 ```ini
 location / {
-  # try to serve file directly, fallback to front controller
+  # try to serve files directly, fallback to the front controller
   try_files $uri /index.php$is_args$args;
 }
 ```
 
-I hope this mechanism can cover most of the web frameworks, but let us
+You might need to add some rewrite rules, or you might want to change
+the behavior. In those cases, put a file named `nginx-app.conf` in the
+project root directory. Then the runtime will override the default
+file with the file you provided.
+
+I hope this mechanism can cover most of your use cases, but let us
 know if you found otherwise.
 
 ## Change the PHP version
