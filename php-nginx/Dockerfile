@@ -83,8 +83,8 @@ RUN mkdir -p $APP_DIR $LOG_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
 # Put config files into place.
 COPY nginx.conf fastcgi_params gzip_params $NGINX_DIR/conf/
 COPY nginx-app.conf $NGINX_USER_CONF_DIR
-COPY php.ini php-cli.ini $PHP56_DIR/lib/
-COPY php.ini php-cli.ini $PHP7_DIR/lib/
+COPY php.ini php-cli.ini php-cli-strict.ini $PHP56_DIR/lib/
+COPY php.ini php-cli.ini php-cli-strict.ini $PHP7_DIR/lib/
 COPY php-fpm.conf $PHP56_DIR/etc/php-fpm.conf
 COPY php-fpm.conf $PHP7_DIR/etc/php-fpm.conf
 RUN touch $PHP56_DIR/etc/php-fpm-user.conf $PHP7_DIR/etc/php-fpm-user.conf

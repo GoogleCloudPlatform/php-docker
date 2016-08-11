@@ -134,7 +134,9 @@ chmod -R 550 ${DOCUMENT_ROOT}
 # Change the www-data's shell back to /usr/sbin/nologin
 chsh -s /usr/sbin/nologin www-data
 
-# Remove the loose php-cli.ini
-rm ${PHP_DIR}/lib/php-cli.ini
+# Put a stricter php-cli.ini
+if [ -f "${PHP_DIR}/lib/php-cli-strict.ini" ]; then
+    mv ${PHP_DIR}/lib/php-cli-strict.ini ${PHP_DIR}/lib/php-cli.ini
+fi
 
 exec "$@"
