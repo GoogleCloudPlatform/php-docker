@@ -55,9 +55,6 @@ EOF
     if [[ -n "$COMPOSER_GITHUB_OAUTH_TOKEN" ]]; then
         if curl --fail --silent -H "Authorization: token $COMPOSER_GITHUB_OAUTH_TOKEN" https://api.github.com/rate_limit > /dev/null; then
             su www-data -c "${PHP_DIR}/bin/php \
-              -d suhosin.executor.include.whitelist=phar \
-              -d suhosin.executor.func.blacklist=none \
-              -d disable_functions= \
               /usr/local/bin/composer config -g github-oauth.github.com ${COMPOSER_GITHUB_OAUTH_TOKEN} &> /dev/null"
             # redirect outdated version warnings (Composer sends those to STDOUT instead of STDERR)
             echo 'Using $COMPOSER_GITHUB_OAUTH_TOKEN for GitHub OAuth.'
@@ -75,11 +72,6 @@ EOF
     # Run Composer.
     cd ${APP_DIR} && \
         su www-data -c "${PHP_DIR}/bin/php \
-        -d suhosin.executor.include.whitelist=phar \
-        -d suhosin.executor.func.blacklist=none \
-        -d disable_functions= \
-        -d memory_limit=-1 \
-        -d max_input_time=-1 \
         /usr/local/bin/composer \
         install \
         --no-scripts \
