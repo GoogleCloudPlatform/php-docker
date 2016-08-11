@@ -38,7 +38,7 @@ class PostDeployCmdTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(0, $return_var);
         $this->assertEquals(1, count($output));
-        $this->assertEquals('system succeeded', $output[0]);
+        $this->assertEquals('shell_exec succeeded', $output[0]);
     }
 
     public function testCommandOutput()
