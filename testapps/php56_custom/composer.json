@@ -9,7 +9,7 @@
             "echo 'Testing Post Deploy Command' >> script_output.txt",
             "chmod 777 script_output.txt",
             "PhpDocker\\TestApps\\Php56Custom\\TestScript::run",
-            "/opt/php/bin/php cli-ini-test.php"
+            "php cli-ini-test.php"
         ]
     },
     "autoload": {
