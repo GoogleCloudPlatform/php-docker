@@ -22,7 +22,7 @@ DEFAULT_PHP_VERSION="5.6"
 
 if [ -f ${APP_DIR}/composer.json ]; then
     # Extract php version from the composer.json.
-    CMD="${PHP_DIR}/bin/php /tmp/detect_php_version.php ${APP_DIR}/composer.json"
+    CMD="php /tmp/detect_php_version.php ${APP_DIR}/composer.json"
     PHP_VERSION=`su www-data -c "${CMD}"`
 
     # Remove files and directories for detecting PHP version.
@@ -54,8 +54,8 @@ EOF
     COMPOSER_GITHUB_OAUTH_TOKEN=${COMPOSER_GITHUB_OAUTH_TOKEN:-}
     if [[ -n "$COMPOSER_GITHUB_OAUTH_TOKEN" ]]; then
         if curl --fail --silent -H "Authorization: token $COMPOSER_GITHUB_OAUTH_TOKEN" https://api.github.com/rate_limit > /dev/null; then
-            su www-data -c "${PHP_DIR}/bin/php \
-              /usr/local/bin/composer config -g github-oauth.github.com ${COMPOSER_GITHUB_OAUTH_TOKEN} &> /dev/null"
+            su www-data -c "php /usr/local/bin/composer \
+              config -g github-oauth.github.com ${COMPOSER_GITHUB_OAUTH_TOKEN} &> /dev/null"
             # redirect outdated version warnings (Composer sends those to STDOUT instead of STDERR)
             echo 'Using $COMPOSER_GITHUB_OAUTH_TOKEN for GitHub OAuth.'
         else
@@ -71,14 +71,13 @@ EOF
 
     # Run Composer.
     cd ${APP_DIR} && \
-        su www-data -c "${PHP_DIR}/bin/php \
-        /usr/local/bin/composer \
-        install \
-        --no-scripts \
-        --no-dev \
-        --prefer-dist \
-        --optimize-autoloader \
-        --no-interaction \
-        --no-ansi \
-        --no-progress"
+        su www-data -c "php /usr/local/bin/composer \
+          install \
+          --no-scripts \
+          --no-dev \
+          --prefer-dist \
+          --optimize-autoloader \
+          --no-interaction \
+          --no-ansi \
+          --no-progress"
 fi

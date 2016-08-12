@@ -78,7 +78,9 @@ RUN mkdir -p $APP_DIR $LOG_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
     && chown -R www-data.www-data \
         $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH $LOG_DIR \
         $NGINX_USER_CONF_DIR $WWW_HOME \
-    && chmod 755 $UPLOAD_DIR $SESSION_SAVE_PATH
+    && chmod 755 $UPLOAD_DIR $SESSION_SAVE_PATH \
+    # For easy access to php with `su www-data -c $CMD`
+    && ln -sf ${PHP_DIR}/bin/php /usr/bin/php
 
 # Put config files into place.
 COPY nginx.conf fastcgi_params gzip_params $NGINX_DIR/conf/
@@ -101,9 +103,7 @@ RUN chgrp www-data composer.sh && chmod +x /entrypoint.sh /composer.sh \
 # A script for extracting PHP version from composer.json.
 COPY detect_php_version.php /tmp/detect_php_version.php
 RUN chgrp www-data /tmp/detect_php_version.php && cd /tmp \
-    && su www-data -c "${PHP_DIR}/bin/php \
-        /usr/local/bin/composer \
-        require composer/semver"
+    && su www-data -c "php /usr/local/bin/composer require composer/semver"
 
 # Copy the app and change the owner
 ONBUILD COPY . $APP_DIR
