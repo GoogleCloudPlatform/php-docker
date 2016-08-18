@@ -116,11 +116,12 @@ ${PHP_DIR}/bin/php /whitelist_functions.php
 
 if [ -f "${APP_DIR}/composer.json" ]; then
     # run the composer scripts for post-deploy
-    COMPOSER_CMD="php /usr/local/bin/composer --no-ansi"
-    if su www-data -c "${COMPOSER_CMD} run-script -l" \
+    if su www-data -c "php /usr/local/bin/composer --no-ansi run-script -l" \
         | grep -q "post-deploy-cmd"; then
         su www-data -c \
-            "$COMPOSER_CMD run-script --no-interaction post-deploy-cmd" \
+            "php /usr/local/bin/composer run-script post-deploy-cmd \
+            --no-ansi \
+            --no-interaction" \
             || (echo 'Failed to execute post-deploy-cmd'; exit 1)
     fi
 fi
