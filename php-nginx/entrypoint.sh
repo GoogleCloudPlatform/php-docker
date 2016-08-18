@@ -116,18 +116,12 @@ ${PHP_DIR}/bin/php /whitelist_functions.php
 
 if [ -f "${APP_DIR}/composer.json" ]; then
     # run the composer scripts for post-deploy
-    COMPOSER_CMD="${PHP_DIR}/bin/php \
-    -d suhosin.executor.include.whitelist=phar \
-    -d suhosin.executor.func.blacklist=none \
-    -d disable_functions= \
-    -d memory_limit=-1 \
-    -d max_input_time=-1 \
-    /usr/local/bin/composer \
-    --no-ansi"
+    COMPOSER_CMD="php /usr/local/bin/composer --no-ansi"
     if su www-data -c "${COMPOSER_CMD} run-script -l" \
         | grep -q "post-deploy-cmd"; then
         su www-data -c \
-            "$COMPOSER_CMD run-script --no-interaction post-deploy-cmd"
+            "$COMPOSER_CMD run-script --no-interaction post-deploy-cmd" \
+            || (echo 'Failed to execute post-deploy-cmd'; exit 1)
     fi
 fi
 
@@ -137,5 +131,10 @@ chmod -R 550 ${DOCUMENT_ROOT}
 
 # Change the www-data's shell back to /usr/sbin/nologin
 chsh -s /usr/sbin/nologin www-data
+
+# Put a stricter php-cli.ini
+if [ -f "${PHP_DIR}/lib/php-cli-strict.ini" ]; then
+    mv ${PHP_DIR}/lib/php-cli-strict.ini ${PHP_DIR}/lib/php-cli.ini
+fi
 
 exec "$@"

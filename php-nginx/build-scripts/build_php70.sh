@@ -77,7 +77,7 @@ rm -f configure
     --enable-gd-native-ttf \
     --enable-intl=shared \
     --enable-mailparse \
-    --enable-mbstring=shared \
+    --enable-mbstring \
     --enable-memcached=shared \
     --enable-mysqlnd \
     --enable-opcache \

@@ -80,7 +80,7 @@ rm -f configure
     --enable-gd-native-ttf \
     --enable-intl=shared \
     --enable-mailparse \
-    --enable-mbstring=shared \
+    --enable-mbstring \
     --enable-memcached=shared \
     --enable-mysqlnd \
     --enable-opcache \
@@ -104,7 +104,7 @@ rm -f configure
     --with-xsl=shared \
     --with-fpm-user=www-data \
     --with-fpm-group=www-data \
-    --with-mysql=mysqlnd \
+    --with-mysql \
     --with-mysqli=mysqlnd \
     --with-pdo-mysql=mysqlnd \
     --with-openssl \

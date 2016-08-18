@@ -32,6 +32,15 @@ class PostDeployCmdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('The script is not interactive!', $output[0]);
     }
 
+    public function testPhpCliIni()
+    {
+        exec('docker run php56_custom cat cli-ini-test.txt', $output, $return_var);
+
+        $this->assertEquals(0, $return_var);
+        $this->assertEquals(1, count($output));
+        $this->assertEquals('shell_exec succeeded', $output[0]);
+    }
+
     public function testCommandOutput()
     {
         exec('docker run php56_custom cat script_output.txt', $output, $return_var);
