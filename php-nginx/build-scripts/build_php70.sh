@@ -54,7 +54,7 @@ rm apcu.tar.gz
 
 # APC compatibility layer for APCu
 mkdir -p ${PHP_SRC}/ext/apcu-bc
-curl -SL "https://pecl.php.net/get/apcu_bc-1.0.3.tgz" -o apcu-bc.tar.gz
+curl -SL "https://pecl.php.net/get/apcu_bc" -o apcu-bc.tar.gz
 tar -zxf apcu-bc.tar.gz -C ${PHP_SRC}/ext/apcu-bc --strip-components=1
 rm apcu-bc.tar.gz
 
@@ -132,14 +132,7 @@ make install
 popd
 rm -rf /tmp/memcache
 
-# TODO: Use stable version of redis from pecl once available
-git clone -b php7 https://github.com/phpredis/phpredis.git /tmp/redis
-pushd /tmp/redis
-${PHP7_DIR}/bin/phpize
-./configure --with-php-config=${PHP7_DIR}/bin/php-config
-make
-make install
-popd
-rm -rf /tmp/redis
+# Install shared extensions
+${PHP7_DIR}/bin/pecl install redis
 
 rm -rf /tmp/pear
