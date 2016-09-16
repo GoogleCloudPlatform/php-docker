@@ -20,7 +20,6 @@ FROM gcr.io/google_appengine/base
 RUN apt-get update && \
     apt-get -y upgrade && \
     apt-get install -y --no-install-recommends \
-    cron \
     curl \
     gettext \
     git \
@@ -37,7 +36,6 @@ RUN apt-get update && \
     libsqlite3-0 \
     libxml2 \
     libxslt1.1 \
-    logrotate \
     mercurial \
     subversion \
     supervisor \
@@ -108,8 +106,6 @@ RUN touch ${PHP56_DIR}/etc/php-fpm-user.conf ${PHP7_DIR}/etc/php-fpm-user.conf \
        ${NGINX_DIR} \
        /run \
        /var/log/supervisor
-
-COPY logrotate.app_engine /etc/logrotate.d/app_engine
 
 COPY entrypoint.sh composer.sh whitelist_functions.php /
 
