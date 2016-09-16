@@ -56,7 +56,9 @@ ENV NGINX_DIR=/opt/nginx \
     PHP56_VERSION=5.6.26 \
     PHP70_VERSION=7.0.11 \
     PATH=/opt/php/bin:$PATH \
-    WWW_HOME=/var/www
+    WWW_HOME=/var/www \
+    APP_UID=1000 \
+    APP_GID=1000
 
 # gpgkeys for verifying the tarballs
 COPY gpgkeys /gpgkeys
@@ -73,11 +75,17 @@ RUN /bin/bash /build-scripts/apt_build_deps.sh install && \
 EXPOSE 8080
 
 # Lock down the web directories
-RUN mkdir -p $APP_DIR $LOG_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
-        $NGINX_USER_CONF_DIR $WWW_HOME\
+RUN find / -path /proc -prune -group www-data -exec chgrp -h ${APP_GID} {} ';' \
+    && find / -path /proc -prune -user www-data \
+       -exec chown -h ${APP_UID} {} ';' \
+    && usermod -u ${APP_UID} www-data \
+    && groupmod -g ${APP_GID} www-data \
+    && mkdir -p ${APP_DIR} ${LOG_DIR} ${UPLOAD_DIR} ${SESSION_SAVE_PATH} \
+        ${NGINX_USER_CONF_DIR} ${WWW_HOME} \
     && chown -R www-data.www-data \
-        $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH $LOG_DIR \
-        $NGINX_USER_CONF_DIR $WWW_HOME \
+        ${APP_DIR} ${UPLOAD_DIR} ${SESSION_SAVE_PATH} ${LOG_DIR} \
+        ${NGINX_USER_CONF_DIR} ${WWW_HOME} \
+	${NGINX_DIR}/conf/nginx.conf \
     && chmod 755 $UPLOAD_DIR $SESSION_SAVE_PATH \
     # For easy access to php with `su www-data -c $CMD`
     && ln -sf ${PHP_DIR}/bin/php /usr/bin/php
@@ -85,19 +93,29 @@ RUN mkdir -p $APP_DIR $LOG_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
 # Put config files into place.
 COPY nginx.conf fastcgi_params gzip_params $NGINX_DIR/conf/
 COPY nginx-app.conf $NGINX_USER_CONF_DIR
-COPY php.ini php-cli.ini php-cli-strict.ini $PHP56_DIR/lib/
-COPY php.ini php-cli.ini php-cli-strict.ini $PHP7_DIR/lib/
-COPY php-fpm.conf $PHP56_DIR/etc/php-fpm.conf
-COPY php-fpm.conf $PHP7_DIR/etc/php-fpm.conf
-RUN touch $PHP56_DIR/etc/php-fpm-user.conf $PHP7_DIR/etc/php-fpm-user.conf
+COPY php.ini php-cli.ini php-cli-strict.ini ${PHP56_DIR}/lib/
+COPY php.ini php-cli.ini php-cli-strict.ini ${PHP7_DIR}/lib/
+COPY php-fpm.conf ${PHP56_DIR}/etc/php-fpm.conf
+COPY php-fpm.conf ${PHP7_DIR}/etc/php-fpm.conf
 COPY supervisord.conf /etc/supervisor/supervisord.conf
+RUN touch ${PHP56_DIR}/etc/php-fpm-user.conf ${PHP7_DIR}/etc/php-fpm-user.conf \
+    && chown www-data.www-data -R \
+       ${PHP56_DIR}/etc \
+       ${PHP7_DIR}/etc \
+       ${PHP56_DIR}/lib \
+       ${PHP7_DIR}/lib \
+       /etc/supervisor \
+       ${NGINX_DIR} \
+       /run \
+       /var/log/supervisor
+
 COPY logrotate.app_engine /etc/logrotate.d/app_engine
 
 COPY entrypoint.sh composer.sh whitelist_functions.php /
 
-RUN chgrp www-data composer.sh && chmod +x /entrypoint.sh /composer.sh \
-    # Temporary enable the shell for www-data
-    # We will disable it in entrypoint.sh
+RUN chgrp www-data /composer.sh /entrypoint.sh /whitelist_functions.php \
+    && chmod +x /entrypoint.sh /composer.sh \
+    # We will disable shell before running the app
     && chsh -s /bin/bash www-data
 
 # A script for extracting PHP version from composer.json.
@@ -105,13 +123,15 @@ COPY detect_php_version.php /tmp/detect_php_version.php
 RUN chgrp www-data /tmp/detect_php_version.php && cd /tmp \
     && su www-data -c "php /usr/local/bin/composer require composer/semver"
 
-# Copy the app and change the owner
+# Copy the app
 ONBUILD COPY . $APP_DIR
-ONBUILD RUN chown -R www-data.www-data $APP_DIR
+ONBUILD RUN chown -R ${APP_UID}:${APP_GID} $APP_DIR
 
 WORKDIR $APP_DIR
 
 ONBUILD RUN /composer.sh
+ONBUILD RUN chsh -s /usr/sbin/nologin www-data
 
+ONBUILD USER ${APP_UID}
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord"]

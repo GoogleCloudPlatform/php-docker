@@ -38,11 +38,11 @@ fi
 
 # Move user-provided nginx config files.
 if [ -f "${NGINX_CONF_INCLUDE}" ]; then
-    mv "${NGINX_CONF_INCLUDE}" "${NGINX_USER_CONF_DIR}"
+    mv -f "${NGINX_CONF_INCLUDE}" "${NGINX_USER_CONF_DIR}"
 fi
 
 if [ -f "${NGINX_CONF_OVERRIDE}" ]; then
-    mv "${NGINX_CONF_OVERRIDE}" "${NGINX_DIR}/conf/nginx.conf"
+    mv -f "${NGINX_CONF_OVERRIDE}" "${NGINX_DIR}/conf/nginx.conf"
 fi
 
 # User provided php-fpm.conf
@@ -54,7 +54,7 @@ fi
 
 # Move user-provided php-fpm config file.
 if [ -f "${PHP_FPM_CONF_OVERRIDE}" ]; then
-    mv "${PHP_FPM_CONF_OVERRIDE}" "${PHP_DIR}/etc/php-fpm-user.conf"
+    mv -f "${PHP_FPM_CONF_OVERRIDE}" "${PHP_DIR}/etc/php-fpm-user.conf"
 fi
 
 # User provided php.ini
@@ -66,7 +66,7 @@ fi
 
 # Move user-provided php.ini.
 if [ -f "${PHP_INI_OVERRIDE}" ]; then
-    mv "${PHP_INI_OVERRIDE}" "${PHP_DIR}/lib/conf.d"
+    mv -f "${PHP_INI_OVERRIDE}" "${PHP_DIR}/lib/conf.d"
 fi
 
 # User provided supervisord.conf
@@ -84,11 +84,11 @@ fi
 
 # Move user-provided supervisord.conf.
 if [ -f "${SUPERVISORD_CONF_ADDITION}" ]; then
-    mv "${SUPERVISORD_CONF_ADDITION}" /etc/supervisor/conf.d
+    mv -f "${SUPERVISORD_CONF_ADDITION}" /etc/supervisor/conf.d
 fi
 
 if [ -f "${SUPERVISORD_CONF_OVERRIDE}" ]; then
-    mv "${SUPERVISORD_CONF_OVERRIDE}" /etc/supervisor/supervisord.conf
+    mv -f "${SUPERVISORD_CONF_OVERRIDE}" /etc/supervisor/supervisord.conf
 fi
 
 # Configure memcached based session.
@@ -116,26 +116,18 @@ ${PHP_DIR}/bin/php /whitelist_functions.php
 
 if [ -f "${APP_DIR}/composer.json" ]; then
     # run the composer scripts for post-deploy
-    if su www-data -c "php /usr/local/bin/composer --no-ansi run-script -l" \
-        | grep -q "post-deploy-cmd"; then
-        su www-data -c \
-            "php /usr/local/bin/composer run-script post-deploy-cmd \
+    if php /usr/local/bin/composer --no-ansi run-script -l \
+      | grep -q "post-deploy-cmd"; then
+      php /usr/local/bin/composer run-script post-deploy-cmd \
             --no-ansi \
-            --no-interaction" \
-            || (echo 'Failed to execute post-deploy-cmd'; exit 1)
+            --no-interaction \
+        || (echo 'Failed to execute post-deploy-cmd'; exit 1)
     fi
 fi
 
-# Lock down the DOCUMENT_ROOT
-chown -R root.www-data ${DOCUMENT_ROOT}
-chmod -R 550 ${DOCUMENT_ROOT}
-
-# Change the www-data's shell back to /usr/sbin/nologin
-chsh -s /usr/sbin/nologin www-data
-
 # Put a stricter php-cli.ini
 if [ -f "${PHP_DIR}/lib/php-cli-strict.ini" ]; then
-    mv ${PHP_DIR}/lib/php-cli-strict.ini ${PHP_DIR}/lib/php-cli.ini
+    mv -f ${PHP_DIR}/lib/php-cli-strict.ini ${PHP_DIR}/lib/php-cli.ini
 fi
 
 exec "$@"
