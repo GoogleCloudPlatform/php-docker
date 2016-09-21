@@ -38,6 +38,7 @@ RUN apt-get update && \
     libxslt1.1 \
     mercurial \
     subversion \
+    sudo \
     supervisor \
     zlib1g
 
@@ -83,7 +84,6 @@ RUN find / -path /proc -prune -group www-data -exec chgrp -h ${APP_GID} {} ';' \
     && chown -R www-data.www-data \
         ${APP_DIR} ${UPLOAD_DIR} ${SESSION_SAVE_PATH} ${LOG_DIR} \
         ${NGINX_USER_CONF_DIR} ${WWW_HOME} \
-	${NGINX_DIR}/conf/nginx.conf \
     && chmod 755 $UPLOAD_DIR $SESSION_SAVE_PATH \
     # For easy access to php with `su www-data -c $CMD`
     && ln -sf ${PHP_DIR}/bin/php /usr/bin/php
@@ -107,12 +107,15 @@ RUN touch ${PHP56_DIR}/etc/php-fpm-user.conf ${PHP7_DIR}/etc/php-fpm-user.conf \
        /run \
        /var/log/supervisor
 
-COPY entrypoint.sh composer.sh whitelist_functions.php /
+COPY entrypoint.sh composer.sh whitelist_functions.php change_permissions.sh /
 
 RUN chgrp www-data /composer.sh /entrypoint.sh /whitelist_functions.php \
-    && chmod +x /entrypoint.sh /composer.sh \
+    /change_permissions.sh \
+    && chmod +x /entrypoint.sh /composer.sh /change_permissions.sh \
     # We will disable shell before running the app
-    && chsh -s /bin/bash www-data
+    && chsh -s /bin/bash www-data \
+    && echo 'www-data ALL = NOPASSWD:SETENV: /change_permissions.sh' \
+       >> /etc/sudoers
 
 # A script for extracting PHP version from composer.json.
 COPY detect_php_version.php /tmp/detect_php_version.php

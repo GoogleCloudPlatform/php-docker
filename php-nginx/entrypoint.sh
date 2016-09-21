@@ -130,4 +130,6 @@ if [ -f "${PHP_DIR}/lib/php-cli-strict.ini" ]; then
     mv -f ${PHP_DIR}/lib/php-cli-strict.ini ${PHP_DIR}/lib/php-cli.ini
 fi
 
+sudo -E /change_permissions.sh
+
 exec "$@"
