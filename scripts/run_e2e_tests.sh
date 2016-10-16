@@ -36,6 +36,6 @@ fi
 # Upload the local image to gcr.io with a tag `testing`.
 docker tag -f \
     php-nginx gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${E2E_TEST_VERSION}
-gcloud docker push gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${E2E_TEST_VERSION}
+gcloud docker -- push gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${E2E_TEST_VERSION}
 # Run e2e tests
 vendor/bin/phpunit -c e2e.xml
