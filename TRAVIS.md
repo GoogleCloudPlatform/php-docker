@@ -12,11 +12,7 @@ of this repo:
    `Google Cloud Container Builder API`
 1.  Under `APIs & auth`, choose Credentials.
 1.  Click `Add credentials`, and then click `Service account`.
-1.  Select 'New service account`, assign a name, and under Role, add
-    - `Project` > `Editor
-    - `App Engine` > `App Engine Admin`
-    - `Other` > `Cloud Container Builder Editor`
-    - `Storage` > `Storage Object Creator`
+1.  Select 'New service account`, assign a name, and under Role, add `Project` > `Editor
 1.  Under `Key type`, choose `JSON`, and then click `Create`.  A json credential
     file will be downloaded to your computer.
 1.  Visit [Travis](https://travis-ci.org/profile ) and turn on Travis for your
