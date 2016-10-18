@@ -31,9 +31,9 @@ $call = $client->ListTopics(
 
 list($response, $status) = $call->wait();
 if ($status->code != 0) {
-   echo 'gRPC to PubSub failed, printing RPC status:<br>';
-   print_r($status);
-   exit(1);
+    echo 'gRPC to PubSub failed, printing RPC status:<br>';
+    print_r($status);
+    exit(1);
 }
 
 foreach ($response->getTopics() as $topic) {
