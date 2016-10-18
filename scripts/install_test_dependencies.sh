@@ -59,5 +59,5 @@ if [ "${CIRCLECI}" == "true" ]; then
     # own gcloud
     sudo /opt/google-cloud-sdk/bin/gcloud -q components update alpha app
 else
-    gcloud -q components update alpha app
+    sudo gcloud -q components update alpha app
 fi
