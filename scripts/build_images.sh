@@ -62,6 +62,7 @@ build_image () {
     fi
 }
 
+build_image php-base php-base
 build_image php-nginx php-nginx
 build_image php56 testapps/php56
 build_image php56_custom  testapps/php56_custom
