@@ -30,6 +30,13 @@ if [ -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
     BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
 fi
 
+# Temporary workaround for the old docker client on circleci and our jenkins.
+if [ "${CIRCLECI}" == 'true' ] || [ -n "${JENKINS_URL}" ]; then
+  DOCKER_TAG_COMMAND='docker tag -f'
+else
+  DOCKER_TAG_COMMAND='docker tag'
+fi
+
 build_image () {
     if [ "$#" -ne 2 ]; then
         echo "Two arguments; the image name and the dir are required"
@@ -48,7 +55,7 @@ build_image () {
         sed -i -e "s|FROM php-nginx|FROM ${BASE_IMAGE}|" "${SRC_DIR}/Dockerfile"
         gcloud -q alpha container builds create "${SRC_DIR}" --tag "${FULL_TAG}"
         gcloud docker -- pull "${FULL_TAG}"
-        docker tag "${FULL_TAG}" "${IMAGE}"
+        ${DOCKER_TAG_COMMAND} "${FULL_TAG}" "${IMAGE}"
     else
         # No credentials. Use local docker.
         docker build -t "${IMAGE}" "${DIR}"
