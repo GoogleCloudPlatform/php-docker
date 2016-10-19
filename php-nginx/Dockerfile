@@ -21,7 +21,6 @@ RUN apt-get update && \
     apt-get -y upgrade && \
     apt-get install -y --no-install-recommends \
     cron \
-    git \
     mercurial \
     subversion \
     supervisor
@@ -29,6 +28,7 @@ RUN apt-get update && \
 ENV NGINX_DIR=/opt/nginx \
     LOG_DIR=/var/log/app_engine \
     APP_DIR=/app \
+    PHP_INI_SCAN_DIR=$APP_DIR: \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
     SESSION_SAVE_PATH=/tmp/sessions \
     NGINX_VERSION=1.10.1 \

@@ -68,7 +68,7 @@ rm -f configure
 ./buildconf --force
 ./configure \
     --prefix=${PHP56_DIR} \
-    --with-config-file-scan-dir=${APP_DIR}:${PHP56_DIR}/lib/conf.d \
+    --with-config-file-scan-dir=${PHP56_DIR}/lib/conf.d \
     --disable-cgi \
     --disable-memcached-sasl \
     --enable-apcu \
