@@ -16,6 +16,9 @@
 
 FROM gcr.io/google_appengine/debian8
 
+# Cache busting for security update
+ENV UPDATED_AT 2016-10-20
+
 # persistent / runtime deps
 RUN apt-get update && \
     apt-get -y upgrade && \
