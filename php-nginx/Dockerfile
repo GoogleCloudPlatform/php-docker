@@ -14,7 +14,7 @@
 
 # Dockerfile for PHP 5.6 using nginx as the webserver.
 
-FROM gcr.io/google_appengine/debian8
+FROM php-base
 
 # Cache busting for security update
 ENV UPDATED_AT 2016-10-20
@@ -24,53 +24,28 @@ RUN apt-get update && \
     apt-get -y upgrade && \
     apt-get install -y --no-install-recommends \
     cron \
-    curl \
-    gettext \
-    git \
-    libbz2-1.0 \
-    libicu52 \
-    libmcrypt4 \
-    libmemcached11 \
-    libmemcachedutil2 \
-    libpcre3 \
-    libpng12-0 \
-    libpq5 \
-    libreadline6 \
-    librecode0 \
-    libsqlite3-0 \
-    libxml2 \
-    libxslt1.1 \
-    logrotate \
     mercurial \
     subversion \
-    supervisor \
-    zlib1g
+    supervisor
 
 ENV NGINX_DIR=/opt/nginx \
-    PHP_DIR=/opt/php \
-    PHP56_DIR=/opt/php56 \
-    PHP7_DIR=/opt/php7 \
     LOG_DIR=/var/log/app_engine \
     APP_DIR=/app \
+    PHP_INI_SCAN_DIR=$APP_DIR: \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
-    UPLOAD_DIR=/upload \
     SESSION_SAVE_PATH=/tmp/sessions \
     NGINX_VERSION=1.10.1 \
-    PHP56_VERSION=5.6.27 \
-    PHP70_VERSION=7.0.12 \
     PATH=/opt/php/bin:$PATH \
     WWW_HOME=/var/www
 
 # gpgkeys for verifying the tarballs
-COPY gpgkeys /gpgkeys
+COPY gpgkeys/nginx /gpgkeys/nginx
 
 # BUILD PHP, nginx and other dependencies.
-COPY build-scripts /build-scripts
+COPY build-scripts/build_nginx.sh /build-scripts/build_nginx.sh
 
 RUN /bin/bash /build-scripts/apt_build_deps.sh install && \
     /bin/bash /build-scripts/build_nginx.sh && \
-    /bin/bash /build-scripts/build_php56.sh && \
-    /bin/bash /build-scripts/build_php70.sh && \
     /bin/bash /build-scripts/apt_build_deps.sh uninstall
 
 EXPOSE 8080
@@ -88,11 +63,8 @@ RUN mkdir -p $APP_DIR $LOG_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
 # Put config files into place.
 COPY nginx.conf fastcgi_params gzip_params $NGINX_DIR/conf/
 COPY nginx-app.conf $NGINX_USER_CONF_DIR
-COPY php.ini php-cli.ini php-cli-strict.ini $PHP56_DIR/lib/
-COPY php.ini php-cli.ini php-cli-strict.ini $PHP7_DIR/lib/
-COPY php-fpm.conf $PHP56_DIR/etc/php-fpm.conf
-COPY php-fpm.conf $PHP7_DIR/etc/php-fpm.conf
-RUN touch $PHP56_DIR/etc/php-fpm-user.conf $PHP7_DIR/etc/php-fpm-user.conf
+COPY php-cli-strict.ini $PHP56_DIR/lib/
+COPY php-cli-strict.ini $PHP7_DIR/lib/
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY logrotate.app_engine /etc/logrotate.d/app_engine
 
