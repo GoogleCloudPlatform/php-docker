@@ -37,11 +37,13 @@ RUN apt-get update && \
     libpq5 \
     libreadline6 \
     librecode0 \
+    libsasl2-modules \
     libsqlite3-0 \
     libxml2 \
     libxslt1.1 \
     logrotate \
     mercurial \
+    sasl2-bin \
     subversion \
     supervisor \
     zlib1g
