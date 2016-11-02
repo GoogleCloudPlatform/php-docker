@@ -48,6 +48,7 @@ BUILD_DEPS=" \
     libpq-dev \
     libreadline6-dev \
     librecode-dev \
+    libsasl2-dev \
     libsqlite3-dev \
     libssl-dev \
     libxml2-dev \

@@ -70,7 +70,6 @@ rm -f configure
     --prefix=${PHP56_DIR} \
     --with-config-file-scan-dir=${APP_DIR}:${PHP56_DIR}/lib/conf.d \
     --disable-cgi \
-    --disable-memcached-sasl \
     --enable-apcu \
     --enable-bcmath=shared \
     --enable-calendar=shared \
@@ -82,6 +81,7 @@ rm -f configure
     --enable-mailparse \
     --enable-mbstring \
     --enable-memcached=shared \
+    --enable-memcached-sasl \
     --enable-mysqlnd \
     --enable-opcache \
     --enable-pcntl=shared \
