@@ -17,7 +17,7 @@
 FROM gcr.io/google_appengine/debian8
 
 # Cache busting for security update
-ENV UPDATED_AT 2016-10-20
+ENV UPDATED_AT 2016-11-11
 
 # persistent / runtime deps
 RUN apt-get update && \
@@ -58,8 +58,8 @@ ENV NGINX_DIR=/opt/nginx \
     UPLOAD_DIR=/upload \
     SESSION_SAVE_PATH=/tmp/sessions \
     NGINX_VERSION=1.10.1 \
-    PHP56_VERSION=5.6.27 \
-    PHP70_VERSION=7.0.12 \
+    PHP56_VERSION=5.6.28 \
+    PHP70_VERSION=7.0.13 \
     PATH=/opt/php/bin:$PATH \
     WWW_HOME=/var/www
 
