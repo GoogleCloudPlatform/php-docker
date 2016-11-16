@@ -95,6 +95,7 @@ rm -f configure
     --with-curl \
     --with-gettext=shared \
     --with-gd=shared \
+    --with-jpeg-dir=/usr \
     --with-mcrypt \
     --with-pdo_sqlite=shared,/usr \
     --with-pdo-pgsql \

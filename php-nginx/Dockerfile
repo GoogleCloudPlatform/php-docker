@@ -17,7 +17,7 @@
 FROM gcr.io/google_appengine/debian8
 
 # Cache busting for security update
-ENV UPDATED_AT 2016-11-11
+ENV UPDATED_AT 2016-11-15
 
 # persistent / runtime deps
 RUN apt-get update && \
@@ -29,6 +29,7 @@ RUN apt-get update && \
     git \
     libbz2-1.0 \
     libicu52 \
+    libjpeg62-turbo \
     libmcrypt4 \
     libmemcached11 \
     libmemcachedutil2 \

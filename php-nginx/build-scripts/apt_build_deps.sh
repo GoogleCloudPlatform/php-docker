@@ -41,6 +41,7 @@ BUILD_DEPS=" \
     libcurl4-openssl-dev \
     libgettextpo-dev \
     libicu-dev \
+    libjpeg62-turbo-dev \
     libmcrypt-dev \
     libmemcached-dev \
     libpcre3-dev \
