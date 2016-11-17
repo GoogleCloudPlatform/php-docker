@@ -1,5 +1,4 @@
 schemaVersion: "1.0.0"
-commandTests:
 
 fileContentTests:
   name: "nginx user conf"
