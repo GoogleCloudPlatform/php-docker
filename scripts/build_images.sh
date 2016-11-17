@@ -53,7 +53,8 @@ build_image () {
         cp -R "${DIR}" "${SRC_DIR}"
         # Replace the FROM line to point to our image in gcr.io.
         sed -i -e "s|FROM php-nginx|FROM ${BASE_IMAGE}|" "${SRC_DIR}/Dockerfile"
-        gcloud -q alpha container builds create "${SRC_DIR}" --tag "${FULL_TAG}"
+        envsubst < "${SRC_DIR}"/cloudbuild.yaml.in > "${SRC_DIR}"/cloudbuild.yaml
+        gcloud -q alpha container builds create "${SRC_DIR}" --config "${SRC_DIR}"/cloudbuild.yaml
         gcloud docker -- pull "${FULL_TAG}"
         ${DOCKER_TAG_COMMAND} "${FULL_TAG}" "${IMAGE}"
     else
