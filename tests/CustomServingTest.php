@@ -47,6 +47,34 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
         $this->client = new Client(['base_uri' => 'http://localhost:65080/']);
     }
 
+    public function testDefaultFile()
+    {
+        // Index serves succesfully with 'Hello World'.
+        // This works because the custom DOCUMENT_ROOT is working.
+        $resp = $this->client->get('');
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'index.php status code');
+        $this->assertContains('Hello World', $resp->getBody()->getContents());
+    }
+
+    public function testDotFile()
+    {
+        // Index serves succesfully with 'Hello World'.
+        // This works because the custom DOCUMENT_ROOT is working.
+        $resp = $this->client->get('.test');
+        $this->assertEquals('403', $resp->getStatusCode(),
+                            '.test status code');
+    }
+
+    public function testBackupFile()
+    {
+        // Index serves succesfully with 'Hello World'.
+        // This works because the custom DOCUMENT_ROOT is working.
+        $resp = $this->client->get('index.php~');
+        $this->assertEquals('403', $resp->getStatusCode(),
+                            'index.php~ status code');
+    }
+
     public function testIndex()
     {
         // Index serves succesfully with 'Hello World'.
