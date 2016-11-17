@@ -1,2 +1,17 @@
 schemaVersion: "1.0.0"
 commandTests:
+  name: "interactive output"
+  command: ["cat", "callable_output.txt"]
+  expectedOutput: [".*The script is not interactive!.*"]
+
+  name: "php cli ini"
+  command: ["cat", "cli-ini-test-.txt"]
+  expectedOutput: [".*shell_exec succeeded.*"]
+
+  name: "command output"
+  command: ["cat", "script_output.txt"]
+  expectedOutput: [".*Testing Post Deploy Command.*"]
+
+  name: "file permissions"
+  command: ["stat", "-c", "'%a %n'", "script_output.txt"]
+  expectedOutput: [".*777 script_output.txt.*"]
