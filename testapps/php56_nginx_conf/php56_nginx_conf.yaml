@@ -1,6 +1,6 @@
 schemaVersion: "1.0.0"
 
 fileContentTests:
-  name: "user supplied conf"
-  path: "/opt/nginx/conf/nginx.conf"
-  expectedContents: [".*user_supplied_conf.*"]
+  # - name: "user supplied conf"
+  #   path: "/opt/nginx/conf/nginx.conf"
+  #   expectedContents: ["user_supplied_conf\n"]

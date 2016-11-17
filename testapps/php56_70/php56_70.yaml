@@ -4,6 +4,7 @@ commandTests:
   - name: "version"
     command: ["/opt/php/bin/php", "-v"]
     expectedOutput: ["PHP 5\\.6.*"]
+
   - name: "path"
-    command: ["env", "|", "grep", "'^PATH='"]
+    command: ["printenv", "PATH"]
     expectedOutput: [".*\\/opt\\/php\\/bin.*"]
