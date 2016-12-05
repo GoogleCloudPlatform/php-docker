@@ -42,23 +42,23 @@ build_image () {
         echo "Two arguments; the image name and the dir are required"
         exit 1
     fi
-    IMAGE="${1}"
     DIR="${2}"
     if [ -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
         # Build the image with container builder service if we have
         # credentials.
-        FULL_TAG="gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE}:${TAG}"
+        export IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/${1}:${TAG}"
         SRC_DIR="${SRC_TMP}/${DIR}"
         mkdir -p $(dirname ${SRC_DIR})
         cp -R "${DIR}" "${SRC_DIR}"
         # Replace the FROM line to point to our image in gcr.io.
         sed -i -e "s|FROM php-nginx|FROM ${BASE_IMAGE}|" "${SRC_DIR}/Dockerfile"
-        gcloud -q alpha container builds create "${SRC_DIR}" --tag "${FULL_TAG}"
-        gcloud docker -- pull "${FULL_TAG}"
-        ${DOCKER_TAG_COMMAND} "${FULL_TAG}" "${IMAGE}"
+        envsubst < "${SRC_DIR}"/cloudbuild.yaml.in > "${SRC_DIR}"/cloudbuild.yaml
+        gcloud -q alpha container builds create "${SRC_DIR}" --config "${SRC_DIR}"/cloudbuild.yaml
+        gcloud docker -- pull "${IMAGE}"
+        ${DOCKER_TAG_COMMAND} "${IMAGE}" "${1}"
     else
         # No credentials. Use local docker.
-        docker build -t "${IMAGE}" "${DIR}"
+        docker build -t "${1}" "${DIR}"
     fi
 }
 
