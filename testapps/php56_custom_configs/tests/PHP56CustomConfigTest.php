@@ -27,8 +27,6 @@ class PHP56CustomConfigTest extends \PHPUnit_Framework_TestCase
     {
         // Wait for nginx to start
         sleep(3);
-        // For a test for long running requests
-        ini_set("default_socket_timeout", 70);
     }
 
     public function setUp()
@@ -36,7 +34,7 @@ class PHP56CustomConfigTest extends \PHPUnit_Framework_TestCase
         $this->client = new Client(['base_uri' => 'http://test-app:8080/']);
     }
 
-    public function testIndex()
+    public function testNginxUserConf()
     {
         $resp = $this->client->get(
             'readfile.php?f=' . urlencode('/etc/nginx/conf.d/nginx-user.conf')
@@ -48,6 +46,88 @@ class PHP56CustomConfigTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertContains(
             'nginx-user.conf',
+            $resp->getBody()->getContents()
+        );
+    }
+
+    public function testNginxCustomConf()
+    {
+        $resp = $this->client->get(
+            'readfile.php?f=' . urlencode('/opt/nginx/conf/nginx.conf')
+        );
+        $this->assertEquals(
+            '200',
+            $resp->getStatusCode(),
+            'readfile status code'
+        );
+        $this->assertContains(
+            'nginx-custom.conf',
+            $resp->getBody()->getContents()
+        );
+    }
+
+    public function testPhpFpmUserConf()
+    {
+        $resp = $this->client->get(
+            'readfile.php?f=' . urlencode('/opt/php/etc/php-fpm-user.conf')
+        );
+        $this->assertEquals(
+            '200',
+            $resp->getStatusCode(),
+            'readfile status code'
+        );
+        $this->assertContains(
+            'php-fpm-user.conf',
+            $resp->getBody()->getContents()
+        );
+    }
+
+    public function testPhpIni()
+    {
+        $resp = $this->client->get(
+            'readfile.php?f=' . urlencode('/opt/php/lib/conf.d/php-user.ini')
+        );
+        $this->assertEquals(
+            '200',
+            $resp->getStatusCode(),
+            'readfile status code'
+        );
+        $this->assertContains(
+            'php-user.ini',
+            $resp->getBody()->getContents()
+        );
+    }
+
+    public function testMySupervisordConf()
+    {
+        $resp = $this->client->get(
+            'readfile.php?f='
+            . urlencode('/etc/supervisor/conf.d/my-supervisord.conf')
+        );
+        $this->assertEquals(
+            '200',
+            $resp->getStatusCode(),
+            'readfile status code'
+        );
+        $this->assertContains(
+            'my-supervisord.conf',
+            $resp->getBody()->getContents()
+        );
+    }
+
+    public function testCustomSupervisordConf()
+    {
+        $resp = $this->client->get(
+            'readfile.php?f='
+            . urlencode('/etc/supervisor/supervisord.conf')
+        );
+        $this->assertEquals(
+            '200',
+            $resp->getStatusCode(),
+            'readfile status code'
+        );
+        $this->assertContains(
+            'custom-supervisord.conf',
             $resp->getBody()->getContents()
         );
     }
