@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TODO: Change it to use gcloud for re-tagging.
-
 set -ex
 
 export TEST_BUILD_DIR="${WORKSPACE}"
@@ -33,15 +31,17 @@ scripts/run_test_suite.sh
 
 unset CLOUDSDK_ACTIVE_CONFIG_NAME
 
-CANDIDATE_NAME=`date +%Y-%m-%d_%H_%M`
-echo "CANDIDATE_NAME:${CANDIDATE_NAME}"
-IMAGE_NAME="gcr.io/${PRODUCTION_DOCKER_NAMESPACE}/php:${CANDIDATE_NAME}"
-docker tag -f php-nginx "${IMAGE_NAME}"
-gcloud docker -- push "${IMAGE_NAME}"
+IMAGE_NAME="gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${E2E_TEST_VERSION}"
+
+CANDIDATE_TAG=`date +%Y-%m-%d_%H_%M`
+echo "CANDIDATE_TAG:${CANDIDATE_TAG}"
+
+PROD_IMAGE_NAME="gcr.io/${PRODUCTION_DOCKER_NAMESPACE}/php:${CANDIDATE_TAG}"
+
+gcloud -q beta container images add-tag "${IMAGE_NAME}" "${PROD_IMAGE_NAME}"
 
 # Push the image to staging if UPLOAD_TO_STAGING is true
 if [ "${UPLOAD_TO_STAGING}" = "true" ]; then 
   STAGING="gcr.io/${PRODUCTION_DOCKER_NAMESPACE}/php:staging"
-  docker tag -f php-nginx "${STAGING}"
-  gcloud docker -- push "${STAGING}"
+  gcloud -q beta container images add-tag "${PROD_IMAGE_NAME}" "${STAGING}"
 fi
