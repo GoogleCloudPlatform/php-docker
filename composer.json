@@ -1,6 +1,6 @@
 {
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "1.11.3",
+        "friendsofphp/php-cs-fixer": "~2.0",
         "guzzlehttp/guzzle": "~6.0",
         "phpunit/phpunit": "~4",
         "symfony/browser-kit": "~2"
