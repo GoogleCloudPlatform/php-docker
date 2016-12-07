@@ -15,6 +15,16 @@
 
 set -ex
 
+if [ -z "${E2E_TEST_VERSION}" ]; then
+    echo "You need to set E2E_TEST_VERSION envvar."
+    exit 1
+fi
+
+if [ -z "${GOOGLE_PROJECT_ID}" ]; then
+    echo "You need to set GOOGLE_PROJECT_ID envvar."
+    exit 1
+fi
+
 TAG="${E2E_TEST_VERSION}"
 
 # Dump the credentials from the environment variable.
@@ -36,7 +46,7 @@ BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
 # build the php test runner and export the name
 export TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
 gcloud -q beta container builds submit --tag "${TEST_RUNNER}" \
-  cloudbuild-test-runner
+    cloudbuild-test-runner
 
 build_image () {
     if [ "$#" -ne 2 ]; then
