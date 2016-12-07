@@ -10,7 +10,7 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $name = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -43,7 +43,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <name> value
      *
@@ -53,7 +53,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <name> value
      *
@@ -63,7 +63,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <name> value
      *
@@ -84,10 +84,10 @@ namespace google\pubsub\v1\PubsubMessage {
 
       /**  @var string */
     public $key = null;
-    
+
     /**  @var string */
     public $value = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -128,7 +128,7 @@ namespace google\pubsub\v1\PubsubMessage {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <key> value
      *
@@ -138,7 +138,7 @@ namespace google\pubsub\v1\PubsubMessage {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <key> value
      *
@@ -148,7 +148,7 @@ namespace google\pubsub\v1\PubsubMessage {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <key> value
      *
@@ -159,7 +159,7 @@ namespace google\pubsub\v1\PubsubMessage {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <value> has a value
      *
@@ -169,7 +169,7 @@ namespace google\pubsub\v1\PubsubMessage {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <value> value
      *
@@ -179,7 +179,7 @@ namespace google\pubsub\v1\PubsubMessage {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <value> value
      *
@@ -189,7 +189,7 @@ namespace google\pubsub\v1\PubsubMessage {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <value> value
      *
@@ -210,16 +210,16 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $data = null;
-    
+
     /**  @var \google\pubsub\v1\PubsubMessage\AttributesEntry[]  */
     public $attributes = array();
-    
+
     /**  @var string */
     public $message_id = null;
-    
+
     /**  @var \google\protobuf\Timestamp */
     public $publish_time = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -278,7 +278,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <data> value
      *
@@ -288,7 +288,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <data> value
      *
@@ -298,7 +298,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <data> value
      *
@@ -309,7 +309,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <attributes> has a value
      *
@@ -319,7 +319,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <attributes> value
      *
@@ -329,7 +329,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <attributes> value
      *
@@ -340,7 +340,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2, $idx);
     }
-    
+
     /**
      * Set <attributes> value
      *
@@ -351,7 +351,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(2, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <attributes>
      *
@@ -361,7 +361,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Add a new element to <attributes>
      *
@@ -372,7 +372,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_add(2, $value);
     }
-    
+
     /**
      * Check if <message_id> has a value
      *
@@ -382,7 +382,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <message_id> value
      *
@@ -392,7 +392,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <message_id> value
      *
@@ -402,7 +402,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <message_id> value
      *
@@ -413,7 +413,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(3, $value);
     }
-    
+
     /**
      * Check if <publish_time> has a value
      *
@@ -423,7 +423,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(4);
     }
-    
+
     /**
      * Clear <publish_time> value
      *
@@ -433,7 +433,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(4);
     }
-    
+
     /**
      * Get <publish_time> value
      *
@@ -443,7 +443,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(4);
     }
-    
+
     /**
      * Set <publish_time> value
      *
@@ -464,7 +464,7 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $topic = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -497,7 +497,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <topic> value
      *
@@ -507,7 +507,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <topic> value
      *
@@ -517,7 +517,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <topic> value
      *
@@ -538,10 +538,10 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $topic = null;
-    
+
     /**  @var \google\pubsub\v1\PubsubMessage[]  */
     public $messages = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -583,7 +583,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <topic> value
      *
@@ -593,7 +593,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <topic> value
      *
@@ -603,7 +603,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <topic> value
      *
@@ -614,7 +614,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <messages> has a value
      *
@@ -624,7 +624,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <messages> value
      *
@@ -634,7 +634,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <messages> value
      *
@@ -645,7 +645,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2, $idx);
     }
-    
+
     /**
      * Set <messages> value
      *
@@ -656,7 +656,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(2, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <messages>
      *
@@ -666,7 +666,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Add a new element to <messages>
      *
@@ -687,7 +687,7 @@ namespace google\pubsub\v1 {
 
       /**  @var string[]  */
     public $message_ids = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -720,7 +720,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <message_ids> value
      *
@@ -730,7 +730,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <message_ids> value
      *
@@ -741,7 +741,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1, $idx);
     }
-    
+
     /**
      * Set <message_ids> value
      *
@@ -752,7 +752,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <message_ids>
      *
@@ -762,7 +762,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Add a new element to <message_ids>
      *
@@ -783,13 +783,13 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $project = null;
-    
+
     /**  @var int */
     public $page_size = null;
-    
+
     /**  @var string */
     public $page_token = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -838,7 +838,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <project> value
      *
@@ -848,7 +848,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <project> value
      *
@@ -858,7 +858,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <project> value
      *
@@ -869,7 +869,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <page_size> has a value
      *
@@ -879,7 +879,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <page_size> value
      *
@@ -889,7 +889,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <page_size> value
      *
@@ -899,7 +899,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <page_size> value
      *
@@ -910,7 +910,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(2, $value);
     }
-    
+
     /**
      * Check if <page_token> has a value
      *
@@ -920,7 +920,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <page_token> value
      *
@@ -930,7 +930,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <page_token> value
      *
@@ -940,7 +940,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <page_token> value
      *
@@ -961,10 +961,10 @@ namespace google\pubsub\v1 {
 
       /**  @var \google\pubsub\v1\Topic[]  */
     public $topics = array();
-    
+
     /**  @var string */
     public $next_page_token = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -1006,7 +1006,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <topics> value
      *
@@ -1016,7 +1016,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <topics> value
      *
@@ -1027,7 +1027,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1, $idx);
     }
-    
+
     /**
      * Set <topics> value
      *
@@ -1038,7 +1038,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <topics>
      *
@@ -1048,7 +1048,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Add a new element to <topics>
      *
@@ -1059,7 +1059,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_add(1, $value);
     }
-    
+
     /**
      * Check if <next_page_token> has a value
      *
@@ -1069,7 +1069,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <next_page_token> value
      *
@@ -1079,7 +1079,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <next_page_token> value
      *
@@ -1089,7 +1089,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <next_page_token> value
      *
@@ -1110,13 +1110,13 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $topic = null;
-    
+
     /**  @var int */
     public $page_size = null;
-    
+
     /**  @var string */
     public $page_token = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -1165,7 +1165,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <topic> value
      *
@@ -1175,7 +1175,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <topic> value
      *
@@ -1185,7 +1185,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <topic> value
      *
@@ -1196,7 +1196,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <page_size> has a value
      *
@@ -1206,7 +1206,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <page_size> value
      *
@@ -1216,7 +1216,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <page_size> value
      *
@@ -1226,7 +1226,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <page_size> value
      *
@@ -1237,7 +1237,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(2, $value);
     }
-    
+
     /**
      * Check if <page_token> has a value
      *
@@ -1247,7 +1247,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <page_token> value
      *
@@ -1257,7 +1257,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <page_token> value
      *
@@ -1267,7 +1267,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <page_token> value
      *
@@ -1288,10 +1288,10 @@ namespace google\pubsub\v1 {
 
       /**  @var string[]  */
     public $subscriptions = array();
-    
+
     /**  @var string */
     public $next_page_token = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -1332,7 +1332,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <subscriptions> value
      *
@@ -1342,7 +1342,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <subscriptions> value
      *
@@ -1353,7 +1353,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1, $idx);
     }
-    
+
     /**
      * Set <subscriptions> value
      *
@@ -1364,7 +1364,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <subscriptions>
      *
@@ -1374,7 +1374,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Add a new element to <subscriptions>
      *
@@ -1385,7 +1385,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_add(1, $value);
     }
-    
+
     /**
      * Check if <next_page_token> has a value
      *
@@ -1395,7 +1395,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <next_page_token> value
      *
@@ -1405,7 +1405,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <next_page_token> value
      *
@@ -1415,7 +1415,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <next_page_token> value
      *
@@ -1436,7 +1436,7 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $topic = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -1469,7 +1469,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <topic> value
      *
@@ -1479,7 +1479,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <topic> value
      *
@@ -1489,7 +1489,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <topic> value
      *
@@ -1510,16 +1510,16 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $name = null;
-    
+
     /**  @var string */
     public $topic = null;
-    
+
     /**  @var \google\pubsub\v1\PushConfig */
     public $push_config = null;
-    
+
     /**  @var int */
     public $ack_deadline_seconds = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -1577,7 +1577,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <name> value
      *
@@ -1587,7 +1587,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <name> value
      *
@@ -1597,7 +1597,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <name> value
      *
@@ -1608,7 +1608,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <topic> has a value
      *
@@ -1618,7 +1618,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <topic> value
      *
@@ -1628,7 +1628,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <topic> value
      *
@@ -1638,7 +1638,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <topic> value
      *
@@ -1649,7 +1649,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(2, $value);
     }
-    
+
     /**
      * Check if <push_config> has a value
      *
@@ -1659,7 +1659,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(4);
     }
-    
+
     /**
      * Clear <push_config> value
      *
@@ -1669,7 +1669,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(4);
     }
-    
+
     /**
      * Get <push_config> value
      *
@@ -1679,7 +1679,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(4);
     }
-    
+
     /**
      * Set <push_config> value
      *
@@ -1690,7 +1690,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(4, $value);
     }
-    
+
     /**
      * Check if <ack_deadline_seconds> has a value
      *
@@ -1700,7 +1700,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(5);
     }
-    
+
     /**
      * Clear <ack_deadline_seconds> value
      *
@@ -1710,7 +1710,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(5);
     }
-    
+
     /**
      * Get <ack_deadline_seconds> value
      *
@@ -1720,7 +1720,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(5);
     }
-    
+
     /**
      * Set <ack_deadline_seconds> value
      *
@@ -1741,10 +1741,10 @@ namespace google\pubsub\v1\PushConfig {
 
       /**  @var string */
     public $key = null;
-    
+
     /**  @var string */
     public $value = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -1785,7 +1785,7 @@ namespace google\pubsub\v1\PushConfig {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <key> value
      *
@@ -1795,7 +1795,7 @@ namespace google\pubsub\v1\PushConfig {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <key> value
      *
@@ -1805,7 +1805,7 @@ namespace google\pubsub\v1\PushConfig {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <key> value
      *
@@ -1816,7 +1816,7 @@ namespace google\pubsub\v1\PushConfig {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <value> has a value
      *
@@ -1826,7 +1826,7 @@ namespace google\pubsub\v1\PushConfig {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <value> value
      *
@@ -1836,7 +1836,7 @@ namespace google\pubsub\v1\PushConfig {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <value> value
      *
@@ -1846,7 +1846,7 @@ namespace google\pubsub\v1\PushConfig {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <value> value
      *
@@ -1867,10 +1867,10 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $push_endpoint = null;
-    
+
     /**  @var \google\pubsub\v1\PushConfig\AttributesEntry[]  */
     public $attributes = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -1912,7 +1912,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <push_endpoint> value
      *
@@ -1922,7 +1922,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <push_endpoint> value
      *
@@ -1932,7 +1932,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <push_endpoint> value
      *
@@ -1943,7 +1943,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <attributes> has a value
      *
@@ -1953,7 +1953,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <attributes> value
      *
@@ -1963,7 +1963,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <attributes> value
      *
@@ -1974,7 +1974,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2, $idx);
     }
-    
+
     /**
      * Set <attributes> value
      *
@@ -1985,7 +1985,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(2, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <attributes>
      *
@@ -1995,7 +1995,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Add a new element to <attributes>
      *
@@ -2016,10 +2016,10 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $ack_id = null;
-    
+
     /**  @var \google\pubsub\v1\PubsubMessage */
     public $message = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -2061,7 +2061,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <ack_id> value
      *
@@ -2071,7 +2071,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <ack_id> value
      *
@@ -2081,7 +2081,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <ack_id> value
      *
@@ -2092,7 +2092,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <message> has a value
      *
@@ -2102,7 +2102,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <message> value
      *
@@ -2112,7 +2112,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <message> value
      *
@@ -2122,7 +2122,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <message> value
      *
@@ -2143,7 +2143,7 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $subscription = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -2176,7 +2176,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <subscription> value
      *
@@ -2186,7 +2186,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <subscription> value
      *
@@ -2196,7 +2196,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <subscription> value
      *
@@ -2217,13 +2217,13 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $project = null;
-    
+
     /**  @var int */
     public $page_size = null;
-    
+
     /**  @var string */
     public $page_token = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -2272,7 +2272,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <project> value
      *
@@ -2282,7 +2282,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <project> value
      *
@@ -2292,7 +2292,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <project> value
      *
@@ -2303,7 +2303,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <page_size> has a value
      *
@@ -2313,7 +2313,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <page_size> value
      *
@@ -2323,7 +2323,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <page_size> value
      *
@@ -2333,7 +2333,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <page_size> value
      *
@@ -2344,7 +2344,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(2, $value);
     }
-    
+
     /**
      * Check if <page_token> has a value
      *
@@ -2354,7 +2354,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <page_token> value
      *
@@ -2364,7 +2364,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <page_token> value
      *
@@ -2374,7 +2374,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <page_token> value
      *
@@ -2395,10 +2395,10 @@ namespace google\pubsub\v1 {
 
       /**  @var \google\pubsub\v1\Subscription[]  */
     public $subscriptions = array();
-    
+
     /**  @var string */
     public $next_page_token = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -2440,7 +2440,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <subscriptions> value
      *
@@ -2450,7 +2450,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <subscriptions> value
      *
@@ -2461,7 +2461,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1, $idx);
     }
-    
+
     /**
      * Set <subscriptions> value
      *
@@ -2472,7 +2472,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <subscriptions>
      *
@@ -2482,7 +2482,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Add a new element to <subscriptions>
      *
@@ -2493,7 +2493,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_add(1, $value);
     }
-    
+
     /**
      * Check if <next_page_token> has a value
      *
@@ -2503,7 +2503,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <next_page_token> value
      *
@@ -2513,7 +2513,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <next_page_token> value
      *
@@ -2523,7 +2523,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <next_page_token> value
      *
@@ -2544,7 +2544,7 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $subscription = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -2577,7 +2577,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <subscription> value
      *
@@ -2587,7 +2587,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <subscription> value
      *
@@ -2597,7 +2597,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <subscription> value
      *
@@ -2618,10 +2618,10 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $subscription = null;
-    
+
     /**  @var \google\pubsub\v1\PushConfig */
     public $push_config = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -2663,7 +2663,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <subscription> value
      *
@@ -2673,7 +2673,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <subscription> value
      *
@@ -2683,7 +2683,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <subscription> value
      *
@@ -2694,7 +2694,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <push_config> has a value
      *
@@ -2704,7 +2704,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <push_config> value
      *
@@ -2714,7 +2714,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <push_config> value
      *
@@ -2724,7 +2724,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <push_config> value
      *
@@ -2745,13 +2745,13 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $subscription = null;
-    
+
     /**  @var boolean */
     public $return_immediately = null;
-    
+
     /**  @var int */
     public $max_messages = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -2800,7 +2800,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <subscription> value
      *
@@ -2810,7 +2810,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <subscription> value
      *
@@ -2820,7 +2820,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <subscription> value
      *
@@ -2831,7 +2831,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <return_immediately> has a value
      *
@@ -2841,7 +2841,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <return_immediately> value
      *
@@ -2851,7 +2851,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <return_immediately> value
      *
@@ -2861,7 +2861,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <return_immediately> value
      *
@@ -2872,7 +2872,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(2, $value);
     }
-    
+
     /**
      * Check if <max_messages> has a value
      *
@@ -2882,7 +2882,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <max_messages> value
      *
@@ -2892,7 +2892,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <max_messages> value
      *
@@ -2902,7 +2902,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <max_messages> value
      *
@@ -2923,7 +2923,7 @@ namespace google\pubsub\v1 {
 
       /**  @var \google\pubsub\v1\ReceivedMessage[]  */
     public $received_messages = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -2957,7 +2957,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <received_messages> value
      *
@@ -2967,7 +2967,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <received_messages> value
      *
@@ -2978,7 +2978,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1, $idx);
     }
-    
+
     /**
      * Set <received_messages> value
      *
@@ -2989,7 +2989,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <received_messages>
      *
@@ -2999,7 +2999,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Add a new element to <received_messages>
      *
@@ -3020,13 +3020,13 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $subscription = null;
-    
+
     /**  @var string[]  */
     public $ack_ids = array();
-    
+
     /**  @var int */
     public $ack_deadline_seconds = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -3075,7 +3075,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <subscription> value
      *
@@ -3085,7 +3085,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <subscription> value
      *
@@ -3095,7 +3095,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <subscription> value
      *
@@ -3106,7 +3106,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <ack_ids> has a value
      *
@@ -3116,7 +3116,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(4);
     }
-    
+
     /**
      * Clear <ack_ids> value
      *
@@ -3126,7 +3126,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(4);
     }
-    
+
     /**
      * Get <ack_ids> value
      *
@@ -3137,7 +3137,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(4, $idx);
     }
-    
+
     /**
      * Set <ack_ids> value
      *
@@ -3148,7 +3148,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(4, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <ack_ids>
      *
@@ -3158,7 +3158,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(4);
     }
-    
+
     /**
      * Add a new element to <ack_ids>
      *
@@ -3169,7 +3169,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_add(4, $value);
     }
-    
+
     /**
      * Check if <ack_deadline_seconds> has a value
      *
@@ -3179,7 +3179,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <ack_deadline_seconds> value
      *
@@ -3189,7 +3189,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <ack_deadline_seconds> value
      *
@@ -3199,7 +3199,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <ack_deadline_seconds> value
      *
@@ -3220,10 +3220,10 @@ namespace google\pubsub\v1 {
 
       /**  @var string */
     public $subscription = null;
-    
+
     /**  @var string[]  */
     public $ack_ids = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -3264,7 +3264,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <subscription> value
      *
@@ -3274,7 +3274,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <subscription> value
      *
@@ -3284,7 +3284,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <subscription> value
      *
@@ -3295,7 +3295,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <ack_ids> has a value
      *
@@ -3305,7 +3305,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <ack_ids> value
      *
@@ -3315,7 +3315,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <ack_ids> value
      *
@@ -3326,7 +3326,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2, $idx);
     }
-    
+
     /**
      * Set <ack_ids> value
      *
@@ -3337,7 +3337,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_set(2, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <ack_ids>
      *
@@ -3347,7 +3347,7 @@ namespace google\pubsub\v1 {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Add a new element to <ack_ids>
      *

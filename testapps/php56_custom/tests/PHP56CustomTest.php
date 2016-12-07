@@ -237,7 +237,7 @@ class PHP56CustomTest extends \PHPUnit_Framework_TestCase
             $resp->getBody()->getContents()
         );
     }
-    
+
     public function testInteractiveOutput()
     {
         $resp = $this->client->get(
@@ -269,7 +269,7 @@ class PHP56CustomTest extends \PHPUnit_Framework_TestCase
             $resp->getBody()->getContents()
         );
     }
-    
+
     public function testCommandOutput()
     {
         $resp = $this->client->get(
@@ -285,7 +285,7 @@ class PHP56CustomTest extends \PHPUnit_Framework_TestCase
             $resp->getBody()->getContents()
         );
     }
- 
+
     public function testFilePermissions()
     {
         $resp = $this->client->get('permission.php');

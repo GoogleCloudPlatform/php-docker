@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-// Returns the contents of 
+// Returns the contents of
 
 exec('ps auxww|grep php-fpm|grep -v grep', $output);
 echo count($output);

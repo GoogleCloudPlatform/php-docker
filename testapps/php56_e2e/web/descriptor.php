@@ -10,7 +10,7 @@ namespace google\protobuf {
 
       /**  @var \google\protobuf\FileDescriptorProto[]  */
     public $file = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -44,7 +44,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <file> value
      *
@@ -54,7 +54,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <file> value
      *
@@ -65,7 +65,7 @@ namespace google\protobuf {
     {
         return $this->_get(1, $idx);
     }
-    
+
     /**
      * Set <file> value
      *
@@ -76,7 +76,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <file>
      *
@@ -86,7 +86,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Add a new element to <file>
      *
@@ -107,40 +107,40 @@ namespace google\protobuf {
 
       /**  @var string */
     public $name = null;
-    
+
     /**  @var string */
     public $package = null;
-    
+
     /**  @var string[]  */
     public $dependency = array();
-    
+
     /**  @var int[]  */
     public $public_dependency = array();
-    
+
     /**  @var int[]  */
     public $weak_dependency = array();
-    
+
     /**  @var \google\protobuf\DescriptorProto[]  */
     public $message_type = array();
-    
+
     /**  @var \google\protobuf\EnumDescriptorProto[]  */
     public $enum_type = array();
-    
+
     /**  @var \google\protobuf\ServiceDescriptorProto[]  */
     public $service = array();
-    
+
     /**  @var \google\protobuf\FieldDescriptorProto[]  */
     public $extension = array();
-    
+
     /**  @var \google\protobuf\FileOptions */
     public $options = null;
-    
+
     /**  @var \google\protobuf\SourceCodeInfo */
     public $source_code_info = null;
-    
+
     /**  @var string */
     public $syntax = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -267,7 +267,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <name> value
      *
@@ -277,7 +277,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <name> value
      *
@@ -287,7 +287,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <name> value
      *
@@ -298,7 +298,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <package> has a value
      *
@@ -308,7 +308,7 @@ namespace google\protobuf {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <package> value
      *
@@ -318,7 +318,7 @@ namespace google\protobuf {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <package> value
      *
@@ -328,7 +328,7 @@ namespace google\protobuf {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <package> value
      *
@@ -339,7 +339,7 @@ namespace google\protobuf {
     {
         return $this->_set(2, $value);
     }
-    
+
     /**
      * Check if <dependency> has a value
      *
@@ -349,7 +349,7 @@ namespace google\protobuf {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <dependency> value
      *
@@ -359,7 +359,7 @@ namespace google\protobuf {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <dependency> value
      *
@@ -370,7 +370,7 @@ namespace google\protobuf {
     {
         return $this->_get(3, $idx);
     }
-    
+
     /**
      * Set <dependency> value
      *
@@ -381,7 +381,7 @@ namespace google\protobuf {
     {
         return $this->_set(3, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <dependency>
      *
@@ -391,7 +391,7 @@ namespace google\protobuf {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Add a new element to <dependency>
      *
@@ -402,7 +402,7 @@ namespace google\protobuf {
     {
         return $this->_add(3, $value);
     }
-    
+
     /**
      * Check if <public_dependency> has a value
      *
@@ -412,7 +412,7 @@ namespace google\protobuf {
     {
         return $this->_has(10);
     }
-    
+
     /**
      * Clear <public_dependency> value
      *
@@ -422,7 +422,7 @@ namespace google\protobuf {
     {
         return $this->_clear(10);
     }
-    
+
     /**
      * Get <public_dependency> value
      *
@@ -433,7 +433,7 @@ namespace google\protobuf {
     {
         return $this->_get(10, $idx);
     }
-    
+
     /**
      * Set <public_dependency> value
      *
@@ -444,7 +444,7 @@ namespace google\protobuf {
     {
         return $this->_set(10, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <public_dependency>
      *
@@ -454,7 +454,7 @@ namespace google\protobuf {
     {
         return $this->_get(10);
     }
-    
+
     /**
      * Add a new element to <public_dependency>
      *
@@ -465,7 +465,7 @@ namespace google\protobuf {
     {
         return $this->_add(10, $value);
     }
-    
+
     /**
      * Check if <weak_dependency> has a value
      *
@@ -475,7 +475,7 @@ namespace google\protobuf {
     {
         return $this->_has(11);
     }
-    
+
     /**
      * Clear <weak_dependency> value
      *
@@ -485,7 +485,7 @@ namespace google\protobuf {
     {
         return $this->_clear(11);
     }
-    
+
     /**
      * Get <weak_dependency> value
      *
@@ -496,7 +496,7 @@ namespace google\protobuf {
     {
         return $this->_get(11, $idx);
     }
-    
+
     /**
      * Set <weak_dependency> value
      *
@@ -507,7 +507,7 @@ namespace google\protobuf {
     {
         return $this->_set(11, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <weak_dependency>
      *
@@ -517,7 +517,7 @@ namespace google\protobuf {
     {
         return $this->_get(11);
     }
-    
+
     /**
      * Add a new element to <weak_dependency>
      *
@@ -528,7 +528,7 @@ namespace google\protobuf {
     {
         return $this->_add(11, $value);
     }
-    
+
     /**
      * Check if <message_type> has a value
      *
@@ -538,7 +538,7 @@ namespace google\protobuf {
     {
         return $this->_has(4);
     }
-    
+
     /**
      * Clear <message_type> value
      *
@@ -548,7 +548,7 @@ namespace google\protobuf {
     {
         return $this->_clear(4);
     }
-    
+
     /**
      * Get <message_type> value
      *
@@ -559,7 +559,7 @@ namespace google\protobuf {
     {
         return $this->_get(4, $idx);
     }
-    
+
     /**
      * Set <message_type> value
      *
@@ -570,7 +570,7 @@ namespace google\protobuf {
     {
         return $this->_set(4, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <message_type>
      *
@@ -580,7 +580,7 @@ namespace google\protobuf {
     {
         return $this->_get(4);
     }
-    
+
     /**
      * Add a new element to <message_type>
      *
@@ -591,7 +591,7 @@ namespace google\protobuf {
     {
         return $this->_add(4, $value);
     }
-    
+
     /**
      * Check if <enum_type> has a value
      *
@@ -601,7 +601,7 @@ namespace google\protobuf {
     {
         return $this->_has(5);
     }
-    
+
     /**
      * Clear <enum_type> value
      *
@@ -611,7 +611,7 @@ namespace google\protobuf {
     {
         return $this->_clear(5);
     }
-    
+
     /**
      * Get <enum_type> value
      *
@@ -622,7 +622,7 @@ namespace google\protobuf {
     {
         return $this->_get(5, $idx);
     }
-    
+
     /**
      * Set <enum_type> value
      *
@@ -633,7 +633,7 @@ namespace google\protobuf {
     {
         return $this->_set(5, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <enum_type>
      *
@@ -643,7 +643,7 @@ namespace google\protobuf {
     {
         return $this->_get(5);
     }
-    
+
     /**
      * Add a new element to <enum_type>
      *
@@ -654,7 +654,7 @@ namespace google\protobuf {
     {
         return $this->_add(5, $value);
     }
-    
+
     /**
      * Check if <service> has a value
      *
@@ -664,7 +664,7 @@ namespace google\protobuf {
     {
         return $this->_has(6);
     }
-    
+
     /**
      * Clear <service> value
      *
@@ -674,7 +674,7 @@ namespace google\protobuf {
     {
         return $this->_clear(6);
     }
-    
+
     /**
      * Get <service> value
      *
@@ -685,7 +685,7 @@ namespace google\protobuf {
     {
         return $this->_get(6, $idx);
     }
-    
+
     /**
      * Set <service> value
      *
@@ -696,7 +696,7 @@ namespace google\protobuf {
     {
         return $this->_set(6, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <service>
      *
@@ -706,7 +706,7 @@ namespace google\protobuf {
     {
         return $this->_get(6);
     }
-    
+
     /**
      * Add a new element to <service>
      *
@@ -717,7 +717,7 @@ namespace google\protobuf {
     {
         return $this->_add(6, $value);
     }
-    
+
     /**
      * Check if <extension> has a value
      *
@@ -727,7 +727,7 @@ namespace google\protobuf {
     {
         return $this->_has(7);
     }
-    
+
     /**
      * Clear <extension> value
      *
@@ -737,7 +737,7 @@ namespace google\protobuf {
     {
         return $this->_clear(7);
     }
-    
+
     /**
      * Get <extension> value
      *
@@ -748,7 +748,7 @@ namespace google\protobuf {
     {
         return $this->_get(7, $idx);
     }
-    
+
     /**
      * Set <extension> value
      *
@@ -759,7 +759,7 @@ namespace google\protobuf {
     {
         return $this->_set(7, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <extension>
      *
@@ -769,7 +769,7 @@ namespace google\protobuf {
     {
         return $this->_get(7);
     }
-    
+
     /**
      * Add a new element to <extension>
      *
@@ -780,7 +780,7 @@ namespace google\protobuf {
     {
         return $this->_add(7, $value);
     }
-    
+
     /**
      * Check if <options> has a value
      *
@@ -790,7 +790,7 @@ namespace google\protobuf {
     {
         return $this->_has(8);
     }
-    
+
     /**
      * Clear <options> value
      *
@@ -800,7 +800,7 @@ namespace google\protobuf {
     {
         return $this->_clear(8);
     }
-    
+
     /**
      * Get <options> value
      *
@@ -810,7 +810,7 @@ namespace google\protobuf {
     {
         return $this->_get(8);
     }
-    
+
     /**
      * Set <options> value
      *
@@ -821,7 +821,7 @@ namespace google\protobuf {
     {
         return $this->_set(8, $value);
     }
-    
+
     /**
      * Check if <source_code_info> has a value
      *
@@ -831,7 +831,7 @@ namespace google\protobuf {
     {
         return $this->_has(9);
     }
-    
+
     /**
      * Clear <source_code_info> value
      *
@@ -841,7 +841,7 @@ namespace google\protobuf {
     {
         return $this->_clear(9);
     }
-    
+
     /**
      * Get <source_code_info> value
      *
@@ -851,7 +851,7 @@ namespace google\protobuf {
     {
         return $this->_get(9);
     }
-    
+
     /**
      * Set <source_code_info> value
      *
@@ -862,7 +862,7 @@ namespace google\protobuf {
     {
         return $this->_set(9, $value);
     }
-    
+
     /**
      * Check if <syntax> has a value
      *
@@ -872,7 +872,7 @@ namespace google\protobuf {
     {
         return $this->_has(12);
     }
-    
+
     /**
      * Clear <syntax> value
      *
@@ -882,7 +882,7 @@ namespace google\protobuf {
     {
         return $this->_clear(12);
     }
-    
+
     /**
      * Get <syntax> value
      *
@@ -892,7 +892,7 @@ namespace google\protobuf {
     {
         return $this->_get(12);
     }
-    
+
     /**
      * Set <syntax> value
      *
@@ -913,10 +913,10 @@ namespace google\protobuf\DescriptorProto {
 
       /**  @var int */
     public $start = null;
-    
+
     /**  @var int */
     public $end = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -957,7 +957,7 @@ namespace google\protobuf\DescriptorProto {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <start> value
      *
@@ -967,7 +967,7 @@ namespace google\protobuf\DescriptorProto {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <start> value
      *
@@ -977,7 +977,7 @@ namespace google\protobuf\DescriptorProto {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <start> value
      *
@@ -988,7 +988,7 @@ namespace google\protobuf\DescriptorProto {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <end> has a value
      *
@@ -998,7 +998,7 @@ namespace google\protobuf\DescriptorProto {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <end> value
      *
@@ -1008,7 +1008,7 @@ namespace google\protobuf\DescriptorProto {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <end> value
      *
@@ -1018,7 +1018,7 @@ namespace google\protobuf\DescriptorProto {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <end> value
      *
@@ -1039,10 +1039,10 @@ namespace google\protobuf\DescriptorProto {
 
       /**  @var int */
     public $start = null;
-    
+
     /**  @var int */
     public $end = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -1083,7 +1083,7 @@ namespace google\protobuf\DescriptorProto {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <start> value
      *
@@ -1093,7 +1093,7 @@ namespace google\protobuf\DescriptorProto {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <start> value
      *
@@ -1103,7 +1103,7 @@ namespace google\protobuf\DescriptorProto {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <start> value
      *
@@ -1114,7 +1114,7 @@ namespace google\protobuf\DescriptorProto {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <end> has a value
      *
@@ -1124,7 +1124,7 @@ namespace google\protobuf\DescriptorProto {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <end> value
      *
@@ -1134,7 +1134,7 @@ namespace google\protobuf\DescriptorProto {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <end> value
      *
@@ -1144,7 +1144,7 @@ namespace google\protobuf\DescriptorProto {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <end> value
      *
@@ -1165,34 +1165,34 @@ namespace google\protobuf {
 
       /**  @var string */
     public $name = null;
-    
+
     /**  @var \google\protobuf\FieldDescriptorProto[]  */
     public $field = array();
-    
+
     /**  @var \google\protobuf\FieldDescriptorProto[]  */
     public $extension = array();
-    
+
     /**  @var \google\protobuf\DescriptorProto[]  */
     public $nested_type = array();
-    
+
     /**  @var \google\protobuf\EnumDescriptorProto[]  */
     public $enum_type = array();
-    
+
     /**  @var \google\protobuf\DescriptorProto\ExtensionRange[]  */
     public $extension_range = array();
-    
+
     /**  @var \google\protobuf\OneofDescriptorProto[]  */
     public $oneof_decl = array();
-    
+
     /**  @var \google\protobuf\MessageOptions */
     public $options = null;
-    
+
     /**  @var \google\protobuf\DescriptorProto\ReservedRange[]  */
     public $reserved_range = array();
-    
+
     /**  @var string[]  */
     public $reserved_name = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -1305,7 +1305,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <name> value
      *
@@ -1315,7 +1315,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <name> value
      *
@@ -1325,7 +1325,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <name> value
      *
@@ -1336,7 +1336,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <field> has a value
      *
@@ -1346,7 +1346,7 @@ namespace google\protobuf {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <field> value
      *
@@ -1356,7 +1356,7 @@ namespace google\protobuf {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <field> value
      *
@@ -1367,7 +1367,7 @@ namespace google\protobuf {
     {
         return $this->_get(2, $idx);
     }
-    
+
     /**
      * Set <field> value
      *
@@ -1378,7 +1378,7 @@ namespace google\protobuf {
     {
         return $this->_set(2, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <field>
      *
@@ -1388,7 +1388,7 @@ namespace google\protobuf {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Add a new element to <field>
      *
@@ -1399,7 +1399,7 @@ namespace google\protobuf {
     {
         return $this->_add(2, $value);
     }
-    
+
     /**
      * Check if <extension> has a value
      *
@@ -1409,7 +1409,7 @@ namespace google\protobuf {
     {
         return $this->_has(6);
     }
-    
+
     /**
      * Clear <extension> value
      *
@@ -1419,7 +1419,7 @@ namespace google\protobuf {
     {
         return $this->_clear(6);
     }
-    
+
     /**
      * Get <extension> value
      *
@@ -1430,7 +1430,7 @@ namespace google\protobuf {
     {
         return $this->_get(6, $idx);
     }
-    
+
     /**
      * Set <extension> value
      *
@@ -1441,7 +1441,7 @@ namespace google\protobuf {
     {
         return $this->_set(6, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <extension>
      *
@@ -1451,7 +1451,7 @@ namespace google\protobuf {
     {
         return $this->_get(6);
     }
-    
+
     /**
      * Add a new element to <extension>
      *
@@ -1462,7 +1462,7 @@ namespace google\protobuf {
     {
         return $this->_add(6, $value);
     }
-    
+
     /**
      * Check if <nested_type> has a value
      *
@@ -1472,7 +1472,7 @@ namespace google\protobuf {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <nested_type> value
      *
@@ -1482,7 +1482,7 @@ namespace google\protobuf {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <nested_type> value
      *
@@ -1493,7 +1493,7 @@ namespace google\protobuf {
     {
         return $this->_get(3, $idx);
     }
-    
+
     /**
      * Set <nested_type> value
      *
@@ -1504,7 +1504,7 @@ namespace google\protobuf {
     {
         return $this->_set(3, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <nested_type>
      *
@@ -1514,7 +1514,7 @@ namespace google\protobuf {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Add a new element to <nested_type>
      *
@@ -1525,7 +1525,7 @@ namespace google\protobuf {
     {
         return $this->_add(3, $value);
     }
-    
+
     /**
      * Check if <enum_type> has a value
      *
@@ -1535,7 +1535,7 @@ namespace google\protobuf {
     {
         return $this->_has(4);
     }
-    
+
     /**
      * Clear <enum_type> value
      *
@@ -1545,7 +1545,7 @@ namespace google\protobuf {
     {
         return $this->_clear(4);
     }
-    
+
     /**
      * Get <enum_type> value
      *
@@ -1556,7 +1556,7 @@ namespace google\protobuf {
     {
         return $this->_get(4, $idx);
     }
-    
+
     /**
      * Set <enum_type> value
      *
@@ -1567,7 +1567,7 @@ namespace google\protobuf {
     {
         return $this->_set(4, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <enum_type>
      *
@@ -1577,7 +1577,7 @@ namespace google\protobuf {
     {
         return $this->_get(4);
     }
-    
+
     /**
      * Add a new element to <enum_type>
      *
@@ -1588,7 +1588,7 @@ namespace google\protobuf {
     {
         return $this->_add(4, $value);
     }
-    
+
     /**
      * Check if <extension_range> has a value
      *
@@ -1598,7 +1598,7 @@ namespace google\protobuf {
     {
         return $this->_has(5);
     }
-    
+
     /**
      * Clear <extension_range> value
      *
@@ -1608,7 +1608,7 @@ namespace google\protobuf {
     {
         return $this->_clear(5);
     }
-    
+
     /**
      * Get <extension_range> value
      *
@@ -1619,7 +1619,7 @@ namespace google\protobuf {
     {
         return $this->_get(5, $idx);
     }
-    
+
     /**
      * Set <extension_range> value
      *
@@ -1630,7 +1630,7 @@ namespace google\protobuf {
     {
         return $this->_set(5, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <extension_range>
      *
@@ -1640,7 +1640,7 @@ namespace google\protobuf {
     {
         return $this->_get(5);
     }
-    
+
     /**
      * Add a new element to <extension_range>
      *
@@ -1651,7 +1651,7 @@ namespace google\protobuf {
     {
         return $this->_add(5, $value);
     }
-    
+
     /**
      * Check if <oneof_decl> has a value
      *
@@ -1661,7 +1661,7 @@ namespace google\protobuf {
     {
         return $this->_has(8);
     }
-    
+
     /**
      * Clear <oneof_decl> value
      *
@@ -1671,7 +1671,7 @@ namespace google\protobuf {
     {
         return $this->_clear(8);
     }
-    
+
     /**
      * Get <oneof_decl> value
      *
@@ -1682,7 +1682,7 @@ namespace google\protobuf {
     {
         return $this->_get(8, $idx);
     }
-    
+
     /**
      * Set <oneof_decl> value
      *
@@ -1693,7 +1693,7 @@ namespace google\protobuf {
     {
         return $this->_set(8, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <oneof_decl>
      *
@@ -1703,7 +1703,7 @@ namespace google\protobuf {
     {
         return $this->_get(8);
     }
-    
+
     /**
      * Add a new element to <oneof_decl>
      *
@@ -1714,7 +1714,7 @@ namespace google\protobuf {
     {
         return $this->_add(8, $value);
     }
-    
+
     /**
      * Check if <options> has a value
      *
@@ -1724,7 +1724,7 @@ namespace google\protobuf {
     {
         return $this->_has(7);
     }
-    
+
     /**
      * Clear <options> value
      *
@@ -1734,7 +1734,7 @@ namespace google\protobuf {
     {
         return $this->_clear(7);
     }
-    
+
     /**
      * Get <options> value
      *
@@ -1744,7 +1744,7 @@ namespace google\protobuf {
     {
         return $this->_get(7);
     }
-    
+
     /**
      * Set <options> value
      *
@@ -1755,7 +1755,7 @@ namespace google\protobuf {
     {
         return $this->_set(7, $value);
     }
-    
+
     /**
      * Check if <reserved_range> has a value
      *
@@ -1765,7 +1765,7 @@ namespace google\protobuf {
     {
         return $this->_has(9);
     }
-    
+
     /**
      * Clear <reserved_range> value
      *
@@ -1775,7 +1775,7 @@ namespace google\protobuf {
     {
         return $this->_clear(9);
     }
-    
+
     /**
      * Get <reserved_range> value
      *
@@ -1786,7 +1786,7 @@ namespace google\protobuf {
     {
         return $this->_get(9, $idx);
     }
-    
+
     /**
      * Set <reserved_range> value
      *
@@ -1797,7 +1797,7 @@ namespace google\protobuf {
     {
         return $this->_set(9, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <reserved_range>
      *
@@ -1807,7 +1807,7 @@ namespace google\protobuf {
     {
         return $this->_get(9);
     }
-    
+
     /**
      * Add a new element to <reserved_range>
      *
@@ -1818,7 +1818,7 @@ namespace google\protobuf {
     {
         return $this->_add(9, $value);
     }
-    
+
     /**
      * Check if <reserved_name> has a value
      *
@@ -1828,7 +1828,7 @@ namespace google\protobuf {
     {
         return $this->_has(10);
     }
-    
+
     /**
      * Clear <reserved_name> value
      *
@@ -1838,7 +1838,7 @@ namespace google\protobuf {
     {
         return $this->_clear(10);
     }
-    
+
     /**
      * Get <reserved_name> value
      *
@@ -1849,7 +1849,7 @@ namespace google\protobuf {
     {
         return $this->_get(10, $idx);
     }
-    
+
     /**
      * Set <reserved_name> value
      *
@@ -1860,7 +1860,7 @@ namespace google\protobuf {
     {
         return $this->_set(10, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <reserved_name>
      *
@@ -1870,7 +1870,7 @@ namespace google\protobuf {
     {
         return $this->_get(10);
     }
-    
+
     /**
      * Add a new element to <reserved_name>
      *
@@ -1924,34 +1924,34 @@ namespace google\protobuf {
 
       /**  @var string */
     public $name = null;
-    
+
     /**  @var int */
     public $number = null;
-    
+
     /**  @var int - \google\protobuf\FieldDescriptorProto\Label */
     public $label = null;
-    
+
     /**  @var int - \google\protobuf\FieldDescriptorProto\Type */
     public $type = null;
-    
+
     /**  @var string */
     public $type_name = null;
-    
+
     /**  @var string */
     public $extendee = null;
-    
+
     /**  @var string */
     public $default_value = null;
-    
+
     /**  @var int */
     public $oneof_index = null;
-    
+
     /**  @var string */
     public $json_name = null;
-    
+
     /**  @var \google\protobuf\FieldOptions */
     public $options = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -2059,7 +2059,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <name> value
      *
@@ -2069,7 +2069,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <name> value
      *
@@ -2079,7 +2079,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <name> value
      *
@@ -2090,7 +2090,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <number> has a value
      *
@@ -2100,7 +2100,7 @@ namespace google\protobuf {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <number> value
      *
@@ -2110,7 +2110,7 @@ namespace google\protobuf {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <number> value
      *
@@ -2120,7 +2120,7 @@ namespace google\protobuf {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <number> value
      *
@@ -2131,7 +2131,7 @@ namespace google\protobuf {
     {
         return $this->_set(3, $value);
     }
-    
+
     /**
      * Check if <label> has a value
      *
@@ -2141,7 +2141,7 @@ namespace google\protobuf {
     {
         return $this->_has(4);
     }
-    
+
     /**
      * Clear <label> value
      *
@@ -2151,7 +2151,7 @@ namespace google\protobuf {
     {
         return $this->_clear(4);
     }
-    
+
     /**
      * Get <label> value
      *
@@ -2161,7 +2161,7 @@ namespace google\protobuf {
     {
         return $this->_get(4);
     }
-    
+
     /**
      * Set <label> value
      *
@@ -2172,7 +2172,7 @@ namespace google\protobuf {
     {
         return $this->_set(4, $value);
     }
-    
+
     /**
      * Check if <type> has a value
      *
@@ -2182,7 +2182,7 @@ namespace google\protobuf {
     {
         return $this->_has(5);
     }
-    
+
     /**
      * Clear <type> value
      *
@@ -2192,7 +2192,7 @@ namespace google\protobuf {
     {
         return $this->_clear(5);
     }
-    
+
     /**
      * Get <type> value
      *
@@ -2202,7 +2202,7 @@ namespace google\protobuf {
     {
         return $this->_get(5);
     }
-    
+
     /**
      * Set <type> value
      *
@@ -2213,7 +2213,7 @@ namespace google\protobuf {
     {
         return $this->_set(5, $value);
     }
-    
+
     /**
      * Check if <type_name> has a value
      *
@@ -2223,7 +2223,7 @@ namespace google\protobuf {
     {
         return $this->_has(6);
     }
-    
+
     /**
      * Clear <type_name> value
      *
@@ -2233,7 +2233,7 @@ namespace google\protobuf {
     {
         return $this->_clear(6);
     }
-    
+
     /**
      * Get <type_name> value
      *
@@ -2243,7 +2243,7 @@ namespace google\protobuf {
     {
         return $this->_get(6);
     }
-    
+
     /**
      * Set <type_name> value
      *
@@ -2254,7 +2254,7 @@ namespace google\protobuf {
     {
         return $this->_set(6, $value);
     }
-    
+
     /**
      * Check if <extendee> has a value
      *
@@ -2264,7 +2264,7 @@ namespace google\protobuf {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <extendee> value
      *
@@ -2274,7 +2274,7 @@ namespace google\protobuf {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <extendee> value
      *
@@ -2284,7 +2284,7 @@ namespace google\protobuf {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <extendee> value
      *
@@ -2295,7 +2295,7 @@ namespace google\protobuf {
     {
         return $this->_set(2, $value);
     }
-    
+
     /**
      * Check if <default_value> has a value
      *
@@ -2305,7 +2305,7 @@ namespace google\protobuf {
     {
         return $this->_has(7);
     }
-    
+
     /**
      * Clear <default_value> value
      *
@@ -2315,7 +2315,7 @@ namespace google\protobuf {
     {
         return $this->_clear(7);
     }
-    
+
     /**
      * Get <default_value> value
      *
@@ -2325,7 +2325,7 @@ namespace google\protobuf {
     {
         return $this->_get(7);
     }
-    
+
     /**
      * Set <default_value> value
      *
@@ -2336,7 +2336,7 @@ namespace google\protobuf {
     {
         return $this->_set(7, $value);
     }
-    
+
     /**
      * Check if <oneof_index> has a value
      *
@@ -2346,7 +2346,7 @@ namespace google\protobuf {
     {
         return $this->_has(9);
     }
-    
+
     /**
      * Clear <oneof_index> value
      *
@@ -2356,7 +2356,7 @@ namespace google\protobuf {
     {
         return $this->_clear(9);
     }
-    
+
     /**
      * Get <oneof_index> value
      *
@@ -2366,7 +2366,7 @@ namespace google\protobuf {
     {
         return $this->_get(9);
     }
-    
+
     /**
      * Set <oneof_index> value
      *
@@ -2377,7 +2377,7 @@ namespace google\protobuf {
     {
         return $this->_set(9, $value);
     }
-    
+
     /**
      * Check if <json_name> has a value
      *
@@ -2387,7 +2387,7 @@ namespace google\protobuf {
     {
         return $this->_has(10);
     }
-    
+
     /**
      * Clear <json_name> value
      *
@@ -2397,7 +2397,7 @@ namespace google\protobuf {
     {
         return $this->_clear(10);
     }
-    
+
     /**
      * Get <json_name> value
      *
@@ -2407,7 +2407,7 @@ namespace google\protobuf {
     {
         return $this->_get(10);
     }
-    
+
     /**
      * Set <json_name> value
      *
@@ -2418,7 +2418,7 @@ namespace google\protobuf {
     {
         return $this->_set(10, $value);
     }
-    
+
     /**
      * Check if <options> has a value
      *
@@ -2428,7 +2428,7 @@ namespace google\protobuf {
     {
         return $this->_has(8);
     }
-    
+
     /**
      * Clear <options> value
      *
@@ -2438,7 +2438,7 @@ namespace google\protobuf {
     {
         return $this->_clear(8);
     }
-    
+
     /**
      * Get <options> value
      *
@@ -2448,7 +2448,7 @@ namespace google\protobuf {
     {
         return $this->_get(8);
     }
-    
+
     /**
      * Set <options> value
      *
@@ -2469,7 +2469,7 @@ namespace google\protobuf {
 
       /**  @var string */
     public $name = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -2502,7 +2502,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <name> value
      *
@@ -2512,7 +2512,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <name> value
      *
@@ -2522,7 +2522,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <name> value
      *
@@ -2543,13 +2543,13 @@ namespace google\protobuf {
 
       /**  @var string */
     public $name = null;
-    
+
     /**  @var \google\protobuf\EnumValueDescriptorProto[]  */
     public $value = array();
-    
+
     /**  @var \google\protobuf\EnumOptions */
     public $options = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -2600,7 +2600,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <name> value
      *
@@ -2610,7 +2610,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <name> value
      *
@@ -2620,7 +2620,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <name> value
      *
@@ -2631,7 +2631,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <value> has a value
      *
@@ -2641,7 +2641,7 @@ namespace google\protobuf {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <value> value
      *
@@ -2651,7 +2651,7 @@ namespace google\protobuf {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <value> value
      *
@@ -2662,7 +2662,7 @@ namespace google\protobuf {
     {
         return $this->_get(2, $idx);
     }
-    
+
     /**
      * Set <value> value
      *
@@ -2673,7 +2673,7 @@ namespace google\protobuf {
     {
         return $this->_set(2, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <value>
      *
@@ -2683,7 +2683,7 @@ namespace google\protobuf {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Add a new element to <value>
      *
@@ -2694,7 +2694,7 @@ namespace google\protobuf {
     {
         return $this->_add(2, $value);
     }
-    
+
     /**
      * Check if <options> has a value
      *
@@ -2704,7 +2704,7 @@ namespace google\protobuf {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <options> value
      *
@@ -2714,7 +2714,7 @@ namespace google\protobuf {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <options> value
      *
@@ -2724,7 +2724,7 @@ namespace google\protobuf {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <options> value
      *
@@ -2745,13 +2745,13 @@ namespace google\protobuf {
 
       /**  @var string */
     public $name = null;
-    
+
     /**  @var int */
     public $number = null;
-    
+
     /**  @var \google\protobuf\EnumValueOptions */
     public $options = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -2801,7 +2801,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <name> value
      *
@@ -2811,7 +2811,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <name> value
      *
@@ -2821,7 +2821,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <name> value
      *
@@ -2832,7 +2832,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <number> has a value
      *
@@ -2842,7 +2842,7 @@ namespace google\protobuf {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <number> value
      *
@@ -2852,7 +2852,7 @@ namespace google\protobuf {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <number> value
      *
@@ -2862,7 +2862,7 @@ namespace google\protobuf {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <number> value
      *
@@ -2873,7 +2873,7 @@ namespace google\protobuf {
     {
         return $this->_set(2, $value);
     }
-    
+
     /**
      * Check if <options> has a value
      *
@@ -2883,7 +2883,7 @@ namespace google\protobuf {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <options> value
      *
@@ -2893,7 +2893,7 @@ namespace google\protobuf {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <options> value
      *
@@ -2903,7 +2903,7 @@ namespace google\protobuf {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <options> value
      *
@@ -2924,13 +2924,13 @@ namespace google\protobuf {
 
       /**  @var string */
     public $name = null;
-    
+
     /**  @var \google\protobuf\MethodDescriptorProto[]  */
     public $method = array();
-    
+
     /**  @var \google\protobuf\ServiceOptions */
     public $options = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -2981,7 +2981,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <name> value
      *
@@ -2991,7 +2991,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <name> value
      *
@@ -3001,7 +3001,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <name> value
      *
@@ -3012,7 +3012,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <method> has a value
      *
@@ -3022,7 +3022,7 @@ namespace google\protobuf {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <method> value
      *
@@ -3032,7 +3032,7 @@ namespace google\protobuf {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <method> value
      *
@@ -3043,7 +3043,7 @@ namespace google\protobuf {
     {
         return $this->_get(2, $idx);
     }
-    
+
     /**
      * Set <method> value
      *
@@ -3054,7 +3054,7 @@ namespace google\protobuf {
     {
         return $this->_set(2, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <method>
      *
@@ -3064,7 +3064,7 @@ namespace google\protobuf {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Add a new element to <method>
      *
@@ -3075,7 +3075,7 @@ namespace google\protobuf {
     {
         return $this->_add(2, $value);
     }
-    
+
     /**
      * Check if <options> has a value
      *
@@ -3085,7 +3085,7 @@ namespace google\protobuf {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <options> value
      *
@@ -3095,7 +3095,7 @@ namespace google\protobuf {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <options> value
      *
@@ -3105,7 +3105,7 @@ namespace google\protobuf {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <options> value
      *
@@ -3126,22 +3126,22 @@ namespace google\protobuf {
 
       /**  @var string */
     public $name = null;
-    
+
     /**  @var string */
     public $input_type = null;
-    
+
     /**  @var string */
     public $output_type = null;
-    
+
     /**  @var \google\protobuf\MethodOptions */
     public $options = null;
-    
+
     /**  @var boolean */
     public $client_streaming = false;
-    
+
     /**  @var boolean */
     public $server_streaming = false;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -3217,7 +3217,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <name> value
      *
@@ -3227,7 +3227,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <name> value
      *
@@ -3237,7 +3237,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <name> value
      *
@@ -3248,7 +3248,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <input_type> has a value
      *
@@ -3258,7 +3258,7 @@ namespace google\protobuf {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <input_type> value
      *
@@ -3268,7 +3268,7 @@ namespace google\protobuf {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <input_type> value
      *
@@ -3278,7 +3278,7 @@ namespace google\protobuf {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <input_type> value
      *
@@ -3289,7 +3289,7 @@ namespace google\protobuf {
     {
         return $this->_set(2, $value);
     }
-    
+
     /**
      * Check if <output_type> has a value
      *
@@ -3299,7 +3299,7 @@ namespace google\protobuf {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <output_type> value
      *
@@ -3309,7 +3309,7 @@ namespace google\protobuf {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <output_type> value
      *
@@ -3319,7 +3319,7 @@ namespace google\protobuf {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <output_type> value
      *
@@ -3330,7 +3330,7 @@ namespace google\protobuf {
     {
         return $this->_set(3, $value);
     }
-    
+
     /**
      * Check if <options> has a value
      *
@@ -3340,7 +3340,7 @@ namespace google\protobuf {
     {
         return $this->_has(4);
     }
-    
+
     /**
      * Clear <options> value
      *
@@ -3350,7 +3350,7 @@ namespace google\protobuf {
     {
         return $this->_clear(4);
     }
-    
+
     /**
      * Get <options> value
      *
@@ -3360,7 +3360,7 @@ namespace google\protobuf {
     {
         return $this->_get(4);
     }
-    
+
     /**
      * Set <options> value
      *
@@ -3371,7 +3371,7 @@ namespace google\protobuf {
     {
         return $this->_set(4, $value);
     }
-    
+
     /**
      * Check if <client_streaming> has a value
      *
@@ -3381,7 +3381,7 @@ namespace google\protobuf {
     {
         return $this->_has(5);
     }
-    
+
     /**
      * Clear <client_streaming> value
      *
@@ -3391,7 +3391,7 @@ namespace google\protobuf {
     {
         return $this->_clear(5);
     }
-    
+
     /**
      * Get <client_streaming> value
      *
@@ -3401,7 +3401,7 @@ namespace google\protobuf {
     {
         return $this->_get(5);
     }
-    
+
     /**
      * Set <client_streaming> value
      *
@@ -3412,7 +3412,7 @@ namespace google\protobuf {
     {
         return $this->_set(5, $value);
     }
-    
+
     /**
      * Check if <server_streaming> has a value
      *
@@ -3422,7 +3422,7 @@ namespace google\protobuf {
     {
         return $this->_has(6);
     }
-    
+
     /**
      * Clear <server_streaming> value
      *
@@ -3432,7 +3432,7 @@ namespace google\protobuf {
     {
         return $this->_clear(6);
     }
-    
+
     /**
      * Get <server_streaming> value
      *
@@ -3442,7 +3442,7 @@ namespace google\protobuf {
     {
         return $this->_get(6);
     }
-    
+
     /**
      * Set <server_streaming> value
      *
@@ -3472,52 +3472,52 @@ namespace google\protobuf {
 
       /**  @var string */
     public $java_package = null;
-    
+
     /**  @var string */
     public $java_outer_classname = null;
-    
+
     /**  @var boolean */
     public $java_multiple_files = false;
-    
+
     /**  @var boolean */
     public $java_generate_equals_and_hash = false;
-    
+
     /**  @var boolean */
     public $java_string_check_utf8 = false;
-    
+
     /**  @var int - \google\protobuf\FileOptions\OptimizeMode */
     public $optimize_for = \google\protobuf\FileOptions\OptimizeMode::SPEED;
-    
+
     /**  @var string */
     public $go_package = null;
-    
+
     /**  @var boolean */
     public $cc_generic_services = false;
-    
+
     /**  @var boolean */
     public $java_generic_services = false;
-    
+
     /**  @var boolean */
     public $py_generic_services = false;
-    
+
     /**  @var boolean */
     public $deprecated = false;
-    
+
     /**  @var boolean */
     public $cc_enable_arenas = false;
-    
+
     /**  @var string */
     public $objc_class_prefix = null;
-    
+
     /**  @var string */
     public $csharp_namespace = null;
-    
+
     /**  @var boolean */
     public $javanano_use_deprecated_package = null;
-    
+
     /**  @var \google\protobuf\UninterpretedOption[]  */
     public $uninterpreted_option = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -3681,7 +3681,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <java_package> value
      *
@@ -3691,7 +3691,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <java_package> value
      *
@@ -3701,7 +3701,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <java_package> value
      *
@@ -3712,7 +3712,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <java_outer_classname> has a value
      *
@@ -3722,7 +3722,7 @@ namespace google\protobuf {
     {
         return $this->_has(8);
     }
-    
+
     /**
      * Clear <java_outer_classname> value
      *
@@ -3732,7 +3732,7 @@ namespace google\protobuf {
     {
         return $this->_clear(8);
     }
-    
+
     /**
      * Get <java_outer_classname> value
      *
@@ -3742,7 +3742,7 @@ namespace google\protobuf {
     {
         return $this->_get(8);
     }
-    
+
     /**
      * Set <java_outer_classname> value
      *
@@ -3753,7 +3753,7 @@ namespace google\protobuf {
     {
         return $this->_set(8, $value);
     }
-    
+
     /**
      * Check if <java_multiple_files> has a value
      *
@@ -3763,7 +3763,7 @@ namespace google\protobuf {
     {
         return $this->_has(10);
     }
-    
+
     /**
      * Clear <java_multiple_files> value
      *
@@ -3773,7 +3773,7 @@ namespace google\protobuf {
     {
         return $this->_clear(10);
     }
-    
+
     /**
      * Get <java_multiple_files> value
      *
@@ -3783,7 +3783,7 @@ namespace google\protobuf {
     {
         return $this->_get(10);
     }
-    
+
     /**
      * Set <java_multiple_files> value
      *
@@ -3794,7 +3794,7 @@ namespace google\protobuf {
     {
         return $this->_set(10, $value);
     }
-    
+
     /**
      * Check if <java_generate_equals_and_hash> has a value
      *
@@ -3804,7 +3804,7 @@ namespace google\protobuf {
     {
         return $this->_has(20);
     }
-    
+
     /**
      * Clear <java_generate_equals_and_hash> value
      *
@@ -3814,7 +3814,7 @@ namespace google\protobuf {
     {
         return $this->_clear(20);
     }
-    
+
     /**
      * Get <java_generate_equals_and_hash> value
      *
@@ -3824,7 +3824,7 @@ namespace google\protobuf {
     {
         return $this->_get(20);
     }
-    
+
     /**
      * Set <java_generate_equals_and_hash> value
      *
@@ -3835,7 +3835,7 @@ namespace google\protobuf {
     {
         return $this->_set(20, $value);
     }
-    
+
     /**
      * Check if <java_string_check_utf8> has a value
      *
@@ -3845,7 +3845,7 @@ namespace google\protobuf {
     {
         return $this->_has(27);
     }
-    
+
     /**
      * Clear <java_string_check_utf8> value
      *
@@ -3855,7 +3855,7 @@ namespace google\protobuf {
     {
         return $this->_clear(27);
     }
-    
+
     /**
      * Get <java_string_check_utf8> value
      *
@@ -3865,7 +3865,7 @@ namespace google\protobuf {
     {
         return $this->_get(27);
     }
-    
+
     /**
      * Set <java_string_check_utf8> value
      *
@@ -3876,7 +3876,7 @@ namespace google\protobuf {
     {
         return $this->_set(27, $value);
     }
-    
+
     /**
      * Check if <optimize_for> has a value
      *
@@ -3886,7 +3886,7 @@ namespace google\protobuf {
     {
         return $this->_has(9);
     }
-    
+
     /**
      * Clear <optimize_for> value
      *
@@ -3896,7 +3896,7 @@ namespace google\protobuf {
     {
         return $this->_clear(9);
     }
-    
+
     /**
      * Get <optimize_for> value
      *
@@ -3906,7 +3906,7 @@ namespace google\protobuf {
     {
         return $this->_get(9);
     }
-    
+
     /**
      * Set <optimize_for> value
      *
@@ -3917,7 +3917,7 @@ namespace google\protobuf {
     {
         return $this->_set(9, $value);
     }
-    
+
     /**
      * Check if <go_package> has a value
      *
@@ -3927,7 +3927,7 @@ namespace google\protobuf {
     {
         return $this->_has(11);
     }
-    
+
     /**
      * Clear <go_package> value
      *
@@ -3937,7 +3937,7 @@ namespace google\protobuf {
     {
         return $this->_clear(11);
     }
-    
+
     /**
      * Get <go_package> value
      *
@@ -3947,7 +3947,7 @@ namespace google\protobuf {
     {
         return $this->_get(11);
     }
-    
+
     /**
      * Set <go_package> value
      *
@@ -3958,7 +3958,7 @@ namespace google\protobuf {
     {
         return $this->_set(11, $value);
     }
-    
+
     /**
      * Check if <cc_generic_services> has a value
      *
@@ -3968,7 +3968,7 @@ namespace google\protobuf {
     {
         return $this->_has(16);
     }
-    
+
     /**
      * Clear <cc_generic_services> value
      *
@@ -3978,7 +3978,7 @@ namespace google\protobuf {
     {
         return $this->_clear(16);
     }
-    
+
     /**
      * Get <cc_generic_services> value
      *
@@ -3988,7 +3988,7 @@ namespace google\protobuf {
     {
         return $this->_get(16);
     }
-    
+
     /**
      * Set <cc_generic_services> value
      *
@@ -3999,7 +3999,7 @@ namespace google\protobuf {
     {
         return $this->_set(16, $value);
     }
-    
+
     /**
      * Check if <java_generic_services> has a value
      *
@@ -4009,7 +4009,7 @@ namespace google\protobuf {
     {
         return $this->_has(17);
     }
-    
+
     /**
      * Clear <java_generic_services> value
      *
@@ -4019,7 +4019,7 @@ namespace google\protobuf {
     {
         return $this->_clear(17);
     }
-    
+
     /**
      * Get <java_generic_services> value
      *
@@ -4029,7 +4029,7 @@ namespace google\protobuf {
     {
         return $this->_get(17);
     }
-    
+
     /**
      * Set <java_generic_services> value
      *
@@ -4040,7 +4040,7 @@ namespace google\protobuf {
     {
         return $this->_set(17, $value);
     }
-    
+
     /**
      * Check if <py_generic_services> has a value
      *
@@ -4050,7 +4050,7 @@ namespace google\protobuf {
     {
         return $this->_has(18);
     }
-    
+
     /**
      * Clear <py_generic_services> value
      *
@@ -4060,7 +4060,7 @@ namespace google\protobuf {
     {
         return $this->_clear(18);
     }
-    
+
     /**
      * Get <py_generic_services> value
      *
@@ -4070,7 +4070,7 @@ namespace google\protobuf {
     {
         return $this->_get(18);
     }
-    
+
     /**
      * Set <py_generic_services> value
      *
@@ -4081,7 +4081,7 @@ namespace google\protobuf {
     {
         return $this->_set(18, $value);
     }
-    
+
     /**
      * Check if <deprecated> has a value
      *
@@ -4091,7 +4091,7 @@ namespace google\protobuf {
     {
         return $this->_has(23);
     }
-    
+
     /**
      * Clear <deprecated> value
      *
@@ -4101,7 +4101,7 @@ namespace google\protobuf {
     {
         return $this->_clear(23);
     }
-    
+
     /**
      * Get <deprecated> value
      *
@@ -4111,7 +4111,7 @@ namespace google\protobuf {
     {
         return $this->_get(23);
     }
-    
+
     /**
      * Set <deprecated> value
      *
@@ -4122,7 +4122,7 @@ namespace google\protobuf {
     {
         return $this->_set(23, $value);
     }
-    
+
     /**
      * Check if <cc_enable_arenas> has a value
      *
@@ -4132,7 +4132,7 @@ namespace google\protobuf {
     {
         return $this->_has(31);
     }
-    
+
     /**
      * Clear <cc_enable_arenas> value
      *
@@ -4142,7 +4142,7 @@ namespace google\protobuf {
     {
         return $this->_clear(31);
     }
-    
+
     /**
      * Get <cc_enable_arenas> value
      *
@@ -4152,7 +4152,7 @@ namespace google\protobuf {
     {
         return $this->_get(31);
     }
-    
+
     /**
      * Set <cc_enable_arenas> value
      *
@@ -4163,7 +4163,7 @@ namespace google\protobuf {
     {
         return $this->_set(31, $value);
     }
-    
+
     /**
      * Check if <objc_class_prefix> has a value
      *
@@ -4173,7 +4173,7 @@ namespace google\protobuf {
     {
         return $this->_has(36);
     }
-    
+
     /**
      * Clear <objc_class_prefix> value
      *
@@ -4183,7 +4183,7 @@ namespace google\protobuf {
     {
         return $this->_clear(36);
     }
-    
+
     /**
      * Get <objc_class_prefix> value
      *
@@ -4193,7 +4193,7 @@ namespace google\protobuf {
     {
         return $this->_get(36);
     }
-    
+
     /**
      * Set <objc_class_prefix> value
      *
@@ -4204,7 +4204,7 @@ namespace google\protobuf {
     {
         return $this->_set(36, $value);
     }
-    
+
     /**
      * Check if <csharp_namespace> has a value
      *
@@ -4214,7 +4214,7 @@ namespace google\protobuf {
     {
         return $this->_has(37);
     }
-    
+
     /**
      * Clear <csharp_namespace> value
      *
@@ -4224,7 +4224,7 @@ namespace google\protobuf {
     {
         return $this->_clear(37);
     }
-    
+
     /**
      * Get <csharp_namespace> value
      *
@@ -4234,7 +4234,7 @@ namespace google\protobuf {
     {
         return $this->_get(37);
     }
-    
+
     /**
      * Set <csharp_namespace> value
      *
@@ -4245,7 +4245,7 @@ namespace google\protobuf {
     {
         return $this->_set(37, $value);
     }
-    
+
     /**
      * Check if <javanano_use_deprecated_package> has a value
      *
@@ -4255,7 +4255,7 @@ namespace google\protobuf {
     {
         return $this->_has(38);
     }
-    
+
     /**
      * Clear <javanano_use_deprecated_package> value
      *
@@ -4265,7 +4265,7 @@ namespace google\protobuf {
     {
         return $this->_clear(38);
     }
-    
+
     /**
      * Get <javanano_use_deprecated_package> value
      *
@@ -4275,7 +4275,7 @@ namespace google\protobuf {
     {
         return $this->_get(38);
     }
-    
+
     /**
      * Set <javanano_use_deprecated_package> value
      *
@@ -4286,7 +4286,7 @@ namespace google\protobuf {
     {
         return $this->_set(38, $value);
     }
-    
+
     /**
      * Check if <uninterpreted_option> has a value
      *
@@ -4296,7 +4296,7 @@ namespace google\protobuf {
     {
         return $this->_has(999);
     }
-    
+
     /**
      * Clear <uninterpreted_option> value
      *
@@ -4306,7 +4306,7 @@ namespace google\protobuf {
     {
         return $this->_clear(999);
     }
-    
+
     /**
      * Get <uninterpreted_option> value
      *
@@ -4317,7 +4317,7 @@ namespace google\protobuf {
     {
         return $this->_get(999, $idx);
     }
-    
+
     /**
      * Set <uninterpreted_option> value
      *
@@ -4328,7 +4328,7 @@ namespace google\protobuf {
     {
         return $this->_set(999, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <uninterpreted_option>
      *
@@ -4338,7 +4338,7 @@ namespace google\protobuf {
     {
         return $this->_get(999);
     }
-    
+
     /**
      * Add a new element to <uninterpreted_option>
      *
@@ -4359,19 +4359,19 @@ namespace google\protobuf {
 
       /**  @var boolean */
     public $message_set_wire_format = false;
-    
+
     /**  @var boolean */
     public $no_standard_descriptor_accessor = false;
-    
+
     /**  @var boolean */
     public $deprecated = false;
-    
+
     /**  @var boolean */
     public $map_entry = null;
-    
+
     /**  @var \google\protobuf\UninterpretedOption[]  */
     public $uninterpreted_option = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -4440,7 +4440,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <message_set_wire_format> value
      *
@@ -4450,7 +4450,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <message_set_wire_format> value
      *
@@ -4460,7 +4460,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <message_set_wire_format> value
      *
@@ -4471,7 +4471,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <no_standard_descriptor_accessor> has a value
      *
@@ -4481,7 +4481,7 @@ namespace google\protobuf {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <no_standard_descriptor_accessor> value
      *
@@ -4491,7 +4491,7 @@ namespace google\protobuf {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <no_standard_descriptor_accessor> value
      *
@@ -4501,7 +4501,7 @@ namespace google\protobuf {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <no_standard_descriptor_accessor> value
      *
@@ -4512,7 +4512,7 @@ namespace google\protobuf {
     {
         return $this->_set(2, $value);
     }
-    
+
     /**
      * Check if <deprecated> has a value
      *
@@ -4522,7 +4522,7 @@ namespace google\protobuf {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <deprecated> value
      *
@@ -4532,7 +4532,7 @@ namespace google\protobuf {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <deprecated> value
      *
@@ -4542,7 +4542,7 @@ namespace google\protobuf {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <deprecated> value
      *
@@ -4553,7 +4553,7 @@ namespace google\protobuf {
     {
         return $this->_set(3, $value);
     }
-    
+
     /**
      * Check if <map_entry> has a value
      *
@@ -4563,7 +4563,7 @@ namespace google\protobuf {
     {
         return $this->_has(7);
     }
-    
+
     /**
      * Clear <map_entry> value
      *
@@ -4573,7 +4573,7 @@ namespace google\protobuf {
     {
         return $this->_clear(7);
     }
-    
+
     /**
      * Get <map_entry> value
      *
@@ -4583,7 +4583,7 @@ namespace google\protobuf {
     {
         return $this->_get(7);
     }
-    
+
     /**
      * Set <map_entry> value
      *
@@ -4594,7 +4594,7 @@ namespace google\protobuf {
     {
         return $this->_set(7, $value);
     }
-    
+
     /**
      * Check if <uninterpreted_option> has a value
      *
@@ -4604,7 +4604,7 @@ namespace google\protobuf {
     {
         return $this->_has(999);
     }
-    
+
     /**
      * Clear <uninterpreted_option> value
      *
@@ -4614,7 +4614,7 @@ namespace google\protobuf {
     {
         return $this->_clear(999);
     }
-    
+
     /**
      * Get <uninterpreted_option> value
      *
@@ -4625,7 +4625,7 @@ namespace google\protobuf {
     {
         return $this->_get(999, $idx);
     }
-    
+
     /**
      * Set <uninterpreted_option> value
      *
@@ -4636,7 +4636,7 @@ namespace google\protobuf {
     {
         return $this->_set(999, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <uninterpreted_option>
      *
@@ -4646,7 +4646,7 @@ namespace google\protobuf {
     {
         return $this->_get(999);
     }
-    
+
     /**
      * Add a new element to <uninterpreted_option>
      *
@@ -4685,25 +4685,25 @@ namespace google\protobuf {
 
       /**  @var int - \google\protobuf\FieldOptions\CType */
     public $ctype = \google\protobuf\FieldOptions\CType::STRING;
-    
+
     /**  @var boolean */
     public $packed = null;
-    
+
     /**  @var int - \google\protobuf\FieldOptions\JSType */
     public $jstype = \google\protobuf\FieldOptions\JSType::JS_NORMAL;
-    
+
     /**  @var boolean */
     public $lazy = false;
-    
+
     /**  @var boolean */
     public $deprecated = false;
-    
+
     /**  @var boolean */
     public $weak = false;
-    
+
     /**  @var \google\protobuf\UninterpretedOption[]  */
     public $uninterpreted_option = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -4792,7 +4792,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <ctype> value
      *
@@ -4802,7 +4802,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <ctype> value
      *
@@ -4812,7 +4812,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <ctype> value
      *
@@ -4823,7 +4823,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <packed> has a value
      *
@@ -4833,7 +4833,7 @@ namespace google\protobuf {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <packed> value
      *
@@ -4843,7 +4843,7 @@ namespace google\protobuf {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <packed> value
      *
@@ -4853,7 +4853,7 @@ namespace google\protobuf {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <packed> value
      *
@@ -4864,7 +4864,7 @@ namespace google\protobuf {
     {
         return $this->_set(2, $value);
     }
-    
+
     /**
      * Check if <jstype> has a value
      *
@@ -4874,7 +4874,7 @@ namespace google\protobuf {
     {
         return $this->_has(6);
     }
-    
+
     /**
      * Clear <jstype> value
      *
@@ -4884,7 +4884,7 @@ namespace google\protobuf {
     {
         return $this->_clear(6);
     }
-    
+
     /**
      * Get <jstype> value
      *
@@ -4894,7 +4894,7 @@ namespace google\protobuf {
     {
         return $this->_get(6);
     }
-    
+
     /**
      * Set <jstype> value
      *
@@ -4905,7 +4905,7 @@ namespace google\protobuf {
     {
         return $this->_set(6, $value);
     }
-    
+
     /**
      * Check if <lazy> has a value
      *
@@ -4915,7 +4915,7 @@ namespace google\protobuf {
     {
         return $this->_has(5);
     }
-    
+
     /**
      * Clear <lazy> value
      *
@@ -4925,7 +4925,7 @@ namespace google\protobuf {
     {
         return $this->_clear(5);
     }
-    
+
     /**
      * Get <lazy> value
      *
@@ -4935,7 +4935,7 @@ namespace google\protobuf {
     {
         return $this->_get(5);
     }
-    
+
     /**
      * Set <lazy> value
      *
@@ -4946,7 +4946,7 @@ namespace google\protobuf {
     {
         return $this->_set(5, $value);
     }
-    
+
     /**
      * Check if <deprecated> has a value
      *
@@ -4956,7 +4956,7 @@ namespace google\protobuf {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <deprecated> value
      *
@@ -4966,7 +4966,7 @@ namespace google\protobuf {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <deprecated> value
      *
@@ -4976,7 +4976,7 @@ namespace google\protobuf {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <deprecated> value
      *
@@ -4987,7 +4987,7 @@ namespace google\protobuf {
     {
         return $this->_set(3, $value);
     }
-    
+
     /**
      * Check if <weak> has a value
      *
@@ -4997,7 +4997,7 @@ namespace google\protobuf {
     {
         return $this->_has(10);
     }
-    
+
     /**
      * Clear <weak> value
      *
@@ -5007,7 +5007,7 @@ namespace google\protobuf {
     {
         return $this->_clear(10);
     }
-    
+
     /**
      * Get <weak> value
      *
@@ -5017,7 +5017,7 @@ namespace google\protobuf {
     {
         return $this->_get(10);
     }
-    
+
     /**
      * Set <weak> value
      *
@@ -5028,7 +5028,7 @@ namespace google\protobuf {
     {
         return $this->_set(10, $value);
     }
-    
+
     /**
      * Check if <uninterpreted_option> has a value
      *
@@ -5038,7 +5038,7 @@ namespace google\protobuf {
     {
         return $this->_has(999);
     }
-    
+
     /**
      * Clear <uninterpreted_option> value
      *
@@ -5048,7 +5048,7 @@ namespace google\protobuf {
     {
         return $this->_clear(999);
     }
-    
+
     /**
      * Get <uninterpreted_option> value
      *
@@ -5059,7 +5059,7 @@ namespace google\protobuf {
     {
         return $this->_get(999, $idx);
     }
-    
+
     /**
      * Set <uninterpreted_option> value
      *
@@ -5070,7 +5070,7 @@ namespace google\protobuf {
     {
         return $this->_set(999, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <uninterpreted_option>
      *
@@ -5080,7 +5080,7 @@ namespace google\protobuf {
     {
         return $this->_get(999);
     }
-    
+
     /**
      * Add a new element to <uninterpreted_option>
      *
@@ -5101,13 +5101,13 @@ namespace google\protobuf {
 
       /**  @var boolean */
     public $allow_alias = null;
-    
+
     /**  @var boolean */
     public $deprecated = false;
-    
+
     /**  @var \google\protobuf\UninterpretedOption[]  */
     public $uninterpreted_option = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -5158,7 +5158,7 @@ namespace google\protobuf {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <allow_alias> value
      *
@@ -5168,7 +5168,7 @@ namespace google\protobuf {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <allow_alias> value
      *
@@ -5178,7 +5178,7 @@ namespace google\protobuf {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <allow_alias> value
      *
@@ -5189,7 +5189,7 @@ namespace google\protobuf {
     {
         return $this->_set(2, $value);
     }
-    
+
     /**
      * Check if <deprecated> has a value
      *
@@ -5199,7 +5199,7 @@ namespace google\protobuf {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <deprecated> value
      *
@@ -5209,7 +5209,7 @@ namespace google\protobuf {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <deprecated> value
      *
@@ -5219,7 +5219,7 @@ namespace google\protobuf {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <deprecated> value
      *
@@ -5230,7 +5230,7 @@ namespace google\protobuf {
     {
         return $this->_set(3, $value);
     }
-    
+
     /**
      * Check if <uninterpreted_option> has a value
      *
@@ -5240,7 +5240,7 @@ namespace google\protobuf {
     {
         return $this->_has(999);
     }
-    
+
     /**
      * Clear <uninterpreted_option> value
      *
@@ -5250,7 +5250,7 @@ namespace google\protobuf {
     {
         return $this->_clear(999);
     }
-    
+
     /**
      * Get <uninterpreted_option> value
      *
@@ -5261,7 +5261,7 @@ namespace google\protobuf {
     {
         return $this->_get(999, $idx);
     }
-    
+
     /**
      * Set <uninterpreted_option> value
      *
@@ -5272,7 +5272,7 @@ namespace google\protobuf {
     {
         return $this->_set(999, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <uninterpreted_option>
      *
@@ -5282,7 +5282,7 @@ namespace google\protobuf {
     {
         return $this->_get(999);
     }
-    
+
     /**
      * Add a new element to <uninterpreted_option>
      *
@@ -5303,10 +5303,10 @@ namespace google\protobuf {
 
       /**  @var boolean */
     public $deprecated = false;
-    
+
     /**  @var \google\protobuf\UninterpretedOption[]  */
     public $uninterpreted_option = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -5349,7 +5349,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <deprecated> value
      *
@@ -5359,7 +5359,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <deprecated> value
      *
@@ -5369,7 +5369,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <deprecated> value
      *
@@ -5380,7 +5380,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <uninterpreted_option> has a value
      *
@@ -5390,7 +5390,7 @@ namespace google\protobuf {
     {
         return $this->_has(999);
     }
-    
+
     /**
      * Clear <uninterpreted_option> value
      *
@@ -5400,7 +5400,7 @@ namespace google\protobuf {
     {
         return $this->_clear(999);
     }
-    
+
     /**
      * Get <uninterpreted_option> value
      *
@@ -5411,7 +5411,7 @@ namespace google\protobuf {
     {
         return $this->_get(999, $idx);
     }
-    
+
     /**
      * Set <uninterpreted_option> value
      *
@@ -5422,7 +5422,7 @@ namespace google\protobuf {
     {
         return $this->_set(999, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <uninterpreted_option>
      *
@@ -5432,7 +5432,7 @@ namespace google\protobuf {
     {
         return $this->_get(999);
     }
-    
+
     /**
      * Add a new element to <uninterpreted_option>
      *
@@ -5453,10 +5453,10 @@ namespace google\protobuf {
 
       /**  @var boolean */
     public $deprecated = false;
-    
+
     /**  @var \google\protobuf\UninterpretedOption[]  */
     public $uninterpreted_option = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -5499,7 +5499,7 @@ namespace google\protobuf {
     {
         return $this->_has(33);
     }
-    
+
     /**
      * Clear <deprecated> value
      *
@@ -5509,7 +5509,7 @@ namespace google\protobuf {
     {
         return $this->_clear(33);
     }
-    
+
     /**
      * Get <deprecated> value
      *
@@ -5519,7 +5519,7 @@ namespace google\protobuf {
     {
         return $this->_get(33);
     }
-    
+
     /**
      * Set <deprecated> value
      *
@@ -5530,7 +5530,7 @@ namespace google\protobuf {
     {
         return $this->_set(33, $value);
     }
-    
+
     /**
      * Check if <uninterpreted_option> has a value
      *
@@ -5540,7 +5540,7 @@ namespace google\protobuf {
     {
         return $this->_has(999);
     }
-    
+
     /**
      * Clear <uninterpreted_option> value
      *
@@ -5550,7 +5550,7 @@ namespace google\protobuf {
     {
         return $this->_clear(999);
     }
-    
+
     /**
      * Get <uninterpreted_option> value
      *
@@ -5561,7 +5561,7 @@ namespace google\protobuf {
     {
         return $this->_get(999, $idx);
     }
-    
+
     /**
      * Set <uninterpreted_option> value
      *
@@ -5572,7 +5572,7 @@ namespace google\protobuf {
     {
         return $this->_set(999, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <uninterpreted_option>
      *
@@ -5582,7 +5582,7 @@ namespace google\protobuf {
     {
         return $this->_get(999);
     }
-    
+
     /**
      * Add a new element to <uninterpreted_option>
      *
@@ -5603,10 +5603,10 @@ namespace google\protobuf {
 
       /**  @var boolean */
     public $deprecated = false;
-    
+
     /**  @var \google\protobuf\UninterpretedOption[]  */
     public $uninterpreted_option = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -5649,7 +5649,7 @@ namespace google\protobuf {
     {
         return $this->_has(33);
     }
-    
+
     /**
      * Clear <deprecated> value
      *
@@ -5659,7 +5659,7 @@ namespace google\protobuf {
     {
         return $this->_clear(33);
     }
-    
+
     /**
      * Get <deprecated> value
      *
@@ -5669,7 +5669,7 @@ namespace google\protobuf {
     {
         return $this->_get(33);
     }
-    
+
     /**
      * Set <deprecated> value
      *
@@ -5680,7 +5680,7 @@ namespace google\protobuf {
     {
         return $this->_set(33, $value);
     }
-    
+
     /**
      * Check if <uninterpreted_option> has a value
      *
@@ -5690,7 +5690,7 @@ namespace google\protobuf {
     {
         return $this->_has(999);
     }
-    
+
     /**
      * Clear <uninterpreted_option> value
      *
@@ -5700,7 +5700,7 @@ namespace google\protobuf {
     {
         return $this->_clear(999);
     }
-    
+
     /**
      * Get <uninterpreted_option> value
      *
@@ -5711,7 +5711,7 @@ namespace google\protobuf {
     {
         return $this->_get(999, $idx);
     }
-    
+
     /**
      * Set <uninterpreted_option> value
      *
@@ -5722,7 +5722,7 @@ namespace google\protobuf {
     {
         return $this->_set(999, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <uninterpreted_option>
      *
@@ -5732,7 +5732,7 @@ namespace google\protobuf {
     {
         return $this->_get(999);
     }
-    
+
     /**
      * Add a new element to <uninterpreted_option>
      *
@@ -5753,10 +5753,10 @@ namespace google\protobuf\UninterpretedOption {
 
       /**  @var string */
     public $name_part = null;
-    
+
     /**  @var boolean */
     public $is_extension = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -5797,7 +5797,7 @@ namespace google\protobuf\UninterpretedOption {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <name_part> value
      *
@@ -5807,7 +5807,7 @@ namespace google\protobuf\UninterpretedOption {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <name_part> value
      *
@@ -5817,7 +5817,7 @@ namespace google\protobuf\UninterpretedOption {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <name_part> value
      *
@@ -5828,7 +5828,7 @@ namespace google\protobuf\UninterpretedOption {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <is_extension> has a value
      *
@@ -5838,7 +5838,7 @@ namespace google\protobuf\UninterpretedOption {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <is_extension> value
      *
@@ -5848,7 +5848,7 @@ namespace google\protobuf\UninterpretedOption {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <is_extension> value
      *
@@ -5858,7 +5858,7 @@ namespace google\protobuf\UninterpretedOption {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <is_extension> value
      *
@@ -5879,25 +5879,25 @@ namespace google\protobuf {
 
       /**  @var \google\protobuf\UninterpretedOption\NamePart[]  */
     public $name = array();
-    
+
     /**  @var string */
     public $identifier_value = null;
-    
+
     /**  @var int */
     public $positive_int_value = null;
-    
+
     /**  @var int */
     public $negative_int_value = null;
-    
+
     /**  @var float */
     public $double_value = null;
-    
+
     /**  @var string */
     public $string_value = null;
-    
+
     /**  @var string */
     public $aggregate_value = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -5979,7 +5979,7 @@ namespace google\protobuf {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <name> value
      *
@@ -5989,7 +5989,7 @@ namespace google\protobuf {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <name> value
      *
@@ -6000,7 +6000,7 @@ namespace google\protobuf {
     {
         return $this->_get(2, $idx);
     }
-    
+
     /**
      * Set <name> value
      *
@@ -6011,7 +6011,7 @@ namespace google\protobuf {
     {
         return $this->_set(2, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <name>
      *
@@ -6021,7 +6021,7 @@ namespace google\protobuf {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Add a new element to <name>
      *
@@ -6032,7 +6032,7 @@ namespace google\protobuf {
     {
         return $this->_add(2, $value);
     }
-    
+
     /**
      * Check if <identifier_value> has a value
      *
@@ -6042,7 +6042,7 @@ namespace google\protobuf {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <identifier_value> value
      *
@@ -6052,7 +6052,7 @@ namespace google\protobuf {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <identifier_value> value
      *
@@ -6062,7 +6062,7 @@ namespace google\protobuf {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <identifier_value> value
      *
@@ -6073,7 +6073,7 @@ namespace google\protobuf {
     {
         return $this->_set(3, $value);
     }
-    
+
     /**
      * Check if <positive_int_value> has a value
      *
@@ -6083,7 +6083,7 @@ namespace google\protobuf {
     {
         return $this->_has(4);
     }
-    
+
     /**
      * Clear <positive_int_value> value
      *
@@ -6093,7 +6093,7 @@ namespace google\protobuf {
     {
         return $this->_clear(4);
     }
-    
+
     /**
      * Get <positive_int_value> value
      *
@@ -6103,7 +6103,7 @@ namespace google\protobuf {
     {
         return $this->_get(4);
     }
-    
+
     /**
      * Set <positive_int_value> value
      *
@@ -6114,7 +6114,7 @@ namespace google\protobuf {
     {
         return $this->_set(4, $value);
     }
-    
+
     /**
      * Check if <negative_int_value> has a value
      *
@@ -6124,7 +6124,7 @@ namespace google\protobuf {
     {
         return $this->_has(5);
     }
-    
+
     /**
      * Clear <negative_int_value> value
      *
@@ -6134,7 +6134,7 @@ namespace google\protobuf {
     {
         return $this->_clear(5);
     }
-    
+
     /**
      * Get <negative_int_value> value
      *
@@ -6144,7 +6144,7 @@ namespace google\protobuf {
     {
         return $this->_get(5);
     }
-    
+
     /**
      * Set <negative_int_value> value
      *
@@ -6155,7 +6155,7 @@ namespace google\protobuf {
     {
         return $this->_set(5, $value);
     }
-    
+
     /**
      * Check if <double_value> has a value
      *
@@ -6165,7 +6165,7 @@ namespace google\protobuf {
     {
         return $this->_has(6);
     }
-    
+
     /**
      * Clear <double_value> value
      *
@@ -6175,7 +6175,7 @@ namespace google\protobuf {
     {
         return $this->_clear(6);
     }
-    
+
     /**
      * Get <double_value> value
      *
@@ -6185,7 +6185,7 @@ namespace google\protobuf {
     {
         return $this->_get(6);
     }
-    
+
     /**
      * Set <double_value> value
      *
@@ -6196,7 +6196,7 @@ namespace google\protobuf {
     {
         return $this->_set(6, $value);
     }
-    
+
     /**
      * Check if <string_value> has a value
      *
@@ -6206,7 +6206,7 @@ namespace google\protobuf {
     {
         return $this->_has(7);
     }
-    
+
     /**
      * Clear <string_value> value
      *
@@ -6216,7 +6216,7 @@ namespace google\protobuf {
     {
         return $this->_clear(7);
     }
-    
+
     /**
      * Get <string_value> value
      *
@@ -6226,7 +6226,7 @@ namespace google\protobuf {
     {
         return $this->_get(7);
     }
-    
+
     /**
      * Set <string_value> value
      *
@@ -6237,7 +6237,7 @@ namespace google\protobuf {
     {
         return $this->_set(7, $value);
     }
-    
+
     /**
      * Check if <aggregate_value> has a value
      *
@@ -6247,7 +6247,7 @@ namespace google\protobuf {
     {
         return $this->_has(8);
     }
-    
+
     /**
      * Clear <aggregate_value> value
      *
@@ -6257,7 +6257,7 @@ namespace google\protobuf {
     {
         return $this->_clear(8);
     }
-    
+
     /**
      * Get <aggregate_value> value
      *
@@ -6267,7 +6267,7 @@ namespace google\protobuf {
     {
         return $this->_get(8);
     }
-    
+
     /**
      * Set <aggregate_value> value
      *
@@ -6288,19 +6288,19 @@ namespace google\protobuf\SourceCodeInfo {
 
       /**  @var int[]  */
     public $path = array();
-    
+
     /**  @var int[]  */
     public $span = array();
-    
+
     /**  @var string */
     public $leading_comments = null;
-    
+
     /**  @var string */
     public $trailing_comments = null;
-    
+
     /**  @var string[]  */
     public $leading_detached_comments = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -6365,7 +6365,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <path> value
      *
@@ -6375,7 +6375,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <path> value
      *
@@ -6386,7 +6386,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_get(1, $idx);
     }
-    
+
     /**
      * Set <path> value
      *
@@ -6397,7 +6397,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_set(1, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <path>
      *
@@ -6407,7 +6407,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Add a new element to <path>
      *
@@ -6418,7 +6418,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_add(1, $value);
     }
-    
+
     /**
      * Check if <span> has a value
      *
@@ -6428,7 +6428,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <span> value
      *
@@ -6438,7 +6438,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <span> value
      *
@@ -6449,7 +6449,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_get(2, $idx);
     }
-    
+
     /**
      * Set <span> value
      *
@@ -6460,7 +6460,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_set(2, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <span>
      *
@@ -6470,7 +6470,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Add a new element to <span>
      *
@@ -6481,7 +6481,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_add(2, $value);
     }
-    
+
     /**
      * Check if <leading_comments> has a value
      *
@@ -6491,7 +6491,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <leading_comments> value
      *
@@ -6501,7 +6501,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <leading_comments> value
      *
@@ -6511,7 +6511,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <leading_comments> value
      *
@@ -6522,7 +6522,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_set(3, $value);
     }
-    
+
     /**
      * Check if <trailing_comments> has a value
      *
@@ -6532,7 +6532,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_has(4);
     }
-    
+
     /**
      * Clear <trailing_comments> value
      *
@@ -6542,7 +6542,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_clear(4);
     }
-    
+
     /**
      * Get <trailing_comments> value
      *
@@ -6552,7 +6552,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_get(4);
     }
-    
+
     /**
      * Set <trailing_comments> value
      *
@@ -6563,7 +6563,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_set(4, $value);
     }
-    
+
     /**
      * Check if <leading_detached_comments> has a value
      *
@@ -6573,7 +6573,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_has(6);
     }
-    
+
     /**
      * Clear <leading_detached_comments> value
      *
@@ -6583,7 +6583,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_clear(6);
     }
-    
+
     /**
      * Get <leading_detached_comments> value
      *
@@ -6594,7 +6594,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_get(6, $idx);
     }
-    
+
     /**
      * Set <leading_detached_comments> value
      *
@@ -6605,7 +6605,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_set(6, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <leading_detached_comments>
      *
@@ -6615,7 +6615,7 @@ namespace google\protobuf\SourceCodeInfo {
     {
         return $this->_get(6);
     }
-    
+
     /**
      * Add a new element to <leading_detached_comments>
      *
@@ -6636,7 +6636,7 @@ namespace google\protobuf {
 
       /**  @var \google\protobuf\SourceCodeInfo\Location[]  */
     public $location = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -6670,7 +6670,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <location> value
      *
@@ -6680,7 +6680,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <location> value
      *
@@ -6691,7 +6691,7 @@ namespace google\protobuf {
     {
         return $this->_get(1, $idx);
     }
-    
+
     /**
      * Set <location> value
      *
@@ -6702,7 +6702,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <location>
      *
@@ -6712,7 +6712,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Add a new element to <location>
      *
@@ -6733,16 +6733,16 @@ namespace google\protobuf\GeneratedCodeInfo {
 
       /**  @var int[]  */
     public $path = array();
-    
+
     /**  @var string */
     public $source_file = null;
-    
+
     /**  @var int */
     public $begin = null;
-    
+
     /**  @var int */
     public $end = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -6799,7 +6799,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <path> value
      *
@@ -6809,7 +6809,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <path> value
      *
@@ -6820,7 +6820,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_get(1, $idx);
     }
-    
+
     /**
      * Set <path> value
      *
@@ -6831,7 +6831,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_set(1, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <path>
      *
@@ -6841,7 +6841,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Add a new element to <path>
      *
@@ -6852,7 +6852,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_add(1, $value);
     }
-    
+
     /**
      * Check if <source_file> has a value
      *
@@ -6862,7 +6862,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <source_file> value
      *
@@ -6872,7 +6872,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <source_file> value
      *
@@ -6882,7 +6882,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <source_file> value
      *
@@ -6893,7 +6893,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_set(2, $value);
     }
-    
+
     /**
      * Check if <begin> has a value
      *
@@ -6903,7 +6903,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <begin> value
      *
@@ -6913,7 +6913,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <begin> value
      *
@@ -6923,7 +6923,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <begin> value
      *
@@ -6934,7 +6934,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_set(3, $value);
     }
-    
+
     /**
      * Check if <end> has a value
      *
@@ -6944,7 +6944,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_has(4);
     }
-    
+
     /**
      * Clear <end> value
      *
@@ -6954,7 +6954,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_clear(4);
     }
-    
+
     /**
      * Get <end> value
      *
@@ -6964,7 +6964,7 @@ namespace google\protobuf\GeneratedCodeInfo {
     {
         return $this->_get(4);
     }
-    
+
     /**
      * Set <end> value
      *
@@ -6985,7 +6985,7 @@ namespace google\protobuf {
 
       /**  @var \google\protobuf\GeneratedCodeInfo\Annotation[]  */
     public $annotation = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -7019,7 +7019,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <annotation> value
      *
@@ -7029,7 +7029,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <annotation> value
      *
@@ -7040,7 +7040,7 @@ namespace google\protobuf {
     {
         return $this->_get(1, $idx);
     }
-    
+
     /**
      * Set <annotation> value
      *
@@ -7051,7 +7051,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <annotation>
      *
@@ -7061,7 +7061,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Add a new element to <annotation>
      *

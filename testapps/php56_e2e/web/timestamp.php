@@ -10,10 +10,10 @@ namespace google\protobuf {
 
       /**  @var int */
     public $seconds = null;
-    
+
     /**  @var int */
     public $nanos = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -54,7 +54,7 @@ namespace google\protobuf {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <seconds> value
      *
@@ -64,7 +64,7 @@ namespace google\protobuf {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <seconds> value
      *
@@ -74,7 +74,7 @@ namespace google\protobuf {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <seconds> value
      *
@@ -85,7 +85,7 @@ namespace google\protobuf {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <nanos> has a value
      *
@@ -95,7 +95,7 @@ namespace google\protobuf {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <nanos> value
      *
@@ -105,7 +105,7 @@ namespace google\protobuf {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <nanos> value
      *
@@ -115,7 +115,7 @@ namespace google\protobuf {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <nanos> value
      *
