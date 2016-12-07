@@ -18,13 +18,6 @@ set -ex
 # Uploads the image to gcr.io with a tag `testing`, and run e2e test.
 # This file can be used directly for running e2e tests in local environment.
 
-# Temporary workaround for the old docker client on circleci and our jenkins.
-if [ "${CIRCLECI}" == 'true' ] || [ -n "${JENKINS_URL}" ]; then
-  DOCKER_TAG_COMMAND='docker tag -f'
-else
-  DOCKER_TAG_COMMAND='docker tag'
-fi
-
 if [ -z "${GOOGLE_PROJECT_ID}" ]; then
     echo "Please set GOOGLE_PROJECT_ID env var to run the e2e test."
     exit 1
@@ -40,9 +33,5 @@ if [ ! -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
     exit 0
 fi
 
-# Upload the local image to gcr.io with a tag `testing`.
-${DOCKER_TAG_COMMAND} \
-    php-nginx gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${E2E_TEST_VERSION}
-gcloud docker -- push gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${E2E_TEST_VERSION}
 # Run e2e tests
 vendor/bin/phpunit -c e2e.xml

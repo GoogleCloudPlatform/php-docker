@@ -8,17 +8,8 @@ export PATH=${GCLOUD_DIR}/google-cloud-sdk/bin:${PATH}
 export CLOUDSDK_ACTIVE_CONFIG_NAME=php-docker-e2e
 export PHP_DOCKER_DEPLOY=true
 
-# sudo sed -i.bak 's/74.125.28.239/216.58.192.10/' /etc/hosts
-cat /etc/hosts
-
-which php
-php --version
-docker --version
-
 gcloud info
 
-scripts/install_test_dependencies.sh
-vendor/bin/phpunit --version
 scripts/run_test_suite.sh
 
 unset CLOUDSDK_ACTIVE_CONFIG_NAME

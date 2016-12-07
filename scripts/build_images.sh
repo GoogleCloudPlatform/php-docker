@@ -20,22 +20,23 @@ TAG="${E2E_TEST_VERSION}"
 # Dump the credentials from the environment variable.
 php scripts/dump_credentials.php
 
-if [ -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
-    # Use the service account for gcloud operations.
-    gcloud auth activate-service-account \
-        --key-file "${PHP_DOCKER_GOOGLE_CREDENTIALS}"
-    # Set the timeout
-    gcloud config set container/build_timeout 3600
-    SRC_TMP=$(mktemp -d)
-    BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
+if [! -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
+    echo 'Please set PHP_DOCKER_GOOGLE_CREDENTIALS envvar.'
+    exit 1
 fi
 
-# Temporary workaround for the old docker client on circleci and our jenkins.
-if [ "${CIRCLECI}" == 'true' ] || [ -n "${JENKINS_URL}" ]; then
-  DOCKER_TAG_COMMAND='docker tag -f'
-else
-  DOCKER_TAG_COMMAND='docker tag'
-fi
+# Use the service account for gcloud operations.
+gcloud auth activate-service-account \
+    --key-file "${PHP_DOCKER_GOOGLE_CREDENTIALS}"
+
+# Set the timeout
+gcloud config set container/build_timeout 3600
+SRC_TMP=$(mktemp -d)
+BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
+# build the php test runner and export the name
+export TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
+gcloud -q alpha container builds create --tag "${TEST_RUNNER}" \
+  cloudbuild-test-runner
 
 build_image () {
     if [ "$#" -ne 2 ]; then
@@ -43,30 +44,24 @@ build_image () {
         exit 1
     fi
     DIR="${2}"
-    if [ -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
-        # Build the image with container builder service if we have
-        # credentials.
-        export IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/${1}:${TAG}"
-        SRC_DIR="${SRC_TMP}/${DIR}"
-        mkdir -p $(dirname ${SRC_DIR})
-        cp -R "${DIR}" "${SRC_DIR}"
-        # Replace the FROM line to point to our image in gcr.io.
-        sed -i -e "s|FROM php-nginx|FROM ${BASE_IMAGE}|" "${SRC_DIR}/Dockerfile"
-        envsubst < "${SRC_DIR}"/cloudbuild.yaml.in > "${SRC_DIR}"/cloudbuild.yaml
-        gcloud -q alpha container builds create "${SRC_DIR}" --config "${SRC_DIR}"/cloudbuild.yaml
-        gcloud docker -- pull "${IMAGE}"
-        ${DOCKER_TAG_COMMAND} "${IMAGE}" "${1}"
-    else
-        # No credentials. Use local docker.
-        docker build -t "${1}" "${DIR}"
-    fi
+    # Build the image with container builder service if we have
+    # credentials.
+    export IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/${1}:${TAG}"
+    SRC_DIR="${SRC_TMP}/${DIR}"
+    mkdir -p $(dirname ${SRC_DIR})
+    cp -R "${DIR}" "${SRC_DIR}"
+    # Replace the FROM line to point to our image in gcr.io.
+    sed -i -e "s|FROM php-nginx|FROM ${BASE_IMAGE}|" "${SRC_DIR}/Dockerfile"
+    envsubst < "${SRC_DIR}"/cloudbuild.yaml.in > "${SRC_DIR}"/cloudbuild.yaml
+    gcloud -q alpha container builds create "${SRC_DIR}" \
+      --config "${SRC_DIR}"/cloudbuild.yaml
 }
 
 build_image php-nginx php-nginx
 build_image php56 testapps/php56
 build_image php56_custom  testapps/php56_custom
+build_image php56_nginx_conf testapps/php56_nginx_conf
 build_image php70 testapps/php70
 build_image php56_70 testapps/php56_70
 build_image php70_custom testapps/php70_custom
-build_image php56_nginx_conf testapps/php56_nginx_conf
 build_image php56_custom_configs testapps/php56_custom_configs

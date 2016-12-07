@@ -3,5 +3,3 @@ steps:
           args: ['build', '-t', '${IMAGE}', '.']
         - name: gcr.io/gcp-runtimes/structure_test
           args: ['-i', '${IMAGE}', '--config', 'php56_70.yaml', '-v']
-images:
-        - '${IMAGE}'
