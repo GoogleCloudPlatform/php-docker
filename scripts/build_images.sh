@@ -30,7 +30,7 @@ TAG="${E2E_TEST_VERSION}"
 # Dump the credentials from the environment variable.
 php scripts/dump_credentials.php
 
-if [! -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
+if [ ! -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
     echo 'Please set PHP_DOCKER_GOOGLE_CREDENTIALS envvar.'
     exit 1
 fi

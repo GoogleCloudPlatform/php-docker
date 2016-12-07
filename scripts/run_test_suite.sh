@@ -20,7 +20,9 @@ set -ex
 
 # Run php-cs-fixer.
 # We want to fail fast for coding standard violations.
-vendor/bin/php-cs-fixer fix --dry-run --diff .
+if [ -z "${SKIP_CS_CHECK}" ]; then
+    vendor/bin/php-cs-fixer fix --dry-run --diff .
+fi
 
 # Then build the images and run the tests.
 scripts/build_images.sh

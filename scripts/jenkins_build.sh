@@ -23,10 +23,12 @@ export E2E_TEST_VERSION=jenkins-${BUILD_NUMBER}
 export CLOUDSDK_CORE_DISABLE_PROMPTS=1
 export PATH=${GCLOUD_DIR}/google-cloud-sdk/bin:${PATH}
 export CLOUDSDK_ACTIVE_CONFIG_NAME=php-docker-e2e
-export PHP_DOCKER_DEPLOY=true
+export SKIP_CS_CHECK=true
+export INSTALL_GCLOUD=true
 
 gcloud info
 
+scripts/install_test_dependencies.sh
 scripts/run_test_suite.sh
 
 unset CLOUDSDK_ACTIVE_CONFIG_NAME
