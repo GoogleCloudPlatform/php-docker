@@ -6,8 +6,8 @@ steps:
         - name: gcr.io/cloud-builders/docker
           args: ['pull', '${TEST_RUNNER}']
         - name: gcr.io/cloud-builders/docker
-          args: ['run', '--privileged=true', '--name=test-app', '-d', '${IMAGE}']
+          args: ['run', '--name=test-app', '-d', '${IMAGE}']
         - name: gcr.io/cloud-builders/docker
-          args: ['run', '--privileged=true', '-v', '/workspace:/workspace', '--link=test-app', '${TEST_RUNNER}']
+          args: ['run', '-v', '/workspace:/workspace', '--link=test-app', '${TEST_RUNNER}']
         - name: gcr.io/cloud-builders/docker
           args: ['exec', '-t', 'test-app', 'find', '/var/log/app_engine', '-type', 'f', '-exec', 'cat', '{}', ';']
