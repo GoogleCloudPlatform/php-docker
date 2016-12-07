@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Dockerfile for PHP 5.6 using nginx as the webserver.
+# Dockerfile for PHP 5.6/7.0 using nginx as the webserver.
 
 FROM gcr.io/google_appengine/debian8
 

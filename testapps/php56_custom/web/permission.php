@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Copyright 2015 Google Inc.
+ * Copyright 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Cloud\tests;
 
-class NginxConfTest extends \PHPUnit_Framework_TestCase
-{
-    public function testNginxConf()
-    {
-        exec(
-            'docker run php56_nginx_conf grep user_supplied_conf '
-            . '/opt/nginx/conf/nginx.conf', $output
-        );
-        $grep = array_pop($output);
-        $this->assertContains('user_supplied_conf', $grep);
-    }
-}
+exec('stat -c "%a %n" /app/script_output.txt', $output);
+echo $output[0];

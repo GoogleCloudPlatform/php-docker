@@ -1,0 +1,6 @@
+schemaVersion: "1.0.0"
+
+commandTests:
+  - name: "pwd"
+    command: ["pwd"]
+    expectedOutput: ["/app\n"]

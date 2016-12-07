@@ -10,28 +10,28 @@ namespace google\api {
 
       /**  @var string */
     public $get = null;
-    
+
     /**  @var string */
     public $put = null;
-    
+
     /**  @var string */
     public $post = null;
-    
+
     /**  @var string */
     public $delete = null;
-    
+
     /**  @var string */
     public $patch = null;
-    
+
     /**  @var \google\api\CustomHttpPattern */
     public $custom = null;
-    
+
     /**  @var string */
     public $body = null;
-    
+
     /**  @var \google\api\HttpRule[]  */
     public $additional_bindings = array();
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -122,7 +122,7 @@ namespace google\api {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <get> value
      *
@@ -132,7 +132,7 @@ namespace google\api {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <get> value
      *
@@ -142,7 +142,7 @@ namespace google\api {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <get> value
      *
@@ -153,7 +153,7 @@ namespace google\api {
     {
         return $this->_set(2, $value);
     }
-    
+
     /**
      * Check if <put> has a value
      *
@@ -163,7 +163,7 @@ namespace google\api {
     {
         return $this->_has(3);
     }
-    
+
     /**
      * Clear <put> value
      *
@@ -173,7 +173,7 @@ namespace google\api {
     {
         return $this->_clear(3);
     }
-    
+
     /**
      * Get <put> value
      *
@@ -183,7 +183,7 @@ namespace google\api {
     {
         return $this->_get(3);
     }
-    
+
     /**
      * Set <put> value
      *
@@ -194,7 +194,7 @@ namespace google\api {
     {
         return $this->_set(3, $value);
     }
-    
+
     /**
      * Check if <post> has a value
      *
@@ -204,7 +204,7 @@ namespace google\api {
     {
         return $this->_has(4);
     }
-    
+
     /**
      * Clear <post> value
      *
@@ -214,7 +214,7 @@ namespace google\api {
     {
         return $this->_clear(4);
     }
-    
+
     /**
      * Get <post> value
      *
@@ -224,7 +224,7 @@ namespace google\api {
     {
         return $this->_get(4);
     }
-    
+
     /**
      * Set <post> value
      *
@@ -235,7 +235,7 @@ namespace google\api {
     {
         return $this->_set(4, $value);
     }
-    
+
     /**
      * Check if <delete> has a value
      *
@@ -245,7 +245,7 @@ namespace google\api {
     {
         return $this->_has(5);
     }
-    
+
     /**
      * Clear <delete> value
      *
@@ -255,7 +255,7 @@ namespace google\api {
     {
         return $this->_clear(5);
     }
-    
+
     /**
      * Get <delete> value
      *
@@ -265,7 +265,7 @@ namespace google\api {
     {
         return $this->_get(5);
     }
-    
+
     /**
      * Set <delete> value
      *
@@ -276,7 +276,7 @@ namespace google\api {
     {
         return $this->_set(5, $value);
     }
-    
+
     /**
      * Check if <patch> has a value
      *
@@ -286,7 +286,7 @@ namespace google\api {
     {
         return $this->_has(6);
     }
-    
+
     /**
      * Clear <patch> value
      *
@@ -296,7 +296,7 @@ namespace google\api {
     {
         return $this->_clear(6);
     }
-    
+
     /**
      * Get <patch> value
      *
@@ -306,7 +306,7 @@ namespace google\api {
     {
         return $this->_get(6);
     }
-    
+
     /**
      * Set <patch> value
      *
@@ -317,7 +317,7 @@ namespace google\api {
     {
         return $this->_set(6, $value);
     }
-    
+
     /**
      * Check if <custom> has a value
      *
@@ -327,7 +327,7 @@ namespace google\api {
     {
         return $this->_has(8);
     }
-    
+
     /**
      * Clear <custom> value
      *
@@ -337,7 +337,7 @@ namespace google\api {
     {
         return $this->_clear(8);
     }
-    
+
     /**
      * Get <custom> value
      *
@@ -347,7 +347,7 @@ namespace google\api {
     {
         return $this->_get(8);
     }
-    
+
     /**
      * Set <custom> value
      *
@@ -358,7 +358,7 @@ namespace google\api {
     {
         return $this->_set(8, $value);
     }
-    
+
     /**
      * Check if <body> has a value
      *
@@ -368,7 +368,7 @@ namespace google\api {
     {
         return $this->_has(7);
     }
-    
+
     /**
      * Clear <body> value
      *
@@ -378,7 +378,7 @@ namespace google\api {
     {
         return $this->_clear(7);
     }
-    
+
     /**
      * Get <body> value
      *
@@ -388,7 +388,7 @@ namespace google\api {
     {
         return $this->_get(7);
     }
-    
+
     /**
      * Set <body> value
      *
@@ -399,7 +399,7 @@ namespace google\api {
     {
         return $this->_set(7, $value);
     }
-    
+
     /**
      * Check if <additional_bindings> has a value
      *
@@ -409,7 +409,7 @@ namespace google\api {
     {
         return $this->_has(11);
     }
-    
+
     /**
      * Clear <additional_bindings> value
      *
@@ -419,7 +419,7 @@ namespace google\api {
     {
         return $this->_clear(11);
     }
-    
+
     /**
      * Get <additional_bindings> value
      *
@@ -430,7 +430,7 @@ namespace google\api {
     {
         return $this->_get(11, $idx);
     }
-    
+
     /**
      * Set <additional_bindings> value
      *
@@ -441,7 +441,7 @@ namespace google\api {
     {
         return $this->_set(11, $value, $idx);
     }
-    
+
     /**
      * Get all elements of <additional_bindings>
      *
@@ -451,7 +451,7 @@ namespace google\api {
     {
         return $this->_get(11);
     }
-    
+
     /**
      * Add a new element to <additional_bindings>
      *
@@ -472,10 +472,10 @@ namespace google\api {
 
       /**  @var string */
     public $kind = null;
-    
+
     /**  @var string */
     public $path = null;
-    
+
 
     /** @var \Closure[] */
     protected static $__extensions = array();
@@ -516,7 +516,7 @@ namespace google\api {
     {
         return $this->_has(1);
     }
-    
+
     /**
      * Clear <kind> value
      *
@@ -526,7 +526,7 @@ namespace google\api {
     {
         return $this->_clear(1);
     }
-    
+
     /**
      * Get <kind> value
      *
@@ -536,7 +536,7 @@ namespace google\api {
     {
         return $this->_get(1);
     }
-    
+
     /**
      * Set <kind> value
      *
@@ -547,7 +547,7 @@ namespace google\api {
     {
         return $this->_set(1, $value);
     }
-    
+
     /**
      * Check if <path> has a value
      *
@@ -557,7 +557,7 @@ namespace google\api {
     {
         return $this->_has(2);
     }
-    
+
     /**
      * Clear <path> value
      *
@@ -567,7 +567,7 @@ namespace google\api {
     {
         return $this->_clear(2);
     }
-    
+
     /**
      * Get <path> value
      *
@@ -577,7 +577,7 @@ namespace google\api {
     {
         return $this->_get(2);
     }
-    
+
     /**
      * Set <path> value
      *

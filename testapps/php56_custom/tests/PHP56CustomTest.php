@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2015 Google Inc.
  *
@@ -19,32 +18,92 @@ namespace Google\Cloud\tests;
 
 use GuzzleHttp\Client;
 
-class CustomServingTest extends \PHPUnit_Framework_TestCase
+class PHP56CustomTest extends \PHPUnit_Framework_TestCase
 {
     private $client;
 
+    private static $extensions = array(
+        # static
+        'date',
+        'libxml',
+        'openssl',
+        'pcre',
+        'zlib',
+        'apc',
+        'apcu',
+        'bz2',
+        'ctype',
+        'curl',
+        'dom',
+        'fileinfo',
+        'filter',
+        'hash',
+        'iconv',
+        'json',
+        'mailparse',
+        'mcrypt',
+        'SPL',
+        'session',
+        'PDO',
+        'standard',
+        'pdo_pgsql',
+        'pgsql',
+        'Phar',
+        'posix',
+        'readline',
+        'recode',
+        'Reflection',
+        'mysqlnd',
+        'SimpleXML',
+        'sockets',
+        'pdo_mysql',
+        'mysqli',
+        'tokenizer',
+        'xml',
+        'xmlreader',
+        'xmlwriter',
+        'zip',
+        'cgi-fcgi',
+        # shared
+        'bcmath',
+        'calendar',
+        'exif',
+        'ftp',
+        'gd',
+        'gettext',
+        'intl',
+        'mbstring',
+        'memcache',
+        'memcached',
+        'mysql',
+        'pcntl',
+        'redis',
+        'shmop',
+        'soap',
+        'sqlite3',
+        'pdo_sqlite',
+        'xmlrpc',
+        'xsl',
+        'mongodb',
+        # Both are gone with PHP 7.
+        'ereg',
+        'mysql',
+        # Only available for PHP < 7 right now.
+        'suhosin',
+        'grpc',
+    );
+
     public static function setUpBeforeClass()
     {
-        exec('docker run -d --name php56_custom -p 127.0.0.1:65080:8080 '
-             . 'php56_custom');
         // Wait for nginx to start
         sleep(3);
         // For a test for long running requests
         ini_set("default_socket_timeout", 70);
     }
 
-    public static function tearDownAfterClass()
-    {
-        exec('docker exec -t php56_custom find /var/log/app_engine '
-             . '-type f -exec tail {} \;', $output);
-        var_dump($output);
-        exec('docker kill php56_custom');
-        exec('docker rm php56_custom');
-    }
-
     public function setUp()
     {
-        $this->client = new Client(['base_uri' => 'http://localhost:65080/']);
+        $this->client = new Client(['base_uri' => 'http://test-app:8080/']);
     }
 
     public function testDefaultFile()
@@ -156,19 +215,93 @@ class CustomServingTest extends \PHPUnit_Framework_TestCase
         // Access to parse_str.php and make sure it doesn't override global
         // variables.
         $resp = $this->client->get('parse_str.php');
-        $this->assertEquals('200', $resp->getStatusCode(),
-                            'parse_str.php status code');
-        $this->assertContains('This is an important variable',
-                              $resp->getBody()->getContents());
+        $this->assertEquals(
+            '200',
+            $resp->getStatusCode(),
+            'parse_str.php status code'
+        );
+        $this->assertContains(
+            'This is an important variable',
+            $resp->getBody()->getContents()
+        );
     }
 
     public function testSleep()
     {
-        // Access to pdo_sqlite.php, which should work.
+        // Test for a long running request.
         $resp = $this->client->get('sleep');
-        $this->assertEquals('200', $resp->getStatusCode(),
-                            'sleep status code');
-        $this->assertContains('Slept 61 seconds',
-                              $resp->getBody()->getContents());
+        $this->assertEquals('200', $resp->getStatusCode(), 'sleep status code');
+        $this->assertContains(
+            'Slept 61 seconds',
+            $resp->getBody()->getContents()
+        );
+    }
+
+    public function testInteractiveOutput()
+    {
+        $resp = $this->client->get(
+            'readfile.php?f=' . urlencode('callable_output.txt')
+        );
+        $this->assertEquals(
+            '200',
+            $resp->getStatusCode(),
+            'readfile status code'
+        );
+        $this->assertContains(
+            'The script is not interactive!',
+            $resp->getBody()->getContents()
+        );
+    }
+
+    public function testPhpCliIni()
+    {
+        $resp = $this->client->get(
+            'readfile.php?f=' . urlencode('cli-ini-test.txt')
+        );
+        $this->assertEquals(
+            '200',
+            $resp->getStatusCode(),
+            'readfile status code'
+        );
+        $this->assertContains(
+            'shell_exec succeeded',
+            $resp->getBody()->getContents()
+        );
+    }
+
+    public function testCommandOutput()
+    {
+        $resp = $this->client->get(
+            'readfile.php?f=' . urlencode('script_output.txt')
+        );
+        $this->assertEquals(
+            '200',
+            $resp->getStatusCode(),
+            'readfile status code'
+        );
+        $this->assertContains(
+            'Testing Post Deploy Command',
+            $resp->getBody()->getContents()
+        );
+    }
+
+    public function testFilePermissions()
+    {
+        $resp = $this->client->get('permission.php');
+        $this->assertEquals(
+            '200',
+            $resp->getStatusCode(),
+            'permission status code'
+        );
+        $this->assertContains('777', $resp->getBody()->getContents());
+    }
+
+    public function testExtensions()
+    {
+        $resp = $this->client->get('extensions.php');
+        $loaded = $resp->getBody()->getContents();
+        foreach (self::$extensions as $ext) {
+            $this->assertContains($ext, $loaded);
+        }
     }
 }

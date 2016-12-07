@@ -22,28 +22,8 @@ set -ex
 # We want to fail fast for coding standard violations.
 vendor/bin/php-cs-fixer fix --dry-run --diff .
 
-# Then build images.
+# Then build the images and run the tests.
 scripts/build_images.sh
-
-# Run functional tests.
-vendor/bin/phpunit
 
 # Run e2e tests.
 scripts/run_e2e_tests.sh
-
-# Deploy the newly built image to gcr.io if PHP_DOCKER_DEPLOY envvar is true.
-if [ "${PHP_DOCKER_DEPLOY}" = "true" ]; then
-    # If we are on travis, skip for pull requests, only deploy on master push.
-    if [ "${TRAVIS}" == "true" ]; then
-        if [ "${TRAVIS_PULL_REQUEST}" = "true" ] ||
-            [ "${TRAVIS_BRANCH}" != "master" ]
-        then
-            echo "We only deploy on master push."
-            exit 0
-        fi
-    fi
-    echo "Deploying the new image."
-    scripts/deploy_image.sh
-else
-    echo "We only deploy the image when PHP_DOCKER_DEPLOY envvar is 'true'."
-fi

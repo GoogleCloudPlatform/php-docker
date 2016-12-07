@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2015 Google Inc.
  *
@@ -17,9 +16,13 @@
  */
 namespace Google\Cloud\tests;
 
-class Extensions
+use GuzzleHttp\Client;
+
+class PHP7CustomTest extends \PHPUnit_Framework_TestCase
 {
-    public static $commonExtensions = array(
+    private $client;
+
+    private static $extensions = array(
         # static
         'date',
         'libxml',
@@ -83,4 +86,48 @@ class Extensions
         'xsl',
         'mongodb',
     );
+
+    public static function setUpBeforeClass()
+    {
+        // Wait for nginx to start
+        sleep(3);
+    }
+
+    public function setUp()
+    {
+        $this->client = new Client(['base_uri' => 'http://test-app:8080/']);
+    }
+
+    public function testParseStrIsSafe()
+    {
+        // Access to parse_str.php and make sure it doesn't override global
+        // variables.
+        $resp = $this->client->get('parse_str.php');
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'parse_str.php status code');
+        $this->assertContains('This is an important variable',
+                              $resp->getBody()->getContents());
+    }
+
+    public function testExtensions()
+    {
+        $resp = $this->client->get('extensions.php');
+        $loaded = $resp->getBody()->getContents();
+        foreach (self::$extensions as $ext) {
+            $this->assertContains($ext, $loaded);
+        }
+    }
+
+    public function testApcIsAbleToExecuteCommonOperations()
+    {
+        $resp = $this->client->get('apc.php');
+        $body = $resp->getBody()->getContents();
+
+        $this->assertContains('success storing in apc bc', $body);
+        $this->assertContains('success fetching from apc bc', $body);
+        $this->assertContains('success deleting from apc bc', $body);
+        $this->assertContains('success storing in apcu', $body);
+        $this->assertContains('success fetching from apcu', $body);
+        $this->assertContains('success deleting from apcu', $body);
+    }
 }
