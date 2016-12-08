@@ -75,3 +75,4 @@ build_image php70 testapps/php70
 build_image php56_70 testapps/php56_70
 build_image php70_custom testapps/php70_custom
 build_image php56_custom_configs testapps/php56_custom_configs
+build_image php56_e2e testapps/php56_e2e

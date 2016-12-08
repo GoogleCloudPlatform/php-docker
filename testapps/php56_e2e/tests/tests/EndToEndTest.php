@@ -26,23 +26,48 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
 
     const PROJECT_ENV = 'GOOGLE_PROJECT_ID';
     const VERSION_ENV = 'E2E_TEST_VERSION';
+    const SERVICE_ACCOUNT_ENV = 'SERVICE_ACCOUNT_JSON';
 
     public static function setUpBeforeClass()
     {
         $project_id = getenv(self::PROJECT_ENV);
         $e2e_test_version = getenv(self::VERSION_ENV);
+        $service_account_json = getenv(SELF::SERVICE_ACCOUNT_ENV);
         if ($project_id == false) {
             self::fail('Please set ' . self::PROJECT_ENV . ' env var.');
         }
         if ($e2e_test_version == false) {
             self::fail('Please set ' . self::VERSION_ENV . ' env var.');
         }
-        $dockerfilePath = __DIR__ . '/../testapps/php56_e2e/Dockerfile';
-        $dockerfile = array(
-            "FROM gcr.io/$project_id/php-nginx:$e2e_test_version\n",
-            "ENV DOCUMENT_ROOT /app/web\n"
+        if ($service_account_json == false) {
+            self::fail('Please set ' . self::SERVICE_ACCOUNT_ENV . ' env var.');
+        }
+        exec(
+            sprintf(
+                'gsutil cp %s /service_account.json',
+                $service_account_json
+            ),
+            $output,
+            $ret
         );
-        file_put_contents($dockerfilePath, $dockerfile);
+        if ($ret !== 0) {
+            self::fail(
+                'Failed to download the service account json file: '
+                . implode(PHP_EOL, $output)
+            );
+        }
+        exec(
+            'gcloud -q auth activate-service-account '
+            . '--key-file=/service_account.json',
+            $output,
+            $ret
+        );
+        if ($ret !== 0) {
+            self::fail(
+                'Failed to activate the service account: '
+                . implode(PHP_EOL, $output)
+            );
+        }
         self::deploy($project_id, $e2e_test_version);
     }
 
@@ -51,8 +76,8 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
         for ($i = 0; $i <= 3; $i++) {
             exec(
                 "gcloud -q app deploy --version $e2e_test_version"
-                . " --project $project_id"
-                . ' testapps/php56_e2e/app.yaml',
+                . " --project $project_id --no-promote"
+                . ' ../app.yaml',
                 $output,
                 $ret
             );
