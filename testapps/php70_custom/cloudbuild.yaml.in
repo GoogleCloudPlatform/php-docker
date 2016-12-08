@@ -4,8 +4,10 @@ steps:
         - name: gcr.io/cloud-builders/docker
           args: ['pull', '${TEST_RUNNER}']
         - name: gcr.io/cloud-builders/docker
-          args: ['run', '--name=test-app', '-d', '${IMAGE}']
+          args: ['network', 'create', '-d', 'bridge', 'nw_${TAG}']
         - name: gcr.io/cloud-builders/docker
-          args: ['run', '-v', '/workspace:/workspace', '--link=test-app', '${TEST_RUNNER}', '/workspace/tests']
+          args: ['run', '--net=nw_${TAG}', '--name=test-app', '-d', '${IMAGE}']
+        - name: gcr.io/cloud-builders/docker
+          args: ['run', '--net=nw_${TAG}', '-v', '/workspace:/workspace', '${TEST_RUNNER}', '/workspace/tests']
         - name: gcr.io/cloud-builders/docker
           args: ['exec', '-t', 'test-app', 'find', '/var/log/app_engine', '-type', 'f', '-exec', 'cat', '{}', ';']
