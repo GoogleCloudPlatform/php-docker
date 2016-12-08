@@ -25,7 +25,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
     private $client;
 
     const PROJECT_ENV = 'GOOGLE_PROJECT_ID';
-    const VERSION_ENV = 'E2E_TEST_VERSION';
+    const VERSION_ENV = 'TAG';
     const SERVICE_ACCOUNT_ENV = 'SERVICE_ACCOUNT_JSON';
 
     public static function setUpBeforeClass()

@@ -3,5 +3,5 @@ steps:
           args: ['/workspace/tests']
           env:
           - 'SERVICE_ACCOUNT_JSON=${SERVICE_ACCOUNT_JSON}'
-          - 'E2E_TEST_VERSION=${E2E_TEST_VERSION}'
+          - 'TAG=${TAG}'
           - 'GOOGLE_PROJECT_ID=${GOOGLE_PROJECT_ID}'

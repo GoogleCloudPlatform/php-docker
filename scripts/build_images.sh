@@ -15,8 +15,8 @@
 
 set -ex
 
-if [ -z "${E2E_TEST_VERSION}" ]; then
-    echo "You need to set E2E_TEST_VERSION envvar."
+if [ -z "${TAG}" ]; then
+    echo "You need to set TAG envvar."
     exit 1
 fi
 
@@ -25,7 +25,10 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
     exit 1
 fi
 
-TAG="${E2E_TEST_VERSION}"
+if [ -z "${SERVICE_ACCOUNT_JSON}" ]; then
+    echo "You need to set SERVICE_ACCOUNT_JSON envvar pointing to a json file in GCS."
+    exit 1
+fi
 
 # Dump the credentials from the environment variable.
 php scripts/dump_credentials.php

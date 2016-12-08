@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# A script for installing necessary software on CI systems.
+
 set -ex
 
 if [ "${INSTALL_PHP5}" == "true" ]; then
@@ -50,6 +52,7 @@ composer install --ignore-platform-reqs
 gcloud config configurations create ${CLOUDSDK_ACTIVE_CONFIG_NAME} || /bin/true # ignore failure
 gcloud config set project ${GOOGLE_PROJECT_ID}
 gcloud config set app/promote_by_default false
+gcloud config set verbosity DEBUG
 
 if [ "${CIRCLECI}" == "true" ]; then
     # Need sudo on circleci:
