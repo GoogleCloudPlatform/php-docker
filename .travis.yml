@@ -25,9 +25,10 @@ env:
   global:
     - GCLOUD_DIR=${HOME}/gcloud
     - PATH=${GCLOUD_DIR}/google-cloud-sdk/bin:${PATH}
-    - PHP_DOCKER_GOOGLE_CREDENTIALS=$TRAVIS_BUILD_DIR/credentials.json
+    - PHP_DOCKER_GOOGLE_CREDENTIALS=${TRAVIS_BUILD_DIR}/credentials.json
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
     - CLOUDSDK_ACTIVE_CONFIG_NAME=php-docker
+    - TAG=travis-${TRAVIS_BUILD_ID}
 
 before_install:
 # Just display docker version

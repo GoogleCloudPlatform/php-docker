@@ -19,10 +19,11 @@ of this repo:
     new forked repo.
 1.  Go back to the [Travis](https://travis-ci.org/) home page, click on your
     repo, then click on `Settings`.
-1.  Under Environment Variables, set `GOOGLE_PROJECT_ID` to the
-    project id for the project you created or chose in step 2. Also
-    set `E2E_TEST_VERSION` to a version name you want to use for e2e
-    testing.
+1.  Under Environment Variables, set `GOOGLE_PROJECT_ID` to the project id for
+    the project you created or chose in step 2. Also set `TAG` to a version name
+    you want to use for e2e testing. Put a service account json file in a GCS
+    bucket with a secure permission and set `SERVICE_ACCOUNT_JSON` envvar to the
+    path of the json file.
 1.  Base-64 encode the json file you downloaded in step 5.  On unix machines,
     this can be done with a command like
     `base64 -w 0 < my-test-bf4af540ca4c.json`.
