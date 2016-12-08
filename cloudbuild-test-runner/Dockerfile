@@ -23,6 +23,7 @@ ENV PATH=${PATH}:/opt/bin:/opt/gcloud/google-cloud-sdk/bin
 RUN apk add php5 php5-openssl php5-json php5-phar php5-dom php5-bcmath wget \
     ca-certificates coreutils unzip --update && \
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php -r "if (hash_file('SHA384', 'composer-setup.php') === rtrim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
     php composer-setup.php --filename=composer --install-dir=/opt/bin && \
     php -r "unlink('composer-setup.php');" && \
     wget -nv https://phar.phpunit.de/phpunit.phar && \

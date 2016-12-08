@@ -45,7 +45,10 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
 fi
 
 # Install composer and defined dependencies
-which composer || curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+which composer || \
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php -r "if (hash_file('SHA384', 'composer-setup.php') === rtrim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
+    sudo php composer-setup.php --filename=composer --install-dir=/usr/local/bin
 composer install --ignore-platform-reqs
 
 # gcloud configurations
