@@ -68,6 +68,22 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
                 . implode(PHP_EOL, $output)
             );
         }
+        // Install composer packages here. The vendor directory will be
+        // uploaded to the vm. Then it will be modified during the build
+        // process first. Then it will be modified again with the post-deploy
+        // script at the startup.
+        exec(
+            'composer update --ignore-platform-reqs --no-interaction '
+            . '--no-ansi --no-progress',
+            $output,
+            $ret
+        );
+        if ($ret !== 0) {
+            self::fail(
+                'Failed to install composer packages locally: '
+                . implode(PHP_EOL, $output)
+            );
+        }
         self::deploy($project_id, $e2e_test_version);
     }
 
@@ -195,5 +211,14 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
         $resp = $this->client->get('grpc_pubsub.php');
         $this->assertEquals('200', $resp->getStatusCode(),
                             'grpc_pubsub.php status code');
+    }
+
+    public function testSymfonyProcess()
+    {
+        $resp = $this->client->get('process.php');
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'process.php status code');
+        $this->assertContains('process.php',
+                              $resp->getBody()->getContents());
     }
 }
