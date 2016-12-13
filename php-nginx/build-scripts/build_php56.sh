@@ -34,11 +34,6 @@ tar -zxf php.tar.gz -C ${PHP_SRC} --strip-components=1
 rm php.tar.gz
 rm php.tar.gz.asc
 
-mkdir -p ${PHP_SRC}/ext/memcached
-curl -SL "http://pecl.php.net/get/memcached" -o memcached.tar.gz
-tar -zxf memcached.tar.gz -C ${PHP_SRC}/ext/memcached --strip-components=1
-rm memcached.tar.gz
-
 rm -rf ${PHP_SRC}/ext/json
 mkdir -p ${PHP_SRC}/ext/json
 curl -SL "https://pecl.php.net/get/jsonc" -o jsonc.tar.gz
@@ -80,8 +75,6 @@ rm -f configure
     --enable-intl=shared \
     --enable-mailparse \
     --enable-mbstring \
-    --enable-memcached=shared \
-    --enable-memcached-sasl \
     --enable-mysqlnd \
     --enable-opcache \
     --enable-pcntl=shared \
@@ -128,9 +121,10 @@ mkdir -p ${PHP56_DIR}/lib/conf.d
 
 # Install shared extensions
 ${PHP56_DIR}/bin/pecl install memcache
+${PHP56_DIR}/bin/pecl install memcached
 ${PHP56_DIR}/bin/pecl install mongodb
 ${PHP56_DIR}/bin/pecl install redis-2.2.8
-${PHP56_DIR}/bin/pecl install grpc-beta
+${PHP56_DIR}/bin/pecl install grpc
 
 rm -rf /tmp/pear
 
