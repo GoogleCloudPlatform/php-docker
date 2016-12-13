@@ -48,7 +48,7 @@ rm mailparse.tar.gz
 
 # APCu
 mkdir -p ${PHP_SRC}/ext/apcu
-curl -SL "https://pecl.php.net/get/apcu-5.1.4.tgz" -o apcu.tar.gz
+curl -SL "https://pecl.php.net/get/apcu" -o apcu.tar.gz
 tar -zxf apcu.tar.gz -C ${PHP_SRC}/ext/apcu --strip-components=1
 rm apcu.tar.gz
 

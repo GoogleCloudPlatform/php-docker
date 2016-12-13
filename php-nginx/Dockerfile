@@ -58,9 +58,9 @@ ENV NGINX_DIR=/opt/nginx \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
     UPLOAD_DIR=/upload \
     SESSION_SAVE_PATH=/tmp/sessions \
-    NGINX_VERSION=1.10.1 \
-    PHP56_VERSION=5.6.28 \
-    PHP70_VERSION=7.0.13 \
+    NGINX_VERSION=1.10.2 \
+    PHP56_VERSION=5.6.29 \
+    PHP70_VERSION=7.0.14 \
     PATH=/opt/php/bin:$PATH \
     WWW_HOME=/var/www
 
