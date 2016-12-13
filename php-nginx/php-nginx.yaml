@@ -6,3 +6,6 @@ commandTests:
   - name: "version"
     command: ["php", "-v"]
     expectedOutput: ["PHP 5\\.6.*"]
+licenseTests:
+  - debian: true
+    files: []
