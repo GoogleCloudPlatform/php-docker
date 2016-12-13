@@ -65,6 +65,10 @@ EOF
     # no need for the token to stay around in the env
     unset COMPOSER_GITHUB_OAUTH_TOKEN
 
+    # Workaround for https://github.com/docker/docker/issues/6047
+    # We want to remove when Container Builder starts to use newer Docker.
+    rm -rf ${APP_DIR}/vendor
+
     # Run Composer.
     cd ${APP_DIR} && \
         su www-data -c "php /usr/local/bin/composer \
