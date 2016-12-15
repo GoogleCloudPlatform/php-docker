@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright 2015 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,15 +14,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-/var/log/app_engine/*.log {
-  daily
-  missingok
-  rotate 1
-  notifempty
-  nocompress
-  sharedscripts
-  postrotate
-    [ -f /var/run/supervisord.pid ] && kill -HUP `cat /var/run/supervisord.pid`
-  endscript
-  su root root
-}
+
+# This file changes the permissions of the files and directories.
+
+set -xe
+
+if [ -z "${DOCUMENT_ROOT}" ]; then
+    DOCUMENT_ROOT="${APP_DIR}"
+fi
+
+# Directories and files we want to protect from the app.
+TARGET="${DOCUMENT_ROOT} ${PHP56_DIR} ${PHP70_DIR} ${NGINX_DIR}"
+
+chown -R root.www-data ${TARGET}
+chmod -R 0550 ${TARGET}
+
+# Allow nginx to create a runtime files.
+chmod 0570 "${NGINX_DIR}" "${NGINX_DIR}/logs"
+
+# Uninstall sudo
+env SUDO_FORCE_REMOVE=yes apt-get -qq -y purge sudo > /dev/null 2>&1
+
+# Remove itself
+rm -f /change_permissions.sh
