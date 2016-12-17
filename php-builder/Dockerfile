@@ -22,6 +22,9 @@ FROM gcr.io/google_appengine/php
 
 ENV PHP_BUILDER_DIR /opt/php-builder
 
+# copy the gpgkeys again
+COPY gpgkeys /gpgkeys
+
 # Need to install debian packaging tools etc
 RUN apt-get update -y && \
     apt-get install -y -q --no-install-recommends \

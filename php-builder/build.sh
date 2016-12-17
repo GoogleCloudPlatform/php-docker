@@ -36,8 +36,18 @@ for FULL_VERSION in $(echo ${PHP_VERSIONS} | tr "," "\n"); do
     SHORT_VERSION=$(echo ${BASE_VERSION} | tr -d ".")
     echo "Building gcp-php-${PHP_VERSION} version ${FULL_VERSION}"
     cd ${BUILD_DIR}
-    curl -sL "http://php.net/get/php-${PHP_VERSION}.tar.gz/from/this/mirror" \
-        > gcp-php-${PHP_VERSION}_${PHP_VERSION}.orig.tar.gz
+    curl -sL "https://php.net/get/php-${PHP_VERSION}.tar.gz/from/this/mirror" \
+        > php-${PHP_VERSION}.tar.gz
+    curl -sL \
+        "https://php.net/get/php-${PHP_VERSION}.tar.gz.asc/from/this/mirror" \
+            > php-${PHP_VERSION}.tar.gz.asc
+    cat /gpgkeys/php${SHORT_VERSION}/* | gpg --dearmor \
+        > /gpgkeys/php${SHORT_VERSION}.gpg
+    gpg --no-default-keyring --keyring /gpgkeys/php${SHORT_VERSION}.gpg \
+        --verify php-${PHP_VERSION}.tar.gz.asc
+    rm php-${PHP_VERSION}.tar.gz.asc
+    mv php-${PHP_VERSION}.tar.gz \
+        gcp-php-${PHP_VERSION}_${PHP_VERSION}.orig.tar.gz
     tar xzf gcp-php-${PHP_VERSION}_${PHP_VERSION}.orig.tar.gz
     mv php-${PHP_VERSION} gcp-php-${PHP_VERSION}-${PHP_VERSION}
     cp -r debian gcp-php-${PHP_VERSION}-${PHP_VERSION}/debian
