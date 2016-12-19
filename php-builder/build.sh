@@ -25,6 +25,10 @@ if [ -z "${BUILD_DIR}" ]; then
 fi
 
 mkdir -p ${BUILD_DIR}
+
+# Remove everything and start fresh
+rm -rf ${BUILD_DIR}/*
+
 cp -R ${PHP_BUILDER_DIR}/debian ${BUILD_DIR}
 
 PHP_VERSIONS=${1}
