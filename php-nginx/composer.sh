@@ -42,7 +42,7 @@ EOF
 
     if [ "${PHP_VERSION}" == "7.0" ]; then
         rm ${PHP_DIR}
-        ln -sf ${PHP7_DIR} ${PHP_DIR}
+        ln -sf ${PHP70_DIR} ${PHP_DIR}
     fi
 
     if [ "${PHP_VERSION}" == "5.6" ]; then

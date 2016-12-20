@@ -15,125 +15,54 @@
 # limitations under the License.
 
 
-# A shell script for installing PHP 7.0.
+# A shell script for installing PHP 7.0.x.
 set -xe
 
-PHP_SRC=/usr/src/php7
+apt-get install gcp-php70
 
-curl -SL "http://php.net/get/php-$PHP70_VERSION.tar.gz/from/this/mirror" -o php7.tar.gz
-curl -SL "http://us2.php.net/get/php-$PHP70_VERSION.tar.gz.asc/from/this/mirror" -o php7.tar.gz.asc
-
-# Create combined binary keys
-cat /gpgkeys/php70/* | gpg --dearmor > /gpgkeys/php70.gpg
-
-# Verify only with specific public keys
-gpg --no-default-keyring --keyring /gpgkeys/php70.gpg --verify php7.tar.gz.asc
-
-mkdir -p ${PHP_SRC}
-tar -zxf php7.tar.gz -C ${PHP_SRC} --strip-components=1
-rm php7.tar.gz
-rm php7.tar.gz.asc
-
-# TODO: Install more 3rd party extensions.
-
-# TODO: Use stable version of memcached from pecl once available
-git clone -b php7 https://github.com/php-memcached-dev/php-memcached ${PHP_SRC}/ext/memcached
-
-# No need for jsonc replacement.
-
-mkdir -p ${PHP_SRC}/ext/mailparse
-curl -SL "https://pecl.php.net/get/mailparse" -o mailparse.tar.gz
-tar -zxf mailparse.tar.gz -C ${PHP_SRC}/ext/mailparse --strip-components=1
-rm mailparse.tar.gz
-
-# APCu
-mkdir -p ${PHP_SRC}/ext/apcu
-curl -SL "https://pecl.php.net/get/apcu" -o apcu.tar.gz
-tar -zxf apcu.tar.gz -C ${PHP_SRC}/ext/apcu --strip-components=1
-rm apcu.tar.gz
-
-# APC compatibility layer for APCu
-mkdir -p ${PHP_SRC}/ext/apcu-bc
-curl -SL "https://pecl.php.net/get/apcu_bc" -o apcu-bc.tar.gz
-tar -zxf apcu-bc.tar.gz -C ${PHP_SRC}/ext/apcu-bc --strip-components=1
-rm apcu-bc.tar.gz
-
-pushd ${PHP_SRC}
-patch -p1 < /build-scripts/php7-parse_str_harden.patch
-rm -f configure
-./buildconf --force
-./configure \
-    --prefix=${PHP7_DIR} \
-    --with-config-file-scan-dir=${APP_DIR}:${PHP7_DIR}/lib/conf.d \
-    --disable-cgi \
-    --enable-apc \
-    --enable-apcu \
-    --enable-bcmath=shared \
-    --enable-calendar=shared \
-    --enable-exif=shared \
-    --enable-fpm \
-    --enable-ftp=shared \
-    --enable-gd-native-ttf \
-    --enable-intl=shared \
-    --enable-mailparse \
-    --enable-mbstring \
-    --enable-memcached=shared \
-    --enable-memcached-sasl \
-    --enable-mysqlnd \
-    --enable-opcache \
-    --enable-pcntl=shared \
-    --enable-shared \
-    --enable-shmop=shared \
-    --enable-soap=shared \
-    --enable-sockets \
-    --enable-zip \
-    --enable-phpdbg=no \
-    --with-bz2 \
-    --with-mcrypt \
-    --with-curl \
-    --with-gettext=shared \
-    --with-gd=shared \
-    --with-jpeg-dir=/usr \
-    --with-pdo_sqlite=shared,/usr \
-    --with-sqlite3=shared,/usr \
-    --with-xmlrpc=shared \
-    --with-xsl=shared \
-    --with-fpm-user=www-data \
-    --with-fpm-group=www-data \
-    --with-mysqli=mysqlnd \
-    --with-pdo-mysql=mysqlnd \
-    --with-pdo-pgsql \
-    --with-pgsql \
-    --with-openssl \
-    --with-pcre-regex \
-    --with-readline \
-    --with-recode \
-    --with-zlib
-
-make -j"$(nproc)"
-make install
-make clean
-popd
-rm -rf ${PHP_SRC}
-strip ${PHP7_DIR}/bin/php ${PHP7_DIR}/sbin/php-fpm
+export PATH=${PHP70_DIR}/bin:${PATH}
 
 # Create a directory for additional config files.
-mkdir -p ${PHP7_DIR}/lib/conf.d
+mkdir -p ${PHP70_DIR}/lib/conf.d
 
-# Install shared extensions
-${PHP7_DIR}/bin/pecl install mongodb
+mkdir -p /tmp/ext-src
+pushd /tmp/ext-src
+
+# TODO: Use stable version of memcached from pecl once available
+git clone -b php7 https://github.com/php-memcached-dev/php-memcached memcached
+pushd memcached
+${PHP70_DIR}/bin/phpize
+./configure
+make
+make install
+echo 'extension=memcached.so' > ${PHP70_DIR}/lib/conf.d/ext-memcached.ini
+popd
 
 # TODO: Use stable version of memcache from pecl once available
-git clone https://github.com/websupport-sk/pecl-memcache.git /tmp/memcache
-pushd /tmp/memcache
-${PHP7_DIR}/bin/phpize
-./configure --with-php-config=${PHP7_DIR}/bin/php-config
+git clone https://github.com/websupport-sk/pecl-memcache.git memcache
+pushd memcache
+${PHP70_DIR}/bin/phpize
+./configure
 make
 make install
 popd
-rm -rf /tmp/memcache
 
-# Install shared extensions
-${PHP7_DIR}/bin/pecl install redis
+popd
+rm -rf /tmp/ext-src
+
+# Install shared extensions with pecl
+${PHP70_DIR}/bin/pecl install mailparse
+echo 'extension=mailparse.so' > ${PHP70_DIR}/lib/conf.d/ext-mailparse.ini
+
+${PHP70_DIR}/bin/pecl install apcu
+echo 'extension=apcu.so' > ${PHP70_DIR}/lib/conf.d/ext-apcu.ini
+
+# APC compatibility layer for APCu
+${PHP70_DIR}/bin/pecl install apcu_bc-beta
+echo 'extension=apc.so' > ${PHP70_DIR}/lib/conf.d/ext-apcu_bc.ini
+
+${PHP70_DIR}/bin/pecl install mongodb
+
+${PHP70_DIR}/bin/pecl install redis
 
 rm -rf /tmp/pear
