@@ -14,7 +14,7 @@
 
 # Dockerfile used to build php binaries.
 # Example usage:
-#   docker run -v /mydir:/workspace php-builder 5.6.29-1,7.0.14-2
+#   docker run -v /mydir:/workspace deb-package-builder 5.6.29-1,7.0.14-2
 # Then you'll get deb packages in /mydir.
 
 # Inherit the php base image so we use the same dependency libraries
@@ -31,7 +31,7 @@ RUN apt-get update -y && \
         debhelper \
         devscripts \
         libparse-debcontrol-perl \
-	# headlers
+        # headers
         libbz2-dev \
         libcurl4-openssl-dev \
         libgettextpo-dev \
@@ -50,7 +50,7 @@ RUN apt-get update -y && \
         libxml2-dev \
         libxslt1-dev \
         zlib1g-dev \
-	# build tools
+        # build tools
 	build-essential \
         autoconf \
         bison \
