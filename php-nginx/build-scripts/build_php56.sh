@@ -15,113 +15,55 @@
 # limitations under the License.
 
 
-# A shell script for installing PHP 5.6.
+# A shell script for installing PHP 5.6.x.
 set -xe
 
-PHP_SRC=/usr/src/php
+apt-get install gcp-php56
 
-curl -SL "http://php.net/get/php-$PHP56_VERSION.tar.gz/from/this/mirror" -o php.tar.gz
-curl -SL "http://us2.php.net/get/php-$PHP56_VERSION.tar.gz.asc/from/this/mirror" -o php.tar.gz.asc
-
-# Create combined binary keys
-cat /gpgkeys/php56/* | gpg --dearmor > /gpgkeys/php56.gpg
-
-# Verify only with specific public keys
-gpg --no-default-keyring --keyring /gpgkeys/php56.gpg --verify php.tar.gz.asc
-
-mkdir -p ${PHP_SRC}
-tar -zxf php.tar.gz -C ${PHP_SRC} --strip-components=1
-rm php.tar.gz
-rm php.tar.gz.asc
-
-rm -rf ${PHP_SRC}/ext/json
-mkdir -p ${PHP_SRC}/ext/json
-curl -SL "https://pecl.php.net/get/jsonc" -o jsonc.tar.gz
-tar -zxf jsonc.tar.gz -C ${PHP_SRC}/ext/json --strip-components=1
-rm jsonc.tar.gz
-
-# The newest 3.0.0 doesn't build with PHP56.
-mkdir -p ${PHP_SRC}/ext/mailparse
-curl -SL "https://pecl.php.net/get/mailparse-2.1.6.tgz" -o mailparse.tar.gz
-tar -zxf mailparse.tar.gz -C ${PHP_SRC}/ext/mailparse --strip-components=1
-rm mailparse.tar.gz
-
-mkdir -p ${PHP_SRC}/ext/apcu
-# The newest 5.1.2 doesn't build with PHP 5.6.
-curl -SL "https://pecl.php.net/get/apcu-4.0.11.tgz" -o apcu.tar.gz
-tar -zxf apcu.tar.gz -C ${PHP_SRC}/ext/apcu --strip-components=1
-rm apcu.tar.gz
-
-mkdir -p ${PHP_SRC}/ext/suhosin
-curl -SL "https://github.com/stefanesser/suhosin/archive/0.9.38.tar.gz" -o suhosin.tar.gz
-tar -zxf suhosin.tar.gz -C ${PHP_SRC}/ext/suhosin --strip-components=1
-rm suhosin.tar.gz
-
-pushd /usr/src/php
-patch -p1 < /build-scripts/php5-parse_str_harden.patch
-rm -f configure
-./buildconf --force
-./configure \
-    --prefix=${PHP56_DIR} \
-    --with-config-file-scan-dir=${APP_DIR}:${PHP56_DIR}/lib/conf.d \
-    --disable-cgi \
-    --enable-apcu \
-    --enable-bcmath=shared \
-    --enable-calendar=shared \
-    --enable-exif=shared \
-    --enable-fpm \
-    --enable-ftp=shared \
-    --enable-gd-native-ttf \
-    --enable-intl=shared \
-    --enable-mailparse \
-    --enable-mbstring \
-    --enable-mysqlnd \
-    --enable-opcache \
-    --enable-pcntl=shared \
-    --enable-shared \
-    --enable-shmop=shared \
-    --enable-soap=shared \
-    --enable-sockets \
-    --enable-suhosin=shared \
-    --enable-zip \
-    --with-bz2 \
-    --with-curl \
-    --with-gettext=shared \
-    --with-gd=shared \
-    --with-jpeg-dir=/usr \
-    --with-mcrypt \
-    --with-pdo_sqlite=shared,/usr \
-    --with-pdo-pgsql \
-    --with-pgsql \
-    --with-sqlite3=shared,/usr \
-    --with-xmlrpc=shared \
-    --with-xsl=shared \
-    --with-fpm-user=www-data \
-    --with-fpm-group=www-data \
-    --with-mysql \
-    --with-mysqli=mysqlnd \
-    --with-pdo-mysql=mysqlnd \
-    --with-openssl \
-    --with-pcre-regex \
-    --with-readline \
-    --with-recode \
-    --with-zlib
-
-make -j"$(nproc)"
-make install
-make clean
-popd
-rm -rf /usr/src/php
-strip ${PHP56_DIR}/bin/php ${PHP56_DIR}/sbin/php-fpm
-# Defaults to PHP5.6
+# Making php56 the default version
 ln -s ${PHP56_DIR} ${PHP_DIR}
 
 # Create a directory for additional config files.
 mkdir -p ${PHP56_DIR}/lib/conf.d
 
-# Install shared extensions
+mkdir -p /tmp/ext-src
+pushd /tmp/ext-src
+
+curl -SL "https://pecl.php.net/get/jsonc" -o jsonc.tar.gz
+mkdir -p jsonc
+tar -zxf jsonc.tar.gz -C jsonc --strip-components=1
+rm jsonc.tar.gz
+cd jsonc
+${PHP56_DIR}/bin/phpize
+./configure
+make
+make install
+echo 'extension=json.so' > ${PHP56_DIR}/lib/conf.d/ext-json.ini
+
+cd /tmp/ext-src
+curl -SL "https://github.com/stefanesser/suhosin/archive/0.9.38.tar.gz" -o suhosin.tar.gz
+mkdir -p suhosin
+tar -zxf suhosin.tar.gz -C suhosin --strip-components=1
+rm suhosin.tar.gz
+cd suhosin
+${PHP56_DIR}/bin/phpize
+./configure
+make
+make install
+
+popd
+rm -rf /tmp/ext-src
+
+# Install shared extensions with pecl
+${PHP56_DIR}/bin/pecl install mailparse-2.1.6
+echo 'extension=mailparse.so' > ${PHP56_DIR}/lib/conf.d/ext-mailparse.ini
+
+${PHP56_DIR}/bin/pecl install apcu-4.0.11
+echo 'extension=apcu.so' > ${PHP56_DIR}/lib/conf.d/ext-apcu.ini
+
 ${PHP56_DIR}/bin/pecl install memcache
 ${PHP56_DIR}/bin/pecl install memcached
+echo 'extension=memcached.so' > ${PHP56_DIR}/lib/conf.d/ext-memcached.ini
 ${PHP56_DIR}/bin/pecl install mongodb
 ${PHP56_DIR}/bin/pecl install redis-2.2.8
 ${PHP56_DIR}/bin/pecl install grpc

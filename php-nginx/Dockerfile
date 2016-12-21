@@ -19,8 +19,7 @@ FROM gcr.io/google_appengine/debian8
 # Cache busting for security update
 ENV UPDATED_AT 2016-11-15
 
-# persistent / runtime deps
-RUN apt-get update && \
+RUN apt-get update -y && \
     apt-get -y upgrade && \
     apt-get install -y --no-install-recommends \
     cron \
@@ -52,7 +51,7 @@ RUN apt-get update && \
 ENV NGINX_DIR=/opt/nginx \
     PHP_DIR=/opt/php \
     PHP56_DIR=/opt/php56 \
-    PHP7_DIR=/opt/php7 \
+    PHP70_DIR=/opt/php70 \
     LOG_DIR=/var/log/app_engine \
     APP_DIR=/app \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
@@ -62,7 +61,8 @@ ENV NGINX_DIR=/opt/nginx \
     PHP56_VERSION=5.6.29 \
     PHP70_VERSION=7.0.14 \
     PATH=/opt/php/bin:$PATH \
-    WWW_HOME=/var/www
+    WWW_HOME=/var/www \
+    PHP_INI_SCAN_DIR=/opt/php/lib/conf.d:/app
 
 # gpgkeys for verifying the tarballs
 COPY gpgkeys /gpgkeys
@@ -70,7 +70,14 @@ COPY gpgkeys /gpgkeys
 # BUILD PHP, nginx and other dependencies.
 COPY build-scripts /build-scripts
 
-RUN /bin/bash /build-scripts/apt_build_deps.sh install && \
+ARG RUNTIME_DISTRIBUTION="gcp-php-runtime-jessie"
+
+RUN (echo "deb http://packages.cloud.google.com/apt ${RUNTIME_DISTRIBUTION} main" \
+    | tee /etc/apt/sources.list.d/gcp-php-runtime-jessie.list) && \
+    (curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
+      | apt-key add -) && \
+    apt-get -y update && \
+    /bin/bash /build-scripts/apt_build_deps.sh install && \
     /bin/bash /build-scripts/build_nginx.sh && \
     /bin/bash /build-scripts/build_php56.sh && \
     /bin/bash /build-scripts/build_php70.sh && \
@@ -92,10 +99,10 @@ RUN mkdir -p $APP_DIR $LOG_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
 COPY nginx.conf fastcgi_params gzip_params $NGINX_DIR/conf/
 COPY nginx-app.conf $NGINX_USER_CONF_DIR
 COPY php.ini php-cli.ini php-cli-strict.ini $PHP56_DIR/lib/
-COPY php.ini php-cli.ini php-cli-strict.ini $PHP7_DIR/lib/
+COPY php.ini php-cli.ini php-cli-strict.ini $PHP70_DIR/lib/
 COPY php-fpm.conf $PHP56_DIR/etc/php-fpm.conf
-COPY php-fpm.conf $PHP7_DIR/etc/php-fpm.conf
-RUN touch $PHP56_DIR/etc/php-fpm-user.conf $PHP7_DIR/etc/php-fpm-user.conf
+COPY php-fpm.conf $PHP70_DIR/etc/php-fpm.conf
+RUN touch $PHP56_DIR/etc/php-fpm-user.conf $PHP70_DIR/etc/php-fpm-user.conf
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY logrotate.app_engine /etc/logrotate.d/app_engine
 
