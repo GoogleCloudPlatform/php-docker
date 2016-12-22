@@ -1,0 +1,66 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	rm -f configure \
+	&& ./buildconf --force \
+	&& dh_auto_configure -- --prefix=/opt/phpSHORT_VERSION \
+	--with-config-file-path=/opt/phpSHORT_VERSION/lib \
+	--with-config-file-scan-dir=/opt/phpSHORT_VERSION/lib/conf.d \
+	--disable-cgi \
+	--enable-bcmath=shared \
+	--enable-calendar=shared \
+	--enable-exif=shared \
+	--enable-fpm \
+	--enable-ftp=shared \
+	--enable-gd-native-ttf \
+	--enable-intl=shared \
+	--enable-mbstring \
+	--enable-mysqlnd \
+	--enable-opcache \
+	--enable-pcntl=shared \
+	--enable-shared \
+	--enable-shmop=shared \
+	--enable-soap=shared \
+	--enable-sockets \
+	--enable-zip \
+	--with-bz2 \
+	--with-curl \
+	--with-gettext=shared \
+	--with-gd=shared \
+	--with-jpeg-dir=/usr \
+	--with-mcrypt \
+	--with-pdo_sqlite=shared,/usr \
+	--with-pdo-pgsql \
+	--with-pgsql \
+	--with-sqlite3=shared,/usr \
+	--with-xmlrpc=shared \
+	--with-xsl=shared \
+	--with-fpm-user=www-data \
+	--with-fpm-group=www-data \
+	--with-mysql \
+	--with-mysqli=mysqlnd \
+	--with-pdo-mysql=mysqlnd \
+	--with-openssl \
+	--with-pcre-regex \
+	--with-readline \
+	--with-recode \
+	--with-zlib
+
+override_dh_auto_test:
+
+override_dh_auto_install:
+	INSTALL_ROOT=$(CURDIR)/debian/gcp-php-PHP_VERSION dh_auto_install \
+	&& rm -rf $(CURDIR)/debian/gcp-php-PHP_VERSION/etc \
+	&& find $(CURDIR)/debian/gcp-php-PHP_VERSION -name .channels -prune \
+		-exec rm -rf '{}' \; \
+	&& find $(CURDIR)/debian/gcp-php-PHP_VERSION -name .registry -prune \
+		-exec rm -rf '{}' \; \
+	&& find $(CURDIR)/debian/gcp-php-PHP_VERSION -type f -name ".*" -exec \
+		rm '{}' \;

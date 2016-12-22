@@ -1,0 +1,25 @@
+diff -uNr php-7.1.0.org/ext/standard/string.c php-7.1.0/ext/standard/string.c
+--- php-7.1.0.org/ext/standard/string.c	2016-12-13 16:45:17.139311668 -0800
++++ php-7.1.0/ext/standard/string.c	2016-12-13 16:50:38.125975698 -0800
+@@ -4506,19 +4506,8 @@
+ 	res = estrndup(arg, arglen);
+ 
+ 	if (arrayArg == NULL) {
+-		zval tmp;
+-		zend_array *symbol_table;
+-		if (zend_forbid_dynamic_call("parse_str() with a single argument") == FAILURE) {
+-			efree(res);
+-			return;
+-		}
+-
+-		symbol_table = zend_rebuild_symbol_table();
+-		ZVAL_ARR(&tmp, symbol_table);
+-		sapi_module.treat_data(PARSE_STRING, res, &tmp);
+-		if (UNEXPECTED(zend_hash_del(symbol_table, CG(known_strings)[ZEND_STR_THIS]) == SUCCESS)) {
+-			zend_throw_error(NULL, "Cannot re-assign $this");
+-		}
++		efree(res);
++		return;
+ 	} else 	{
+ 		zval ret;
+ 
