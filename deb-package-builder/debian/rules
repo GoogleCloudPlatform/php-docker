@@ -10,9 +10,9 @@
 override_dh_auto_configure:
 	rm -f configure \
 	&& ./buildconf --force \
-	&& dh_auto_configure -- --prefix=/opt/phpSHORT_VERSION \
-	--with-config-file-path=/opt/phpSHORT_VERSION/lib \
-	--with-config-file-scan-dir=/opt/phpSHORT_VERSION/lib/conf.d \
+	&& dh_auto_configure -- --prefix=/opt/php${SHORT_VERSION} \
+	--with-config-file-path=/opt/php${SHORT_VERSION}/lib \
+	--with-config-file-scan-dir=/opt/php${SHORT_VERSION}/lib/conf.d \
 	--disable-cgi \
 	--enable-bcmath=shared \
 	--enable-calendar=shared \
@@ -56,11 +56,11 @@ override_dh_auto_configure:
 override_dh_auto_test:
 
 override_dh_auto_install:
-	INSTALL_ROOT=$(CURDIR)/debian/gcp-php-PHP_VERSION dh_auto_install \
-	&& rm -rf $(CURDIR)/debian/gcp-php-PHP_VERSION/etc \
-	&& find $(CURDIR)/debian/gcp-php-PHP_VERSION -name .channels -prune \
+	INSTALL_ROOT=$(CURDIR)/debian/gcp-php-${PHP_VERSION} dh_auto_install \
+	&& rm -rf $(CURDIR)/debian/gcp-php-${PHP_VERSION}/etc \
+	&& find $(CURDIR)/debian/gcp-php-${PHP_VERSION} -name .channels -prune \
 		-exec rm -rf '{}' \; \
-	&& find $(CURDIR)/debian/gcp-php-PHP_VERSION -name .registry -prune \
+	&& find $(CURDIR)/debian/gcp-php-${PHP_VERSION} -name .registry -prune \
 		-exec rm -rf '{}' \; \
-	&& find $(CURDIR)/debian/gcp-php-PHP_VERSION -type f -name ".*" -exec \
-		rm '{}' \;
+	&& find $(CURDIR)/debian/gcp-php-${PHP_VERSION} -type f -name ".*" \
+		-exec rm '{}' \;

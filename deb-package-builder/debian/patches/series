@@ -1,1 +1,1 @@
-phpSHORT_VERSION-parse_str_harden.patch
+php${SHORT_VERSION}-parse_str_harden.patch
