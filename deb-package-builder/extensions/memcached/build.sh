@@ -41,13 +41,13 @@ elif [ ${SHORT_VERSION} == '71' ]; then
 fi
 
 cp -R ${DEB_BUILDER_DIR}/extensions/memcached/debian ${PACKAGE_DIR}
-envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/rules \
-         > ${PACKAGE_DIR}/debian/rules.tmp
-mv ${PACKAGE_DIR}/debian/rules.tmp ${PACKAGE_DIR}/debian/rules
+envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/rules.in \
+         > ${PACKAGE_DIR}/debian/rules
+rm ${PACKAGE_DIR}/debian/rules.in
 chmod +x ${PACKAGE_DIR}/debian/rules
-envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/control \
-         > ${PACKAGE_DIR}/debian/control.tmp
-mv ${PACKAGE_DIR}/debian/control.tmp ${PACKAGE_DIR}/debian/control
+envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/control.in \
+         > ${PACKAGE_DIR}/debian/control
+rm ${PACKAGE_DIR}/debian/control.in
 envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/gcp-php-memcached.install \
          > ${PACKAGE_DIR}/debian/gcp-php${SHORT_VERSION}-memcached.install
 rm ${PACKAGE_DIR}/debian/gcp-php-memcached.install

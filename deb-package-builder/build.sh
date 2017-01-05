@@ -68,15 +68,15 @@ for FULL_VERSION in $(echo ${PHP_VERSIONS} | tr "," "\n"); do
             gcp-php-${PHP_VERSION}-${PHP_VERSION}
         popd
     fi
-    envsubst '${PHP_VERSION},${SHORT_VERSION}' < debian/rules > debian/rules.tmp
-    mv debian/rules.tmp debian/rules
+    envsubst '${PHP_VERSION},${SHORT_VERSION}' < debian/rules.in > debian/rules
+    rm debian/rules.in
     chmod +x debian/rules
     envsubst \
-        '${PHP_VERSION},${SHORT_VERSION}' < debian/control > debian/control.tmp
-    mv debian/control.tmp debian/control
-    envsubst '${SHORT_VERSION}' < debian/patches/series > \
-        debian/patches/series.tmp
-    mv debian/patches/series.tmp debian/patches/series
+        '${PHP_VERSION},${SHORT_VERSION}' < debian/control.in > debian/control
+    rm debian/control.in
+    envsubst '${SHORT_VERSION}' < debian/patches/series.in > \
+        debian/patches/series
+    rm debian/patches/series.in
     dch --create -v ${FULL_VERSION} \
         --package gcp-php-${PHP_VERSION} --empty -M \
         "Build ${FULL_VERSION} of gcp-php-${PHP_VERSION}"
@@ -87,6 +87,5 @@ for FULL_VERSION in $(echo ${PHP_VERSIONS} | tr "," "\n"); do
     # Make it a default
     rm -rf ${PHP_DIR}
     ln -sf /opt/php${SHORT_VERSION} ${PHP_DIR}
-    which php
     find ${DEB_BUILDER_DIR}/extensions -name 'build.sh' -exec {} \;
 done
