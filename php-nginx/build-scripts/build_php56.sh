@@ -54,6 +54,11 @@ make install
 popd
 rm -rf /tmp/ext-src
 
+# Install extensions from our cloud-apt repo
+apt-get install -y gcp-php56-memcached
+ln -s ${PHP56_DIR}/lib/ext.available/ext-memcached.ini \
+    ${PHP56_DIR}/lib/conf.d
+
 # Install shared extensions with pecl
 ${PHP56_DIR}/bin/pecl install mailparse-2.1.6
 echo 'extension=mailparse.so' > ${PHP56_DIR}/lib/conf.d/ext-mailparse.ini
@@ -62,8 +67,6 @@ ${PHP56_DIR}/bin/pecl install apcu-4.0.11
 echo 'extension=apcu.so' > ${PHP56_DIR}/lib/conf.d/ext-apcu.ini
 
 ${PHP56_DIR}/bin/pecl install memcache
-${PHP56_DIR}/bin/pecl install memcached
-echo 'extension=memcached.so' > ${PHP56_DIR}/lib/conf.d/ext-memcached.ini
 ${PHP56_DIR}/bin/pecl install mongodb
 ${PHP56_DIR}/bin/pecl install redis-2.2.8
 ${PHP56_DIR}/bin/pecl install grpc

@@ -28,16 +28,6 @@ mkdir -p ${PHP70_DIR}/lib/conf.d
 mkdir -p /tmp/ext-src
 pushd /tmp/ext-src
 
-# TODO: Use stable version of memcached from pecl once available
-git clone -b php7 https://github.com/php-memcached-dev/php-memcached memcached
-pushd memcached
-${PHP70_DIR}/bin/phpize
-./configure
-make
-make install
-echo 'extension=memcached.so' > ${PHP70_DIR}/lib/conf.d/ext-memcached.ini
-popd
-
 # TODO: Use stable version of memcache from pecl once available
 git clone https://github.com/websupport-sk/pecl-memcache.git memcache
 pushd memcache
@@ -49,6 +39,11 @@ popd
 
 popd
 rm -rf /tmp/ext-src
+
+# Install extensions from our cloud-apt repo
+apt-get install -y gcp-php70-memcached
+ln -s ${PHP70_DIR}/lib/ext.available/ext-memcached.ini \
+    ${PHP70_DIR}/lib/conf.d
 
 # Install shared extensions with pecl
 ${PHP70_DIR}/bin/pecl install mailparse
