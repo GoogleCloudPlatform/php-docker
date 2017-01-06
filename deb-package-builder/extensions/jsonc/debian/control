@@ -1,0 +1,12 @@
+Source: gcp-php56-json
+Section: php
+Priority: optional
+Maintainer: Takashi Matsuo <tmatsuo@google.com>
+Build-Depends: debhelper (>= 9), gcp-php56, libjson-c-dev
+Standards-Version: 3.9.5
+Homepage: http://pecl.php.net/package/jsonc
+
+Package: gcp-php56-json
+Architecture: any
+Depends: libc6 (>= 2.4), libjson-c2, gcp-php56
+Description: json extension module for gcp-php56

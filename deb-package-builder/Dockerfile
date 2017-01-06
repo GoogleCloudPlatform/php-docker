@@ -20,10 +20,7 @@
 # Inherit the php base image so we use the same dependency libraries
 FROM gcr.io/google_appengine/php
 
-ENV PHP_BUILDER_DIR /opt/php-builder
-
-# copy the gpgkeys again
-COPY gpgkeys /gpgkeys
+ENV DEB_BUILDER_DIR /opt/deb-builder
 
 # Need to install debian packaging tools etc
 RUN apt-get update -y && \
@@ -34,6 +31,7 @@ RUN apt-get update -y && \
         # headers
         libbz2-dev \
         libcurl4-openssl-dev \
+        libjson-c-dev \
         libgettextpo-dev \
         libicu-dev \
         libjpeg62-turbo-dev \
@@ -65,9 +63,7 @@ RUN apt-get update -y && \
         binutils
 
 # Copy debian metadata file templates
-RUN mkdir -p ${PHP_BUILDER_DIR}
-COPY debian ${PHP_BUILDER_DIR}/debian
+RUN mkdir -p ${DEB_BUILDER_DIR}
+COPY . ${DEB_BUILDER_DIR}/
 
-COPY build.sh ${PHP_BUILDER_DIR}/build.sh
-
-ENTRYPOINT ["/opt/php-builder/build.sh"]
+ENTRYPOINT ["/opt/deb-builder/build.sh"]
