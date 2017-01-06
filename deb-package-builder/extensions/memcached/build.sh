@@ -35,14 +35,12 @@ cp -R ${DEB_BUILDER_DIR}/extensions/memcached/debian ${PACKAGE_DIR}
 
 envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/rules.in \
          > ${PACKAGE_DIR}/debian/rules
-rm ${PACKAGE_DIR}/debian/rules.in
 chmod +x ${PACKAGE_DIR}/debian/rules
 envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/control.in \
          > ${PACKAGE_DIR}/debian/control
-rm ${PACKAGE_DIR}/debian/control.in
-envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/gcp-php-memcached.install \
+envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/gcp-php-memcached.install.in \
          > ${PACKAGE_DIR}/debian/gcp-php${SHORT_VERSION}-memcached.install
-rm ${PACKAGE_DIR}/debian/gcp-php-memcached.install
+rm ${PACKAGE_DIR}/debian/*.in
 pushd ${PACKAGE_DIR}
 dch --create -v "${EXT_VERSION}-${FULL_VERSION}" \
     --package ${PNAME} --empty -M \

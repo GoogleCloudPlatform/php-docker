@@ -69,28 +69,24 @@ for FULL_VERSION in $(echo ${PHP_VERSIONS} | tr "," "\n"); do
         popd
     fi
     envsubst '${PHP_VERSION},${SHORT_VERSION}' < debian/rules.in > debian/rules
-    rm debian/rules.in
     chmod +x debian/rules
     envsubst \
         '${PHP_VERSION},${SHORT_VERSION}' < debian/control.in > debian/control
-    rm debian/control.in
     envsubst '${SHORT_VERSION}' < debian/patches/series.in > \
              debian/patches/series
-    rm debian/patches/series.in
     envsubst '${SHORT_VERSION}' < debian/gcp-php.dirs.in > \
              debian/gcp-php-${PHP_VERSION}.dirs
-    rm debian/gcp-php.dirs.in
     envsubst '${SHORT_VERSION}' < debian/gcp-php.install.in > \
              debian/gcp-php-${PHP_VERSION}.install
-    rm debian/gcp-php.install.in
     envsubst '${SHORT_VERSION}' < debian/php-enmod.in > \
              debian/php${SHORT_VERSION}-enmod
-    rm debian/php-enmod.in
     chmod 755 debian/php${SHORT_VERSION}-enmod
     envsubst '${SHORT_VERSION}' < debian/php-dismod.in > \
              debian/php${SHORT_VERSION}-dismod
-    rm debian/php-dismod.in
     chmod 755 debian/php${SHORT_VERSION}-dismod
+
+    # Remove the templates
+    rm debian/*.in debian/*/*.in
 
     dch --create -v ${FULL_VERSION} \
         --package gcp-php-${PHP_VERSION} --empty -M \

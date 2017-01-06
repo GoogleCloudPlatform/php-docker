@@ -8,7 +8,8 @@ download_from_pecl()
 {
     # Download the source code, rename, extract it for debian package
     if [ -z "$1" ]; then
-        return $E_PARAM_ERR
+        echo 'missing argument for download_from_pecl'
+        exit $E_PARAM_ERR
     fi
     pecl download "${1}"
     # determine the downloaded version
