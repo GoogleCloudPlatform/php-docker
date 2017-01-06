@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+if [ -z "${1}" ]; then
+    exit 1
+fi
+
+rm -f "/opt/php${SHORT_VERSION}/lib/ext.enabled/ext-${1}.ini"

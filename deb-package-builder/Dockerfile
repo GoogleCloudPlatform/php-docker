@@ -31,6 +31,7 @@ RUN apt-get update -y && \
         # headers
         libbz2-dev \
         libcurl4-openssl-dev \
+        libjson-c-dev \
         libgettextpo-dev \
         libicu-dev \
         libjpeg62-turbo-dev \

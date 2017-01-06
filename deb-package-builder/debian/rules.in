@@ -12,7 +12,7 @@ override_dh_auto_configure:
 	&& ./buildconf --force \
 	&& dh_auto_configure -- --prefix=/opt/php${SHORT_VERSION} \
 	--with-config-file-path=/opt/php${SHORT_VERSION}/lib \
-	--with-config-file-scan-dir=/opt/php${SHORT_VERSION}/lib/conf.d \
+	--with-config-file-scan-dir=/opt/php${SHORT_VERSION}/lib/ext.enabled:/opt/php${SHORT_VERSION}/lib/conf.d \
 	--disable-cgi \
 	--enable-bcmath=shared \
 	--enable-calendar=shared \
