@@ -29,17 +29,6 @@ mkdir -p ${PHP56_DIR}/lib/conf.d
 mkdir -p /tmp/ext-src
 pushd /tmp/ext-src
 
-curl -SL "https://pecl.php.net/get/jsonc" -o jsonc.tar.gz
-mkdir -p jsonc
-tar -zxf jsonc.tar.gz -C jsonc --strip-components=1
-rm jsonc.tar.gz
-cd jsonc
-${PHP56_DIR}/bin/phpize
-./configure
-make
-make install
-echo 'extension=json.so' > ${PHP56_DIR}/lib/conf.d/ext-json.ini
-
 cd /tmp/ext-src
 curl -SL "https://github.com/stefanesser/suhosin/archive/0.9.38.tar.gz" -o suhosin.tar.gz
 mkdir -p suhosin
@@ -55,9 +44,9 @@ popd
 rm -rf /tmp/ext-src
 
 # Install extensions from our cloud-apt repo
-apt-get install -y gcp-php56-memcached
-ln -s ${PHP56_DIR}/lib/ext.available/ext-memcached.ini \
-    ${PHP56_DIR}/lib/conf.d
+apt-get install -y gcp-php56-memcached gcp-php56-json
+${PHP56_DIR}/bin/php56-enmod json
+${PHP56_DIR}/bin/php56-enmod memcached
 
 # Install shared extensions with pecl
 ${PHP56_DIR}/bin/pecl install mailparse-2.1.6

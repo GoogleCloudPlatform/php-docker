@@ -42,8 +42,7 @@ rm -rf /tmp/ext-src
 
 # Install extensions from our cloud-apt repo
 apt-get install -y gcp-php70-memcached
-ln -s ${PHP70_DIR}/lib/ext.available/ext-memcached.ini \
-    ${PHP70_DIR}/lib/conf.d
+${PHP70_DIR}/bin/php70-enmod memcached
 
 # Install shared extensions with pecl
 ${PHP70_DIR}/bin/pecl install mailparse
