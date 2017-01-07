@@ -61,8 +61,7 @@ ENV NGINX_DIR=/opt/nginx \
     PHP56_VERSION=5.6.29 \
     PHP70_VERSION=7.0.14 \
     PATH=/opt/php/bin:$PATH \
-    WWW_HOME=/var/www \
-    PHP_INI_SCAN_DIR=/opt/php/lib/conf.d:/app
+    WWW_HOME=/var/www
 
 # gpgkeys for verifying the tarballs
 COPY gpgkeys /gpgkeys
