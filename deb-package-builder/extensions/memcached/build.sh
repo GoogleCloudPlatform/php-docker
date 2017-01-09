@@ -25,7 +25,7 @@ else
     popd
     rm -rf memcached/.git
     mv memcached ${PACKAGE_DIR}
-    tar -cvzf ${PNAME}_${PACKAGE_VERSION}.orig.tar.gz ${PACKAGE_DIR}
+    tar -cvzf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz ${PACKAGE_DIR}
 fi
 
 cp -R ${DEB_BUILDER_DIR}/extensions/memcached/debian ${PACKAGE_DIR}

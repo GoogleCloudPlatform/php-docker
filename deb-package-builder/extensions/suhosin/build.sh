@@ -15,9 +15,9 @@ if [ ${SHORT_VERSION} == '56' ]; then
     PACKAGE_FULL_VERSION="${EXT_VERSION}-${FULL_VERSION}"
     PACKAGE_DIR=${PNAME}-${PACKAGE_VERSION}
     curl -SL "https://github.com/stefanesser/suhosin/archive/0.9.38.tar.gz" \
-         -o ${PNAME}_${PACKAGE_VERSION}.orig.tar.gz
+         -o ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz
     mkdir -p ${PACKAGE_DIR}
-    tar zxvf ${PNAME}_${PACKAGE_VERSION}.orig.tar.gz \
+    tar zxvf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz \
         -C ${PACKAGE_DIR} --strip-components=1
 else
     echo "Not yet implemented"

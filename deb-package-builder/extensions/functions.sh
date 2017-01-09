@@ -27,8 +27,8 @@ download_from_pecl()
     PACKAGE_FULL_VERSION="${EXT_VERSION}-${FULL_VERSION}"
     PACKAGE_DIR=${PNAME}-${PACKAGE_VERSION}
     mv ${1}-${EXT_VERSION}.tgz \
-       ${PNAME}_${PACKAGE_VERSION}.orig.tar.gz
+       ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz
     mkdir -p ${PACKAGE_DIR}
-    tar zxvf ${PNAME}_${PACKAGE_VERSION}.orig.tar.gz \
+    tar zxvf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz \
         -C ${PACKAGE_DIR} --strip-components=1
 }
