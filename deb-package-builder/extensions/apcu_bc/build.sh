@@ -23,9 +23,9 @@ else
     PACKAGE_FULL_VERSION="${EXT_VERSION}-${FULL_VERSION}"
     PACKAGE_DIR=${PNAME}-${PACKAGE_VERSION}
     mv apcu_bc-${EXT_VERSION}.tgz \
-       ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz
+       ${PNAME}_${PACKAGE_VERSION}.orig.tar.gz
     mkdir -p ${PACKAGE_DIR}
-    tar zxvf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz \
+    tar zxvf ${PNAME}_${PACKAGE_VERSION}.orig.tar.gz \
         -C ${PACKAGE_DIR} --strip-components=1
 fi
 
