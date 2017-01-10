@@ -133,9 +133,7 @@ chmod -R 550 ${DOCUMENT_ROOT}
 # Change the www-data's shell back to /usr/sbin/nologin
 chsh -s /usr/sbin/nologin www-data
 
-# Put a stricter php-cli.ini
-if [ -f "${PHP_DIR}/lib/php-cli-strict.ini" ]; then
-    mv ${PHP_DIR}/lib/php-cli-strict.ini ${PHP_DIR}/lib/php-cli.ini
-fi
+# Enable suhosin
+${PHP56_DIR}/bin/php56_enmod suhosin
 
 exec "$@"

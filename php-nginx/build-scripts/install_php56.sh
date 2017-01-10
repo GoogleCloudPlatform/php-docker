@@ -18,49 +18,26 @@
 # A shell script for installing PHP 5.6.x.
 set -xe
 
-apt-get install gcp-php56
+apt-get install -y \
+        gcp-php56 \
+        gcp-php56-apcu \
+        gcp-php56-grpc \
+        gcp-php56-json \
+        gcp-php56-mailparse \
+        gcp-php56-memcache \
+        gcp-php56-memcached \
+        gcp-php56-mongodb \
+        gcp-php56-redis \
+        gcp-php56-suhosin
+
+# Enable some extensions for backward compatibility
+${PHP56_DIR}/bin/php56-enmod apcu
+${PHP56_DIR}/bin/php56-enmod json
+${PHP56_DIR}/bin/php56-enmod mailparse
+${PHP56_DIR}/bin/php56-enmod memcached
 
 # Making php56 the default version
 ln -s ${PHP56_DIR} ${PHP_DIR}
-
-# Create a directory for additional config files.
-mkdir -p ${PHP56_DIR}/lib/conf.d
-
-mkdir -p /tmp/ext-src
-pushd /tmp/ext-src
-
-cd /tmp/ext-src
-curl -SL "https://github.com/stefanesser/suhosin/archive/0.9.38.tar.gz" -o suhosin.tar.gz
-mkdir -p suhosin
-tar -zxf suhosin.tar.gz -C suhosin --strip-components=1
-rm suhosin.tar.gz
-cd suhosin
-${PHP56_DIR}/bin/phpize
-./configure
-make
-make install
-
-popd
-rm -rf /tmp/ext-src
-
-# Install extensions from our cloud-apt repo
-apt-get install -y gcp-php56-memcached gcp-php56-json
-${PHP56_DIR}/bin/php56-enmod json
-${PHP56_DIR}/bin/php56-enmod memcached
-
-# Install shared extensions with pecl
-${PHP56_DIR}/bin/pecl install mailparse-2.1.6
-echo 'extension=mailparse.so' > ${PHP56_DIR}/lib/conf.d/ext-mailparse.ini
-
-${PHP56_DIR}/bin/pecl install apcu-4.0.11
-echo 'extension=apcu.so' > ${PHP56_DIR}/lib/conf.d/ext-apcu.ini
-
-${PHP56_DIR}/bin/pecl install memcache
-${PHP56_DIR}/bin/pecl install mongodb
-${PHP56_DIR}/bin/pecl install redis-2.2.8
-${PHP56_DIR}/bin/pecl install grpc
-
-rm -rf /tmp/pear
 
 # Install composer
 EXPECTED_SIGNATURE=$(curl -f https://composer.github.io/installer.sig)

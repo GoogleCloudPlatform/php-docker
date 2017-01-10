@@ -78,8 +78,8 @@ RUN (echo "deb http://packages.cloud.google.com/apt ${RUNTIME_DISTRIBUTION} main
     apt-get -y update && \
     /bin/bash /build-scripts/apt_build_deps.sh install && \
     /bin/bash /build-scripts/build_nginx.sh && \
-    /bin/bash /build-scripts/build_php56.sh && \
-    /bin/bash /build-scripts/build_php70.sh && \
+    /bin/bash /build-scripts/install_php56.sh && \
+    /bin/bash /build-scripts/install_php70.sh && \
     /bin/bash /build-scripts/apt_build_deps.sh uninstall
 
 EXPOSE 8080
@@ -97,8 +97,6 @@ RUN mkdir -p $APP_DIR $LOG_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
 # Put config files into place.
 COPY nginx.conf fastcgi_params gzip_params $NGINX_DIR/conf/
 COPY nginx-app.conf $NGINX_USER_CONF_DIR
-COPY php.ini php-cli.ini php-cli-strict.ini $PHP56_DIR/lib/
-COPY php.ini php-cli.ini php-cli-strict.ini $PHP70_DIR/lib/
 COPY php-fpm.conf $PHP56_DIR/etc/php-fpm.conf
 COPY php-fpm.conf $PHP70_DIR/etc/php-fpm.conf
 RUN touch $PHP56_DIR/etc/php-fpm-user.conf $PHP70_DIR/etc/php-fpm-user.conf
