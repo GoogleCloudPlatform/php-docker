@@ -1,0 +1,16 @@
+Index: gcp-php56-grpc-1.0.1-5.6.29/config.m4
+===================================================================
+--- gcp-php56-grpc-1.0.1-5.6.29.orig/config.m4
++++ gcp-php56-grpc-1.0.1-5.6.29/config.m4
+@@ -5,7 +5,7 @@ if test "$PHP_GRPC" != "no"; then
+   dnl Write more examples of tests here...
+ 
+   dnl # --with-grpc -> add include path
+-  PHP_ADD_INCLUDE(../../grpc/include)
+-  PHP_ADD_INCLUDE(../../grpc/src/php/ext/grpc)
+-  PHP_ADD_INCLUDE(../../grpc/third_party/boringssl/include)
++  PHP_ADD_INCLUDE(./include)
++  PHP_ADD_INCLUDE(./src/php/ext/grpc)
++  PHP_ADD_INCLUDE(./third_party/boringssl/include)
+ 
+   LIBS="-lpthread $LIBS"

@@ -24,6 +24,8 @@ if [ -z "${BUILD_DIR}" ]; then
     BUILD_DIR='/workspace'
 fi
 
+export BUILD_DIR
+
 mkdir -p ${BUILD_DIR}
 
 # Remove everything and start fresh
@@ -98,5 +100,7 @@ for FULL_VERSION in $(echo ${PHP_VERSIONS} | tr "," "\n"); do
     # Make it a default
     rm -rf ${PHP_DIR}
     ln -sf /opt/php${SHORT_VERSION} ${PHP_DIR}
-    find ${DEB_BUILDER_DIR}/extensions -name 'build.sh' -exec {} \;
+    for BUILD_SH in ${DEB_BUILDER_DIR}/extensions/*/build.sh; do
+        $BUILD_SH
+    done
 done

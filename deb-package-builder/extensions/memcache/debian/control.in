@@ -1,0 +1,12 @@
+Source: gcp-php${SHORT_VERSION}-memcache
+Section: php
+Priority: optional
+Maintainer: Takashi Matsuo <tmatsuo@google.com>
+Build-Depends: debhelper (>= 9), gcp-php${SHORT_VERSION}, zlib1g-dev
+Standards-Version: 3.9.5
+Homepage: http://pecl.php.net/package/memcache
+
+Package: gcp-php${SHORT_VERSION}-memcache
+Architecture: any
+Depends: libc6 (>= 2.4), zlib1g (>= 1:1.1.4), gcp-php${SHORT_VERSION}
+Description: memcache extension module for gcp-php${SHORT_VERSION}
