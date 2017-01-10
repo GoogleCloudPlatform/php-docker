@@ -133,6 +133,6 @@ chmod -R 550 ${DOCUMENT_ROOT}
 chsh -s /usr/sbin/nologin www-data
 
 # Enable suhosin
-${PHP56_DIR}/bin/php56_enmod suhosin
+${PHP56_DIR}/bin/php56-enmod suhosin
 
 exec "$@"
