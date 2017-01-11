@@ -126,4 +126,4 @@ WORKDIR $APP_DIR
 ONBUILD RUN /composer.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
