@@ -108,9 +108,6 @@ fi
 
 sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" "${NGINX_DIR}/conf/nginx.conf"
 
-# Enable suhosin
-${PHP56_DIR}/bin/php56-enmod suhosin
-
 # Enable functions whitelisted by the user. Running this script at
 # runtime is little bit fragile, but this is the only place we can
 # look up the environment variable.
@@ -134,5 +131,8 @@ chmod -R 550 ${DOCUMENT_ROOT}
 
 # Change the www-data's shell back to /usr/sbin/nologin
 chsh -s /usr/sbin/nologin www-data
+
+# Enable suhosin
+${PHP56_DIR}/bin/php56-enmod suhosin
 
 exec "$@"
