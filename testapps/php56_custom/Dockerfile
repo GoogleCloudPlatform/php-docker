@@ -15,4 +15,4 @@
 FROM php-nginx
 
 ENV DOCUMENT_ROOT=/app/web \
-    WHITELIST_FUNCTIONS=phpinfo,exec,proc_open
+    WHITELIST_FUNCTIONS=phpinfo,exec,proc_open,proc_close
