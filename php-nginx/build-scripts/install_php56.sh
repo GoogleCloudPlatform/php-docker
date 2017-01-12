@@ -36,7 +36,15 @@ ${PHP56_DIR}/bin/php56-enmod json
 ${PHP56_DIR}/bin/php56-enmod mailparse
 ${PHP56_DIR}/bin/php56-enmod memcached
 
+# Copy the config files
+mkdir -p "${PHP56_DIR}/etc"
+cp "${PHP_CONFIG_TEMPLATE}/php-fpm.conf" "${PHP56_DIR}/etc/php-fpm.conf"
+touch "${PHP56_DIR}/etc/php-fpm-user.conf"
+cp "${PHP_CONFIG_TEMPLATE}/php.ini" "${PHP56_DIR}/lib"
+cp "${PHP_CONFIG_TEMPLATE}/php-cli.ini" "${PHP56_DIR}/lib"
+
 # Making php56 the default version
+rm -f ${PHP_DIR}
 ln -s ${PHP56_DIR} ${PHP_DIR}
 
 # Install composer
