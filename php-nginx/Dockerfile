@@ -99,8 +99,8 @@ COPY nginx.conf fastcgi_params gzip_params $NGINX_DIR/conf/
 COPY nginx-app.conf $NGINX_USER_CONF_DIR
 COPY php-fpm.conf $PHP56_DIR/etc/php-fpm.conf
 COPY php-fpm.conf $PHP70_DIR/etc/php-fpm.conf
-COPY php.ini $PHP56_DIR/lib/
-COPY php.ini $PHP70_DIR/lib/
+COPY php.ini php-cli.ini $PHP56_DIR/lib/
+COPY php.ini php-cli.ini $PHP70_DIR/lib/
 RUN touch $PHP56_DIR/etc/php-fpm-user.conf $PHP70_DIR/etc/php-fpm-user.conf
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY logrotate.app_engine /etc/logrotate.d/app_engine

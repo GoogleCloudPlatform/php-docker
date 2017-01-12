@@ -108,11 +108,6 @@ fi
 
 sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" "${NGINX_DIR}/conf/nginx.conf"
 
-# Enable functions whitelisted by the user. Running this script at
-# runtime is little bit fragile, but this is the only place we can
-# look up the environment variable.
-${PHP_DIR}/bin/php /whitelist_functions.php
-
 if [ -f "${APP_DIR}/composer.json" ]; then
     # run the composer scripts for post-deploy
     if su www-data -c "php /usr/local/bin/composer --no-ansi run-script -l" \
@@ -134,5 +129,11 @@ chsh -s /usr/sbin/nologin www-data
 
 # Enable suhosin
 ${PHP56_DIR}/bin/php56-enmod suhosin
+
+# Whitelist functions
+${PHP_DIR}/bin/php /whitelist_functions.php
+
+# Remove loose php-cli.ini
+rm /opt/php/lib/php-cli.ini
 
 exec "$@"
