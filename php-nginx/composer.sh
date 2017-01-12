@@ -29,9 +29,9 @@ if [ -f ${APP_DIR}/composer.json ]; then
     # These files are created in Dockerfile.
     rm -rf /tmp/vendor /tmp/detect_php_version.php /tmp/composer.*
 
-    if [ "${PHP_VERSION}" != "7.0" ] && [ "${PHP_VERSION}" != "5.6" ]; then
+    if [ "${PHP_VERSION}" != "7.0" ] && [ "${PHP_VERSION}" != "5.6" ] && [ "${PHP_VERSION}" != "7.1" ]; then
         cat<<EOF
-There is no PHP runtime version specified in composer.json, or we don't support the version you specified. Google App Engine uses the latest stable version of PHP by default. We recommend pinning your PHP version by running:
+There is no PHP runtime version specified in composer.json, or we don't support the version you specified. Google App Engine uses the latest 5.6.x version. We recommend pinning your PHP version by running:
 
 composer require php ~5.6
 
@@ -41,13 +41,17 @@ EOF
     fi
 
     if [ "${PHP_VERSION}" == "7.0" ]; then
-        rm ${PHP_DIR}
-        ln -sf ${PHP70_DIR} ${PHP_DIR}
+        apt-get -y update
+        /bin/bash /build-scripts/install_php70.sh
+        apt-get remove -y gcp-php-${PHP56_VERSION}
+        rm -rf /var/lib/apt/lists/*
     fi
 
-    if [ "${PHP_VERSION}" == "5.6" ]; then
-        rm ${PHP_DIR}
-        ln -sf ${PHP56_DIR} ${PHP_DIR}
+    if [ "${PHP_VERSION}" == "7.1" ]; then
+        apt-get -y update
+        /bin/bash /build-scripts/install_php71.sh
+        apt-get remove -y gcp-php-${PHP56_VERSION}
+        rm -rf /var/lib/apt/lists/*
     fi
 
     # Handle custom oauth keys (Adapted from https://github.com/heroku/heroku-buildpack-php/blob/master/bin/compile)

@@ -50,8 +50,10 @@ RUN apt-get update -y && \
 
 ENV NGINX_DIR=/opt/nginx \
     PHP_DIR=/opt/php \
+    PHP_CONFIG_TEMPLATE=/opt/php-configs \
     PHP56_DIR=/opt/php56 \
     PHP70_DIR=/opt/php70 \
+    PHP71_DIR=/opt/php71 \
     LOG_DIR=/var/log/app_engine \
     APP_DIR=/app \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
@@ -60,6 +62,7 @@ ENV NGINX_DIR=/opt/nginx \
     NGINX_VERSION=1.10.2 \
     PHP56_VERSION=5.6.29 \
     PHP70_VERSION=7.0.14 \
+    PHP71_VERSION=7.1.0 \
     PATH=/opt/php/bin:$PATH \
     WWW_HOME=/var/www
 
@@ -71,6 +74,9 @@ COPY build-scripts /build-scripts
 
 ARG RUNTIME_DISTRIBUTION="gcp-php-runtime-jessie"
 
+RUN mkdir -p $PHP_CONFIG_TEMPLATE
+COPY php-fpm.conf php.ini php-cli.ini "${PHP_CONFIG_TEMPLATE}/"
+
 RUN (echo "deb http://packages.cloud.google.com/apt ${RUNTIME_DISTRIBUTION} main" \
     | tee /etc/apt/sources.list.d/gcp-php-runtime-jessie.list) && \
     (curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
@@ -79,14 +85,13 @@ RUN (echo "deb http://packages.cloud.google.com/apt ${RUNTIME_DISTRIBUTION} main
     /bin/bash /build-scripts/apt_build_deps.sh install && \
     /bin/bash /build-scripts/build_nginx.sh && \
     /bin/bash /build-scripts/install_php56.sh && \
-    /bin/bash /build-scripts/install_php70.sh && \
     /bin/bash /build-scripts/apt_build_deps.sh uninstall
 
 EXPOSE 8080
 
 # Lock down the web directories
 RUN mkdir -p $APP_DIR $LOG_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
-        $NGINX_USER_CONF_DIR $WWW_HOME\
+        $NGINX_USER_CONF_DIR $WWW_HOME \
     && chown -R www-data.www-data \
         $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH $LOG_DIR \
         $NGINX_USER_CONF_DIR $WWW_HOME \
@@ -94,17 +99,11 @@ RUN mkdir -p $APP_DIR $LOG_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
     # For easy access to php with `su www-data -c $CMD`
     && ln -sf ${PHP_DIR}/bin/php /usr/bin/php
 
-# Put config files into place.
+# Put other config and shell files into place.
 COPY nginx.conf fastcgi_params gzip_params $NGINX_DIR/conf/
 COPY nginx-app.conf $NGINX_USER_CONF_DIR
-COPY php-fpm.conf $PHP56_DIR/etc/php-fpm.conf
-COPY php-fpm.conf $PHP70_DIR/etc/php-fpm.conf
-COPY php.ini php-cli.ini $PHP56_DIR/lib/
-COPY php.ini php-cli.ini $PHP70_DIR/lib/
-RUN touch $PHP56_DIR/etc/php-fpm-user.conf $PHP70_DIR/etc/php-fpm-user.conf
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY logrotate.app_engine /etc/logrotate.d/app_engine
-
 COPY entrypoint.sh composer.sh whitelist_functions.php /
 
 RUN chgrp www-data composer.sh && chmod +x /entrypoint.sh /composer.sh \

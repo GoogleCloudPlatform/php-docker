@@ -33,3 +33,14 @@ ${PHP70_DIR}/bin/php70-enmod apcu-bc
 ${PHP70_DIR}/bin/php70-enmod apcu
 ${PHP70_DIR}/bin/php70-enmod mailparse
 ${PHP70_DIR}/bin/php70-enmod memcached
+
+# Copy the config files
+mkdir -p "${PHP70_DIR}/etc"
+cp "${PHP_CONFIG_TEMPLATE}/php-fpm.conf" "${PHP70_DIR}/etc/php-fpm.conf"
+touch "${PHP70_DIR}/etc/php-fpm-user.conf"
+cp "${PHP_CONFIG_TEMPLATE}/php.ini" "${PHP70_DIR}/lib"
+cp "${PHP_CONFIG_TEMPLATE}/php-cli.ini" "${PHP70_DIR}/lib"
+
+# Making php70 the default version
+rm -f ${PHP_DIR}
+ln -s ${PHP70_DIR} ${PHP_DIR}
