@@ -53,13 +53,12 @@ class PHP56Test extends \PHPUnit_Framework_TestCase
 
     public function testPhpInfo()
     {
-        // Access to phpinfo.php, while phpinfo() is disabled by default.
+        // Access to phpinfo.php, while phpinfo() should be enabled by default.
         $resp = $this->client->get('phpinfo.php');
         $this->assertEquals('200', $resp->getStatusCode(),
                             'phpinfo.php status code');
-        $this->assertEquals('', $resp->getBody()->getContents(),
-                            'phpinfo() should be disabled and the content'
-                            . ' should be empty.');
+        $this->assertTrue(strlen($resp->getBody()->getContents()) > 1000,
+                          'phpinfo() should be enabled.');
     }
 
     public function testPdoSqlite()

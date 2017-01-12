@@ -193,14 +193,14 @@ php.ini):
 - FTP (ftp)
 - GD (gd; with PNG, JPEG and FreeType support)
 - gettext (gettext)
+- gRPC (shared)
 - intl (intl)
 - mbstring (mbstring)
-- memcache (shared, experimental support for PHP7)
 - memcached (shared, enabled by default, experimental support for PHP7)
-- mongodb (shared, experimental support for PHP7)
+- mongodb (shared)
 - MySQL (mysql; it's removed with PHP7.0)
 - PCNTL (pcntl)
-- redis (shared, experimental support for PHP7)
+- redis (shared)
 - Shmop (shmop)
 - SOAP (soap)
 - SQLite3 (sqlite3)
@@ -210,12 +210,12 @@ php.ini):
 
 These extensions are only available with PHP 5.6:
 
+- memcache (shared, disabled by default)
 - suhosin (shared, but enabled by default)
-- gRPC (shared)
 
 These extensions are only available with PHP 7:
 
-- APCu-BC (builtin)
+- APCu-BC (shared, enabled by default)
 
 ## Add something to php.ini
 

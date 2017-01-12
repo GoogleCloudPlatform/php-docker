@@ -151,12 +151,14 @@ class PHP56CustomTest extends \PHPUnit_Framework_TestCase
 
     public function testPhpInfo()
     {
-        // Access to phpinfo.php, while phpinfo() should be enabled this time.
+        // Access to phpinfo.php, while phpinfo() is disabled with the custom
+        // php.ini.
         $resp = $this->client->get('phpinfo.php');
         $this->assertEquals('200', $resp->getStatusCode(),
                             'phpinfo.php status code');
-        $this->assertTrue(strlen($resp->getBody()->getContents()) > 1000,
-                          'phpinfo() should be enabled.');
+        $this->assertEquals('', $resp->getBody()->getContents(),
+                            'phpinfo() should be disabled and the content'
+                            . ' should be empty.');
     }
 
     public function testExec()

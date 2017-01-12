@@ -107,12 +107,6 @@ if [ -z "${DOCUMENT_ROOT}" ]; then
 fi
 
 sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" "${NGINX_DIR}/conf/nginx.conf"
-sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" "${PHP_DIR}/lib/php.ini"
-
-# Enable functions whitelisted by the user. Running this script at
-# runtime is little bit fragile, but this is the only place we can
-# look up the environment variable.
-${PHP_DIR}/bin/php /whitelist_functions.php
 
 if [ -f "${APP_DIR}/composer.json" ]; then
     # run the composer scripts for post-deploy
@@ -133,9 +127,13 @@ chmod -R 550 ${DOCUMENT_ROOT}
 # Change the www-data's shell back to /usr/sbin/nologin
 chsh -s /usr/sbin/nologin www-data
 
-# Put a stricter php-cli.ini
-if [ -f "${PHP_DIR}/lib/php-cli-strict.ini" ]; then
-    mv ${PHP_DIR}/lib/php-cli-strict.ini ${PHP_DIR}/lib/php-cli.ini
-fi
+# Enable suhosin
+${PHP56_DIR}/bin/php56-enmod suhosin
+
+# Whitelist functions
+${PHP_DIR}/bin/php /whitelist_functions.php
+
+# Remove loose php-cli.ini
+rm /opt/php/lib/php-cli.ini
 
 exec "$@"

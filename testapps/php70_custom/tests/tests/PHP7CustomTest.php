@@ -73,7 +73,6 @@ class PHP7CustomTest extends \PHPUnit_Framework_TestCase
         'gettext',
         'intl',
         'mbstring',
-        'memcache',
         'memcached',
         'mysql',
         'pcntl',

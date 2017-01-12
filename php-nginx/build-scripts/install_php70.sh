@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright 2015 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +14,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM php-nginx
 
-ENV DOCUMENT_ROOT=/app/web \
-    WHITELIST_FUNCTIONS=exec,proc_open,proc_close
+# A shell script for installing PHP 7.0.x.
+set -xe
+
+apt-get install -y \
+        gcp-php70 \
+        gcp-php70-apcu \
+        gcp-php70-apcu-bc \
+        gcp-php70-grpc \
+        gcp-php70-mailparse \
+        gcp-php70-memcached \
+        gcp-php70-mongodb \
+        gcp-php70-redis
+
+# Enable some extensions for backward compatibility
+${PHP70_DIR}/bin/php70-enmod apcu-bc
+${PHP70_DIR}/bin/php70-enmod apcu
+${PHP70_DIR}/bin/php70-enmod mailparse
+${PHP70_DIR}/bin/php70-enmod memcached
