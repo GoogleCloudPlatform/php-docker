@@ -324,6 +324,13 @@ Note: this doesn't reflect any additional web server configuration.
   provide an easier way to install extensions.
 - PHP 7 installation is still missing various extensions including
   suhosin.
+- As a security measure, the `/app` directory is changed to being read-only
+  during the build. If you need to write to specific folders in your `/app` 
+  directory, you need to make it writeable to the `www-data` user as a separate
+  run-step in your Dockerfile.
+  ```
+  RUN chmod -R 750 ${APP_DIR}/bootstrap/cache
+  ```
 
 ## What does this image do
 
