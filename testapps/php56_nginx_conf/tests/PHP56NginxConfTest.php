@@ -32,12 +32,12 @@ class PHP56NginxConfTest extends \PHPUnit_Framework_TestCase
         $this->client = new Client(['base_uri' => 'http://test-app:8080/']);
     }
 
-    public function testIndex()
+    public function testHello()
     {
-        // Index serves succesfully with 'hello from nginx.conf'.
+        // hello serves succesfully with 'hello from nginx.conf'.
         $resp = $this->client->get('hello');
         $this->assertEquals('200', $resp->getStatusCode(),
-                            'index.php status code');
+                            'hello status code');
         $this->assertContains(
             'hello from nginx.conf',
             $resp->getBody()->getContents()

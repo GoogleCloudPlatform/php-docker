@@ -33,6 +33,18 @@ class PHP56CustomConfigTest extends \PHPUnit_Framework_TestCase
         $this->client = new Client(['base_uri' => 'http://test-app:8080/']);
     }
 
+    public function testHello()
+    {
+        // hello serves succesfully with 'hello from nginx-custom.conf'.
+        $resp = $this->client->get('hello');
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'hello status code');
+        $this->assertContains(
+            'hello from nginx-custom.conf',
+            $resp->getBody()->getContents()
+        );
+    }
+
     public function testNginxUserConf()
     {
         $resp = $this->client->get(
