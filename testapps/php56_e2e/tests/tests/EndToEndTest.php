@@ -121,6 +121,15 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('Hello World', $resp->getBody()->getContents());
     }
 
+    public function testHttpsEnv()
+    {
+        // Check the HTTPS envvar on the server
+        $resp = $this->client->get('https-env.php');
+        $this->assertEquals('200', $resp->getStatusCode(),
+                            'https-env.php status code');
+        $this->assertContains('HTTPS: on', $resp->getBody()->getContents());
+    }
+
     public function testGoodbye()
     {
         // The URL '/goodbye' works with 'Goodbye World'.
@@ -169,6 +178,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
 
     public function testSessionSaveHandler()
     {
+        $this->markTestSkipped('Memcache is not available on env:flex.');
         $resp = $this->client->get('session_save_handler.php');
         $this->assertEquals('200', $resp->getStatusCode(),
                             'session_save_handler status code');
@@ -178,6 +188,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
 
     public function testSession()
     {
+        $this->markTestSkipped('Memcache is not available on env:flex.');
         $jar = new CookieJar();
         $resp = $this->client->get('session.php', ['cookies' => $jar]);
         $this->assertEquals('200', $resp->getStatusCode(),
