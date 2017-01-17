@@ -324,6 +324,11 @@ Note: this doesn't reflect any additional web server configuration.
   provide an easier way to install extensions.
 - PHP 7 installation is still missing various extensions including
   suhosin.
+- As a security measure, the directory specified as "DOCUMENT_ROOT"
+  (defaults to `/app`), is changed to read-only during the build. If
+  you need to write under this directory, you need to make it
+  writeable to the `www-data` user as a separate step in your own
+  `Dockerfile`.
 
 ## What does this image do
 
