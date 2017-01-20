@@ -59,11 +59,11 @@ override_dh_auto_configure:
 override_dh_auto_test:
 
 override_dh_auto_install:
-	INSTALL_ROOT=$(CURDIR)/debian/gcp-php-${PHP_VERSION} dh_auto_install \
-	&& rm -rf $(CURDIR)/debian/gcp-php-${PHP_VERSION}/etc \
-	&& find $(CURDIR)/debian/gcp-php-${PHP_VERSION} -name .channels -prune \
-		-exec rm -rf '{}' \; \
-	&& find $(CURDIR)/debian/gcp-php-${PHP_VERSION} -name .registry -prune \
-		-exec rm -rf '{}' \; \
-	&& find $(CURDIR)/debian/gcp-php-${PHP_VERSION} -type f -name ".*" \
+	INSTALL_ROOT=$(CURDIR)/debian/gcp-php${SHORT_VERSION} dh_auto_install \
+	&& rm -rf $(CURDIR)/debian/gcp-php${SHORT_VERSION}/etc \
+	&& find $(CURDIR)/debian/gcp-php${SHORT_VERSION} -name .channels \
+		-prune -exec rm -rf '{}' \; \
+	&& find $(CURDIR)/debian/gcp-php${SHORT_VERSION} -name .registry \
+		-prune -exec rm -rf '{}' \; \
+	&& find $(CURDIR)/debian/gcp-php${SHORT_VERSION} -type f -name ".*" \
 		-exec rm '{}' \;
