@@ -30,6 +30,12 @@ if [ -z "${SERVICE_ACCOUNT_JSON}" ]; then
     exit 1
 fi
 
+if [ -z "${RUNTIME_DISTRIBUTION}" ]; then
+    RUNTIME_DISTRIBUTION="gcp-php-runtime-jessie"
+fi
+
+export RUNTIME_DISTRIBUTION
+
 # Dump the credentials from the environment variable.
 php scripts/dump_credentials.php
 

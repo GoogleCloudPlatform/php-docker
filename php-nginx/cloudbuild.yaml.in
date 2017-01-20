@@ -1,6 +1,6 @@
 steps:
         - name: gcr.io/cloud-builders/docker
-          args: ['build', '-t', '${IMAGE}', '.']
+          args: ['build', '-t', '${IMAGE}', '--build-arg', 'RUNTIME_DISTRIBUTION=${RUNTIME_DISTRIBUTION}', '.']
         - name: gcr.io/gcp-runtimes/structure_test
           args: ['-i', '${IMAGE}', '--config', '/workspace/php-nginx.yaml', '-v']
 images:
