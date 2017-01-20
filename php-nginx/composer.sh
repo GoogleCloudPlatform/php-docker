@@ -43,14 +43,14 @@ EOF
     if [ "${PHP_VERSION}" == "7.0" ]; then
         apt-get -y update
         /bin/bash /build-scripts/install_php70.sh
-        apt-get remove -y gcp-php-${PHP56_VERSION}
+        apt-get remove -y gcp-php56
         rm -rf /var/lib/apt/lists/*
     fi
 
     if [ "${PHP_VERSION}" == "7.1" ]; then
         apt-get -y update
         /bin/bash /build-scripts/install_php71.sh
-        apt-get remove -y gcp-php-${PHP56_VERSION}
+        apt-get remove -y gcp-php56
         rm -rf /var/lib/apt/lists/*
     fi
 

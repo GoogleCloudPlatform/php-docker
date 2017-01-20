@@ -37,13 +37,18 @@ PHP_VERSIONS=${1}
 
 cd ${BUILD_DIR}
 
+# TODO: Remove this line once we change the php binary package names
+# We need to remove this package now in order to avoid conflict
+dpkg -l | grep gcp-php-5.6.30 && apt-get -y remove --purge gcp-php-5.6.30
+
 for FULL_VERSION in $(echo ${PHP_VERSIONS} | tr "," "\n"); do
     export FULL_VERSION
     export PHP_VERSION=$(echo ${FULL_VERSION} | sed 's/-.*//')
     export BASE_VERSION=$(echo ${PHP_VERSION} | \
         sed 's/\([0-9][0-9]*\.[0-9][0-9]*\).*/\1/')
     export SHORT_VERSION=$(echo ${BASE_VERSION} | tr -d ".")
-    echo "Building gcp-php-${PHP_VERSION} version ${FULL_VERSION}"
+    export PACKAGE_NAME="gcp-php${SHORT_VERSION}"
+    echo "Building ${PACKAGE_NAME} version ${FULL_VERSION}"
     curl -sL "https://php.net/get/php-${PHP_VERSION}.tar.gz/from/this/mirror" \
         > php-${PHP_VERSION}.tar.gz
     curl -sL \
@@ -56,30 +61,29 @@ for FULL_VERSION in $(echo ${PHP_VERSIONS} | tr "," "\n"); do
         --verify php-${PHP_VERSION}.tar.gz.asc
     rm php-${PHP_VERSION}.tar.gz.asc
     mv php-${PHP_VERSION}.tar.gz \
-        gcp-php-${PHP_VERSION}_${PHP_VERSION}.orig.tar.gz
-    tar xzf gcp-php-${PHP_VERSION}_${PHP_VERSION}.orig.tar.gz
-    mv php-${PHP_VERSION} gcp-php-${PHP_VERSION}-${PHP_VERSION}
-    cp -r debian gcp-php-${PHP_VERSION}-${PHP_VERSION}/debian
-    pushd gcp-php-${PHP_VERSION}-${PHP_VERSION}
+        ${PACKAGE_NAME}_${PHP_VERSION}.orig.tar.gz
+    tar xzf ${PACKAGE_NAME}_${PHP_VERSION}.orig.tar.gz
+    mv php-${PHP_VERSION} ${PACKAGE_NAME}-${PHP_VERSION}
+    cp -r debian ${PACKAGE_NAME}-${PHP_VERSION}/debian
+    pushd ${PACKAGE_NAME}-${PHP_VERSION}
     if [[ ${PHP_VERSION} =~ ^5 ]]; then
         echo "Removing ext/json"
         rm -rf ext/json
         pushd ..
-        rm gcp-php-${PHP_VERSION}_${PHP_VERSION}.orig.tar.gz
-        tar cvzf gcp-php-${PHP_VERSION}_${PHP_VERSION}.orig.tar.gz \
-            gcp-php-${PHP_VERSION}-${PHP_VERSION}
+        rm ${PACKAGE_NAME}_${PHP_VERSION}.orig.tar.gz
+        tar cvzf ${PACKAGE_NAME}_${PHP_VERSION}.orig.tar.gz \
+            ${PACKAGE_NAME}-${PHP_VERSION}
         popd
     fi
-    envsubst '${PHP_VERSION},${SHORT_VERSION}' < debian/rules.in > debian/rules
+    envsubst '${SHORT_VERSION}' < debian/rules.in > debian/rules
     chmod +x debian/rules
-    envsubst \
-        '${PHP_VERSION},${SHORT_VERSION}' < debian/control.in > debian/control
+    envsubst '${SHORT_VERSION}' < debian/control.in > debian/control
     envsubst '${SHORT_VERSION}' < debian/patches/series.in > \
              debian/patches/series
     envsubst '${SHORT_VERSION}' < debian/gcp-php.dirs.in > \
-             debian/gcp-php-${PHP_VERSION}.dirs
+             debian/${PACKAGE_NAME}.dirs
     envsubst '${SHORT_VERSION}' < debian/gcp-php.install.in > \
-             debian/gcp-php-${PHP_VERSION}.install
+             debian/${PACKAGE_NAME}.install
     envsubst '${SHORT_VERSION}' < debian/php-enmod.in > \
              debian/php${SHORT_VERSION}-enmod
     chmod 755 debian/php${SHORT_VERSION}-enmod
@@ -91,12 +95,12 @@ for FULL_VERSION in $(echo ${PHP_VERSIONS} | tr "," "\n"); do
     rm debian/*.in debian/*/*.in
 
     dch --create -v ${FULL_VERSION} \
-        --package gcp-php-${PHP_VERSION} --empty -M \
-        "Build ${FULL_VERSION} of gcp-php-${PHP_VERSION}"
+        --package gcp-php${SHORT_VERSION} --empty -M \
+        "Build ${FULL_VERSION} of gcp-php${SHORT_VERSION}"
     dpkg-buildpackage -us -uc -j"$(nproc)"
     popd
     # build extensions
-    dpkg -i gcp-php-${PHP_VERSION}_${FULL_VERSION}_amd64.deb
+    dpkg -i gcp-php${SHORT_VERSION}_${FULL_VERSION}_amd64.deb
     # Make it a default
     rm -rf ${PHP_DIR}
     ln -sf /opt/php${SHORT_VERSION} ${PHP_DIR}
