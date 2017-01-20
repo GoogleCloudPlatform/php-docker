@@ -11,6 +11,7 @@ machine:
     PHP_DOCKER_GOOGLE_CREDENTIALS: ${HOME}/credentials.json
     GOOGLE_PROJECT_ID: php-mvm-a
     TAG: circle-${CIRCLE_BUILD_NUM}
+    RUNTIME_DISTRIBUTION: gcp-php-runtime-jessie-unstable
 
 dependencies:
   override:
