@@ -11,11 +11,6 @@ PNAME="gcp-php${SHORT_VERSION}-grpc"
 # Download the source
 download_from_pecl grpc
 
-# Apply the patch for path fix
-# TODO: use quilt instead
-pushd ${PACKAGE_DIR}
-patch -p1 < ${DEB_BUILDER_DIR}/extensions/grpc/grpc-fix-path.patch
-popd
 rm ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz
 tar zcf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz ${PACKAGE_DIR}
 
