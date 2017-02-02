@@ -22,6 +22,7 @@ apt-get install -y \
         gcp-php56 \
         gcp-php56-apcu \
         gcp-php56-grpc \
+        gcp-php56-imagick \
         gcp-php56-json \
         gcp-php56-mailparse \
         gcp-php56-memcache \
