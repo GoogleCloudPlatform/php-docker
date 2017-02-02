@@ -7,9 +7,7 @@
     ],
     "require": {
         "php": "^7.1",
-        "datto/protobuf-php": "dev-master",
-        "google/auth": "dev-master",
-        "grpc/grpc": "dev-release-0_13",
+        "grpc/grpc": "^1.0",
         "silex/silex": "^1.3"
     },
     "autoload": {
