@@ -18,7 +18,7 @@
 # A shell script for installing dependencies with composer.
 set -xe
 
-DEFAULT_PHP_VERSION="5.6"
+DEFAULT_PHP_VERSION="7.1"
 
 if [ -f ${APP_DIR}/composer.json ]; then
     # Extract php version from the composer.json.
@@ -29,28 +29,28 @@ if [ -f ${APP_DIR}/composer.json ]; then
     # These files are created in Dockerfile.
     rm -rf /tmp/vendor /tmp/detect_php_version.php /tmp/composer.*
 
-    if [ "${PHP_VERSION}" != "7.0" ] && [ "${PHP_VERSION}" != "5.6" ] && [ "${PHP_VERSION}" != "7.1" ]; then
+    if [ "${PHP_VERSION}" != "5.6" ] && [ "${PHP_VERSION}" != "7.0" ] && [ "${PHP_VERSION}" != "7.1" ]; then
         cat<<EOF
-There is no PHP runtime version specified in composer.json, or we don't support the version you specified. Google App Engine uses the latest 5.6.x version. We recommend pinning your PHP version by running:
+There is no PHP runtime version specified in composer.json, or we don't support the version you specified. Google App Engine uses the latest 7.1.x version. We recommend pinning your PHP version by running:
 
-composer require php ~5.6
+composer require php ~5.6.0 (replace it with your desired version)
 
-Using PHP version 5.6.x...
+Using PHP version 7.1.x...
 EOF
         PHP_VERSION=${DEFAULT_PHP_VERSION}
+    fi
+
+    if [ "${PHP_VERSION}" == "5.6" ]; then
+        apt-get -y update
+        /bin/bash /build-scripts/install_php56.sh
+        apt-get remove -y gcp-php71
+        rm -rf /var/lib/apt/lists/*
     fi
 
     if [ "${PHP_VERSION}" == "7.0" ]; then
         apt-get -y update
         /bin/bash /build-scripts/install_php70.sh
-        apt-get remove -y gcp-php56
-        rm -rf /var/lib/apt/lists/*
-    fi
-
-    if [ "${PHP_VERSION}" == "7.1" ]; then
-        apt-get -y update
-        /bin/bash /build-scripts/install_php71.sh
-        apt-get remove -y gcp-php56
+        apt-get remove -y gcp-php71
         rm -rf /var/lib/apt/lists/*
     fi
 

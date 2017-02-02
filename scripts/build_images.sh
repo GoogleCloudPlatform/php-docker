@@ -77,11 +77,11 @@ build_image () {
 }
 
 build_image php-nginx php-nginx
+build_image php_default testapps/php_default
 build_image php56 testapps/php56
 build_image php56_custom  testapps/php56_custom
 build_image php56_nginx_conf testapps/php56_nginx_conf
 build_image php56_custom_configs testapps/php56_custom_configs
-build_image php56_70 testapps/php56_70
 build_image php70_custom testapps/php70_custom
 build_image php71_custom testapps/php71_custom
-build_image php56_e2e testapps/php56_e2e
+build_image php71_e2e testapps/php71_e2e
