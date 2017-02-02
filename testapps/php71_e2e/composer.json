@@ -6,7 +6,7 @@
         }
     ],
     "require": {
-        "php": "^5.6",
+        "php": "^7.1",
         "datto/protobuf-php": "dev-master",
         "google/auth": "dev-master",
         "grpc/grpc": "dev-release-0_13",

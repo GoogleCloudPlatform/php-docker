@@ -20,9 +20,9 @@ use Composer\Semver\Semver;
 
 // Available versions in the order we want to check.
 $available_versions = [
-    getenv('PHP56_VERSION'),
-    getenv('PHP70_VERSION'),
     getenv('PHP71_VERSION'),
+    getenv('PHP70_VERSION'),
+    getenv('PHP56_VERSION'),
 ];
 
 if (count($argv) < 2) {
