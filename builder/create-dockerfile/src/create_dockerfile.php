@@ -23,7 +23,7 @@ class GenFiles
 {
     const WORKSPACE = '/workspace';
     const APP_DIR = '/app';
-    
+
     private static function readAppYaml()
     {
         return Yaml::parse(file_get_contents(self::WORKSPACE . '/app.yaml'));
@@ -37,7 +37,7 @@ class GenFiles
         }
         $docRoot = self::APP_DIR;
         $appYaml = self::readAppYaml();
-        
+
         if (array_key_exists('runtime_config', $appYaml)
             && array_key_exists('document_root', $appYaml['runtime_config'])) {
             $docRoot = '/app/' . $appYaml['runtime_config']['document_root'];
