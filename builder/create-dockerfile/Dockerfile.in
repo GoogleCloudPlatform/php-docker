@@ -25,7 +25,7 @@ COPY src /builder/src
 COPY errors.ini ${PHP_DIR}/lib/conf.d/
 
 RUN cd /builder/src && \
-  php /usr/local/bin/composer install --no-ansi --no-interactive --no-dev \
+  php /usr/local/bin/composer install --no-ansi --no-interaction --no-dev \
     --no-progress
 
 RUN chmod +x /builder/entrypoint.sh
