@@ -26,7 +26,7 @@ RUN apk add php5 php5-openssl php5-json php5-phar php5-dom php5-bcmath wget \
     php -r "if (hash_file('SHA384', 'composer-setup.php') === rtrim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
     php composer-setup.php --filename=composer --install-dir=/opt/bin && \
     php -r "unlink('composer-setup.php');" && \
-    wget -nv https://phar.phpunit.de/phpunit.phar && \
+    wget -nv -O phpunit.phar https://phar.phpunit.de/phpunit-5.7.phar && \
     chmod +x phpunit.phar && \
     mv phpunit.phar /opt/bin/phpunit && \
     wget -nv https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.zip && \
