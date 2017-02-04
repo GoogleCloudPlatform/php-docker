@@ -85,3 +85,4 @@ build_image php56_custom_configs testapps/php56_custom_configs
 build_image php70_custom testapps/php70_custom
 build_image php71_custom testapps/php71_custom
 build_image php71_e2e testapps/php71_e2e
+build_image create-dockerfile builder/create-dockerfile

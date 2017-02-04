@@ -14,6 +14,6 @@
 
 # Dockerfile for App Engine Flexible environment for PHP
 
-FROM gcr.io/google-appengine/php:{{ tag }}
+FROM {{ base_image }}:{{ tag }}
 
 ENV DOCUMENT_ROOT {{ document_root }}

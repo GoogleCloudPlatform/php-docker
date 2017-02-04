@@ -15,9 +15,13 @@
 # Dockerfile for PHP builder step 1
 # Creates Dockerfile and .dockerignore
 
-FROM gcr.io/google-appengine/php:${BASE_TAG}
+FROM gcr.io/google-appengine/php:latest
 
-ENV BASE_TAG ${BASE_TAG}
+ARG BUILDER_TARGET_IMAGE="gcr.io/google-appengine/php"
+ARG BUILDER_TARGET_TAG="latest"
+
+ENV BUILDER_TARGET_IMAGE=${BUILDER_TARGET_IMAGE}
+ENV BUILDER_TARGET_TAG=${BUILDER_TARGET_TAG}
 
 RUN mkdir /builder
 COPY entrypoint.sh /builder/

@@ -21,8 +21,10 @@ use Symfony\Component\Yaml\Yaml;
 
 class GenFiles
 {
-    const WORKSPACE = '/workspace';
     const APP_DIR = '/app';
+    const DEFAULT_BASE_IMAGE = 'gcr.io/google-appengine/php';
+    const DEFAULT_TAG = 'latest';
+    const WORKSPACE = '/workspace';
 
     private static function readAppYaml()
     {
@@ -32,7 +34,8 @@ class GenFiles
     public static function createDockerfile()
     {
         if (file_exists(self::WORKSPACE . '/Dockerfile')) {
-            echo 'not creating Dockerfile because the file already exists';
+            echo 'not creating Dockerfile because the file already exists'
+                . PHP_EOL;
             return;
         }
         $docRoot = self::APP_DIR;
@@ -42,14 +45,19 @@ class GenFiles
             && array_key_exists('document_root', $appYaml['runtime_config'])) {
             $docRoot = '/app/' . $appYaml['runtime_config']['document_root'];
         }
-        $tag = getenv('BASE_TAG');
+        $tag = getenv('BUILDER_TARGET_TAG');
         if ($tag === false) {
-            $tag = 'latest';
+            $tag = self::DEFAULT_TAG;
+        }
+        $baseImage = getenv('BUILDER_TARGET_IMAGE');
+        if ($baseImage === false) {
+            $baseImage = self::DEFAULT_BASE_IMAGE;
         }
         $loader = new Twig_Loader_Filesystem(__DIR__ . '/templates');
         $twig = new Twig_Environment($loader);
         $template = $twig->load('Dockerfile.twig');
         $dockerfile = $template->render(array(
+            'base_image' => $baseImage,
             'tag' => $tag,
             'document_root' => $docRoot
         ));
@@ -59,7 +67,8 @@ class GenFiles
     public static function createDockerignore()
     {
         if (file_exists(self::WORKSPACE . '/.dockerignore')) {
-            echo 'not creating .dockerignore because the file already exists';
+            echo 'not creating .dockerignore because the file already exists'
+                . PHP_EOL;
             return;
         }
         copy(
