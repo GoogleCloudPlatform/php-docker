@@ -32,7 +32,6 @@ apt-get install -y \
 # Enable some extensions for backward compatibility
 ${PHP70_DIR}/bin/php70-enmod apcu-bc
 ${PHP70_DIR}/bin/php70-enmod apcu
-${PHP70_DIR}/bin/php56-enmod imagick
 ${PHP70_DIR}/bin/php70-enmod mailparse
 ${PHP70_DIR}/bin/php70-enmod memcached
 
