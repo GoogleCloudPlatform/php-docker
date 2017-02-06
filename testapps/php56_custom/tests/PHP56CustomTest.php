@@ -307,4 +307,13 @@ class PHP56CustomTest extends \PHPUnit_Framework_TestCase
             $this->assertContains($ext, $loaded);
         }
     }
+
+    public function testImagickCanLoad()
+    {
+        $resp = $this->client->get('imagick.php');
+        $body = $resp->getBody()->getContents();
+
+        // test image should by 300px by 1px
+        $this->assertContains('300x1', $body);
+    }
 }
