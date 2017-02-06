@@ -81,7 +81,8 @@ RUN (echo "deb http://packages.cloud.google.com/apt ${RUNTIME_DISTRIBUTION} main
     apt-get -y update && \
     /bin/bash /build-scripts/apt_build_deps.sh install && \
     /bin/bash /build-scripts/build_nginx.sh && \
-    /bin/bash /build-scripts/install_php56.sh && \
+    /bin/bash /build-scripts/install_php71.sh && \
+    /bin/bash /build-scripts/install_composer.sh && \
     /bin/bash /build-scripts/apt_build_deps.sh uninstall
 
 EXPOSE 8080
