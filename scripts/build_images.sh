@@ -51,7 +51,7 @@ gcloud auth activate-service-account \
 # Set the timeout
 gcloud config set container/build_timeout 3600
 SRC_TMP=$(mktemp -d)
-BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
+export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
 # build the php test runner and export the name
 export TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
 gcloud -q beta container builds submit --tag "${TEST_RUNNER}" \
@@ -70,8 +70,11 @@ build_image () {
     mkdir -p $(dirname ${SRC_DIR})
     cp -R "${DIR}" "${SRC_DIR}"
     # Replace the FROM line to point to our image in gcr.io.
-    sed -i -e "s|FROM php-nginx|FROM ${BASE_IMAGE}|" "${SRC_DIR}/Dockerfile"
-    envsubst < "${SRC_DIR}"/cloudbuild.yaml.in > "${SRC_DIR}"/cloudbuild.yaml
+    if [ -f "${SRC_DIR}/Dockerfile.in" ]; then
+        envsubst '${BASE_IMAGE}' < "${SRC_DIR}/Dockerfile.in" \
+                 > "${SRC_DIR}/Dockerfile"
+    fi
+    envsubst < "${SRC_DIR}/cloudbuild.yaml.in" > "${SRC_DIR}/cloudbuild.yaml"
     gcloud -q beta container builds submit "${SRC_DIR}" \
       --config "${SRC_DIR}"/cloudbuild.yaml
 }
