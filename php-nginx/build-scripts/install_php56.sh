@@ -33,6 +33,7 @@ apt-get install -y \
 
 # Enable some extensions for backward compatibility
 ${PHP56_DIR}/bin/php56-enmod apcu
+${PHP56_DIR}/bin/php56-enmod imagick
 ${PHP56_DIR}/bin/php56-enmod json
 ${PHP56_DIR}/bin/php56-enmod mailparse
 ${PHP56_DIR}/bin/php56-enmod memcached
