@@ -84,6 +84,7 @@ class PHP7CustomTest extends \PHPUnit_Framework_TestCase
         'xmlrpc',
         'xsl',
         'mongodb',
+        'imagick',
     );
 
     public static function setUpBeforeClass()

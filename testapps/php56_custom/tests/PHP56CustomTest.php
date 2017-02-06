@@ -85,6 +85,7 @@ class PHP56CustomTest extends \PHPUnit_Framework_TestCase
         'xmlrpc',
         'xsl',
         'mongodb',
+        'imagick',
         # Both are gone with PHP 7.
         'ereg',
         'mysql',
