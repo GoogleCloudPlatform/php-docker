@@ -21,3 +21,4 @@ dependencies:
 test:
   override:
     - scripts/run_test_suite.sh
+    - scripts/run_builder_test.sh
