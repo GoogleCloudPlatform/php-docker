@@ -18,9 +18,9 @@ namespace Google\Cloud\tests;
 
 class GenFilesTest extends \PHPUnit_Framework_TestCase
 {
-    static $testDir;
+    public static $testDir;
 
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         self::$testDir = tempnam(sys_get_temp_dir(), 'GenFilesTest');
         if (file_exists(self::$testDir)) {
@@ -29,7 +29,7 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
         mkdir(self::$testDir);
     }
 
-    static public function tearDownAfterClass()
+    public static function tearDownAfterClass()
     {
         rmdir(self::$testDir);
     }

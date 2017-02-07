@@ -30,10 +30,11 @@ class GenFiles
     /**
      * Constructor allows injecting the workspace directory.
      */
-    function __construct($workspace = DEFAULT_WORKSPACE) {
+    public function __construct($workspace = DEFAULT_WORKSPACE)
+    {
         $this->workspace = $workspace;
     }
-    
+
     private function readAppYaml()
     {
         return Yaml::parse(file_get_contents($this->workspace . '/app.yaml'));
