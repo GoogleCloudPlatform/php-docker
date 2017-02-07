@@ -28,7 +28,7 @@ COPY entrypoint.sh /builder/
 COPY src /builder/src
 COPY errors.ini ${PHP_DIR}/lib/conf.d/
 
-RUN cd /builder/src && \
+RUN cd /builder && \
   php /usr/local/bin/composer install --no-ansi --no-interaction --no-dev \
     --no-progress
 
