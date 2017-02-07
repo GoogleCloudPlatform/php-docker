@@ -16,6 +16,6 @@
  * limitations under the License.
  */
 
- $image = new Imagick(__DIR__ . '/Blank300.png');
- $d = $image->getImageGeometry();
- echo $w . 'x' . $h;
+$image = new Imagick(__DIR__ . '/Blank300.png');
+$dimensions = $image->getImageGeometry();
+echo $dimensions['width'] . 'x' . $dimensions['height'];
