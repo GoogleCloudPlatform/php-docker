@@ -1,5 +1,6 @@
 steps:
         - name: gcr.io/cloud-builders/docker
           args: ['build', '-t', '${IMAGE}', '--build-arg', 'BUILDER_TARGET_IMAGE=${BUILDER_TARGET_IMAGE}', '--build-arg', 'BUILDER_TARGET_TAG=${TAG}', '.']
+        - name: '${TEST_RUNNER}'
 images:
         - '${IMAGE}'
