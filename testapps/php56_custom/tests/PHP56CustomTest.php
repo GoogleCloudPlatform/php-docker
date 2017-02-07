@@ -85,6 +85,7 @@ class PHP56CustomTest extends \PHPUnit_Framework_TestCase
         'xmlrpc',
         'xsl',
         'mongodb',
+        'imagick',
         # Both are gone with PHP 7.
         'ereg',
         'mysql',
@@ -305,5 +306,14 @@ class PHP56CustomTest extends \PHPUnit_Framework_TestCase
         foreach (self::$extensions as $ext) {
             $this->assertContains($ext, $loaded);
         }
+    }
+
+    public function testImagickCanLoad()
+    {
+        $resp = $this->client->get('imagick.php');
+        $body = $resp->getBody()->getContents();
+
+        // test image should by 300px by 1px
+        $this->assertContains('300x1', $body);
     }
 }

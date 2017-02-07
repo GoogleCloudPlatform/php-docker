@@ -23,6 +23,7 @@ apt-get install -y \
         gcp-php71-apcu \
         gcp-php71-apcu-bc \
         gcp-php71-grpc \
+        gcp-php71-imagick \
         gcp-php71-mailparse \
         gcp-php71-memcached \
         gcp-php71-mongodb \

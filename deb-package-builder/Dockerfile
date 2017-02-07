@@ -35,6 +35,7 @@ RUN apt-get update -y && \
         libgettextpo-dev \
         libicu-dev \
         libjpeg62-turbo-dev \
+        libmagick++-dev \
         libmcrypt-dev \
         libmemcached-dev \
         libpcre3-dev \
@@ -49,7 +50,7 @@ RUN apt-get update -y && \
         libxslt1-dev \
         zlib1g-dev \
         # build tools
-	build-essential \
+        build-essential \
         autoconf \
         bison \
         file \

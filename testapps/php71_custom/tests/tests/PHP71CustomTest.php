@@ -84,6 +84,7 @@ class PHP7CustomTest extends \PHPUnit_Framework_TestCase
         'xmlrpc',
         'xsl',
         'mongodb',
+        'imagick',
     );
 
     public static function setUpBeforeClass()
@@ -128,5 +129,14 @@ class PHP7CustomTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('success storing in apcu', $body);
         $this->assertContains('success fetching from apcu', $body);
         $this->assertContains('success deleting from apcu', $body);
+    }
+
+    public function testImagickCanLoad()
+    {
+        $resp = $this->client->get('imagick.php');
+        $body = $resp->getBody()->getContents();
+
+        // test image should by 300px by 1px
+        $this->assertContains('300x1', $body);
     }
 }
