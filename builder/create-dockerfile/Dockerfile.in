@@ -24,8 +24,7 @@ ENV BUILDER_TARGET_IMAGE=${BUILDER_TARGET_IMAGE}
 ENV BUILDER_TARGET_TAG=${BUILDER_TARGET_TAG}
 
 RUN mkdir /builder
-COPY entrypoint.sh /builder/
-COPY src /builder/src
+COPY . /builder
 COPY errors.ini ${PHP_DIR}/lib/conf.d/
 
 RUN cd /builder && \
