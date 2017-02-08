@@ -30,7 +30,7 @@ class GenFiles
     /**
      * Constructor allows injecting the workspace directory.
      */
-    public function __construct($workspace = DEFAULT_WORKSPACE)
+    public function __construct($workspace = self::DEFAULT_WORKSPACE)
     {
         $this->workspace = $workspace;
     }
