@@ -16,7 +16,7 @@
  */
 
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . 'GenFiles.php';
+require_once __DIR__ . '/GenFiles.php';
 
 $genFiles = new GenFiles();
 $genFiles->createDockerfile();
