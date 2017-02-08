@@ -12,5 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM php-nginx
+FROM ${BASE_IMAGE}
 
+ENV DOCUMENT_ROOT=/app/web \
+    WHITELIST_FUNCTIONS=exec,proc_open,proc_close

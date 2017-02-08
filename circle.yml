@@ -12,6 +12,7 @@ machine:
     GOOGLE_PROJECT_ID: php-mvm-a
     TAG: circle-${CIRCLE_BUILD_NUM}
     RUNTIME_DISTRIBUTION: gcp-php-runtime-jessie-unstable
+    BUILDER_TARGET_IMAGE: gcr.io/${GOOGLE_PROJECT_ID}/php-nginx
 
 dependencies:
   override:
@@ -20,3 +21,4 @@ dependencies:
 test:
   override:
     - scripts/run_test_suite.sh
+    - scripts/run_builder_test.sh
