@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . 'GenFiles.php';
 
 $genFiles = new GenFiles();
