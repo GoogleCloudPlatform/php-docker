@@ -33,7 +33,7 @@ if [ -f ${APP_DIR}/composer.json ]; then
         cat<<EOF
 There is no PHP runtime version specified in composer.json, or we don't support the version you specified. Google App Engine uses the latest 7.1.x version. We recommend pinning your PHP version by running:
 
-composer require php ~5.6.0 (replace it with your desired version)
+composer require php 7.1.* (replace it with your desired minor version)
 
 Using PHP version 7.1.x...
 EOF
