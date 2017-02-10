@@ -35,8 +35,8 @@ rm nginx.tar.gz.asc
 pushd /usr/src/nginx
 ./configure \
     --prefix=$NGINX_DIR \
-    --error-log-path=$LOG_DIR/app-nginx-error.log \
-    --http-log-path=$LOG_DIR/app-nginx-access.log \
+    --error-log-path=/dev/stderr \
+    --http-log-path=/dev/stdout \
     --user=www-data \
     --group=www-data \
     --with-http_gzip_static_module \
