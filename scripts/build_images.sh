@@ -54,7 +54,7 @@ SRC_TMP=$(mktemp -d)
 export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
 # build the php test runner and export the name
 export TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
-gcloud -q beta container builds submit --tag "${TEST_RUNNER}" \
+gcloud -q container builds submit --tag "${TEST_RUNNER}" \
     cloudbuild-test-runner
 
 build_image () {
@@ -75,7 +75,7 @@ build_image () {
                  > "${SRC_DIR}/Dockerfile"
     fi
     envsubst < "${SRC_DIR}/cloudbuild.yaml.in" > "${SRC_DIR}/cloudbuild.yaml"
-    gcloud -q beta container builds submit "${SRC_DIR}" \
+    gcloud -q container builds submit "${SRC_DIR}" \
       --config "${SRC_DIR}"/cloudbuild.yaml
 }
 
