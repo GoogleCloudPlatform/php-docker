@@ -26,7 +26,7 @@ export SKIP_CS_CHECK=true
 export INSTALL_GCLOUD=true
 export BUILDER_TARGET_IMAGE="gcr.io/${PRODUCTION_DOCKER_NAMESPACE}/php"
 
-CANDIDATE_TAG=`date +%Y-%m-%d_%H_%M`
+CANDIDATE_TAG=`date +%Y-%m-%d-%H-%M`
 echo "CANDIDATE_TAG:${CANDIDATE_TAG}"
 export TAG=${CANDIDATE_TAG}
 
