@@ -9,5 +9,3 @@ steps:
           args: ['run', '--net=nw_${TAG}', '--name=test-app', '-d', '${IMAGE}']
         - name: gcr.io/cloud-builders/docker
           args: ['run', '--net=nw_${TAG}', '-v', '/workspace:/workspace', '${TEST_RUNNER}']
-        - name: gcr.io/cloud-builders/docker
-          args: ['exec', '-t', 'test-app', 'find', '/var/log/app_engine', '-type', 'f', '-exec', 'cat', '{}', ';']

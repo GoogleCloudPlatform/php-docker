@@ -38,7 +38,6 @@ RUN apt-get update -y && \
     libsqlite3-0 \
     libxml2 \
     libxslt1.1 \
-    logrotate \
     mercurial \
     sasl2-bin \
     subversion \
@@ -51,7 +50,6 @@ ENV NGINX_DIR=/opt/nginx \
     PHP56_DIR=/opt/php56 \
     PHP70_DIR=/opt/php70 \
     PHP71_DIR=/opt/php71 \
-    LOG_DIR=/var/log/app_engine \
     APP_DIR=/app \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
     UPLOAD_DIR=/upload \
@@ -88,10 +86,10 @@ RUN (echo "deb http://packages.cloud.google.com/apt ${RUNTIME_DISTRIBUTION} main
 EXPOSE 8080
 
 # Lock down the web directories
-RUN mkdir -p $APP_DIR $LOG_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
+RUN mkdir -p $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
         $NGINX_USER_CONF_DIR $WWW_HOME \
     && chown -R www-data.www-data \
-        $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH $LOG_DIR \
+        $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
         $NGINX_USER_CONF_DIR $WWW_HOME \
     && chmod 755 $UPLOAD_DIR $SESSION_SAVE_PATH \
     # For easy access to php with `su www-data -c $CMD`
@@ -101,7 +99,6 @@ RUN mkdir -p $APP_DIR $LOG_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
 COPY nginx.conf fastcgi_params gzip_params $NGINX_DIR/conf/
 COPY nginx-app.conf $NGINX_USER_CONF_DIR
 COPY supervisord.conf /etc/supervisor/supervisord.conf
-COPY logrotate.app_engine /etc/logrotate.d/app_engine
 COPY entrypoint.sh composer.sh whitelist_functions.php /
 
 RUN chgrp www-data composer.sh && chmod +x /entrypoint.sh /composer.sh \
