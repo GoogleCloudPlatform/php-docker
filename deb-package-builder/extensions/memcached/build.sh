@@ -10,22 +10,9 @@ PNAME="gcp-php${SHORT_VERSION}-memcached"
 
 # Download the source
 if [ ${SHORT_VERSION} == '56' ]; then
-    download_from_pecl memcached
+    download_from_pecl memcached 2.2.0
 else
-    # TODO: Use a stable version from pecl once available
-    git clone https://github.com/php-memcached-dev/php-memcached \
-        memcached
-    pushd memcached
-    CHASH=`git rev-parse HEAD`
-    DATE=`date +%Y%m%d`
-    EXT_VERSION="${DATE}-git-${CHASH}"
-    PACKAGE_VERSION="${EXT_VERSION}-${PHP_VERSION}"
-    PACKAGE_FULL_VERSION="${EXT_VERSION}-${FULL_VERSION}"
-    PACKAGE_DIR=${PNAME}-${PACKAGE_VERSION}
-    popd
-    rm -rf memcached/.git
-    mv memcached ${PACKAGE_DIR}
-    tar -cvzf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz ${PACKAGE_DIR}
+    download_from_pecl memcached
 fi
 
 cp -R ${DEB_BUILDER_DIR}/extensions/memcached/debian ${PACKAGE_DIR}
