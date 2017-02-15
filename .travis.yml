@@ -38,4 +38,4 @@ install:
 - scripts/install_test_dependencies.sh
 
 script:
-- scripts/run_test_suite.sh
+- scripts/check_versions.sh
