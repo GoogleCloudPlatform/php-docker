@@ -21,8 +21,15 @@ branches:
   only:
     - master
 
+notifications:
+  email:
+    recipients:
+      - php-cloud-eng@google.com
+      - tmatsuo@google.com
+
 env:
   global:
+    - INSTALL_GCLOUD=true
     - GCLOUD_DIR=${HOME}/gcloud
     - PATH=${GCLOUD_DIR}/google-cloud-sdk/bin:${PATH}
     - PHP_DOCKER_GOOGLE_CREDENTIALS=${TRAVIS_BUILD_DIR}/credentials.json
@@ -38,4 +45,4 @@ install:
 - scripts/install_test_dependencies.sh
 
 script:
-- scripts/run_test_suite.sh
+- scripts/check_versions.sh
