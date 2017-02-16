@@ -15,12 +15,12 @@
 
 set -ex
 
+php scripts/dump_credentials.php
+
 if [ ! -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
     echo 'Please set PHP_DOCKER_GOOGLE_CREDENTIALS envvar.'
     exit 1
 fi
-
-php scripts/dump_credentials.php
 
 # Use the service account for gcloud operations.
 gcloud auth activate-service-account \
