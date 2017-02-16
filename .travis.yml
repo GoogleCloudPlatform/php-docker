@@ -30,6 +30,7 @@ notifications:
 env:
   global:
     - INSTALL_GCLOUD=true
+    - TEST_BUILD_DIR=${TRAVIS_BUILD_DIR}
     - GCLOUD_DIR=${HOME}/gcloud
     - PATH=${GCLOUD_DIR}/google-cloud-sdk/bin:${PATH}
     - PHP_DOCKER_GOOGLE_CREDENTIALS=${TRAVIS_BUILD_DIR}/credentials.json
