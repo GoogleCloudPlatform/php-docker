@@ -1,21 +1,56 @@
-# Docker image for the App Engine Flexible PHP runtime with nginx
+# Docker image with nginx for Google Cloud Platform
 
-This is an experimental PHP runtime for Google Cloud App Engine
-Flexible Environment. It is not covered by any SLA or deprecation
-policy. It may change at any time.
+This is a PHP runtime for Google Cloud Platform. It is not covered by
+any SLA or deprecation policy. It may change at any time.
 
-## How to use
+## How to use the image on App Engine Flexible Environment
 
 This image is intended to use with `runtime: php` configuration. The
-image is uploaded to `gcr.io/google_appengine/php:latest`. You can
+image is uploaded to `gcr.io/google-appengine/php:latest`. You can
 have your own `app.yaml` as follows:
 
 app.yaml:
 
 ```yaml
 runtime: php
-vm: true
-api_version: 1
+env: flex
+```
+
+## How to use the image on Container Engine and other Docker hosts.
+
+For other docker hosts, you'll need to create a `Dockerfile` based on
+this image.
+
+```Dockerfile
+FROM gcr.io/google-appengine/php
+```
+
+The base image has ONBUILD instructions for copying your application
+code and run composer.
+
+This image will run nginx on the port 8080. If you're using
+Kubernetes, you need to specify it in your Kubernetes configuration as
+follows:
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: php-app-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: php-app
+    spec:
+      containers:
+      - image: $IMAGE_NAME
+        imagePullPolicy: IfNotPresent
+        name: php-app
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always
 ```
 
 ## Disabled functions
