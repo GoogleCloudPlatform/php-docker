@@ -44,6 +44,10 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
     exit 1
 fi
 
+if [ -z "${CLOUDSDK_VERBOSITY}" ]; then
+    CLOUDSDK_VERBOSITY='none'
+fi
+
 # Install composer and defined dependencies
 which composer || \
     (
@@ -57,7 +61,7 @@ composer install --ignore-platform-reqs
 gcloud config configurations create ${CLOUDSDK_ACTIVE_CONFIG_NAME} || /bin/true # ignore failure
 gcloud config set project ${GOOGLE_PROJECT_ID}
 gcloud config set app/promote_by_default false
-gcloud config set verbosity DEBUG
+gcloud config set verbosity ${CLOUDSDK_VERBOSITY}
 
 if [ "${CIRCLECI}" == "true" ]; then
     # Need sudo on circleci:
