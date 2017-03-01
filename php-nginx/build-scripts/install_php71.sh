@@ -31,7 +31,6 @@ apt-get install -y \
 
 # Enable some extensions for backward compatibility
 ${PHP71_DIR}/bin/php71-enmod apcu-bc
-${PHP71_DIR}/bin/php71-enmod apcu
 ${PHP71_DIR}/bin/php71-enmod mailparse
 ${PHP71_DIR}/bin/php71-enmod memcached
 
