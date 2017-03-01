@@ -40,12 +40,12 @@ $app->post('/logging', function (Request $request) {
 });
 
 // This test does not work yet. The monitoring client is NYI.
-$app->post('/monitoring', function() {
+$app->post('/monitoring', function () {
     return 'NYI';
 });
 
 // This test does not work yet. The exception reporting client is NYI.
-$app->post('/exception', function() {
+$app->post('/exception', function () {
     return 'NYI';
 });
 
