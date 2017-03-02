@@ -23,6 +23,7 @@ download_from_pecl()
         pecl download "${1}-${2}"
         EXT_VERSION="${2}"
     fi
+
     PACKAGE_VERSION="${EXT_VERSION}-${PHP_VERSION}"
     PACKAGE_FULL_VERSION="${EXT_VERSION}-${FULL_VERSION}"
     PACKAGE_DIR=${PNAME}-${PACKAGE_VERSION}
@@ -57,4 +58,32 @@ download_from_tarball()
     mkdir -p ${PACKAGE_DIR}
     tar zxvf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz \
         -C ${PACKAGE_DIR} --strip-components=1
+}
+
+build_package()
+{
+    cp -R ${DEB_BUILDER_DIR}/extensions/${1}/debian ${PACKAGE_DIR}
+
+    if [ -e "${PACKAGE_DIR}/debian/rules.in" ]; then
+        envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/rules.in \
+                 > ${PACKAGE_DIR}/debian/rules
+    fi
+    chmod +x ${PACKAGE_DIR}/debian/rules
+    if [ -e "${PACKAGE_DIR}/debian/control.in" ]; then
+        envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/control.in \
+                 > ${PACKAGE_DIR}/debian/control
+    fi
+
+    if [ -e "${PACKAGE_DIR}/debian/gcp-php-${1}.install.in" ]; then
+        envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/gcp-php-${1}.install.in \
+                 > ${PACKAGE_DIR}/debian/gcp-php${SHORT_VERSION}-${1}.install
+    fi
+    rm ${PACKAGE_DIR}/debian/*.in || true
+    pushd ${PACKAGE_DIR}
+    dch --create -v "${EXT_VERSION}-${FULL_VERSION}" \
+        --package ${PNAME} --empty -M \
+        "Build ${EXT_VERSION}-${FULL_VERSION} of ${PNAME}"
+    dpkg-buildpackage -us -uc -j"$(nproc)"
+    cp ../${PNAME}_${EXT_VERSION}-${FULL_VERSION}_amd64.deb ${ARTIFACT_DIR}
+    popd
 }

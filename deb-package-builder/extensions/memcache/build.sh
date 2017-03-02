@@ -16,19 +16,4 @@ else
     exit 0
 fi
 
-cp -R ${DEB_BUILDER_DIR}/extensions/memcache/debian ${PACKAGE_DIR}
-
-envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/rules.in \
-         > ${PACKAGE_DIR}/debian/rules
-chmod +x ${PACKAGE_DIR}/debian/rules
-envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/control.in \
-         > ${PACKAGE_DIR}/debian/control
-envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/gcp-php-memcache.install.in \
-         > ${PACKAGE_DIR}/debian/gcp-php${SHORT_VERSION}-memcache.install
-rm ${PACKAGE_DIR}/debian/*.in
-pushd ${PACKAGE_DIR}
-dch --create -v "${EXT_VERSION}-${FULL_VERSION}" \
-    --package ${PNAME} --empty -M \
-    "Build ${EXT_VERSION}-${FULL_VERSION} of ${PNAME}"
-dpkg-buildpackage -us -uc -j"$(nproc)"
-popd
+build_package memcache
