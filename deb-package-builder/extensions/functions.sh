@@ -14,20 +14,27 @@ download_from_pecl()
         echo 'missing argument for download_from_pecl'
         exit $E_PARAM_ERR
     fi
+    PECL_PACKAGE_NAME=$1
+
+    # chop off optional -beta from the package name. it is needed to specify
+    # we are downloading a beta version, but is not actually part of the
+    # package name
+    PACKAGE_SHORT_NAME=$(basename ${PECL_PACKAGE_NAME} -beta)
+
     if [ -z "$2" ]; then
-        pecl download "${1}"
+        pecl download "${PECL_PACKAGE_NAME}"
         # determine the downloaded version
-        EXT_VERSION=$(ls ${1}-*.tgz | \
-                sed "s/${1}-\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\)\.tgz/\1/")
+        EXT_VERSION=$(ls ${PACKAGE_SHORT_NAME}-*.tgz | \
+                sed "s/${PACKAGE_SHORT_NAME}-\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\)\.tgz/\1/")
     else
-        pecl download "${1}-${2}"
+        pecl download "${PECL_PACKAGE_NAME}-${2}"
         EXT_VERSION="${2}"
     fi
 
     PACKAGE_VERSION="${EXT_VERSION}-${PHP_VERSION}"
     PACKAGE_FULL_VERSION="${EXT_VERSION}-${FULL_VERSION}"
     PACKAGE_DIR=${PNAME}-${PACKAGE_VERSION}
-    mv ${1}-${EXT_VERSION}.tgz \
+    mv ${PACKAGE_SHORT_NAME}-${EXT_VERSION}.tgz \
        ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz
     mkdir -p ${PACKAGE_DIR}
     tar zxvf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz \
