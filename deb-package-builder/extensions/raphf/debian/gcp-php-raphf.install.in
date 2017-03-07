@@ -1,0 +1,1 @@
+debian/ext-raphf.ini opt/php${SHORT_VERSION}/lib/ext.available
