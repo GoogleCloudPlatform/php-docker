@@ -43,7 +43,8 @@ PHP_VERSIONS=${1}
 
 EXTENSIONS=${2}
 if [ -z "$EXTENSIONS" ]; then
-    EXTENSIONS=$(find extensions -name 'build.sh' -printf '%h\n' | sort -u | cut -d/ -f2)
+    # Explicitly declaring because some extenions depend on others (pq depends on raphf)
+    EXTENSIONS="apcu,apuc_bc,ev,event,grpc,imagick,json,mailparse,memcache,memcached,mongodb,oauth,phalcon,raphf,pq,rdkafka,redis,suhosin"
 fi
 
 

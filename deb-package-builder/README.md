@@ -11,6 +11,8 @@ We currently support the latest patch version of 5.6, 7.0, and 7.1. See
 
 * apcu
 * apcu_bc
+* ev
+* event
 * gprc
 * imagick
 * jsonc
@@ -18,7 +20,11 @@ We currently support the latest patch version of 5.6, 7.0, and 7.1. See
 * memcache
 * memcached
 * mongodb
+* oauth
 * phalcon
+* pq
+* raphf
+* rdkafka
 * redis
 * suhosin
 
