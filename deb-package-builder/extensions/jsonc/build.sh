@@ -15,11 +15,4 @@ else
     exit 0
 fi
 
-cp -R ${DEB_BUILDER_DIR}/extensions/jsonc/debian ${PACKAGE_DIR}
-
-pushd ${PACKAGE_DIR}
-dch --create -v "${EXT_VERSION}-${FULL_VERSION}" \
-    --package ${PNAME} --empty -M \
-    "Build ${EXT_VERSION}-${FULL_VERSION} of ${PNAME}"
-dpkg-buildpackage -us -uc -j"$(nproc)"
-popd
+build_package jsonc
