@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: raphf
-Upstream-Contact: Mikko Koppanen <mkoppanen@php.net>
+Upstream-Contact: Michael Wallner <mike@php.net>
 Source: http://pecl.php.net/package/raphf/
 
 Files: *
