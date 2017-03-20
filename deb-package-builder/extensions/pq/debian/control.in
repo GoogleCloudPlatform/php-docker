@@ -8,5 +8,5 @@ Homepage: http://pecl.php.net/package/pq
 
 Package: gcp-php${SHORT_VERSION}-pq
 Architecture: any
-Depends: libpq5, gcp-php${SHORT_VERSION}
+Depends: libpq5, gcp-php${SHORT_VERSION}-raphf, gcp-php${SHORT_VERSION}
 Description: pq extension module for gcp-php${SHORT_VERSION}
