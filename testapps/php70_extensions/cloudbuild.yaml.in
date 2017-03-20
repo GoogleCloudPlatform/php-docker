@@ -1,0 +1,5 @@
+steps:
+        - name: gcr.io/cloud-builders/docker
+          args: ['build', '-t', '${IMAGE}', '.']
+        - name: gcr.io/cloud-builders/docker
+          args: ['run', '${IMAGE}', 'vendor/bin/phpunit']

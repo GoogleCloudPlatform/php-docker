@@ -15,8 +15,11 @@ download_from_tarball https://github.com/phalcon/cphalcon/archive/v3.0.4.tar.gz 
 if [ ${SHORT_VERSION} == "56" ]; then
     dpkg -i ${BUILD_DIR}/gcp-php${SHORT_VERSION}-json*.deb
     PACKAGE_DIR=${PACKAGE_DIR}/build/php5/64bits/
-else
+else if [ ${SHORT_VERSION} == "70" ]; then
     PACKAGE_DIR=${PACKAGE_DIR}/build/php7/64bits/
+else
+    echo "skipping Phalcon for gcp-php${SHORT_VERSION} - not yet supported"
+    exit 0
 fi
 
 build_package phalcon

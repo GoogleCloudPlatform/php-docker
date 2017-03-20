@@ -8,5 +8,5 @@ Homepage: http://pecl.php.net/package/ev
 
 Package: gcp-php${SHORT_VERSION}-ev
 Architecture: any
-Depends: imagemagick (>= 6.5.4), gcp-php${SHORT_VERSION}
+Depends: libev4, gcp-php${SHORT_VERSION}
 Description: ev extension module for gcp-php${SHORT_VERSION}

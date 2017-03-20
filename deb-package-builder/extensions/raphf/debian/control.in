@@ -8,5 +8,5 @@ Homepage: http://pecl.php.net/package/raphf
 
 Package: gcp-php${SHORT_VERSION}-raphf
 Architecture: any
-Depends: imagemagick (>= 6.5.4), gcp-php${SHORT_VERSION}
+Depends: gcp-php${SHORT_VERSION}
 Description: raphf extension module for gcp-php${SHORT_VERSION}
