@@ -27,7 +27,7 @@ class EvTest extends \PHPUnit_Framework_TestCase
     public function testTimer()
     {
         // after 5ms, update success
-        $w1 = new EvTimer(0.005, 0, function() {
+        $w1 = new EvTimer(0.005, 0, function () {
             $this->success = true;
         });
         Ev::run();
