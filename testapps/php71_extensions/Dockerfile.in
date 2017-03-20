@@ -20,5 +20,4 @@ RUN apt-get update -y && \
         gcp-php71-event \
         gcp-php71-oauth \
         gcp-php71-pq \
-        gcp-php71-rdkafka \
-        gcp-php71-phalcon
+        gcp-php71-rdkafka
