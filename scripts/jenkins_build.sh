@@ -26,9 +26,12 @@ export SKIP_CS_CHECK=true
 export INSTALL_GCLOUD=true
 export BUILDER_TARGET_IMAGE="gcr.io/${PRODUCTION_DOCKER_NAMESPACE}/php"
 
-CANDIDATE_TAG=`date +%Y-%m-%d-%H-%M`
-echo "CANDIDATE_TAG:${CANDIDATE_TAG}"
-export TAG=${CANDIDATE_TAG}
+if [ -z "${TAG}" ]; then
+  TAG=`date +%Y-%m-%d-%H-%M`
+fi
+
+echo "CANDIDATE_TAG:${TAG}"
+export TAG
 
 gcloud info
 
@@ -41,6 +44,6 @@ unset CLOUDSDK_ACTIVE_CONFIG_NAME
 
 IMAGE_NAME="gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
 
-PROD_IMAGE_NAME="gcr.io/${PRODUCTION_DOCKER_NAMESPACE}/php:${CANDIDATE_TAG}"
+PROD_IMAGE_NAME="gcr.io/${PRODUCTION_DOCKER_NAMESPACE}/php:${TAG}"
 
 gcloud -q beta container images add-tag "${IMAGE_NAME}" "${PROD_IMAGE_NAME}"
