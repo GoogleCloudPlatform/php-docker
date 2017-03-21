@@ -21,4 +21,5 @@ RUN apt-get update -y && \
         gcp-php70-oauth \
         gcp-php70-pq \
         gcp-php70-rdkafka \
-        gcp-php70-phalcon
+        gcp-php70-phalcon \
+        gcp-php70-cassandra
