@@ -23,7 +23,8 @@ FROM gcr.io/google_appengine/php
 ENV DEB_BUILDER_DIR /opt/deb-builder
 
 # Need to install debian packaging tools etc
-RUN apt-get update -y && \
+RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list && \
+    apt-get update -y && \
     apt-get install -y -q --no-install-recommends \
         debhelper \
         devscripts \
@@ -33,6 +34,8 @@ RUN apt-get update -y && \
         libcurl4-openssl-dev \
         libfreetype6-dev \
         libgettextpo-dev \
+        libgmp-dev \
+        libuv1-dev/jessie-backports \
         libicu-dev \
         libjpeg62-turbo-dev \
         libjson-c-dev \
@@ -62,7 +65,12 @@ RUN apt-get update -y && \
         patch \
         pkg-config \
         re2c \
-        binutils
+        binutils \
+        # build tools for cassandra
+        cmake \
+        dh-exec \
+        lsb-release \
+        fakeroot
 
 # Copy debian metadata file templates
 RUN mkdir -p ${DEB_BUILDER_DIR}

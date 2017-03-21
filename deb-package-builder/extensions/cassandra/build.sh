@@ -12,7 +12,6 @@ ls -t ${ARTIFACT_DIR}/libuv1_* | head -n 1 | xargs dpkg -i
 ls -t ${ARTIFACT_DIR}/libuv1-dev_* | head -n 1 | xargs dpkg -i
 ls -t ${ARTIFACT_DIR}/cassandra-cpp-driver_* | head -n 1 | xargs dpkg -i
 ls -t ${ARTIFACT_DIR}/cassandra-cpp-driver-dev_* | head -n 1 | xargs dpkg -i
-apt-get install -y libgmp-dev
 
 # Download the source
 download_from_pecl cassandra
