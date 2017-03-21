@@ -31,10 +31,11 @@ RUN apt-get update -y && \
         # headers
         libbz2-dev \
         libcurl4-openssl-dev \
-        libjson-c-dev \
+        libfreetype6-dev \
         libgettextpo-dev \
         libicu-dev \
         libjpeg62-turbo-dev \
+        libjson-c-dev \
         libmagick++-dev \
         libmcrypt-dev \
         libmemcached-dev \
