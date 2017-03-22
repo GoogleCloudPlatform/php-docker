@@ -13,13 +13,3 @@
 # limitations under the License.
 
 FROM ${BASE_IMAGE}
-
-RUN apt-get update -y && \
-    apt-get install -y \
-        gcp-php70-ev \
-        gcp-php70-event \
-        gcp-php70-oauth \
-        gcp-php70-pq \
-        gcp-php70-rdkafka \
-        gcp-php70-phalcon \
-        gcp-php70-cassandra
