@@ -13,13 +13,3 @@
 # limitations under the License.
 
 FROM ${BASE_IMAGE}
-
-RUN apt-get update -y && \
-    apt-get install -y \
-        gcp-php56-ev \
-        gcp-php56-event \
-        gcp-php56-oauth \
-        gcp-php56-pq \
-        gcp-php56-rdkafka \
-        gcp-php56-phalcon \
-        gcp-php56-cassandra
