@@ -21,4 +21,5 @@ RUN apt-get update -y && \
         gcp-php56-oauth \
         gcp-php56-pq \
         gcp-php56-rdkafka \
-        gcp-php56-phalcon
+        gcp-php56-phalcon \
+        gcp-php56-cassandra
