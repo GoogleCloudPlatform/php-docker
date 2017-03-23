@@ -108,7 +108,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
     {
         $output = exec(
             '/usr/bin/docker run -t gcr.io/google-appengine/php'
-            . ' /opt/nginx/sbin/nginx -v');
+            . ' /usr/sbin/nginx -v');
         $pattern = '/nginx\/(\d+\.\d+\.\d+)/';
         if (preg_match($pattern, $output, $matches)) {
             $this->assertEquals($matches[1], self::$versions['nginx']);

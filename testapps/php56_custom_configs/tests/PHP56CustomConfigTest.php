@@ -64,7 +64,7 @@ class PHP56CustomConfigTest extends \PHPUnit_Framework_TestCase
     public function testNginxCustomConf()
     {
         $resp = $this->client->get(
-            'readfile.php?f=' . urlencode('/opt/nginx/conf/nginx.conf')
+            'readfile.php?f=' . urlencode('/etc/nginx/nginx.conf')
         );
         $this->assertEquals(
             '200',
