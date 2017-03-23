@@ -43,7 +43,7 @@ RUN apt-get update -y && \
     supervisor \
     zlib1g
 
-ENV NGINX_DIR=/opt/nginx \
+ENV NGINX_DIR=/etc/nginx \
     PHP_DIR=/opt/php \
     PHP_CONFIG_TEMPLATE=/opt/php-configs \
     PHP56_DIR=/opt/php56 \
@@ -53,17 +53,13 @@ ENV NGINX_DIR=/opt/nginx \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
     UPLOAD_DIR=/upload \
     SESSION_SAVE_PATH=/tmp/sessions \
-    NGINX_VERSION=1.10.3 \
     PHP56_VERSION=5.6.30 \
     PHP70_VERSION=7.0.15 \
     PHP71_VERSION=7.1.1 \
     PATH=/opt/php/bin:$PATH \
     WWW_HOME=/var/www
 
-# gpgkeys for verifying the tarballs
-COPY gpgkeys /gpgkeys
-
-# BUILD PHP, nginx and other dependencies.
+# Install build scripts - composer, nginx, php
 COPY build-scripts /build-scripts
 
 ARG RUNTIME_DISTRIBUTION="gcp-php-runtime-jessie"
@@ -76,11 +72,9 @@ RUN (echo "deb http://packages.cloud.google.com/apt ${RUNTIME_DISTRIBUTION} main
     (curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
       | apt-key add -) && \
     apt-get -y update && \
-    /bin/bash /build-scripts/apt_build_deps.sh install && \
-    /bin/bash /build-scripts/build_nginx.sh && \
+    /bin/bash /build-scripts/install_nginx.sh && \
     /bin/bash /build-scripts/install_php71.sh && \
-    /bin/bash /build-scripts/install_composer.sh && \
-    /bin/bash /build-scripts/apt_build_deps.sh uninstall
+    /bin/bash /build-scripts/install_composer.sh
 
 EXPOSE 8080
 
@@ -95,7 +89,7 @@ RUN mkdir -p $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
     && ln -sf ${PHP_DIR}/bin/php /usr/bin/php
 
 # Put other config and shell files into place.
-COPY nginx.conf fastcgi_params gzip_params $NGINX_DIR/conf/
+COPY nginx.conf fastcgi_params gzip_params $NGINX_DIR/
 COPY nginx-app.conf $NGINX_USER_CONF_DIR
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY entrypoint.sh composer.sh whitelist_functions.php /
