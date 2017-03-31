@@ -51,18 +51,6 @@ class VersionTest extends \PHPUnit_Framework_TestCase
             self::$versions['php71'] =
                 'Failed to detect the latest PHP70 version';
         }
-
-        $client = new Client(['base_uri' => 'http://nginx.org']);
-        $response = $client->request('GET', '/');
-        $body = $response->getBody();
-
-        $pattern = '/nginx-(1\.10\.\d+)/';
-        if (preg_match($pattern, $body, $matches)) {
-            self::$versions['nginx'] = $matches[1];
-        } else {
-            self::$versions['nginx'] =
-                'Failed to detect the latest nginx stable version';
-        }
     }
 
     public function testPHP56Version()
@@ -101,19 +89,6 @@ class VersionTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($matches[1], self::$versions['php71']);
         } else {
             $this->fail('Failed to detect the current php71 version');
-        }
-    }
-
-    public function testNginxVersion()
-    {
-        $output = exec(
-            '/usr/bin/docker run -t gcr.io/google-appengine/php'
-            . ' /opt/nginx/sbin/nginx -v');
-        $pattern = '/nginx\/(\d+\.\d+\.\d+)/';
-        if (preg_match($pattern, $output, $matches)) {
-            $this->assertEquals($matches[1], self::$versions['nginx']);
-        } else {
-            $this->fail('Failed to detect the current nginx version');
         }
     }
 }

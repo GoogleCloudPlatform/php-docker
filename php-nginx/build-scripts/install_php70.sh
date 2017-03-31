@@ -34,7 +34,8 @@ apt-get install -y \
         gcp-php70-phalcon \
         gcp-php70-pq \
         gcp-php70-rdkafka \
-        gcp-php70-redis
+        gcp-php70-redis \
+        --no-install-recommends
 
 # Enable some extensions for backward compatibility
 ${PHP70_DIR}/bin/php70-enmod apcu-bc

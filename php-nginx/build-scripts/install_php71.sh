@@ -33,7 +33,8 @@ apt-get install -y \
         gcp-php71-oauth \
         gcp-php71-pq \
         gcp-php71-rdkafka \
-        gcp-php71-redis
+        gcp-php71-redis \
+        --no-install-recommends
 
 # Enable some extensions for backward compatibility
 ${PHP71_DIR}/bin/php71-enmod apcu-bc
