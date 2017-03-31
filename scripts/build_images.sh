@@ -74,9 +74,9 @@ build_image () {
         envsubst '${BASE_IMAGE}' < "${SRC_DIR}/Dockerfile.in" \
                  > "${SRC_DIR}/Dockerfile"
     fi
-    envsubst < "${SRC_DIR}/cloudbuild.yaml.in" > "${SRC_DIR}/cloudbuild.yaml"
+    envsubst < "${SRC_DIR}/cloudbuild.yaml.in" > "${SRC_DIR}/cloudbuild.test.yaml"
     gcloud -q container builds submit "${SRC_DIR}" \
-      --config "${SRC_DIR}"/cloudbuild.yaml
+      --config "${SRC_DIR}"/cloudbuild.test.yaml
 }
 
 build_image php-nginx php-nginx
