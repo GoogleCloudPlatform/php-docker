@@ -25,6 +25,7 @@ export CLOUDSDK_ACTIVE_CONFIG_NAME=php-docker-e2e
 export SKIP_CS_CHECK=true
 export INSTALL_GCLOUD=true
 export BUILDER_TARGET_IMAGE="gcr.io/${PRODUCTION_DOCKER_NAMESPACE}/php"
+export RUN_E2E_TESTS=true
 
 if [ -z "${TAG}" ]; then
   TAG=`date +%Y-%m-%d-%H-%M`
