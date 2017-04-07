@@ -25,31 +25,12 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
     exit 1
 fi
 
-if [ -z "${SERVICE_ACCOUNT_JSON}" ]; then
-    echo "You need to set SERVICE_ACCOUNT_JSON envvar pointing to a json file in GCS."
-    exit 1
-fi
-
 if [ -z "${RUNTIME_DISTRIBUTION}" ]; then
     RUNTIME_DISTRIBUTION="gcp-php-runtime-jessie"
 fi
 
 export RUNTIME_DISTRIBUTION
 
-# Dump the credentials from the environment variable.
-php scripts/dump_credentials.php
-
-if [ ! -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
-    echo 'Please set PHP_DOCKER_GOOGLE_CREDENTIALS envvar.'
-    exit 1
-fi
-
-# Use the service account for gcloud operations.
-gcloud auth activate-service-account \
-    --key-file "${PHP_DOCKER_GOOGLE_CREDENTIALS}"
-
-# Set the timeout
-gcloud config set container/build_timeout 3600
 SRC_TMP=$(mktemp -d)
 export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
 # build the php test runner and export the name
@@ -90,5 +71,14 @@ build_image php70_custom testapps/php70_custom
 build_image php70_extensions testapps/php70_extensions
 build_image php71_custom testapps/php71_custom
 build_image php71_extensions testapps/php71_extensions
-build_image php71_e2e testapps/php71_e2e
 build_image create-dockerfile builder/create-dockerfile
+
+if [ -z "${RUN_E2E_TESTS}" ]; then
+    echo 'E2E test skipped'
+else
+    if [ -z "${SERVICE_ACCOUNT_JSON}" ]; then
+        echo "You need to set SERVICE_ACCOUNT_JSON envvar pointing to a json file in GCS."
+        exit 1
+    fi
+    build_image php71_e2e testapps/php71_e2e
+fi

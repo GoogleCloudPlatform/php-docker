@@ -63,6 +63,22 @@ gcloud config set project ${GOOGLE_PROJECT_ID}
 gcloud config set app/promote_by_default false
 gcloud config set verbosity ${CLOUDSDK_VERBOSITY}
 
+# Dump the credentials from the environment variable.
+php scripts/dump_credentials.php
+
+# Set the timeout
+gcloud config set container/build_timeout 3600
+
+if [ ! -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
+    echo 'Please set PHP_DOCKER_GOOGLE_CREDENTIALS envvar.'
+    exit 1
+fi
+
+# Use the service account for gcloud operations.
+gcloud auth activate-service-account \
+    --key-file "${PHP_DOCKER_GOOGLE_CREDENTIALS}"
+
+
 if [ "${CIRCLECI}" == "true" ]; then
     # Need sudo on circleci:
     # https://discuss.circleci.com/t/gcloud-components-update-version-restriction/3725
