@@ -14,13 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// require_once __DIR__ . '/vendor/autoload.php';
-//
-// use Composer\Semver\Semver;
 
-// Available versions in the order we want to check.
-
-class ExtensionLoader
+class InstallExtensions
 {
     const SHARED_EXTENSIONS = [
         'bc',
@@ -58,10 +53,8 @@ class ExtensionLoader
         'redis'
     ];
 
-    private $toEnable = [];
-
-    private $toInstall = [];
-
+    private $shared = [];
+    private $packaged = [];
     private $configFile;
 
     public function __construct($filename, $configFile = null)
@@ -75,36 +68,32 @@ class ExtensionLoader
             }
         }
         $this->configFile = $configFile ?: $this->defaultConfigFile();
+    }
 
+    public function sharedExtensions() {
+        return $this->shared;
+    }
+
+    public function packagedExtensions() {
+        return $this->packaged;
     }
 
     public function installExtensions()
     {
-        foreach ($this->toInstall as $extension => $version) {
-            $enmod = implode([
-                getenv('PHP_DIR'),
-                'bin',
-                'php-enmod'
-            ], '/');
-            $cmd = "$enmod $extension";
-            $success = true;
-            system($cmd, $success);
-            if ($success != 0) {
-                die("failed to enable extension $extension");
-            }
-        }
-    }
-
-    public function enableExtensions()
-    {
-        if (empty($this->toEnable)) {
+        if (empty($this->shared)) {
             return;
         }
 
         $fp = fopen($this->configFile, "a");
-        foreach ($this->toEnable as $extension => $version) {
+
+        foreach ($this->packaged as $extension => $version) {
             fwrite($fp, "extension=$extension.so" . PHP_EOL);
         }
+
+        foreach ($this->shared as $extension => $version) {
+            fwrite($fp, "extension=$extension.so" . PHP_EOL);
+        }
+
         fclose($fp);
     }
 
@@ -121,21 +110,22 @@ class ExtensionLoader
     {
 
         if (in_array($package, self::SHARED_EXTENSIONS)) {
-            $this->toEnable[$package] = $version;
-        } else if (in_array($package, self::PACKAGED_EXTENSIONS)) {
-            $this->toInstall[$package] = $version;
+            $this->shared[$package] = $version;
+        } elseif (in_array($package, self::PACKAGED_EXTENSIONS)) {
+            $this->packaged[$package] = $version;
         } else {
             echo "didn't find package: $package\n";
         }
     }
 }
 
-if (count($argv) < 2) {
-    die("Usage:\n" . $argv[0] . " filename\n");
+if ($argv[0] == basename(__FILE__)) {
+    if (count($argv) < 2) {
+        die("Usage:\n" . $argv[0] . " filename\n");
+    }
+
+    $outputFile = count($argv) > 2 ? $argv[2] : null;
+
+    $installer = new InstallExtensions($argv[1], $outputFile);
+    $installer->installExtensions();
 }
-
-$outputFile = count($argv) > 2 ? $argv[2] : null;
-
-$installer = new ExtensionLoader($argv[1], $outputFile);
-$installer->installExtensions();
-$installer->enableExtensions();
