@@ -22,15 +22,13 @@ class InstallExtensionsTest extends \PHPUnit_Framework_TestCase
     public function testDetectsPackagedExtensions()
     {
         $installer = new InstallExtensions(__DIR__ . '/samples/phalcon.json');
-        $this->assertEquals(['phalcon' => '*'], $installer->packagedExtensions());
-        $this->assertEquals([], $installer->sharedExtensions());
+        $this->assertEquals(['phalcon' => '*'], $installer->extensions());
     }
 
     public function testDetectsSharedExtensions()
     {
         $installer = new InstallExtensions(__DIR__ . '/samples/shared.json');
-        $this->assertEquals([], $installer->packagedExtensions());
-        $this->assertEquals(['mbstring' => '*'], $installer->sharedExtensions());
+        $this->assertEquals(['mbstring' => '*'], $installer->extensions());
     }
 
     public function testInstallsExtensions()

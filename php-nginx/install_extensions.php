@@ -17,7 +17,7 @@
 
 class InstallExtensions
 {
-    const SHARED_EXTENSIONS = [
+    const AVAILABLE_EXTENSIONS = [
         'bc',
         'calendar',
         'exif',
@@ -33,10 +33,8 @@ class InstallExtensions
         'sqlite3',
         'pdo_sqlite',
         'xmlrpc',
-        'xsl'
-    ];
-
-    const PACKAGED_EXTENSIONS = [
+        'xsl',
+        ## Debian package extensions below
         'cassandra',
         'ev',
         'event',
@@ -53,8 +51,7 @@ class InstallExtensions
         'redis'
     ];
 
-    private $shared = [];
-    private $packaged = [];
+    private $extensions = [];
     private $configFile;
 
     public function __construct($filename, $configFile = null)
@@ -70,29 +67,20 @@ class InstallExtensions
         $this->configFile = $configFile ?: $this->defaultConfigFile();
     }
 
-    public function sharedExtensions()
+    public function extensions()
     {
-        return $this->shared;
-    }
-
-    public function packagedExtensions()
-    {
-        return $this->packaged;
+        return $this->extensions;
     }
 
     public function installExtensions()
     {
-        if (empty($this->shared) && empty($this->packaged)) {
+        if (empty($this->extensions)) {
             return;
         }
 
         $fp = fopen($this->configFile, 'a');
 
-        foreach ($this->packaged as $extension => $version) {
-            fwrite($fp, "extension=$extension.so" . PHP_EOL);
-        }
-
-        foreach ($this->shared as $extension => $version) {
+        foreach ($this->extensions as $extension => $version) {
             fwrite($fp, "extension=$extension.so" . PHP_EOL);
         }
 
@@ -111,10 +99,8 @@ class InstallExtensions
 
     private function addExtension($package, $version)
     {
-        if (in_array($package, self::SHARED_EXTENSIONS)) {
-            $this->shared[$package] = $version;
-        } elseif (in_array($package, self::PACKAGED_EXTENSIONS)) {
-            $this->packaged[$package] = $version;
+        if (in_array($package, self::AVAILABLE_EXTENSIONS)) {
+            $this->extensions[$package] = $version;
         } else {
             echo "didn't find package: $package\n";
         }
