@@ -57,7 +57,7 @@ build_image () {
     fi
     envsubst < "${SRC_DIR}/cloudbuild.yaml.in" > "${SRC_DIR}/cloudbuild.test.yaml"
     gcloud -q container builds submit "${SRC_DIR}" \
-      --config "${SRC_DIR}"/cloudbuild.test.yaml
+      --config "${SRC_DIR}"/cloudbuild.test.yaml --timeout 3600
 }
 
 build_image php-nginx php-nginx
