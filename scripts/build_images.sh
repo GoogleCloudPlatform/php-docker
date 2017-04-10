@@ -60,7 +60,7 @@ build_image () {
       --config "${SRC_DIR}"/cloudbuild.test.yaml --timeout 3600
 }
 
-build_image php-nginx php-nginx
+build_image php php-nginx
 build_image php_default testapps/php_default
 build_image php56 testapps/php56
 build_image php56_custom  testapps/php56_custom
