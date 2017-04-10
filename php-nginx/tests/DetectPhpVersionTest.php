@@ -28,19 +28,21 @@ class DetectPhpVersionTest extends \PHPUnit_Framework_TestCase
         self::PHP_56
     ];
 
-    public function testDetectsPhpVersionFromComposer() {
+    public function testDetectsPhpVersionFromComposer()
+    {
         $version = DetectPhpVersion::versionFromComposer(__DIR__ . '/samples/phalcon.json', self::AVAILABLE_VERSIONS);
         $this->assertEquals(self::PHP_70, $version);
     }
 
-    public function testDetectsHighestVersion() {
+    public function testDetectsHighestVersion()
+    {
         $version = DetectPhpVersion::version('^7', self::AVAILABLE_VERSIONS);
         $this->assertEquals(self::PHP_71, $version);
     }
 
-    public function testFailureReturnsEmptyString() {
+    public function testFailureReturnsEmptyString()
+    {
         $version = DetectPhpVersion::version('7.1.100', self::AVAILABLE_VERSIONS);
         $this->assertEquals('', $version);
     }
-
 }

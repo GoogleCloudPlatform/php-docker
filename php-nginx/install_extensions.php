@@ -62,7 +62,7 @@ class InstallExtensions
         $composer = json_decode(file_get_contents($filename), true);
         if (is_array($composer) && array_key_exists('require', $composer)) {
             foreach ($composer['require'] as $package => $version) {
-                if (substr($package, 0, 4) == "ext-") {
+                if (substr($package, 0, 4) == 'ext-') {
                     $this->addExtension(substr($package, 4), $version);
                 }
             }
@@ -70,21 +70,23 @@ class InstallExtensions
         $this->configFile = $configFile ?: $this->defaultConfigFile();
     }
 
-    public function sharedExtensions() {
+    public function sharedExtensions()
+    {
         return $this->shared;
     }
 
-    public function packagedExtensions() {
+    public function packagedExtensions()
+    {
         return $this->packaged;
     }
 
     public function installExtensions()
     {
-        if (empty($this->shared)) {
+        if (empty($this->shared) && empty($this->packaged)) {
             return;
         }
 
-        $fp = fopen($this->configFile, "a");
+        $fp = fopen($this->configFile, 'a');
 
         foreach ($this->packaged as $extension => $version) {
             fwrite($fp, "extension=$extension.so" . PHP_EOL);
@@ -101,14 +103,14 @@ class InstallExtensions
     {
         return implode([
             getenv('PHP_DIR'),
-            "conf.d",
-            "extensions.ini"
-        ], "/");
+            'lib',
+            'conf.d',
+            'extensions.ini'
+        ], '/');
     }
 
     private function addExtension($package, $version)
     {
-
         if (in_array($package, self::SHARED_EXTENSIONS)) {
             $this->shared[$package] = $version;
         } elseif (in_array($package, self::PACKAGED_EXTENSIONS)) {
@@ -119,7 +121,7 @@ class InstallExtensions
     }
 }
 
-if ($argv[0] == basename(__FILE__)) {
+if (basename($argv[0]) == basename(__FILE__)) {
     if (count($argv) < 2) {
         die("Usage:\n" . $argv[0] . " filename\n");
     }

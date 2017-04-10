@@ -19,7 +19,8 @@ require_once(__DIR__ . "/../install_extensions.php");
 
 class InstallExtensionsTest extends \PHPUnit_Framework_TestCase
 {
-    public function testDetectsPackagedExtensions() {
+    public function testDetectsPackagedExtensions()
+    {
         $installer = new InstallExtensions(__DIR__ . '/samples/phalcon.json');
         $this->assertEquals(['phalcon' => '*'], $installer->packagedExtensions());
         $this->assertEquals([], $installer->sharedExtensions());
@@ -41,5 +42,4 @@ class InstallExtensionsTest extends \PHPUnit_Framework_TestCase
 
         unlink($output);
     }
-
 }

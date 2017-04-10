@@ -32,7 +32,8 @@ class DetectPhpVersion
         return '';
     }
 
-    public static function version($constraint, $availableVersions = null) {
+    public static function version($constraint, $availableVersions = null)
+    {
         $availableVersions = $availableVersions ?: self::detectAvailableVersions();
         foreach ($availableVersions as $version) {
             if (Semver::satisfies($version, $constraint)) {
@@ -53,11 +54,13 @@ class DetectPhpVersion
     }
 }
 
-
-if ($argv[0] == basename(__FILE__)) {
+if (basename($argv[0]) == basename(__FILE__)) {
     if (count($argv) < 2) {
         die("Usage:\n" . $argv[0] . " filename\n");
     }
 
-    echo DetectPhpVersion::version($argv[0]);
+    $version = DetectPhpVersion::versionFromComposer($argv[1]);
+
+    # only echo out the major/minor
+    echo substr($version, 0, strrpos($version, '.'));
 }
