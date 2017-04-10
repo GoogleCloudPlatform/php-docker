@@ -18,7 +18,7 @@
 class InstallExtensions
 {
     const AVAILABLE_EXTENSIONS = [
-        'bc',
+        'bcmath',
         'calendar',
         'exif',
         'ftp',
@@ -47,6 +47,7 @@ class InstallExtensions
         'oauth',
         'phalcon',
         'pq',
+        'raphf',
         'rdkafka',
         'redis'
     ];
