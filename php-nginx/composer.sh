@@ -73,6 +73,9 @@ EOF
     # We want to remove when Container Builder starts to use newer Docker.
     rm -rf ${APP_DIR}/vendor
 
+    # Auto install extensions
+    php /tmp/install_extensions.php ${APP_DIR}/composer.json
+
     # Run Composer.
     cd ${APP_DIR} && \
         su www-data -c "php /usr/local/bin/composer \
@@ -84,4 +87,5 @@ EOF
           --no-interaction \
           --no-ansi \
           --no-progress"
+
 fi
