@@ -53,6 +53,8 @@ class InstallExtensions
     ];
 
     private $extensions = [];
+    private $missingExtensions = [];
+    private $badVersionExtensions = [];
     private $configFile;
 
     public function __construct($filename, $configFile = null)
@@ -73,6 +75,16 @@ class InstallExtensions
         return $this->extensions;
     }
 
+    public function missingExtensions()
+    {
+        return $this->missingExtensions;
+    }
+
+    public function badVersionExtensions()
+    {
+        return $this->badVersionExtensions;
+    }
+
     public function installExtensions()
     {
         if (empty($this->extensions)) {
@@ -81,7 +93,9 @@ class InstallExtensions
 
         $fp = fopen($this->configFile, 'a');
 
+        echo "Installing extensions...\n";
         foreach ($this->extensions as $extension => $version) {
+            echo "Enabling $extension\n";
             fwrite($fp, "extension=$extension.so" . PHP_EOL);
         }
 
@@ -101,9 +115,13 @@ class InstallExtensions
     private function addExtension($package, $version)
     {
         if (in_array($package, self::AVAILABLE_EXTENSIONS)) {
-            $this->extensions[$package] = $version;
+            if ($version == '*') {
+                $this->extensions[$package] = $version;
+            } else {
+                $this->badVersionExtensions[$package] = $version;
+            }
         } else {
-            echo "didn't find package: $package\n";
+            $this->missingExtensions[$package] = $version;
         }
     }
 }
@@ -116,5 +134,15 @@ if (basename($argv[0]) == basename(__FILE__)) {
     $outputFile = count($argv) > 2 ? $argv[2] : null;
 
     $installer = new InstallExtensions($argv[1], $outputFile);
+    if (!empty($installer->missingExtensions()) || !empty($installer->badVersionExtensions())) {
+        echo "Failed to install all requested extensions:\n";
+        foreach($installer->missingExtensions() as $extension => $version) {
+            echo "- $extension $version is not available on your system.\n";
+        }
+        foreach($installer->badVersionExtensions() as $extension => $version) {
+            echo "- $extension is available, but version must be specified as \"*\" in your composer.json\n";
+        }
+        exit(1);
+    }
     $installer->installExtensions();
 }
