@@ -35,9 +35,17 @@ class InstallExtensionsTest extends \PHPUnit_Framework_TestCase
     {
         $output = tempnam("/tmp", "php.ini");
         $installer = new InstallExtensions(__DIR__ . '/samples/mixed.json', $output);
-        $installer->installExtensions();
+        $this->assertTrue($installer->installExtensions());
         $this->assertEquals("extension=phalcon.so\nextension=mbstring.so\n", file_get_contents($output));
 
         unlink($output);
+    }
+
+    public function testDisallowsBlacklistedCombo()
+    {
+        $output = tempnam("/tmp", "php.ini");
+        $installer = new InstallExtensions(__DIR__ . '/samples/bad_combo.json', $output, '7.1');
+        $this->assertFalse($installer->installExtensions());
+        $this->assertNotEmpty($installer->errors());
     }
 }
