@@ -120,20 +120,20 @@ class InstallExtensions
     {
         // See if we support the package at all
         if (!in_array($package, self::AVAILABLE_EXTENSIONS)) {
-            $this->errors[] = "- $extension $version is not available on your system.";
+            $this->errors[] = "- $package $version is not available on your system.";
             return;
         }
 
         // Disallow any specific version pinning
         if ($version != '*') {
-            $this->errors[] = "- $extension is available, but version must be specified as \"*\" in your composer.json";
+            $this->errors[] = "- $package is available, but version must be specified as \"*\" in your composer.json";
             return;
         }
 
         // Check against our blacklist of php version/extension combinations
         if (array_key_exists($package, self::UNAVAILABLE_EXTENSIONS) &&
             in_array($this->phpVersion, self::UNAVAILABLE_EXTENSIONS[$package])) {
-            $this->errors[] = "- $extension is available, but not on php version {$this->phpVersion}";
+            $this->errors[] = "- $package is available, but not on php version {$this->phpVersion}";
             return;
         }
 
