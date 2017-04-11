@@ -136,10 +136,10 @@ if (basename($argv[0]) == basename(__FILE__)) {
     $installer = new InstallExtensions($argv[1], $outputFile);
     if (!empty($installer->missingExtensions()) || !empty($installer->badVersionExtensions())) {
         echo "Failed to install all requested extensions:\n";
-        foreach($installer->missingExtensions() as $extension => $version) {
+        foreach ($installer->missingExtensions() as $extension => $version) {
             echo "- $extension $version is not available on your system.\n";
         }
-        foreach($installer->badVersionExtensions() as $extension => $version) {
+        foreach ($installer->badVersionExtensions() as $extension => $version) {
             echo "- $extension is available, but version must be specified as \"*\" in your composer.json\n";
         }
         exit(1);
