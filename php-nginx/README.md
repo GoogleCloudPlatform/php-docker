@@ -224,18 +224,27 @@ php.ini):
 
 - BCMath (bcmath)
 - Calendar (calendar)
+- Cassandra (cassandra, third-party)
+- Ev (ev)
+- Event (event)
 - Exif (exif)
 - FTP (ftp)
 - GD (gd; with PNG, JPEG and FreeType support)
 - gettext (gettext)
-- gRPC (shared)
+- gRPC (grpc)
 - intl (intl)
+- ImageMagick (imagick)
 - mbstring (mbstring)
-- memcached (shared, enabled by default, experimental support for PHP7)
-- mongodb (shared)
+- memcached (enabled by default, experimental support for PHP7)
+- mongodb (mongodb)
 - MySQL (mysql; it's removed with PHP7.0)
+- OAuth (oauth)
 - PCNTL (pcntl)
-- redis (shared)
+- Phalcon (phalcon, not available for PHP 7.1)
+- PostgreSQL (pq, also requires raphf)
+- RAPHF (raphf)
+- rdkafka (rdkafka)
+- redis (redis)
 - Shmop (shmop)
 - SOAP (soap)
 - SQLite3 (sqlite3)
@@ -251,6 +260,28 @@ These extensions are only available with PHP 5.6:
 These extensions are only available with PHP 7:
 
 - APCu-BC (shared, enabled by default)
+
+### Enabling extensions
+
+To enable extensions, you can either [use a custom php.ini file]
+(#add-something-to-phpini)  or declare the requirement in your
+`composer.json`.  To add the requirement to your `composer.json`,
+either run:
+
+```bash
+> composer require ext-<extension name>:*
+```
+
+or add `"ext-<extension name>": "*"` to your `composer.json` in the
+`require` section:
+
+```json
+{
+    "require": {
+        "ext-phalcon": "*"
+    }
+}
+```
 
 ## Add something to php.ini
 
