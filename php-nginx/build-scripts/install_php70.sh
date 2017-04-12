@@ -38,6 +38,8 @@ apt-get install -y \
         --no-install-recommends
 
 # Enable some extensions for backward compatibility
+ln -s ${PHP70_DIR}/bin/php70-enmod ${PHP70_DIR}/bin/php-enmod
+ln -s ${PHP70_DIR}/bin/php70-dismod ${PHP70_DIR}/bin/php-dismod
 ${PHP70_DIR}/bin/php70-enmod apcu-bc
 ${PHP70_DIR}/bin/php70-enmod mailparse
 ${PHP70_DIR}/bin/php70-enmod memcached

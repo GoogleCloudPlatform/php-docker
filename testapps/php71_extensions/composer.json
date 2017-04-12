@@ -1,6 +1,31 @@
 {
     "require": {
         "php": "7.1.*",
-        "phpunit/phpunit": "4.8.*"
+        "phpunit/phpunit": "4.8.*",
+        "ext-bcmath": "*",
+        "ext-calendar": "*",
+        "ext-exif": "*",
+        "ext-ftp": "*",
+        "ext-gd": "*",
+        "ext-gettext": "*",
+        "ext-intl": "*",
+        "ext-pcntl": "*",
+        "ext-shmop": "*",
+        "ext-soap": "*",
+        "ext-sqlite3": "*",
+        "ext-pdo_sqlite": "*",
+        "ext-xmlrpc": "*",
+        "ext-xsl": "*",
+        "ext-mongodb": "*",
+        "ext-redis": "*",
+        "ext-grpc": "*",
+        "ext-imagick": "*",
+        "ext-ev": "*",
+        "ext-event": "*",
+        "ext-oauth": "*",
+        "ext-raphf": "*",
+        "ext-pq": "*",
+        "ext-rdkafka": "*",
+        "ext-cassandra": "*"
     }
 }

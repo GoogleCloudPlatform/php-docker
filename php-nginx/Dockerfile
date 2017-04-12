@@ -101,8 +101,10 @@ RUN chgrp www-data composer.sh && chmod +x /entrypoint.sh /composer.sh \
 
 # A script for extracting PHP version from composer.json.
 COPY detect_php_version.php /tmp/detect_php_version.php
-RUN chgrp www-data /tmp/detect_php_version.php && cd /tmp \
-    && su www-data -c "php /usr/local/bin/composer require composer/semver"
+COPY install_extensions.php /tmp/install_extensions.php
+RUN chgrp www-data /tmp/detect_php_version.php && \
+    cd /tmp && \
+    su www-data -c "php /usr/local/bin/composer require composer/semver"
 
 # Copy the app and change the owner
 ONBUILD COPY . $APP_DIR
