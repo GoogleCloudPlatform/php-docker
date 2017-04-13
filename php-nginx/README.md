@@ -208,6 +208,7 @@ These extensions are enabled as builtin:
 - cURL
 - FPM
 - mcrypt
+- memcached
 - MySQL (PDO) (uses mysqlnd)
 - MySQLi (uses mysqlnd)
 - OPcache
@@ -219,8 +220,8 @@ These extensions are enabled as builtin:
 - Zip
 - Zlib
 
-These extensions are compiled as shared (you need to enable with
-php.ini):
+These extensions are compiled as shared, but disabled by default. You will need
+[enable them](#enabling-extensions).
 
 - BCMath (bcmath)
 - Calendar (calendar)
@@ -235,12 +236,11 @@ php.ini):
 - intl (intl)
 - ImageMagick (imagick)
 - mbstring (mbstring)
-- memcached (enabled by default, experimental support for PHP7)
 - mongodb (mongodb)
-- MySQL (mysql; it's removed with PHP7.0)
+- MySQL (mysql, not available for PHP 7+)
 - OAuth (oauth)
 - PCNTL (pcntl)
-- Phalcon (phalcon, not available for PHP 7.1)
+- Phalcon (phalcon, third-party, not available for PHP 7.1)
 - PostgreSQL (pq, also requires raphf)
 - RAPHF (raphf)
 - rdkafka (rdkafka)
