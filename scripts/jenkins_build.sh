@@ -44,7 +44,7 @@ scripts/run_test_suite.sh
 
 unset CLOUDSDK_ACTIVE_CONFIG_NAME
 
-IMAGE_NAME="gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
+IMAGE_NAME="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
 
 PROD_IMAGE_NAME="gcr.io/${PRODUCTION_DOCKER_NAMESPACE}/php:${TAG}"
 
