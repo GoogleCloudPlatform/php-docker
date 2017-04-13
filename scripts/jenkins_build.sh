@@ -40,12 +40,4 @@ gcloud info
 scripts/install_test_dependencies.sh
 scripts/run_test_suite.sh
 
-# Push the image to production namespace with timestamped tag.
-
 unset CLOUDSDK_ACTIVE_CONFIG_NAME
-
-IMAGE_NAME="gcr.io/${GOOGLE_PROJECT_ID}/php-nginx:${TAG}"
-
-PROD_IMAGE_NAME="gcr.io/${PRODUCTION_DOCKER_NAMESPACE}/php:${TAG}"
-
-gcloud -q beta container images add-tag "${IMAGE_NAME}" "${PROD_IMAGE_NAME}"
