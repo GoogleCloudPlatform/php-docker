@@ -23,9 +23,13 @@ class GenFiles
     const DEFAULT_BASE_IMAGE = 'gcr.io/google-appengine/php';
     const DEFAULT_TAG = 'latest';
     const DEFAULT_WORKSPACE = '/workspace';
+    const DEFAULT_YAML_PATH = 'app.yaml';
 
     /* @var string */
     private $workspace;
+
+    /* @var string */
+    private $appYamlPath;
 
     /**
      * Constructor allows injecting the workspace directory.
@@ -33,11 +37,14 @@ class GenFiles
     public function __construct($workspace = self::DEFAULT_WORKSPACE)
     {
         $this->workspace = $workspace;
+        $yamlPath = getenv('GAE_APPLICATION_YAML_PATH') !== false
+            ?: self::DEFAULT_YAML_PATH;
+        $this->appYamlPath = $this->workspace . '/' . $yamlPath;
     }
 
     private function readAppYaml()
     {
-        return Yaml::parse(file_get_contents($this->workspace . '/app.yaml'));
+        return Yaml::parse(file_get_contents($this->appYamlPath));
     }
 
     /**
