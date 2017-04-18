@@ -39,6 +39,7 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
         // Set default envvar
         putenv('BUILDER_TARGET_IMAGE=' . \GenFiles::DEFAULT_BASE_IMAGE);
         putenv('BUILDER_TARGET_TAG=' . \GenFiles::DEFAULT_TAG);
+        putenv('GAE_APPLICATION_YAML_PATH=app.yaml');
     }
 
     public function tearDown()
@@ -58,6 +59,7 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
         $dir,
         $baseImageEnv,
         $tagEnv,
+        $appYamlEnv,
         $expectedDocRoot,
         $expectedDockerIgnore,
         $expectedFrom
@@ -75,6 +77,9 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
         }
         if (!empty($tagEnv)) {
             putenv('BUILDER_TARGET_TAG=' . $tagEnv);
+        }
+        if (!empty($appYamlEnv)) {
+            putenv('GAE_APPLICATION_YAML_PATH=' . $appYamlEnv);
         }
         $genFiles = new \GenFiles(self::$testDir);
         $genFiles->createDockerfile();
@@ -106,6 +111,17 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
                 __DIR__ . '/test_data/simplest',
                 '',
                 '',
+                '',
+                '/app',
+                'added by the php runtime builder',
+                'gcr.io/google-appengine/php:latest'
+            ],
+            [
+                // Different yaml path
+                __DIR__ . '/test_data/different_yaml',
+                '',
+                '',
+                'my.yaml',
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php:latest'
@@ -114,6 +130,7 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
                 // Overrides BUILDER_TARGET_IMAGE
                 __DIR__ . '/test_data/simplest',
                 'gcr.io/php-mvm-a/php-nginx',
+                '',
                 '',
                 '/app',
                 'added by the php runtime builder',
@@ -124,6 +141,7 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
                 __DIR__ . '/test_data/simplest',
                 'gcr.io/php-mvm-a/php-nginx',
                 'test',
+                '',
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/php-mvm-a/php-nginx:test'
@@ -133,6 +151,7 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
                 __DIR__ . '/test_data/docroot',
                 '',
                 '',
+                '',
                 '/app/web',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php:latest'
@@ -140,6 +159,7 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
             [
                 // Has files already
                 __DIR__ . '/test_data/has_files',
+                '',
                 '',
                 '',
                 '/test',

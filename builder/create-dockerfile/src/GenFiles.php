@@ -44,6 +44,11 @@ class GenFiles
 
     private function readAppYaml()
     {
+        if (!file_exists($this->appYamlPath)) {
+            throw new \RuntimeException(
+                sprintf('The application yaml file does not exist: %s', $this->appYamlPath)
+            );
+        }
         return Yaml::parse(file_get_contents($this->appYamlPath));
     }
 
