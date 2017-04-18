@@ -37,7 +37,7 @@ class GenFiles
     public function __construct($workspace = self::DEFAULT_WORKSPACE)
     {
         $this->workspace = $workspace;
-        $yamlPath = getenv('GAE_APPLICATION_YAML_PATH') !== false
+        $yamlPath = getenv('GAE_APPLICATION_YAML_PATH')
             ?: self::DEFAULT_YAML_PATH;
         $this->appYamlPath = $this->workspace . '/' . $yamlPath;
     }

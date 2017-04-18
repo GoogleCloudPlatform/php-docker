@@ -44,7 +44,7 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $files = array('app.yaml', 'Dockerfile', '.dockerignore');
+        $files = array('app.yaml', 'my.yaml', 'Dockerfile', '.dockerignore');
         foreach ($files as $file) {
             if (file_exists(self::$testDir . '/' . $file)) {
                 unlink(self::$testDir . '/' . $file);
@@ -65,7 +65,7 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
         $expectedFrom
     ) {
         // Copy all the files to the test dir
-        $files = array('app.yaml', 'Dockerfile', '.dockerignore');
+        $files = array('app.yaml', 'my.yaml', 'Dockerfile', '.dockerignore');
         foreach ($files as $file) {
             if (file_exists($dir . '/' . $file)) {
                 copy($dir . '/' . $file, self::$testDir . '/' . $file);
