@@ -78,7 +78,7 @@ EOF
 
     # Run Composer.
     cd ${APP_DIR} && \
-        su www-data -c "php /usr/local/bin/composer \
+        su -m www-data -c "php /usr/local/bin/composer \
           install \
           --no-scripts \
           --no-dev \
