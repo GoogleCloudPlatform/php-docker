@@ -72,6 +72,7 @@ build_image php70_extensions testapps/php70_extensions
 build_image php71_custom testapps/php71_custom
 build_image php71_extensions testapps/php71_extensions
 build_image create-dockerfile builder/create-dockerfile
+build_image deb-package-builder builder/deb-package-builder
 
 if [ -z "${RUN_E2E_TESTS}" ]; then
     echo 'E2E test skipped'

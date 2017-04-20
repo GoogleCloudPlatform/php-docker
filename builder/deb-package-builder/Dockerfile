@@ -18,7 +18,7 @@
 # Then you'll get deb packages in /mydir.
 
 # Inherit the php base image so we use the same dependency libraries
-FROM gcr.io/google_appengine/php
+FROM gcr.io/google-appengine/php
 
 # Need to install debian packaging tools etc
 RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list && \
