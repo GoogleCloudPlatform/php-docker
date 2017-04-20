@@ -20,8 +20,6 @@
 # Inherit the php base image so we use the same dependency libraries
 FROM gcr.io/google_appengine/php
 
-ENV DEB_BUILDER_DIR /opt/deb-builder
-
 # Need to install debian packaging tools etc
 RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list && \
     apt-get update -y && \
@@ -72,8 +70,8 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
         lsb-release \
         fakeroot
 
-# Copy debian metadata file templates
-RUN mkdir -p ${DEB_BUILDER_DIR}
-COPY . ${DEB_BUILDER_DIR}/
+COPY build.sh /
+RUN mkdir -p /workspace
+WORKDIR /workspace
 
-ENTRYPOINT ["/opt/deb-builder/build.sh"]
+ENTRYPOINT ["/build.sh"]

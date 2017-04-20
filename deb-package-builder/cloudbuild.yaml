@@ -1,0 +1,7 @@
+steps:
+  - name: gcr.io/cloud-builders/gsutil
+    args: ['-m', 'rsync', 'gs://$PROJECT_ID/packages/${_PHP_VERSION}/', '/workspace/pkg/']
+  - name: gcr.io/$PROJECT_ID/deb-package-builder
+    args: ['${_PHP_VERSION}']
+  - name: gcr.io/cloud-builders/gsutil
+    args: ['-m', 'rsync', '/workspace/pkg/', 'gs://$PROJECT_ID/packages/${_PHP_VERSION}/']

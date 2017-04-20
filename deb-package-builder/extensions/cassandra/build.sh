@@ -8,10 +8,10 @@ echo "Building cassandra for gcp-php${SHORT_VERSION}"
 
 PNAME="gcp-php${SHORT_VERSION}-cassandra"
 
-ls -t ${ARTIFACT_DIR}/libuv1_* | head -n 1 | xargs dpkg -i
-ls -t ${ARTIFACT_DIR}/libuv1-dev_* | head -n 1 | xargs dpkg -i
-ls -t ${ARTIFACT_DIR}/cassandra-cpp-driver_* | head -n 1 | xargs dpkg -i
-ls -t ${ARTIFACT_DIR}/cassandra-cpp-driver-dev_* | head -n 1 | xargs dpkg -i
+install_last_package "libuv1"
+install_last_package "libuv1-dev"
+install_last_package "cassandra-cpp-driver"
+install_last_package "cassandra-cpp-driver-dev"
 
 # Download the source
 download_from_pecl cassandra
