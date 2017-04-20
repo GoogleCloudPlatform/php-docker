@@ -213,6 +213,7 @@ These extensions are enabled as builtin:
 - MySQLi (uses mysqlnd)
 - OPcache
 - OpenSSL
+- PCNTL (pcntl)
 - PostgreSQL
 - PostgreSQL (PDO)
 - Readline
@@ -239,7 +240,6 @@ These extensions are compiled as shared, but disabled by default. You will need
 - mongodb (mongodb)
 - MySQL (mysql, not available for PHP 7+)
 - OAuth (oauth)
-- PCNTL (pcntl)
 - Phalcon (phalcon, third-party, not available for PHP 7.1)
 - PostgreSQL (pq, also requires raphf)
 - RAPHF (raphf)
