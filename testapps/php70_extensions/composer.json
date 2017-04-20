@@ -9,7 +9,6 @@
         "ext-gd": "*",
         "ext-gettext": "*",
         "ext-intl": "*",
-        "ext-pcntl": "*",
         "ext-shmop": "*",
         "ext-soap": "*",
         "ext-sqlite3": "*",
