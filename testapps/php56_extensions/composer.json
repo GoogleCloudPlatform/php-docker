@@ -10,7 +10,6 @@
         "ext-gettext": "*",
         "ext-intl": "*",
         "ext-memcache": "*",
-        "ext-pcntl": "*",
         "ext-shmop": "*",
         "ext-soap": "*",
         "ext-sqlite3": "*",

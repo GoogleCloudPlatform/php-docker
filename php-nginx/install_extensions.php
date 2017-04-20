@@ -27,7 +27,6 @@ class InstallExtensions
         'intl',
         'mbstring',
         'mysql',
-        'pcntl',
         'shmop',
         'soap',
         'sqlite3',
