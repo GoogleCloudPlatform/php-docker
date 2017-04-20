@@ -10,7 +10,7 @@ PNAME="cassandra-cpp-driver"
 
 OUTPUT_FILE="${PNAME}_2.6.0-1~gcp8+1_amd64.deb"
 
-if [ ! -f "$OUTPUT_FILE" ]; then
+if [ ! -f "${ARTIFACT_DIR}/${OUTPUT_FILE}" ]; then
     # Download the source
     download_from_tarball https://github.com/datastax/cpp-driver/archive/2.6.0.tar.gz 2.6.0
     PACKAGE_DIR=${PACKAGE_DIR}/packaging
