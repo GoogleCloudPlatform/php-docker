@@ -18,7 +18,7 @@ fi
 IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/deb-package-builder"
 
 # First, build the package builder
-if [ ! -z "${USE_LATEST}" ]; then
+if [ -z "${USE_LATEST}" ]; then
     echo "Building package builder..."
     gcloud container builds submit . --config=builder.yaml \
                                      --substitutions _IMAGE=${IMAGE}
