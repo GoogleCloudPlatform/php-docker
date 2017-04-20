@@ -74,7 +74,7 @@ EOF
     rm -rf ${APP_DIR}/vendor
 
     # Auto install extensions
-    php -d auto_prepend_file='' /tmp/install_extensions.php ${APP_DIR}/composer.json ${PHP_DIR}/lib/conf.d/extensions.ini ${PHP_VERSION}
+    php /tmp/install_extensions.php ${APP_DIR}/composer.json ${PHP_DIR}/lib/conf.d/extensions.ini ${PHP_VERSION}
 
     # Run Composer.
     cd ${APP_DIR} && \

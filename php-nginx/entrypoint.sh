@@ -133,7 +133,7 @@ if [ -x "${PHP56_DIR}/bin/php56-enmod" ]; then
 fi
 
 # Whitelist functions
-${PHP_DIR}/bin/php /whitelist_functions.php
+${PHP_DIR}/bin/php -d auto_prepend_file='' /whitelist_functions.php
 
 # Remove loose php-cli.ini
 rm /opt/php/lib/php-cli.ini

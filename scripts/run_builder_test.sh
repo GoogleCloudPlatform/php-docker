@@ -26,7 +26,7 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
 fi
 
 # Export some image names
-export CREATE_DOCKERFILE="gcr.io/${GOOGLE_PROJECT_ID}/create-dockerfile:${TAG}"
+export GEN_DOCKERFILE="gcr.io/${GOOGLE_PROJECT_ID}/php/gen-dockerfile:${TAG}"
 export TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
 
 SRC_TMP=$(mktemp -d)
@@ -35,7 +35,7 @@ SRC_DIR="${SRC_TMP}/${DIR}"
 mkdir -p $(dirname ${SRC_DIR})
 cp -R "${DIR}" "${SRC_DIR}"
 
-envsubst '{$CREATE_DOCKERFILE},${TEST_RUNNER}' \
+envsubst '{$GEN_DOCKERFILE},${TEST_RUNNER}' \
          < "${SRC_DIR}/cloudbuild.yaml.in" \
          > "${SRC_DIR}/cloudbuild.yaml"
 
