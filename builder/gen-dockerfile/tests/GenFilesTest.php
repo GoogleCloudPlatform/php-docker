@@ -37,8 +37,6 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         // Set default envvar
-        putenv('BUILDER_TARGET_IMAGE=' . \GenFiles::DEFAULT_BASE_IMAGE);
-        putenv('BUILDER_TARGET_TAG=' . \GenFiles::DEFAULT_TAG);
         putenv('GAE_APPLICATION_YAML_PATH=app.yaml');
     }
 
@@ -97,12 +95,6 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
 
     public function dataProvider()
     {
-        $dir,
-        $baseImage,
-        $appYamlEnv,
-        $expectedDocRoot,
-        $expectedDockerIgnore,
-        $expectedFrom
         return [
             [
                 // Simplest case
@@ -125,7 +117,7 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
             [
                 // Overrides baseImage
                 __DIR__ . '/test_data/simplest',
-                'gcr.io/php-mvm-a/php-nginx:latest'
+                'gcr.io/php-mvm-a/php-nginx:latest',
                 '',
                 '/app',
                 'added by the php runtime builder',
