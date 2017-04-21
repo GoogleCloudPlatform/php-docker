@@ -19,5 +19,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/GenFiles.php';
 
 $genFiles = new GenFiles();
-$genFiles->createDockerfile();
+if ($argc === 2) {
+    // Passing the base image
+    $genFiles->createDockerfile($argv[1]);
+} else {
+    $genFiles->createDockerfile();
+}
 $genFiles->createDockerignore();

@@ -17,12 +17,6 @@
 
 FROM ${BASE_IMAGE}
 
-ARG BUILDER_TARGET_IMAGE="gcr.io/google-appengine/php"
-ARG BUILDER_TARGET_TAG="latest"
-
-ENV BUILDER_TARGET_IMAGE=${BUILDER_TARGET_IMAGE}
-ENV BUILDER_TARGET_TAG=${BUILDER_TARGET_TAG}
-
 RUN mkdir /builder
 COPY . /builder
 COPY errors.ini ${PHP_DIR}/lib/conf.d/

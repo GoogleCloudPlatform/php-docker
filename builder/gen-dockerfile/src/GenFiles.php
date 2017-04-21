@@ -20,8 +20,7 @@ use Symfony\Component\Yaml\Yaml;
 class GenFiles
 {
     const APP_DIR = '/app';
-    const DEFAULT_BASE_IMAGE = 'gcr.io/google-appengine/php';
-    const DEFAULT_TAG = 'latest';
+    const DEFAULT_BASE_IMAGE = 'gcr.io/google-appengine/php:latest';
     const DEFAULT_WORKSPACE = '/workspace';
     const DEFAULT_YAML_PATH = 'app.yaml';
 
@@ -55,12 +54,15 @@ class GenFiles
     /**
      * Creates a Dockerfile if it doesn't exist in the workspace.
      */
-    public function createDockerfile()
+    public function createDockerfile($baseImage = '')
     {
         if (file_exists($this->workspace . '/Dockerfile')) {
             echo 'not creating Dockerfile because the file already exists'
                 . PHP_EOL;
             return;
+        }
+        if (empty($baseImage)) {
+            $baseImage = self::DEFAULT_BASE_IMAGE;
         }
         $docRoot = self::APP_DIR;
         $appYaml = $this->readAppYaml();
@@ -70,20 +72,11 @@ class GenFiles
             $docRoot = self::APP_DIR . '/'
                 . $appYaml['runtime_config']['document_root'];
         }
-        $tag = getenv('BUILDER_TARGET_TAG');
-        if ($tag === false) {
-            $tag = self::DEFAULT_TAG;
-        }
-        $baseImage = getenv('BUILDER_TARGET_IMAGE');
-        if ($baseImage === false) {
-            $baseImage = self::DEFAULT_BASE_IMAGE;
-        }
         $loader = new Twig_Loader_Filesystem(__DIR__ . '/templates');
         $twig = new Twig_Environment($loader);
         $template = $twig->load('Dockerfile.twig');
         $dockerfile = $template->render(array(
             'base_image' => $baseImage,
-            'tag' => $tag,
             'document_root' => $docRoot
         ));
         file_put_contents($this->workspace . '/Dockerfile', $dockerfile);
