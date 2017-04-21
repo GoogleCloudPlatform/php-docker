@@ -25,14 +25,10 @@ if [ -z "${BUILD_DIR}" ]; then
 fi
 
 export BUILD_DIR
+export ARTIFACT_DIR='/workspace/pkg'
+export DEB_BUILDER_DIR='/workspace'
 
-if [ -z "${ARTIFACT_DIR}" ]; then
-    ARTIFACT_DIR='/workspace'
-fi
-
-export ARTIFACT_DIR
-
-mkdir -p ${BUILD_DIR}
+mkdir -p ${BUILD_DIR} ${ARTIFACT_DIR}
 
 # Remove everything and start fresh
 rm -rf ${BUILD_DIR}/*
@@ -50,9 +46,8 @@ fi
 
 cd ${BUILD_DIR}
 
-# TODO: Remove this line once we change the php binary package names
-# We need to remove this package now in order to avoid conflict
-dpkg -l | grep gcp-php-5.6.30 && apt-get -y remove --purge gcp-php-5.6.30
+# update dependencies
+apt-get upgrade -y
 
 build_php_version()
 {

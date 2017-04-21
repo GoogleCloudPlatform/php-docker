@@ -7,7 +7,8 @@ source ${DEB_BUILDER_DIR}/extensions/functions.sh
 echo "Building pq for gcp-php${SHORT_VERSION}"
 
 apt-get install -y libpq-dev
-dpkg -i ${BUILD_DIR}/gcp-php${SHORT_VERSION}-raphf*.deb
+
+install_last_package "gcp-php${SHORT_VERSION}-raphf"
 /opt/php${SHORT_VERSION}/bin/php${SHORT_VERSION}-enmod raphf
 
 PNAME="gcp-php${SHORT_VERSION}-pq"

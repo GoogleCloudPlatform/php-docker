@@ -30,20 +30,11 @@ We currently support the latest patch version of 5.6, 7.0, and 7.1. See
 
 ## Building Packages
 
-```bash
-$ docker build . -t debian_package_builder_php
-$ docker run --rm -v /path/to/output/directory:/workspace debian_package_builder_php <VERSIONS> [EXTENSIONS]
-```
+1. Install `gcloud` utils.
+2. `GOOGLE_PROJECT_ID=my_project_id ./build_packages.sh`
 
-VERSIONS is a comma-separated list of php versions.
+This will use Google Cloud Container Builder to compile packages using docker. The compiled .deb files will be
+uploaded to the bucket named `$BUCKET` (defaults to the project id).
 
-EXTENSIONS is an optional comma-separated list of extension names. If not provided we will build all extensions.
-
-Example:
-
-```bash
-docker run --rm -v /tmp:/workspace debian_package_builder_php 7.1.2-2,7.0.16-2,5.6.30-2 jsonc,phalcon
-```
-
-The builder compiles all of the extensions in a working directory, then copies the .deb artifact to the `/workspace`
-directory. If you do not mount a local volume into the container, then you will not see your build packages.
+If you want to build for specific versions of PHP, set the ``$PHP_VERSIONS` environment variable to a comma separated list
+of PHP versions. This defaults to a hard-coded list defined in the `build_packages.sh` file

@@ -1,0 +1,7 @@
+steps:
+  - name: gcr.io/cloud-builders/gsutil
+    args: ['-m', 'rsync', 'gs://${_BUCKET}/packages/${_PHP_VERSION}/', '/workspace/pkg/']
+  - name: ${_IMAGE}
+    args: ['${_PHP_VERSION}']
+  - name: gcr.io/cloud-builders/gsutil
+    args: ['-m', 'rsync', '/workspace/pkg/', 'gs://${_BUCKET}/packages/${_PHP_VERSION}/']

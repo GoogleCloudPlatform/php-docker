@@ -14,7 +14,7 @@ if [ ${SHORT_VERSION} == '56' ]; then
     exit 0
 else
     # We need to install the build dep
-    dpkg -i ${BUILD_DIR}/gcp-php${SHORT_VERSION}-apcu*.deb
+    install_last_package "gcp-php${SHORT_VERSION}-apcu"
     download_from_pecl apcu_bc-beta
 fi
 

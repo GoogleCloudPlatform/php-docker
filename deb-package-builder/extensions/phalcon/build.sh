@@ -13,7 +13,7 @@ download_from_tarball https://github.com/phalcon/cphalcon/archive/v3.0.4.tar.gz 
 
 # Build directories are different for php 5 vs 7
 if [ ${SHORT_VERSION} == "56" ]; then
-    dpkg -i ${BUILD_DIR}/gcp-php${SHORT_VERSION}-json*.deb
+    install_last_package gcp-php${SHORT_VERSION}-json
     PACKAGE_DIR=${PACKAGE_DIR}/build/php5/64bits/
 elif [ ${SHORT_VERSION} == "70" ]; then
     PACKAGE_DIR=${PACKAGE_DIR}/build/php7/64bits/

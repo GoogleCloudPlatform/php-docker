@@ -37,7 +37,7 @@ download_from_pecl()
     mv ${PACKAGE_SHORT_NAME}-${EXT_VERSION}.tgz \
        ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz
     mkdir -p ${PACKAGE_DIR}
-    tar zxvf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz \
+    tar zxf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz \
         -C ${PACKAGE_DIR} --strip-components=1
 }
 
@@ -63,34 +63,47 @@ download_from_tarball()
     # Download the file
     curl -L $1 -o ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz
     mkdir -p ${PACKAGE_DIR}
-    tar zxvf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz \
+    tar zxf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz \
         -C ${PACKAGE_DIR} --strip-components=1
+}
+
+install_last_package()
+{
+    if [ -z "$1" ]; then
+        echo "missing argument for install_last_package"
+        exit $E_PARAM_ERR
+    fi
+    ls -t ${ARTIFACT_DIR}/$1_* | head -n 1 | xargs dpkg -i
 }
 
 build_package()
 {
-    cp -R ${DEB_BUILDER_DIR}/extensions/${1}/debian ${PACKAGE_DIR}
+    OUTPUT_FILE=${PNAME}_${EXT_VERSION}-${FULL_VERSION}_amd64.deb
 
-    if [ -e "${PACKAGE_DIR}/debian/rules.in" ]; then
-        envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/rules.in \
-                 > ${PACKAGE_DIR}/debian/rules
-    fi
-    chmod +x ${PACKAGE_DIR}/debian/rules
-    if [ -e "${PACKAGE_DIR}/debian/control.in" ]; then
-        envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/control.in \
-                 > ${PACKAGE_DIR}/debian/control
-    fi
+    if [ ! -f "${ARTIFACT_DIR}/${OUTPUT_FILE}" ]; then
+        cp -R ${DEB_BUILDER_DIR}/extensions/${1}/debian ${PACKAGE_DIR}
 
-    if [ -e "${PACKAGE_DIR}/debian/gcp-php-${1}.install.in" ]; then
-        envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/gcp-php-${1}.install.in \
-                 > ${PACKAGE_DIR}/debian/gcp-php${SHORT_VERSION}-${1}.install
+        if [ -e "${PACKAGE_DIR}/debian/rules.in" ]; then
+            envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/rules.in \
+                     > ${PACKAGE_DIR}/debian/rules
+        fi
+        chmod +x ${PACKAGE_DIR}/debian/rules
+        if [ -e "${PACKAGE_DIR}/debian/control.in" ]; then
+            envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/control.in \
+                     > ${PACKAGE_DIR}/debian/control
+        fi
+
+        if [ -e "${PACKAGE_DIR}/debian/gcp-php-${1}.install.in" ]; then
+            envsubst '${SHORT_VERSION}' < ${PACKAGE_DIR}/debian/gcp-php-${1}.install.in \
+                     > ${PACKAGE_DIR}/debian/gcp-php${SHORT_VERSION}-${1}.install
+        fi
+        rm ${PACKAGE_DIR}/debian/*.in || true
+        pushd ${PACKAGE_DIR}
+        dch --create -v "${EXT_VERSION}-${FULL_VERSION}" \
+            --package ${PNAME} --empty -M \
+            "Build ${EXT_VERSION}-${FULL_VERSION} of ${PNAME}"
+        dpkg-buildpackage -us -uc -j"$(nproc)"
+        cp ../${OUTPUT_FILE} ${ARTIFACT_DIR}
+        popd
     fi
-    rm ${PACKAGE_DIR}/debian/*.in || true
-    pushd ${PACKAGE_DIR}
-    dch --create -v "${EXT_VERSION}-${FULL_VERSION}" \
-        --package ${PNAME} --empty -M \
-        "Build ${EXT_VERSION}-${FULL_VERSION} of ${PNAME}"
-    dpkg-buildpackage -us -uc -j"$(nproc)"
-    cp ../${PNAME}_${EXT_VERSION}-${FULL_VERSION}_amd64.deb ${ARTIFACT_DIR}
-    popd
 }
