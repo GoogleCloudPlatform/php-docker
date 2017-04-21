@@ -57,8 +57,7 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
      */
     public function testGenFiles(
         $dir,
-        $baseImageEnv,
-        $tagEnv,
+        $baseImage,
         $appYamlEnv,
         $expectedDocRoot,
         $expectedDockerIgnore,
@@ -71,18 +70,11 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
                 copy($dir . '/' . $file, self::$testDir . '/' . $file);
             }
         }
-        // Simulate environment variable
-        if (!empty($baseImageEnv)) {
-            putenv('BUILDER_TARGET_IMAGE=' . $baseImageEnv);
-        }
-        if (!empty($tagEnv)) {
-            putenv('BUILDER_TARGET_TAG=' . $tagEnv);
-        }
         if (!empty($appYamlEnv)) {
             putenv('GAE_APPLICATION_YAML_PATH=' . $appYamlEnv);
         }
         $genFiles = new \GenFiles(self::$testDir);
-        $genFiles->createDockerfile();
+        $genFiles->createDockerfile($baseImage);
 
         $dockerfile = file_get_contents(self::$testDir . '/Dockerfile');
         $this->assertTrue($dockerfile !== false, 'Dockerfile should exist');
@@ -105,11 +97,16 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
 
     public function dataProvider()
     {
+        $dir,
+        $baseImage,
+        $appYamlEnv,
+        $expectedDocRoot,
+        $expectedDockerIgnore,
+        $expectedFrom
         return [
             [
                 // Simplest case
                 __DIR__ . '/test_data/simplest',
-                '',
                 '',
                 '',
                 '/app',
@@ -120,36 +117,23 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
                 // Different yaml path
                 __DIR__ . '/test_data/different_yaml',
                 '',
-                '',
                 'my.yaml',
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php:latest'
             ],
             [
-                // Overrides BUILDER_TARGET_IMAGE
+                // Overrides baseImage
                 __DIR__ . '/test_data/simplest',
-                'gcr.io/php-mvm-a/php-nginx',
-                '',
+                'gcr.io/php-mvm-a/php-nginx:latest'
                 '',
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/php-mvm-a/php-nginx:latest'
             ],
             [
-                // Also oerrides BUILDER_TARGET_TAG
-                __DIR__ . '/test_data/simplest',
-                'gcr.io/php-mvm-a/php-nginx',
-                'test',
-                '',
-                '/app',
-                'added by the php runtime builder',
-                'gcr.io/php-mvm-a/php-nginx:test'
-            ],
-            [
                 // Has document_root set
                 __DIR__ . '/test_data/docroot',
-                '',
                 '',
                 '',
                 '/app/web',
@@ -159,7 +143,6 @@ class GenFilesTest extends \PHPUnit_Framework_TestCase
             [
                 // Has files already
                 __DIR__ . '/test_data/has_files',
-                '',
                 '',
                 '',
                 '/test',
