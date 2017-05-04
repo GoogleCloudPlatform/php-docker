@@ -72,6 +72,8 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
             );
         }
         self::deploy($project_id, $e2e_test_version);
+        echo 'Sleeping for the deployment settles down' . PHP_EOL;
+        sleep(60);
     }
 
     public static function deploy($project_id, $e2e_test_version)
