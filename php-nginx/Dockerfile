@@ -57,7 +57,8 @@ ENV NGINX_DIR=/etc/nginx \
     PHP70_VERSION=7.0.15 \
     PHP71_VERSION=7.1.1 \
     PATH=/opt/php/bin:$PATH \
-    WWW_HOME=/var/www
+    WWW_HOME=/var/www \
+    DOCUMENT_ROOT=/app
 
 # Install build scripts - composer, nginx, php
 COPY build-scripts /build-scripts
