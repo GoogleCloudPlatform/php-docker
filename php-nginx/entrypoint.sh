@@ -99,15 +99,6 @@ session.save_path="${MEMCACHE_PORT_11211_TCP_ADDR}:${MEMCACHE_PORT_11211_TCP_POR
 EOF
 fi
 
-# Configure document root in php.ini and nginx.conf with DOCUMENT_ROOT
-# environment variable or APP_DIR if DOCUMENT_ROOT is not set.
-
-if [ -z "${DOCUMENT_ROOT}" ]; then
-    DOCUMENT_ROOT="${APP_DIR}"
-fi
-
-sed -i "s|%%DOC_ROOT%%|${DOCUMENT_ROOT}|g" "${NGINX_DIR}/nginx.conf"
-
 if [ -f "${APP_DIR}/composer.json" ]; then
     # run the composer scripts for post-deploy
     if su www-data -c "php /usr/local/bin/composer --no-ansi run-script -l" \

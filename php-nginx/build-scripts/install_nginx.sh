@@ -18,4 +18,4 @@
 # A shell script for installing nginx.
 set -xe
 
-apt-get install -y nginx --no-install-recommends
+apt-get install -y nginx-extras --no-install-recommends
