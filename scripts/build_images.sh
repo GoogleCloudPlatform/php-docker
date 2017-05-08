@@ -78,7 +78,7 @@ do
   envsubst '${BASE_IMAGE}' < ${TEMPLATE} > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
 done
 
-gcloud -q container builds submit testapps \
+gcloud container builds submit testapps \
   --config testapps/cloudbuild.yaml \
   --timeout 3600 \
   --substitutions _TEST_RUNNER=$TEST_RUNNER,_TAG=$TAG
