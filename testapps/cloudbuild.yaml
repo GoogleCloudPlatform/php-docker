@@ -27,7 +27,7 @@ steps:
     waitFor: ['php56-build', 'test-network']
     id: php56-app
   - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG', '-v', '/workspace:/workspace', '$_TEST_RUNNER', '/workspace/php56']
+    args: ['run', '--net=nw_$_TAG', '-v', '/workspace:/workspace', '$_TEST_RUNNER']
     waitFor: ['php56-app', 'test-runner']
 
   # php56-custom test
@@ -44,7 +44,7 @@ steps:
     waitFor: ['php56-custom-build', 'test-network']
     id: php56-custom-app
   - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', '$_TEST_RUNNER', '/workspace/php56_custom']
+    args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', '$_TEST_RUNNER']
     waitFor: ['php56-custom-app', 'test-runner']
 
   # php56-custom-configs test
@@ -58,7 +58,7 @@ steps:
     waitFor: ['php56-custom-configs-build', 'test-network']
     id: php56-custom-configs-app
   - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG', '-v', '/workspace:/workspace', '$_TEST_RUNNER', '/workspace/php56_custom_configs']
+    args: ['run', '--net=nw_$_TAG', '-v', '/workspace:/workspace', '$_TEST_RUNNER']
     waitFor: ['php56-custom-configs-app', 'test-runner']
 
   # php56-extensions test
@@ -82,7 +82,7 @@ steps:
     args: ['run', '--net=nw_$_TAG', '--name=php56-nginx-conf', '-d', 'gcr.io/$PROJECT_ID/php56-nginx-conf:$_TAG']
     waitFor: ['php56-nginx-conf-build', 'test-network']
   - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG', '-v', '/workspace:/workspace', '$_TEST_RUNNER', '/workspace/php56_nginx_conf']
+    args: ['run', '--net=nw_$_TAG', '-v', '/workspace:/workspace', '$_TEST_RUNNER']
     waitFor: ['php56-nginx-conf-build', 'test-runner']
 
   # php70-custom test
@@ -92,7 +92,7 @@ steps:
     waitFor: ['-']
     id: php70-custom-build
   - name: gcr.io/gcp-runtimes/structure_test
-    args: ['-i', 'gcr.io/$PROJECT_ID/php70-custom:$_TAG', '--config', 'php70_custom.yaml', '-v']
+    args: ['-i', 'gcr.io/$PROJECT_ID/php70-custom:$_TAG', '--config', 'php70.yaml', '-v']
     waitFor: ['php70-custom-build']
   - name: gcr.io/cloud-builders/docker
     args: ['run', '--net=nw_$_TAG', '--name=php70-custom', '-d', 'gcr.io/$PROJECT_ID/php70-custom:$_TAG']
@@ -120,7 +120,7 @@ steps:
     waitFor: ['-']
     id: php71-custom-build
   - name: gcr.io/gcp-runtimes/structure_test
-    args: ['-i', 'gcr.io/$PROJECT_ID/php71-custom:$_TAG', '--config', 'php71_custom.yaml', '-v']
+    args: ['-i', 'gcr.io/$PROJECT_ID/php71-custom:$_TAG', '--config', 'php71.yaml', '-v']
     waitFor: ['php71-custom-build']
   - name: gcr.io/cloud-builders/docker
     args: ['run', '--net=nw_$_TAG', '--name=php71-custom', '-d', 'gcr.io/$PROJECT_ID/php71-custom:$_TAG']
