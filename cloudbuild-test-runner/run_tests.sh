@@ -14,12 +14,12 @@
 
 set -ex
 
-if [ "$#" -eq 0 ]; then
-  TEST_DIR='/workspace'
-else
-  TEST_DIR=${1}
-fi
-cd ${TEST_DIR}
+# if [ "$#" -eq 0 ]; then
+#   TEST_DIR='/workspace'
+# else
+#   TEST_DIR=${1}
+# fi
+# cd ${TEST_DIR}
 
 if [ -f composer.json ]; then
     composer install --no-scripts --no-interaction --no-ansi --no-progress
