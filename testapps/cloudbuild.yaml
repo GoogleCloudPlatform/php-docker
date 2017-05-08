@@ -27,8 +27,7 @@ steps:
     waitFor: ['php56-build', 'test-network']
     id: php56-app
   - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG', '-v', '/workspace:/workspace', '$_TEST_RUNNER']
-    dir: php56
+    args: ['run', '--net=nw_$_TAG', '-v', '/workspace:/workspace', '$_TEST_RUNNER', '/workspace/php56']
     waitFor: ['php56-app', 'test-runner']
 
   # php56-custom test
@@ -45,8 +44,7 @@ steps:
     waitFor: ['php56-custom-build', 'test-network']
     id: php56-custom-app
   - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', '$_TEST_RUNNER']
-    dir: php56_custom
+    args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', '$_TEST_RUNNER', '/workspace/php56_custom']
     waitFor: ['php56-custom-app', 'test-runner']
 
   # php56-custom-configs test
@@ -60,8 +58,7 @@ steps:
     waitFor: ['php56-custom-configs-build', 'test-network']
     id: php56-custom-configs-app
   - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG', '-v', '/workspace:/workspace', '$_TEST_RUNNER']
-    dir: php56_custom_configs
+    args: ['run', '--net=nw_$_TAG', '-v', '/workspace:/workspace', '$_TEST_RUNNER', '/workspace/php56_custom_configs']
     waitFor: ['php56-custom-configs-app', 'test-runner']
 
   # php56-extensions test
@@ -85,8 +82,7 @@ steps:
     args: ['run', '--net=nw_$_TAG', '--name=php56-nginx-conf', '-d', 'gcr.io/$PROJECT_ID/php56-nginx-conf:$_TAG']
     waitFor: ['php56-nginx-conf-build', 'test-network']
   - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG', '-v', '/workspace:/workspace', '$_TEST_RUNNER']
-    dir: php56_nginx_conf
+    args: ['run', '--net=nw_$_TAG', '-v', '/workspace:/workspace', '$_TEST_RUNNER', '/workspace/php56_nginx_conf']
     waitFor: ['php56-nginx-conf-build', 'test-runner']
 
   # php70-custom test
@@ -103,8 +99,7 @@ steps:
     waitFor: ['php70-custom-build', 'test-network']
     id: php70-custom-app
   - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', '$_TEST_RUNNER']
-    dir: php70_custom/tests
+    args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', '$_TEST_RUNNER', '/workspace/php70_custom/tests']
     waitFor: ['php70-custom-app', 'test-runner']
 
   # php70-extensions test
@@ -132,8 +127,7 @@ steps:
     waitFor: ['php71-custom-build', 'test-network']
     id: php71-custom-app
   - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', '$_TEST_RUNNER']
-    dir: php71_custom/tests
+    args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', '$_TEST_RUNNER', '/workspace/php71_custom/tests']
     waitFor: ['php71-custom-app', 'test-runner']
 
   # php71-extensions test
