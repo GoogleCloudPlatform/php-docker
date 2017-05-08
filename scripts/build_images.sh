@@ -73,10 +73,15 @@ build_image php php-nginx
 # build_image php71_extensions testapps/php71_extensions
 # build_image php/gen-dockerfile builder/gen-dockerfile
 
+for TEMPLATE in `ls testapps/**/Dockerfile.in`
+do
+  envsubst '${BASE_IMAGE}' < ${TEMPLATE} > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
+done
+
 gcloud -q container builds submit testapps \
   --config testapps/cloudbuild.yaml \
   --timeout 3600 \
-  --substitutions _TEST_RUNNER=$TEST_RUNNER,_TAG=$TAG,_IMAGE_BASE=gcr.io/${GOOGLE_PROJECT_ID}
+  --substitutions _TEST_RUNNER=$TEST_RUNNER,_TAG=$TAG
 
 if [ -z "${RUN_E2E_TESTS}" ]; then
     echo 'E2E test skipped'
