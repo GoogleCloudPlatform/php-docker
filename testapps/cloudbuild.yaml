@@ -104,7 +104,7 @@ steps:
     id: php70-custom-app
   - name: gcr.io/cloud-builders/docker
     args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', '$_TEST_RUNNER']
-    dir: php70_custom
+    dir: php70_custom/tests
     waitFor: ['php70-custom-app', 'test-runner']
 
   # php70-extensions test
@@ -133,7 +133,7 @@ steps:
     id: php71-custom-app
   - name: gcr.io/cloud-builders/docker
     args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', '$_TEST_RUNNER']
-    dir: php71_custom
+    dir: php71_custom/tests
     waitFor: ['php71-custom-app', 'test-runner']
 
   # php71-extensions test
