@@ -107,13 +107,7 @@ RUN chgrp www-data /tmp/detect_php_version.php && \
     cd /tmp && \
     su www-data -c "php /usr/local/bin/composer require composer/semver"
 
-# Copy the app and change the owner
-ONBUILD COPY . $APP_DIR
-ONBUILD RUN chown -R www-data.www-data $APP_DIR
-
 WORKDIR $APP_DIR
-
-ONBUILD RUN /composer.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

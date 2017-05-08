@@ -32,6 +32,7 @@ fi
 export RUNTIME_DISTRIBUTION
 
 SRC_TMP=$(mktemp -d)
+export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
 export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
 # build the php test runner and export the name
 export TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
@@ -52,7 +53,8 @@ build_image () {
     cp -R "${DIR}" "${SRC_DIR}"
     # Replace the FROM line to point to our image in gcr.io.
     if [ -f "${SRC_DIR}/Dockerfile.in" ]; then
-        envsubst '${BASE_IMAGE}' < "${SRC_DIR}/Dockerfile.in" \
+        envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' \
+                 < "${SRC_DIR}/Dockerfile.in" \
                  > "${SRC_DIR}/Dockerfile"
     fi
     envsubst < "${SRC_DIR}/cloudbuild.yaml.in" > "${SRC_DIR}/cloudbuild.test.yaml"
@@ -60,7 +62,8 @@ build_image () {
       --config "${SRC_DIR}"/cloudbuild.test.yaml --timeout 3600
 }
 
-build_image php php-nginx
+build_image php-base php-base
+build_image php php-onbuild
 build_image php_default testapps/php_default
 build_image php56 testapps/php56
 build_image php56_custom  testapps/php56_custom
