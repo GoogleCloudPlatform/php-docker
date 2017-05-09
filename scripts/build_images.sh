@@ -61,17 +61,7 @@ build_image () {
 }
 
 build_image php php-nginx
-# build_image php_default testapps/php_default
-# build_image php56 testapps/php56
-# build_image php56_custom  testapps/php56_custom
-# build_image php56_nginx_conf testapps/php56_nginx_conf
-# build_image php56_custom_configs testapps/php56_custom_configs
-# build_image php56_extensions testapps/php56_extensions
-# build_image php70_custom testapps/php70_custom
-# build_image php70_extensions testapps/php70_extensions
-# build_image php71_custom testapps/php71_custom
-# build_image php71_extensions testapps/php71_extensions
-# build_image php/gen-dockerfile builder/gen-dockerfile
+build_image php/gen-dockerfile builder/gen-dockerfile
 
 for TEMPLATE in `ls testapps/**/Dockerfile.in`
 do
