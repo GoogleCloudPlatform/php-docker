@@ -20,7 +20,6 @@ namespace Google\Cloud\Runtimes\Builder;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 
@@ -70,7 +69,7 @@ class GenFilesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if(!$baseImage = $input->getArgument('base-image')) {
+        if (!$baseImage = $input->getArgument('base-image')) {
             $baseImage = self::DEFAULT_BASE_IMAGE;
         }
         $this->createDockerfile($baseImage);
@@ -126,7 +125,7 @@ class GenFilesCommand extends Command
                 'GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT' => 'true'
             ];
         $envString = 'ENV ';
-        foreach($envs as $key => $value) {
+        foreach ($envs as $key => $value) {
             $envString .= "$key=$value \\";
         }
         // Remove the last backslash
