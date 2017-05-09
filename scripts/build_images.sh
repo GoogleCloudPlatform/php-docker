@@ -53,5 +53,8 @@ else
         echo "You need to set SERVICE_ACCOUNT_JSON envvar pointing to a json file in GCS."
         exit 1
     fi
-    build_image php71_e2e testapps/php71_e2e
+    gcloud container builds submit testapps/php71e2e \
+      --config testapps/php71_e2e/cloudbuild.test.yaml \
+      --timeout 3600 \
+      --substitutions _TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$E2E_PROJECT_ID
 fi
