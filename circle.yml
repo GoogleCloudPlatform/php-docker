@@ -24,4 +24,3 @@ test:
   override:
     - scripts/run_test_suite.sh:
         timeout: 1800
-    - scripts/run_builder_test.sh
