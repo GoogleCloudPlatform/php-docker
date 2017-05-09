@@ -15,7 +15,7 @@
 # Dockerfile for PHP builder step 1
 # Creates Dockerfile and .dockerignore
 
-FROM ${BASE_IMAGE}
+FROM ${PHP_BASE_IMAGE}
 
 RUN mkdir /builder
 COPY . /builder

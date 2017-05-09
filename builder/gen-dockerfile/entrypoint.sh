@@ -17,4 +17,4 @@
 # A shell wrapper for generating a Dockerfile
 set -xe
 
-php /builder/src/create_dockerfile.php "$@"
+php /builder/create_dockerfile.php create "$@"

@@ -16,7 +16,7 @@
 
 FROM {{ base_image }}
 
-ENV DOCUMENT_ROOT {{ document_root }}
+{{ env_string }}
 
 COPY . $APP_DIR
 RUN chown -R www-data.www-data $APP_DIR
