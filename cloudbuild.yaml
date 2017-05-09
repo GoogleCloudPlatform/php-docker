@@ -191,4 +191,4 @@ steps:
 images:
   - gcr.io/$PROJECT_ID/php-base:$_TAG
   - gcr.io/$PROJECT_ID/php:$_TAG
-  - gcr.io/$PROJECT_ID/php-base:$_TAG
+  - gcr.io/$PROJECT_ID/php/gen-dockerfile:$_TAG
