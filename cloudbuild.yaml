@@ -41,6 +41,13 @@ steps:
   - name: gcr.io/cloud-builders/docker
     args: ['run', '-v', '/workspace:/workspace', 'gcr.io/$PROJECT_ID/php-test-runner:$_TAG', '/workspace/builder/gen-dockerfile']
     waitFor: ['test-runner']
+  - name: gcr.io/$PROJECT_ID/php/gen-dockerfile:$_TAG
+    dir: testapps/builder_test
+    waitFor: ['gen-dockerfile']
+    id: gen-dockerfile-run
+  - name: gcr.io/$PROJECT_ID/php-test-runner:$_TAG
+    dir: testapps/builder_test
+    waitFor: ['gen-dockerfile-run']
 
   # php-default test
   - name: gcr.io/cloud-builders/docker
