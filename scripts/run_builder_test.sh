@@ -25,6 +25,9 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
     exit 1
 fi
 
+echo "Skipping builder test - now included with the build step"
+exit 0
+
 # Export some image names
 export GEN_DOCKERFILE="gcr.io/${GOOGLE_PROJECT_ID}/php/gen-dockerfile:${TAG}"
 export TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
@@ -39,6 +42,5 @@ envsubst '{$GEN_DOCKERFILE},${TEST_RUNNER}' \
          < "${SRC_DIR}/cloudbuild.yaml.in" \
          > "${SRC_DIR}/cloudbuild.yaml"
 
-# gcloud -q beta container builds submit "${SRC_DIR}" \
-#       --config "${SRC_DIR}/cloudbuild.yaml"
-echo "Skipping builder test - now included with the build step"
+gcloud -q beta container builds submit "${SRC_DIR}" \
+      --config "${SRC_DIR}/cloudbuild.yaml"
