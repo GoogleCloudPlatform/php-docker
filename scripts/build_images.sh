@@ -33,6 +33,7 @@ export RUNTIME_DISTRIBUTION
 
 SRC_TMP=$(mktemp -d)
 export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
+export TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
 
 build_image () {
     if [ "$#" -ne 2 ]; then
