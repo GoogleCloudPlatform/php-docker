@@ -33,10 +33,6 @@ export RUNTIME_DISTRIBUTION
 
 SRC_TMP=$(mktemp -d)
 export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
-# build the php test runner and export the name
-export TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
-gcloud -q container builds submit --tag "${TEST_RUNNER}" \
-    cloudbuild-test-runner
 
 build_image () {
     if [ "$#" -ne 2 ]; then
@@ -71,7 +67,7 @@ done
 gcloud container builds submit testapps \
   --config testapps/cloudbuild.yaml \
   --timeout 3600 \
-  --substitutions _TEST_RUNNER=$TEST_RUNNER,_TAG=$TAG
+  --substitutions _TAG=$TAG
 
 if [ -z "${RUN_E2E_TESTS}" ]; then
     echo 'E2E test skipped'
