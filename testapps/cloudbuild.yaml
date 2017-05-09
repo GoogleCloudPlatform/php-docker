@@ -3,7 +3,7 @@
 steps:
   # test runner
   - name: gcr.io/cloud-builders/docker
-    args: ['pull', '$_TEST_RUNNER']
+    args: ['pull', 'gcr.io/$PROJECT_ID/php-test-runner:$_TAG']
     waitFor: ['-']
     id: test-runner
 
