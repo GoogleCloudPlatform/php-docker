@@ -37,6 +37,12 @@ class GenFilesCommand extends Command
     /* @var array */
     private $appYaml;
 
+    /* @var \Twig_Environment */
+    private $twig;
+
+    /* @var string */
+    private $baseImage;
+
     protected function configure()
     {
         $this
@@ -55,9 +61,12 @@ class GenFilesCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        $baseImage = $input->getArgument('base-image')
+        $loader = new \Twig_Loader_Filesystem(__DIR__ . '/templates');
+        $this->twig = new \Twig_Environment($loader);
+
+        $this->baseImage = $input->getArgument('base-image')
             ?: self::DEFAULT_BASE_IMAGE;
         $this->workspace = $input->getOption('workspace')
             ?: getenv('PWD')
@@ -68,8 +77,11 @@ class GenFilesCommand extends Command
             $this->appYaml = Yaml::parse(
                 file_get_contents($this->workspace . '/' . $yamlPath));
         }
+    }
 
-        $this->createDockerfile($baseImage);
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $this->createDockerfile($this->baseImage);
         $this->createDockerignore();
     }
 
@@ -128,9 +140,7 @@ class GenFilesCommand extends Command
         // Remove the last new line and the backslash
         $envString = rtrim($envString, "\n");
         $envString = rtrim($envString, '\\');
-        $loader = new \Twig_Loader_Filesystem(__DIR__ . '/templates');
-        $twig = new \Twig_Environment($loader);
-        $template = $twig->load('Dockerfile.twig');
+        $template = $this->twig->load('Dockerfile.twig');
         $dockerfile = $template->render(array(
             'base_image' => $baseImage,
             'env_string' => $envString
@@ -139,18 +149,17 @@ class GenFilesCommand extends Command
     }
 
     /**
-     * Creates a .dockerignore if it doesn't exist in the workspace.
+     * Creates .dockerignore, or adds some lines to an existing one.
      */
     public function createDockerignore()
     {
-        if (file_exists($this->workspace . '/.dockerignore')) {
-            echo 'not creating .dockerignore because the file already exists'
-                . PHP_EOL;
-            return;
-        }
-        copy(
-            __DIR__ . '/templates/dockerignore.tmpl',
-            $this->workspace . '/.dockerignore'
-        );
+        $template = $this->twig->load('dockerignore.twig');
+        $yamlPath = getenv('GAE_APPLICATION_YAML_PATH')
+            ?: '';
+        $dockerignore = "\n"
+            . $template->render(['app_yaml_path' => $yamlPath]);
+        $fp = fopen($this->workspace . '/.dockerignore', 'a');
+        fwrite($fp, $dockerignore);
+        fclose($fp);
     }
 }

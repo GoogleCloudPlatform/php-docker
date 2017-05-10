@@ -98,6 +98,9 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
             $expectedDockerIgnore,
             $dockerignore
         );
+        if (!empty($appYamlEnv)) {
+            $this->assertContains($appYamlEnv, $dockerignore);
+        }
         foreach ($otherExpectations as $expectation) {
             $this->assertContains($expectation, $dockerfile);
         }
@@ -113,8 +116,8 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 '',
                 '/app',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php-base:latest'
-                ["GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT=true \\\n"]
+                'gcr.io/google-appengine/php-base:latest',
+                ["GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT=true \n"]
             ],
             [
                 // whitelist_functions
