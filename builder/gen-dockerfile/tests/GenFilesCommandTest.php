@@ -16,6 +16,8 @@
  */
 namespace Google\Cloud\Runtimes\Builder;
 
+use Symfony\Component\Console\Tester\CommandTester;
+
 class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
 {
     public static $testDir;
@@ -72,8 +74,12 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
         if (!empty($appYamlEnv)) {
             putenv('GAE_APPLICATION_YAML_PATH=' . $appYamlEnv);
         }
-        $genFiles = new GenFilesCommand(self::$testDir);
-        $genFiles->createDockerfile($baseImage);
+        $genFiles = new GenFilesCommand();
+        $commandTester = new CommandTester($genFiles);
+        $commandTester->execute([
+            'base-image' => $baseImage,
+            '--workspace' => self::$testDir
+        ]);
 
         $dockerfile = file_get_contents(self::$testDir . '/Dockerfile');
         $this->assertTrue($dockerfile !== false, 'Dockerfile should exist');
