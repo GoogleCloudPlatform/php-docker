@@ -1,0 +1,5 @@
+env: flex
+runtime: php
+
+runtime_config:
+  whitelist_functions: exec

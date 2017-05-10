@@ -1,6 +1,12 @@
 {
     "require": {
+        "symfony/console": "^3.2",
         "symfony/yaml": "^3.2",
         "twig/twig": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Google\\Cloud\\Runtimes\\Builder\\": "src"
+        }
     }
 }

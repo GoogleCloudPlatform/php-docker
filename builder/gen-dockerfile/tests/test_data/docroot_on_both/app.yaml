@@ -1,0 +1,8 @@
+env: flex
+runtime: php
+
+env_variables:
+  DOCUMENT_ROOT: /app/public
+
+runtime_config:
+  document_root: web
