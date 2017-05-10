@@ -15,16 +15,11 @@
  * limitations under the License.
  */
 
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/GenFiles.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
-$genFiles = $argc >= 3
-    ? new GenFiles($argv[2])
-    : new GenFiles();
-if ($argc >= 2) {
-    // Passing the base image
-    $genFiles->createDockerfile($argv[1]);
-} else {
-    $genFiles->createDockerfile();
-}
-$genFiles->createDockerignore();
+use Google\Cloud\Runtimes\Builder\GenFilesCommand;
+use Symfony\Component\Console\Application;
+
+$app = new Application();
+$app->add(new GenFilesCommand());
+$app->run();

@@ -77,10 +77,14 @@ EOF
     php -d auto_prepend_file='' /tmp/install_extensions.php ${APP_DIR}/composer.json ${PHP_DIR}/lib/conf.d/extensions.ini ${PHP_VERSION}
 
     # Run Composer.
+    if [ -n "${GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT}" ]; then
+        NOSCRIPT=''
+    else
+        NOSCRIPT='--no-scripts'
+    fi
     cd ${APP_DIR} && \
         su -m www-data -c "php -d auto_prepend_file='' /usr/local/bin/composer \
-          install \
-          --no-scripts \
+          install ${NOSCRIPT} \
           --no-dev \
           --prefer-dist \
           --optimize-autoloader \

@@ -40,6 +40,7 @@ do
   envsubst '${BASE_IMAGE}' < ${TEMPLATE} > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
 done
 envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' < php-onbuild/Dockerfile.in > php-onbuild/Dockerfile
+envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' < builder/gen-dockerfile/Dockerfile.in > builder/gen-dockerfile/Dockerfile
 
 gcloud container builds submit . \
   --config cloudbuild.yaml \

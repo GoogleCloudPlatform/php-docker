@@ -39,11 +39,10 @@ steps:
     waitFor: ['php-onbuild']
     id: gen-dockerfile
   - name: gcr.io/cloud-builders/docker
-    args: ['run', '-v', '/workspace:/workspace', 'gcr.io/$PROJECT_ID/php-test-runner:$_TAG', '/workspace/builder/gen-dockerfile']
+    args: ['run', '-v', '/workspace/builder/gen-dockerfile:/workspace', 'gcr.io/$PROJECT_ID/php-test-runner:$_TAG']
     waitFor: ['test-runner']
-  - name: gcr.io/$PROJECT_ID/php/gen-dockerfile:$_TAG
-    args: ['app.yaml', '/workspace/testapps/builder_test']
-    dir: testapps/builder_test
+  - name: gcr.io/cloud-builders/docker
+    args: ['run', '-v', '/workspace/testapps/builder_test:/workspace', 'gcr.io/$PROJECT_ID/php/gen-dockerfile:$_TAG']
     waitFor: ['gen-dockerfile']
     id: gen-dockerfile-run
   - name: gcr.io/cloud-builders/docker
