@@ -1,3 +1,0 @@
-steps:
-  - name: '${GEN_DOCKERFILE}'
-  - name: '${TEST_RUNNER}'

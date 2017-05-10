@@ -104,7 +104,7 @@ class PHP56CustomTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->client = new Client(['base_uri' => 'http://test-app:8080/']);
+        $this->client = new Client(['base_uri' => 'http://php56-custom:8080/']);
     }
 
     public function testDefaultFile()

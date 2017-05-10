@@ -1,7 +1,0 @@
-steps:
-        - name: ${TEST_RUNNER}
-          args: ['/workspace/tests']
-          env:
-          - 'SERVICE_ACCOUNT_JSON=${SERVICE_ACCOUNT_JSON}'
-          - 'TAG=${TAG}'
-          - 'GOOGLE_PROJECT_ID=${E2E_PROJECT_ID}'

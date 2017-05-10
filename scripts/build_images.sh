@@ -34,47 +34,18 @@ export RUNTIME_DISTRIBUTION
 SRC_TMP=$(mktemp -d)
 export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
 export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
-# build the php test runner and export the name
-export TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
-gcloud -q container builds submit --tag "${TEST_RUNNER}" \
-    cloudbuild-test-runner
 
-build_image () {
-    if [ "$#" -ne 2 ]; then
-        echo "Two arguments; the image name and the dir are required"
-        exit 1
-    fi
-    DIR="${2}"
-    # Build the image with container builder service if we have
-    # credentials.
-    export IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/${1}:${TAG}"
-    SRC_DIR="${SRC_TMP}/${DIR}"
-    mkdir -p $(dirname ${SRC_DIR})
-    cp -R "${DIR}" "${SRC_DIR}"
-    # Replace the FROM line to point to our image in gcr.io.
-    if [ -f "${SRC_DIR}/Dockerfile.in" ]; then
-        envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' \
-                 < "${SRC_DIR}/Dockerfile.in" \
-                 > "${SRC_DIR}/Dockerfile"
-    fi
-    envsubst < "${SRC_DIR}/cloudbuild.yaml.in" > "${SRC_DIR}/cloudbuild.test.yaml"
-    gcloud -q container builds submit "${SRC_DIR}" \
-      --config "${SRC_DIR}"/cloudbuild.test.yaml --timeout 3600
-}
+for TEMPLATE in `find . -name Dockerfile.in`
+do
+  envsubst '${BASE_IMAGE}' < ${TEMPLATE} > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
+done
+envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' < php-onbuild/Dockerfile.in > php-onbuild/Dockerfile
+envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' < builder/gen-dockerfile/Dockerfile.in > builder/gen-dockerfile/Dockerfile
 
-build_image php-base php-base
-build_image php php-onbuild
-build_image php_default testapps/php_default
-build_image php56 testapps/php56
-build_image php56_custom  testapps/php56_custom
-build_image php56_nginx_conf testapps/php56_nginx_conf
-build_image php56_custom_configs testapps/php56_custom_configs
-build_image php56_extensions testapps/php56_extensions
-build_image php70_custom testapps/php70_custom
-build_image php70_extensions testapps/php70_extensions
-build_image php71_custom testapps/php71_custom
-build_image php71_extensions testapps/php71_extensions
-build_image php/gen-dockerfile builder/gen-dockerfile
+gcloud container builds submit . \
+  --config cloudbuild.yaml \
+  --timeout 3600 \
+  --substitutions _TAG=$TAG,_RUNTIME_DISTRIBUTION=$RUNTIME_DISTRIBUTION
 
 if [ -z "${RUN_E2E_TESTS}" ]; then
     echo 'E2E test skipped'
@@ -83,5 +54,8 @@ else
         echo "You need to set SERVICE_ACCOUNT_JSON envvar pointing to a json file in GCS."
         exit 1
     fi
-    build_image php71_e2e testapps/php71_e2e
+    gcloud container builds submit testapps/php71_e2e \
+      --config testapps/php71_e2e/cloudbuild.test.yaml \
+      --timeout 3600 \
+      --substitutions _TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$E2E_PROJECT_ID
 fi

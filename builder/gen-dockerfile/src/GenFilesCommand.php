@@ -20,6 +20,7 @@ namespace Google\Cloud\Runtimes\Builder;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 
@@ -39,26 +40,8 @@ class GenFilesCommand extends Command
     /* @var \Twig_Environment */
     private $twig;
 
-    /**
-     * Constructor allows injecting the workspace directory.
-     */
-    public function __construct($workspace = null)
-    {
-        parent::__construct();
-        if ($workspace === null) {
-            $workspace = getenv('PWD')
-                ?: self::DEFAULT_WORKSPACE;
-        }
-        $this->workspace = $workspace;
-        $yamlPath = getenv('GAE_APPLICATION_YAML_PATH')
-            ?: self::DEFAULT_YAML_PATH;
-        if (file_exists($this->workspace . '/' . $yamlPath)) {
-            $this->appYaml = Yaml::parse(
-                file_get_contents($this->workspace . '/' . $yamlPath));
-        }
-        $loader = new \Twig_Loader_Filesystem(__DIR__ . '/templates');
-        $this->twig = new \Twig_Environment($loader);
-    }
+    /* @var string */
+    private $baseImage;
 
     protected function configure()
     {
@@ -69,15 +52,36 @@ class GenFilesCommand extends Command
                 'base-image',
                 InputArgument::OPTIONAL,
                 'The base image of the Dockerfile'
+            )
+            ->addOption(
+                'workspace',
+                'w',
+                InputOption::VALUE_REQUIRED,
+                'The directory that contains the app.yaml and artifact output directory'
             );
+    }
+
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
+        $loader = new \Twig_Loader_Filesystem(__DIR__ . '/templates');
+        $this->twig = new \Twig_Environment($loader);
+
+        $this->baseImage = $input->getArgument('base-image')
+            ?: self::DEFAULT_BASE_IMAGE;
+        $this->workspace = $input->getOption('workspace')
+            ?: getenv('PWD')
+            ?: self::DEFAULT_YAML_PATH;
+        $yamlPath = getenv('GAE_APPLICATION_YAML_PATH')
+            ?: self::DEFAULT_YAML_PATH;
+        if (file_exists($this->workspace . '/' . $yamlPath)) {
+            $this->appYaml = Yaml::parse(
+                file_get_contents($this->workspace . '/' . $yamlPath));
+        }
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (!$baseImage = $input->getArgument('base-image')) {
-            $baseImage = self::DEFAULT_BASE_IMAGE;
-        }
-        $this->createDockerfile($baseImage);
+        $this->createDockerfile($this->baseImage);
         $this->createDockerignore();
     }
 
@@ -92,7 +96,7 @@ class GenFilesCommand extends Command
     protected function envsFromRuntimeConfig()
     {
         $ret = [];
-        if (!array_key_exists('runtime_config', $this->appYaml)) {
+        if (!is_array($this->appYaml) || !array_key_exists('runtime_config', $this->appYaml)) {
             return $ret;
         }
         $runtime_config = $this->appYaml['runtime_config'];
