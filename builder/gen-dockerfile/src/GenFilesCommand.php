@@ -145,7 +145,7 @@ class GenFilesCommand extends Command
     }
 
     /**
-     * Creates a .dockerignore if it doesn't exist in the workspace.
+     * Creates .dockerignore, or adds some lines to an existing one.
      */
     public function createDockerignore()
     {
