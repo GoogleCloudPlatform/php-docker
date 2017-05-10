@@ -126,9 +126,10 @@ class GenFilesCommand extends Command
             ];
         $envString = 'ENV ';
         foreach ($envs as $key => $value) {
-            $envString .= "$key=$value \\";
+            $envString .= "$key=$value \\\n";
         }
-        // Remove the last backslash
+        // Remove the last new line and the backslash
+        $envString = rtrim($envString, "\n");
         $envString = rtrim($envString, '\\');
         $loader = new \Twig_Loader_Filesystem(__DIR__ . '/templates');
         $twig = new \Twig_Environment($loader);

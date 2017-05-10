@@ -108,7 +108,7 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php-base:latest'
-                ['GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT=true \\']
+                ["GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT=true \\\n"]
             ],
             [
                 // whitelist_functions
@@ -118,7 +118,7 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php-base:latest',
-                ['WHITELIST_FUNCTIONS=exec']
+                ["WHITELIST_FUNCTIONS=exec \\\n"]
             ],
             [
                 // whitelist_functions on env_variables
@@ -128,7 +128,7 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php-base:latest',
-                ['WHITELIST_FUNCTIONS=exec']
+                ["WHITELIST_FUNCTIONS=exec \\\n"]
             ],
             [
                 // whitelist_functions runtime_config wins
@@ -138,7 +138,7 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php-base:latest',
-                ['WHITELIST_FUNCTIONS=exec \\']
+                ["WHITELIST_FUNCTIONS=exec \\\n"]
             ],
             [
                 // Different yaml path
