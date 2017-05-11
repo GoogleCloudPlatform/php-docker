@@ -1,5 +1,8 @@
 runtime: custom
 env: flex
 
+runtime_config:
+  document_root: web
+
 env_variables:
   WHITELIST_FUNCTIONS: phpinfo,exec
