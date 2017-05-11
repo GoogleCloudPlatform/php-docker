@@ -63,7 +63,7 @@ steps:
     waitFor: ['php-onbuild']
 
   # gen-dockerfile
-  # - name: gcr.io/cloud-builders/docker
+  - name: gcr.io/cloud-builders/docker
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/php/gen-dockerfile:$_TAG', '.']
     dir: builder/gen-dockerfile
     waitFor: ['php-onbuild']
