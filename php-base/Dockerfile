@@ -58,6 +58,7 @@ ENV NGINX_DIR=/etc/nginx \
     PHP71_VERSION=7.1.1 \
     PATH=/opt/php/bin:$PATH \
     WWW_HOME=/var/www \
+    COMPOSER_HOME=/opt/composer \
     DOCUMENT_ROOT=/app
 
 # Install build scripts - composer, nginx, php
@@ -81,11 +82,11 @@ EXPOSE 8080
 
 # Lock down the web directories
 RUN mkdir -p $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
-        $NGINX_USER_CONF_DIR $WWW_HOME \
+        $NGINX_USER_CONF_DIR $WWW_HOME $COMPOSER_HOME \
     && chown -R www-data.www-data \
         $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
-        $NGINX_USER_CONF_DIR $WWW_HOME \
-    && chmod 755 $UPLOAD_DIR $SESSION_SAVE_PATH \
+        $NGINX_USER_CONF_DIR $WWW_HOME $COMPOSER_HOME \
+    && chmod 755 $UPLOAD_DIR $SESSION_SAVE_PATH $COMPOSER_HOME \
     # For easy access to php with `su www-data -c $CMD`
     && ln -sf ${PHP_DIR}/bin/php /usr/bin/php
 

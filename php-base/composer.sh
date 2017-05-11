@@ -58,7 +58,7 @@ EOF
     COMPOSER_GITHUB_OAUTH_TOKEN=${COMPOSER_GITHUB_OAUTH_TOKEN:-}
     if [[ -n "$COMPOSER_GITHUB_OAUTH_TOKEN" ]]; then
         if curl --fail --silent -H "Authorization: token $COMPOSER_GITHUB_OAUTH_TOKEN" https://api.github.com/rate_limit > /dev/null; then
-            su www-data -c "php /usr/local/bin/composer \
+            su -m www-data -c "php /usr/local/bin/composer \
               config -g github-oauth.github.com ${COMPOSER_GITHUB_OAUTH_TOKEN} &> /dev/null"
             # redirect outdated version warnings (Composer sends those to STDOUT instead of STDERR)
             echo 'Using $COMPOSER_GITHUB_OAUTH_TOKEN for GitHub OAuth.'
