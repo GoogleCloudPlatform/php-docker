@@ -16,6 +16,8 @@
 
 FROM gcr.io/google-appengine/php-base:latest
 
+RUN /bin/bash /build-scripts/install_php56.sh
+
 RUN mkdir -p /opt/bin
 ENV PATH=${PATH}:/usr/local/bin:/opt/gcloud/google-cloud-sdk/bin
 
@@ -23,6 +25,7 @@ COPY test-runner-php.ini /opt/php/lib/conf.d
 
 # Install PHP and tools
 RUN apt-get update && \
+    apt-get -y install wget zip && \
     wget -nv -O phpunit.phar https://phar.phpunit.de/phpunit-5.7.phar && \
     chmod +x phpunit.phar && \
     mv phpunit.phar /usr/local/bin/phpunit && \
