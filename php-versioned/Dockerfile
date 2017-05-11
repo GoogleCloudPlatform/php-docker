@@ -14,10 +14,15 @@
 
 # Dockerfile for PHP 5.6/7.0/7.1 using nginx as the webserver.
 
-FROM ${PHP_71_IMAGE}
+FROM gcr.io/chingor-php-gcs/php-base:versioned
 
-# Copy the app and change the owner
-ONBUILD COPY . $APP_DIR
-ONBUILD RUN chown -R www-data.www-data $APP_DIR
+ARG PHP_VERSION=7.1
 
-ONBUILD RUN /composer.sh
+RUN /bin/bash /build-scripts/install_php.sh && \
+    /bin/bash /build-scripts/install_composer.sh && \
+    chgrp www-data /tmp/detect_php_version.php && \
+    # Temporary enable the shell for www-data
+    # We will disable it in entrypoint.sh
+    chsh -s /bin/bash www-data && \
+      cd /tmp && \
+      su www-data -c "php /usr/local/bin/composer require composer/semver"

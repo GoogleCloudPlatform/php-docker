@@ -34,13 +34,14 @@ export RUNTIME_DISTRIBUTION
 SRC_TMP=$(mktemp -d)
 export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
 export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
+export PHP_71_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php71:${TAG}"
 
 for TEMPLATE in `find . -name Dockerfile.in`
 do
-  envsubst '${BASE_IMAGE}' < ${TEMPLATE} > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
+  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_71_IMAGE}' \
+    < ${TEMPLATE} \
+    > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
 done
-envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' < php-onbuild/Dockerfile.in > php-onbuild/Dockerfile
-envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' < builder/gen-dockerfile/Dockerfile.in > builder/gen-dockerfile/Dockerfile
 
 gcloud container builds submit . \
   --config cloudbuild.yaml \

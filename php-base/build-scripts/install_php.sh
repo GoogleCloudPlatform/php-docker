@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright 2017 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,12 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Dockerfile for PHP 5.6/7.0/7.1 using nginx as the webserver.
 
-FROM ${PHP_71_IMAGE}
+# A shell script for installing PHP depending on the PHP_VERSION environment variable
+set -xe
 
-# Copy the app and change the owner
-ONBUILD COPY . $APP_DIR
-ONBUILD RUN chown -R www-data.www-data $APP_DIR
-
-ONBUILD RUN /composer.sh
+case $PHP_VERSION in
+    5.6*)
+        /bin/bash /build-scripts/install_php56.sh
+        ;;
+    7.0*)
+        /bin/bash /build-scripts/install_php70.sh
+        ;;
+    *)
+        /bin/bash /build-scripts/install_php71.sh
+        ;;
+esac
