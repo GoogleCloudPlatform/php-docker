@@ -30,6 +30,9 @@ if [ -z "${SERVICE_ACCOUNT_JSON}" ]; then
     exit 1
 fi
 
+export BASE_IMAGE="gcr.io/google-appengine/php:staging"
+export PHP_BASE_IMAGE="gcr.io/google-appengine/php-base:staging"
+
 SRC_TMP=$(mktemp -d)
 
 for TEMPLATE in `find . -name Dockerfile.in`
