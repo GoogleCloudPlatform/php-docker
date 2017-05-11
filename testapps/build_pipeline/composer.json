@@ -1,0 +1,17 @@
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/stanley-cheung/Protobuf-PHP"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "google/auth": "^0.11",
+        "grpc/grpc": "^1.0",
+        "silex/silex": "^1.3"
+    },
+    "autoload": {
+        "classmap": ["web"]
+    }
+}

@@ -25,24 +25,21 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
     exit 1
 fi
 
-if [ -z "${RUNTIME_DISTRIBUTION}" ]; then
-    RUNTIME_DISTRIBUTION="gcp-php-runtime-jessie"
+if [ -z "${SERVICE_ACCOUNT_JSON}" ]; then
+    echo "You need to set SERVICE_ACCOUNT_JSON envvar pointing to a json file in GCS."
+    exit 1
 fi
 
-export RUNTIME_DISTRIBUTION
-
 SRC_TMP=$(mktemp -d)
-export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
-export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
 
 for TEMPLATE in `find . -name Dockerfile.in`
 do
-  envsubst '${BASE_IMAGE}' < ${TEMPLATE} > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
+  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_71_IMAGE}' \
+    < ${TEMPLATE} \
+    > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
 done
-envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' < php-onbuild/Dockerfile.in > php-onbuild/Dockerfile
-envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' < builder/gen-dockerfile/Dockerfile.in > builder/gen-dockerfile/Dockerfile
 
 gcloud container builds submit . \
-  --config cloudbuild.yaml \
+  --config acceptance-tests.yaml \
   --timeout 3600 \
-  --substitutions _TAG=$TAG,_RUNTIME_DISTRIBUTION=$RUNTIME_DISTRIBUTION
+  --substitutions _TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$GOOGLE_PROJECT_ID
