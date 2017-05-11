@@ -22,7 +22,7 @@ dependencies:
 
 test:
   override:
-    - scripts/run_test_suite.sh:
-        timeout: 1800
+    # - scripts/run_test_suite.sh:
+    #     timeout: 1800
     - scripts/run_acceptance_tests.sh:
         timeout: 1800
