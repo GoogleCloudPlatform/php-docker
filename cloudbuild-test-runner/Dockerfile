@@ -14,22 +14,21 @@
 
 # Dockerfile for running phpunit within a cloudbuild step.
 
-FROM python:2.7-alpine
+FROM gcr.io/google-appengine/php-base:latest
+
+RUN /bin/bash /build-scripts/install_php56.sh
 
 RUN mkdir -p /opt/bin
-ENV PATH=${PATH}:/opt/bin:/opt/gcloud/google-cloud-sdk/bin
+ENV PATH=${PATH}:/usr/local/bin:/opt/gcloud/google-cloud-sdk/bin
+
+COPY test-runner-php.ini /opt/php/lib/conf.d
 
 # Install PHP and tools
-RUN apk add php5 php5-openssl php5-json php5-phar php5-dom php5-bcmath \
-    php5-zip php5-ctype wget ca-certificates coreutils unzip docker \
-    --update && \
-    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-    php -r "if (hash_file('SHA384', 'composer-setup.php') === rtrim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
-    php composer-setup.php --filename=composer --install-dir=/opt/bin && \
-    php -r "unlink('composer-setup.php');" && \
+RUN apt-get update && \
+    apt-get -y install wget zip && \
     wget -nv -O phpunit.phar https://phar.phpunit.de/phpunit-5.7.phar && \
     chmod +x phpunit.phar && \
-    mv phpunit.phar /opt/bin/phpunit && \
+    mv phpunit.phar /usr/local/bin/phpunit && \
     wget -nv https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.zip && \
     mkdir -p /opt/gcloud && \
     unzip -qq google-cloud-sdk.zip -d /opt/gcloud && \
@@ -37,9 +36,7 @@ RUN apk add php5 php5-openssl php5-json php5-phar php5-dom php5-bcmath \
     /opt/gcloud/google-cloud-sdk/install.sh --usage-reporting=false \
         --bash-completion=false \
 	--disable-installation-options && \
-    /opt/gcloud/google-cloud-sdk/bin/gcloud -q components update alpha beta && \
-    apk del wget unzip && \
-    rm -rf /var/cache/apk/*
+    /opt/gcloud/google-cloud-sdk/bin/gcloud -q components update alpha beta
 
 COPY run_tests.sh /run_tests.sh
 ENTRYPOINT ["/run_tests.sh"]
