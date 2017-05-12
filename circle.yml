@@ -23,6 +23,4 @@ dependencies:
 test:
   override:
     - scripts/run_test_suite.sh:
-        timeout: 900
-    - scripts/run_integration_tests.sh:
-        timeout: 1200
+        timeout: 2100

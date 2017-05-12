@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright 2015 Google Inc.
+# Copyright 2017 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,13 +30,8 @@ if [ -z "${SERVICE_ACCOUNT_JSON}" ]; then
     exit 1
 fi
 
-export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
-export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
-
-SRC_TMP=$(mktemp -d)
-
 # remove the Dockerfile
-rm testapps/php71_e2e/Dockerfile || true
+rm testapps/php71_e2e/Dockerfile*
 
 gcloud container builds submit . \
   --config integration-tests.yaml \
