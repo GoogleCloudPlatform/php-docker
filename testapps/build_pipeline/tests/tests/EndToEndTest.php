@@ -67,7 +67,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
             'gcloud config set app/use_runtime_builders true',
             'Failed to configure gcloud to use runtime builders: '
         );
-        if ($runtime_builders_root != "") {
+        if ($runtime_builder_root != "") {
             self::execWithError(
                 sprintf(
                     'gcloud config set app/runtime_builders_root %s',

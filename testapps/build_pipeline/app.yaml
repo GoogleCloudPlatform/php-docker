@@ -3,6 +3,4 @@ env: flex
 
 runtime_config:
   document_root: web
-
-env_variables:
-  WHITELIST_FUNCTIONS: phpinfo,exec
+  whitelist_functions: phpinfo,exec
