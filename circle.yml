@@ -24,5 +24,5 @@ test:
   override:
     - scripts/run_test_suite.sh:
         timeout: 900
-    - scripts/run_acceptance_tests.sh:
+    - scripts/run_integration_tests.sh:
         timeout: 1200

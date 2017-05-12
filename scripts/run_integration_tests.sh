@@ -35,10 +35,18 @@ export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
 
 SRC_TMP=$(mktemp -d)
 
-# remove the Dockerfile
-rm testapps/php71_e2e/Dockerfile || true
+# templatize Dockerfiles for this build
+for TEMPLATE in `find . -name Dockerfile.in`
+do
+  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' \
+    < ${TEMPLATE} \
+    > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
+done
+
+# replace runtime builder pipeline :latest with
+sed -e 's/google-appengine/$PROJECT_ID/g' -e 's/gcp-runtimes/$PROJECT_ID/g' -e "/docker:latest/!s/:latest/:${TAG}/g" builder/php-latest.yaml > builder/php-test.yaml
 
 gcloud container builds submit . \
   --config integration-tests.yaml \
   --timeout 3600 \
-  --substitutions _TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$GOOGLE_PROJECT_ID,_RUNTIME_BUILDER_ROOT_ENV="RUNTIME_BUILDER_ROOT=file:///workspace/builder/"
+  --substitutions _TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$GOOGLE_PROJECT_ID,_RUNTIME_BUILDER_ROOT_ENV="FOO=bar"
