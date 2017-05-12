@@ -52,7 +52,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
                 'Failed to detect the latest PHP70 version';
         }
 
-        $output = exec('apt-get update');
+        exec('apt-get update');
     }
 
     public function testPHP56Version()
