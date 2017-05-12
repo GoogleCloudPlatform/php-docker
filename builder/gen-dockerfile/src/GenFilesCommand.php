@@ -70,7 +70,7 @@ class GenFilesCommand extends Command
             ?: self::DEFAULT_BASE_IMAGE;
         $this->workspace = $input->getOption('workspace')
             ?: getenv('PWD')
-            ?: self::DEFAULT_YAML_PATH;
+            ?: self::DEFAULT_WORKSPACE;
         $yamlPath = getenv('GAE_APPLICATION_YAML_PATH')
             ?: self::DEFAULT_YAML_PATH;
         if (file_exists($this->workspace . '/' . $yamlPath)) {
