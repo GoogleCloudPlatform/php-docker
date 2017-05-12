@@ -1,0 +1,7 @@
+# This manifest is used for testing the build pipeline
+
+schema_version: 1
+runtimes:
+  php:
+    target:
+      file: php-test.yaml

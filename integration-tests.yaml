@@ -1,0 +1,28 @@
+steps:
+  # test runner
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/php-test-runner:$_TAG', '.']
+    dir: cloudbuild-test-runner
+    waitFor: ['-']
+    id: test-runner
+
+  # php71_e2e test
+  - name: gcr.io/$PROJECT_ID/php-test-runner:$_TAG
+    args: ['/workspace/testapps/php71_e2e/tests']
+    waitFor: ['test-runner']
+    id: php71_e2e
+    env:
+    - 'SERVICE_ACCOUNT_JSON=${_SERVICE_ACCOUNT_JSON}'
+    - 'TAG=${_TAG}-e2e'
+    - 'GOOGLE_PROJECT_ID=${_E2E_PROJECT_ID}'
+
+  # build_pipeline test
+  - name: gcr.io/$PROJECT_ID/php-test-runner:$_TAG
+    args: ['/workspace/testapps/build_pipeline/tests']
+    waitFor: ['test-runner']
+    id: build_pipeline
+    env:
+    - 'SERVICE_ACCOUNT_JSON=${_SERVICE_ACCOUNT_JSON}'
+    - 'TAG=${_TAG}-build-pipeline'
+    - 'GOOGLE_PROJECT_ID=${_E2E_PROJECT_ID}'
+    - 'RUNTIME_BUILDER_ROOT=${_RUNTIME_BUILDER_ROOT}'
