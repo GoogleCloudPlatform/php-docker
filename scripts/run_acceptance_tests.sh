@@ -30,8 +30,13 @@ if [ -z "${SERVICE_ACCOUNT_JSON}" ]; then
     exit 1
 fi
 
-# remove the Dockerfile
-rm testapps/php71_e2e/Dockerfile*
+export PHP_BASE_IMAGE="gcr.io/google-appengine/php-base"
+export BASE_IMAGE="gcr.io/google-appengine/php"
+
+for TEMPLATE in `find . -name Dockerfile.in`
+do
+  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' < ${TEMPLATE} > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
+done
 
 gcloud container builds submit . \
   --config integration-tests.yaml \
