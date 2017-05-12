@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# This test runs our integration tests against our current production build pipeline and runtime.
 set -ex
 
 if [ -z "${TAG}" ]; then

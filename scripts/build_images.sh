@@ -43,7 +43,7 @@ gcloud container builds submit . \
   --timeout 3600 \
   --substitutions _TAG=$TAG,_RUNTIME_DISTRIBUTION=$RUNTIME_DISTRIBUTION
 
-# replace runtime builder pipeline :latest with
+# replace runtime builder pipeline :latest with our newly tagged images
 sed -e 's/google-appengine/$PROJECT_ID/g' \
     -e 's/gcp-runtimes/$PROJECT_ID/g' \
     -e "/docker:latest/!s/:latest/:${TAG}/g" builder/php-latest.yaml > builder/php-test.yaml
