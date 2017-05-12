@@ -44,7 +44,7 @@ do
 done
 
 # replace runtime builder pipeline :latest with
-sed "/docker:latest/!s/:latest/:${TAG}/g" builder/php-latest.yaml > builder/php-test.yaml
+sed -e 's/google-appengine/$PROJECT_ID/g' -e 's/gcp-runtimes/$PROJECT_ID/g' -e "/docker:latest/!s/:latest/:${TAG}/g" builder/php-latest.yaml > builder/php-test.yaml
 
 gcloud container builds submit . \
   --config acceptance-tests.yaml \
