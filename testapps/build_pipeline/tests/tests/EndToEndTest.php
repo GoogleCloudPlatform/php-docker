@@ -30,12 +30,14 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
     const PROJECT_ENV = 'GOOGLE_PROJECT_ID';
     const VERSION_ENV = 'TAG';
     const SERVICE_ACCOUNT_ENV = 'SERVICE_ACCOUNT_JSON';
+    const RUNTIME_BUILDER_ROOT_ENV = 'RUNTIME_BUILDER_ROOT';
 
     public static function setUpBeforeClass()
     {
         $project_id = getenv(self::PROJECT_ENV);
         $e2e_test_version = getenv(self::VERSION_ENV);
-        $service_account_json = getenv(SELF::SERVICE_ACCOUNT_ENV);
+        $service_account_json = getenv(self::SERVICE_ACCOUNT_ENV);
+        $runtime_builder_root = getenv(self::RUNTIME_BUILDER_ROOT_ENV);
         if ($project_id == false) {
             self::fail('Please set ' . self::PROJECT_ENV . ' env var.');
         }
@@ -45,43 +47,33 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
         if ($service_account_json == false) {
             self::fail('Please set ' . self::SERVICE_ACCOUNT_ENV . ' env var.');
         }
-        exec(
+        if ($runtime_builder_root == false) {
+            self::fail('Please set ' . self::RUNTIME_BUILDER_ROOT_ENV . ' env var.');
+        }
+
+        self::execWithError(
             sprintf(
                 'gsutil cp %s /service_account.json',
                 $service_account_json
             ),
-            $output,
-            $ret
+            'Failed to download the service account json file: '
         );
-        if ($ret !== 0) {
-            self::fail(
-                'Failed to download the service account json file: '
-                . implode(PHP_EOL, $output)
-            );
-        }
-        exec(
+        self::execWithError(
             'gcloud -q auth activate-service-account '
-            . '--key-file=/service_account.json',
-            $output,
-            $ret
+                . '--key-file=/service_account.json',
+            'Failed to activate the service account: '
         );
-        if ($ret !== 0) {
-            self::fail(
-                'Failed to activate the service account: '
-                . implode(PHP_EOL, $output)
-            );
-        }
-        exec(
+        self::execWithError(
             'gcloud config set app/use_runtime_builders true',
-            $output,
-            $ret
+            'Failed to configure gcloud to use runtime builders: '
         );
-        if ($ret !== 0) {
-            self::fail(
-                'Failed to configure gcloud to use runtime builders'
-                . implode(PHP_EOL, $output)
-            );
-        }
+        self::execWithError(
+            sprintf(
+                'gcloud config set app/runtime_builders_root %s',
+                $runtime_builder_root
+            ),
+            'Failed to configure gcloud runtime builders root: '
+        );
         self::deploy($project_id, $e2e_test_version);
     }
 
@@ -114,6 +106,21 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
             getenv(self::VERSION_ENV)
         );
         exec($cmd);
+    }
+
+    private static function execWithError($command, $errorPrefix)
+    {
+        exec(
+            $command,
+            $output,
+            $ret
+        );
+        if ($ret !== 0) {
+            self::fail(
+                $errorPrefix
+                . implode(PHP_EOL, $output)
+            );
+        }
     }
 
     public function setUp()

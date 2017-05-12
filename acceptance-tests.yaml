@@ -7,14 +7,14 @@ steps:
     id: test-runner
 
   # php71_e2e test
-  - name: gcr.io/$PROJECT_ID/php-test-runner:$_TAG
-    args: ['/workspace/testapps/php71_e2e/tests']
-    waitFor: ['test-runner']
-    id: php71_e2e
-    env:
-    - 'SERVICE_ACCOUNT_JSON=${_SERVICE_ACCOUNT_JSON}'
-    - 'TAG=${_TAG}-e2e'
-    - 'GOOGLE_PROJECT_ID=${_E2E_PROJECT_ID}'
+  # - name: gcr.io/$PROJECT_ID/php-test-runner:$_TAG
+  #   args: ['/workspace/testapps/php71_e2e/tests']
+  #   waitFor: ['test-runner']
+  #   id: php71_e2e
+  #   env:
+  #   - 'SERVICE_ACCOUNT_JSON=${_SERVICE_ACCOUNT_JSON}'
+  #   - 'TAG=${_TAG}-e2e'
+  #   - 'GOOGLE_PROJECT_ID=${_E2E_PROJECT_ID}'
 
   # build_pipeline test
   - name: gcr.io/$PROJECT_ID/php-test-runner:$_TAG
@@ -25,3 +25,4 @@ steps:
     - 'SERVICE_ACCOUNT_JSON=${_SERVICE_ACCOUNT_JSON}'
     - 'TAG=${_TAG}-build-pipeline'
     - 'GOOGLE_PROJECT_ID=${_E2E_PROJECT_ID}'
+    - 'RUNTIME_BUILDER_ROOT=file:///workspace/builder/'

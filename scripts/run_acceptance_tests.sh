@@ -30,17 +30,21 @@ if [ -z "${SERVICE_ACCOUNT_JSON}" ]; then
     exit 1
 fi
 
-export BASE_IMAGE="gcr.io/google-appengine/php:staging"
-export PHP_BASE_IMAGE="gcr.io/google-appengine/php-base:staging"
+export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
+export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
 
 SRC_TMP=$(mktemp -d)
 
+# templatize Dockerfiles for this build
 for TEMPLATE in `find . -name Dockerfile.in`
 do
-  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_71_IMAGE}' \
+  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' \
     < ${TEMPLATE} \
     > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
 done
+
+# replace runtime builder pipeline :latest with
+sed "/docker:latest/!s/:latest/:${TAG}/g" builder/php-latest.yaml > builder/php-test.yaml
 
 gcloud container builds submit . \
   --config acceptance-tests.yaml \
