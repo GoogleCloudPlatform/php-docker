@@ -38,7 +38,7 @@ fi
 
 # Move user-provided nginx config files.
 if [ -f "${NGINX_CONF_INCLUDE}" ]; then
-    mv "${NGINX_CONF_INCLUDE}" "${NGINX_USER_CONF_DIR}"
+    mv "${NGINX_CONF_INCLUDE}" "${NGINX_USER_CONF_DIR}/nginx-app.conf"
 fi
 
 if [ -f "${NGINX_CONF_OVERRIDE}" ]; then

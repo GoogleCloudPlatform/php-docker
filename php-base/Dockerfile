@@ -59,7 +59,8 @@ ENV NGINX_DIR=/etc/nginx \
     PATH=/opt/php/bin:$PATH \
     WWW_HOME=/var/www \
     COMPOSER_HOME=/opt/composer \
-    DOCUMENT_ROOT=/app
+    DOCUMENT_ROOT=/app \
+    FRONT_CONTROLLER_FILE=index.php
 
 # Install build scripts - composer, nginx, php
 COPY build-scripts /build-scripts
