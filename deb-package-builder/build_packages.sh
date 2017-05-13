@@ -21,7 +21,7 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
 fi
 
 if [ -z "${PHP_VERSIONS}" ]; then
-    PHP_VERSIONS='7.1.4-2,7.0.18-2,5.6.30-3'
+    PHP_VERSIONS='7.1.5-1,7.0.19-1,5.6.30-3'
     echo "Defaulting PHP Versions to: ${PHP_VERSIONS}"
 fi
 

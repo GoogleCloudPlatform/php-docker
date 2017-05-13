@@ -30,8 +30,6 @@ if [ -z "${RUNTIME_DISTRIBUTION}" ]; then
 fi
 
 export RUNTIME_DISTRIBUTION
-
-SRC_TMP=$(mktemp -d)
 export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
 export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
 export PHP_71_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php71:${TAG}"
@@ -48,15 +46,26 @@ gcloud container builds submit . \
   --timeout 3600 \
   --substitutions _TAG=$TAG,_RUNTIME_DISTRIBUTION=$RUNTIME_DISTRIBUTION
 
-if [ -z "${RUN_E2E_TESTS}" ]; then
+# if running on circle for the master branch, run the e2e tests
+if [ "${CIRCLE_BRANCH}" = "master" ]
+then
+    RUN_E2E_TESTS="true"
+fi
+
+if [ -z "${RUN_E2E_TESTS}" ]
+then
     echo 'E2E test skipped'
 else
-    if [ -z "${SERVICE_ACCOUNT_JSON}" ]; then
-        echo "You need to set SERVICE_ACCOUNT_JSON envvar pointing to a json file in GCS."
-        exit 1
-    fi
-    gcloud container builds submit testapps/php71_e2e \
-      --config testapps/php71_e2e/cloudbuild.test.yaml \
+    # replace runtime builder pipeline :latest with our newly tagged images
+    sed -e 's/google-appengine/$PROJECT_ID/g' \
+        -e 's/gcp-runtimes/$PROJECT_ID/g' \
+        -e "/docker:latest/!s/:latest/:${TAG}/g" builder/php-latest.yaml > builder/php-test.yaml
+
+    echo "Using test build pipeline:"
+    cat builder/php-test.yaml
+
+    gcloud container builds submit . \
+      --config integration-tests.yaml \
       --timeout 3600 \
-      --substitutions _TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$E2E_PROJECT_ID
+      --substitutions _TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$GOOGLE_PROJECT_ID,_RUNTIME_BUILDER_ROOT=file:///workspace/builder/
 fi

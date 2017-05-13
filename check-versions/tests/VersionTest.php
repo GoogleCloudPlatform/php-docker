@@ -51,13 +51,13 @@ class VersionTest extends \PHPUnit_Framework_TestCase
             self::$versions['php71'] =
                 'Failed to detect the latest PHP70 version';
         }
+
+        exec('apt-get update');
     }
 
     public function testPHP56Version()
     {
-        $output = exec(
-            'docker run -t gcr.io/google-appengine/php bash -c '
-            . '\'apt-get update && apt-cache madison gcp-php56\'');
+        $output = exec('apt-cache madison gcp-php56');
         $pattern = '/(5\.6\.\d+)/';
         if (preg_match($pattern, $output, $matches)) {
             $this->assertEquals($matches[1], self::$versions['php56']);
@@ -68,9 +68,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
 
     public function testPHP70Version()
     {
-        $output = exec(
-            'docker run -t gcr.io/google-appengine/php bash -c '
-            . '\'apt-get update && apt-cache madison gcp-php70\'');
+        $output = exec('apt-cache madison gcp-php70');
         $pattern = '/(7\.0\.\d+)/';
         if (preg_match($pattern, $output, $matches)) {
             $this->assertEquals($matches[1], self::$versions['php70']);
@@ -81,9 +79,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
 
     public function testPHP71Version()
     {
-        $output = exec(
-            'docker run -t gcr.io/google-appengine/php bash -c '
-            . '\'apt-get update && apt-cache madison gcp-php71\'');
+        $output = exec('apt-cache madison gcp-php71');
         $pattern = '/(7\.1\.\d+)/';
         if (preg_match($pattern, $output, $matches)) {
             $this->assertEquals($matches[1], self::$versions['php71']);

@@ -70,7 +70,7 @@ class GenFilesCommand extends Command
             ?: self::DEFAULT_BASE_IMAGE;
         $this->workspace = $input->getOption('workspace')
             ?: getenv('PWD')
-            ?: self::DEFAULT_YAML_PATH;
+            ?: self::DEFAULT_WORKSPACE;
         $yamlPath = getenv('GAE_APPLICATION_YAML_PATH')
             ?: self::DEFAULT_YAML_PATH;
         if (file_exists($this->workspace . '/' . $yamlPath)) {
@@ -155,7 +155,7 @@ class GenFilesCommand extends Command
     {
         $template = $this->twig->load('dockerignore.twig');
         $yamlPath = getenv('GAE_APPLICATION_YAML_PATH')
-            ?: '';
+            ?: self::DEFAULT_YAML_PATH;
         $dockerignore = "\n"
             . $template->render(['app_yaml_path' => $yamlPath]);
         $fp = fopen($this->workspace . '/.dockerignore', 'a');
