@@ -45,32 +45,26 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
         if ($service_account_json == false) {
             self::fail('Please set ' . self::SERVICE_ACCOUNT_ENV . ' env var.');
         }
-        exec(
+
+        self::execWithError(
             sprintf(
                 'gsutil cp %s /service_account.json',
                 $service_account_json
             ),
-            $output,
-            $ret
+            'Failed to download the service account json file: '
         );
-        if ($ret !== 0) {
-            self::fail(
-                'Failed to download the service account json file: '
-                . implode(PHP_EOL, $output)
-            );
-        }
-        exec(
+        self::execWithError(
+            sprintf(
+                'gcloud config set project %s',
+                $project_id
+            ),
+            'Failed to set project_id: '
+        );
+        self::execWithError(
             'gcloud -q auth activate-service-account '
-            . '--key-file=/service_account.json',
-            $output,
-            $ret
+                . '--key-file=/service_account.json',
+            'Failed to activate the service account: '
         );
-        if ($ret !== 0) {
-            self::fail(
-                'Failed to activate the service account: '
-                . implode(PHP_EOL, $output)
-            );
-        }
         self::deploy($project_id, $e2e_test_version);
     }
 
@@ -104,6 +98,22 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
             getenv(self::VERSION_ENV)
         );
         exec($cmd);
+    }
+
+    private static function execWithError($command, $errorPrefix)
+    {
+        printf("Executing command: '%s'\n", $command);
+        exec(
+            $command,
+            $output,
+            $ret
+        );
+        if ($ret !== 0) {
+            self::fail(
+                $errorPrefix
+                . implode(PHP_EOL, $output)
+            );
+        }
     }
 
     public function setUp()
