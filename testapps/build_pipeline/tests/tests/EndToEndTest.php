@@ -59,6 +59,13 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
             'Failed to download the service account json file: '
         );
         self::execWithError(
+            sprintf(
+                'gcloud config set project %s',
+                $project_id
+            ),
+            'Failed to set project_id: '
+        );
+        self::execWithError(
             'gcloud -q auth activate-service-account '
                 . '--key-file=/service_account.json',
             'Failed to activate the service account: '
@@ -112,6 +119,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
 
     private static function execWithError($command, $errorPrefix)
     {
+        printf("Executing command: '%s'\n", $command);
         exec(
             $command,
             $output,
