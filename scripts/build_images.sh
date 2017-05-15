@@ -53,6 +53,12 @@ if [ -z "${RUN_E2E_TESTS}" ]
 then
     echo 'E2E test skipped'
 else
+    if [ -z "${E2E_PROJECT_ID}" ]
+    then
+        echo "Defaulting E2E_PROJECT_ID to GOOGLE_PROJECT_ID"
+        E2E_PROJECT_ID=$GOOGLE_PROJECT_ID
+    fi
+
     # replace runtime builder pipeline :latest with our newly tagged images
     sed -e 's/google-appengine/$PROJECT_ID/g' \
         -e 's/gcp-runtimes/$PROJECT_ID/g' \
@@ -64,5 +70,5 @@ else
     gcloud container builds submit . \
       --config integration-tests.yaml \
       --timeout 3600 \
-      --substitutions _TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$GOOGLE_PROJECT_ID,_RUNTIME_BUILDER_ROOT=file:///workspace/builder/
+      --substitutions _TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$E2E_PROJECT_ID,_RUNTIME_BUILDER_ROOT=file:///workspace/builder/
 fi
