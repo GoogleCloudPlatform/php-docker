@@ -27,7 +27,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
 
     private $client;
 
-    const PROJECT_ENV = 'GOOGLE_PROJECT_ID';
+    const PROJECT_ENV = 'E2E_PROJECT_ID';
     const VERSION_ENV = 'TAG';
     const SERVICE_ACCOUNT_ENV = 'SERVICE_ACCOUNT_JSON';
 
@@ -70,11 +70,13 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
 
     public static function deploy($project_id, $e2e_test_version)
     {
+        $command = "gcloud -q app deploy --version $e2e_test_version"
+            . " --project $project_id --no-promote"
+            . ' ../app.yaml';
+        printf("Executing command: '%s'\n", $command);
         for ($i = 0; $i <= 3; $i++) {
             exec(
-                "gcloud -q app deploy --version $e2e_test_version"
-                . " --project $project_id --no-promote"
-                . ' ../app.yaml',
+                $command,
                 $output,
                 $ret
             );

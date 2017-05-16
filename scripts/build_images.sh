@@ -41,7 +41,7 @@ done
 gcloud container builds submit . \
   --config cloudbuild.yaml \
   --timeout 3600 \
-  --substitutions _TAG=$TAG,_RUNTIME_DISTRIBUTION=$RUNTIME_DISTRIBUTION
+  --substitutions _GOOGLE_PROJECT_ID=$GOOGLE_PROJECT_ID,_TAG=$TAG,_RUNTIME_DISTRIBUTION=$RUNTIME_DISTRIBUTION
 
 # if running on circle for the master branch, run the e2e tests
 if [ "${CIRCLE_BRANCH}" = "master" ]
@@ -60,8 +60,8 @@ else
     fi
 
     # replace runtime builder pipeline :latest with our newly tagged images
-    sed -e 's/google-appengine/$PROJECT_ID/g' \
-        -e 's/gcp-runtimes/$PROJECT_ID/g' \
+    sed -e "s/google-appengine/${GOOGLE_PROJECT_ID}/g" \
+        -e "s/gcp-runtimes/${GOOGLE_PROJECT_ID}/g" \
         -e "/docker:latest/!s/:latest/:${TAG}/g" builder/php-latest.yaml > builder/php-test.yaml
 
     echo "Using test build pipeline:"
@@ -70,5 +70,5 @@ else
     gcloud container builds submit . \
       --config integration-tests.yaml \
       --timeout 3600 \
-      --substitutions _TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$E2E_PROJECT_ID,_RUNTIME_BUILDER_ROOT=file:///workspace/builder/
+      --substitutions _GOOGLE_PROJECT_ID=$GOOGLE_PROJECT_ID,_TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$E2E_PROJECT_ID,_RUNTIME_BUILDER_ROOT=file:///workspace/builder/
 fi
