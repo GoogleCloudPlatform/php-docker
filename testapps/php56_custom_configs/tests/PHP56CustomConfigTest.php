@@ -48,7 +48,7 @@ class PHP56CustomConfigTest extends \PHPUnit_Framework_TestCase
     public function testNginxUserConf()
     {
         $resp = $this->client->get(
-            'readfile.php?f=' . urlencode('/etc/nginx/conf.d/nginx-user.conf')
+            'readfile.php?f=' . urlencode('/etc/nginx/conf.d/nginx-app.conf')
         );
         $this->assertEquals(
             '200',
