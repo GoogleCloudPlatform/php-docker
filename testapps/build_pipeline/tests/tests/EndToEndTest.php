@@ -47,7 +47,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
         if ($service_account_json == false) {
             self::fail('Please set ' . self::SERVICE_ACCOUNT_ENV . ' env var.');
         }
-        if ($runtime_builder_root == false) {
+        if ($runtime_builder_root === false) {
             self::fail('Please set ' . self::RUNTIME_BUILDER_ROOT_ENV . ' env var.');
         }
 
