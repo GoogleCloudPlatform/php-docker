@@ -139,4 +139,12 @@ class PHP7CustomTest extends \PHPUnit_Framework_TestCase
         // test image should by 300px by 1px
         $this->assertContains('300x1', $body);
     }
+
+    public function testFrontControllerFileEnv()
+    {
+        // Access the top page and it should be served by app.php
+        $resp = $this->client->get('');
+        $body = $resp->getBody()->getContents();
+        $this->assertContains('FRONT_CONTROLLER_FILE works', $body);
+    }
 }

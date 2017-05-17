@@ -27,7 +27,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
 
     private $client;
 
-    const PROJECT_ENV = 'GOOGLE_PROJECT_ID';
+    const PROJECT_ENV = 'E2E_PROJECT_ID';
     const VERSION_ENV = 'TAG';
     const SERVICE_ACCOUNT_ENV = 'SERVICE_ACCOUNT_JSON';
     const RUNTIME_BUILDER_ROOT_ENV = 'RUNTIME_BUILDER_ROOT';
@@ -47,7 +47,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
         if ($service_account_json == false) {
             self::fail('Please set ' . self::SERVICE_ACCOUNT_ENV . ' env var.');
         }
-        if ($runtime_builder_root == false) {
+        if ($runtime_builder_root === false) {
             self::fail('Please set ' . self::RUNTIME_BUILDER_ROOT_ENV . ' env var.');
         }
 
@@ -57,6 +57,13 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
                 $service_account_json
             ),
             'Failed to download the service account json file: '
+        );
+        self::execWithError(
+            sprintf(
+                'gcloud config set project %s',
+                $project_id
+            ),
+            'Failed to set project_id: '
         );
         self::execWithError(
             'gcloud -q auth activate-service-account '
@@ -81,11 +88,14 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
 
     public static function deploy($project_id, $e2e_test_version)
     {
+        $command = "gcloud -q beta app deploy --version $e2e_test_version"
+            . " --project $project_id --no-promote"
+            . ' ../app.yaml';
+        printf("Executing command: '%s'\n", $command);
+
         for ($i = 0; $i <= 3; $i++) {
             exec(
-                "gcloud -q beta app deploy --version $e2e_test_version"
-                . " --project $project_id --no-promote"
-                . ' ../app.yaml',
+                $command,
                 $output,
                 $ret
             );
@@ -112,6 +122,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
 
     private static function execWithError($command, $errorPrefix)
     {
+        printf("Executing command: '%s'\n", $command);
         exec(
             $command,
             $output,

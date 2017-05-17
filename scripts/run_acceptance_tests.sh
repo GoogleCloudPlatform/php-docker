@@ -39,7 +39,13 @@ do
   envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' < ${TEMPLATE} > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
 done
 
+if [ -z "${E2E_PROJECT_ID}" ]
+then
+    echo "Defaulting E2E_PROJECT_ID to GOOGLE_PROJECT_ID"
+    E2E_PROJECT_ID=$GOOGLE_PROJECT_ID
+fi
+
 gcloud container builds submit . \
   --config integration-tests.yaml \
   --timeout 3600 \
-  --substitutions _TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$GOOGLE_PROJECT_ID,_RUNTIME_BUILDER_ROOT=
+  --substitutions _GOOGLE_PROJECT_ID=$GOOGLE_PROJECT_ID,_TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$E2E_PROJECT_ID,_RUNTIME_BUILDER_ROOT=

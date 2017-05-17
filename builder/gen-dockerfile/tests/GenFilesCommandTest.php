@@ -117,7 +117,9 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php-base:latest',
-                ["GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT=true \n"]
+                ["GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT=true \n",
+                 "FRONT_CONTROLLER_FILE=index.php \\\n"
+                ]
             ],
             [
                 // whitelist_functions
@@ -148,6 +150,16 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php-base:latest',
                 ["WHITELIST_FUNCTIONS=exec \\\n"]
+            ],
+            [
+                // front_controller_file
+                __DIR__ . '/test_data/front_controller_file',
+                '',
+                '',
+                '/app',
+                'added by the php runtime builder',
+                'gcr.io/google-appengine/php-base:latest',
+                ["FRONT_CONTROLLER_FILE=app.php \\\n"]
             ],
             [
                 // Different yaml path

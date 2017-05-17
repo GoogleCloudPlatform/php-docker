@@ -30,12 +30,13 @@ class GenFilesCommand extends Command
     const DEFAULT_BASE_IMAGE = 'gcr.io/google-appengine/php-base:latest';
     const DEFAULT_WORKSPACE = '/workspace';
     const DEFAULT_YAML_PATH = 'app.yaml';
+    const DEFAULT_FRONT_CONTROLLER_FILE = 'index.php';
 
     /* @var string */
     private $workspace;
 
     /* @var array */
-    private $appYaml;
+    private $appYaml = [];
 
     /* @var \Twig_Environment */
     private $twig;
@@ -92,7 +93,6 @@ class GenFilesCommand extends Command
             : [];
     }
 
-
     protected function envsFromRuntimeConfig()
     {
         $ret = [];
@@ -106,7 +106,13 @@ class GenFilesCommand extends Command
             $ret['WHITELIST_FUNCTIONS'] =
                 $runtime_config['whitelist_functions'];
         }
-        if (array_key_exists('document_root', $runtime_config)) {
+        if (array_key_exists('front_controller_file', $runtime_config)
+            && !empty($runtime_config['front_controller_file'])) {
+            $ret['FRONT_CONTROLLER_FILE'] =
+                $runtime_config['front_controller_file'];
+        }
+        if (array_key_exists('document_root', $runtime_config)
+            && !empty($runtime_config['document_root'])) {
             $ret['DOCUMENT_ROOT'] =
                 self::APP_DIR . '/' . $runtime_config['document_root'];
         }
@@ -131,6 +137,7 @@ class GenFilesCommand extends Command
             + $this->envsFromAppYaml()
             + [
                 'DOCUMENT_ROOT' => self::APP_DIR,
+                'FRONT_CONTROLLER_FILE' => self::DEFAULT_FRONT_CONTROLLER_FILE,
                 'GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT' => 'true'
             ];
         $envString = 'ENV ';
