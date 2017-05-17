@@ -26,3 +26,14 @@ steps:
     - 'TAG=${_TAG}-build-pipeline'
     - 'E2E_PROJECT_ID=${_E2E_PROJECT_ID}'
     - 'RUNTIME_BUILDER_ROOT=${_RUNTIME_BUILDER_ROOT}'
+
+  # build_pipeline_56 test
+  - name: gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG
+    args: ['/workspace/testapps/build_pipeline_php56/tests']
+    waitFor: ['test-runner']
+    id: build_pipeline_php56
+    env:
+    - 'SERVICE_ACCOUNT_JSON=${_SERVICE_ACCOUNT_JSON}'
+    - 'TAG=${_TAG}-build-pipeline-php56'
+    - 'E2E_PROJECT_ID=${_E2E_PROJECT_ID}'
+    - 'RUNTIME_BUILDER_ROOT=${_RUNTIME_BUILDER_ROOT}'

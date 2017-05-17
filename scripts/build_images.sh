@@ -46,12 +46,6 @@ gcloud container builds submit . \
   --timeout 3600 \
   --substitutions _GOOGLE_PROJECT_ID=$GOOGLE_PROJECT_ID,_TAG=$TAG,_RUNTIME_DISTRIBUTION=$RUNTIME_DISTRIBUTION
 
-# if running on circle for the master branch, run the e2e tests
-if [ "${CIRCLE_BRANCH}" = "master" ]
-then
-    RUN_E2E_TESTS="true"
-fi
-
 if [ -z "${RUN_E2E_TESTS}" ]
 then
     echo 'E2E test skipped'

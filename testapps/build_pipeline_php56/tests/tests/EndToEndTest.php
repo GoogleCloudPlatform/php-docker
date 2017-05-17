@@ -267,7 +267,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
             $resp = $this->client->get('version.php');
             $this->assertEquals('200', $resp->getStatusCode(),
                                 'version.php status code');
-            $this->assertContains('7.1',
+            $this->assertContains('5.6',
                                   $resp->getBody()->getContents());
         });
     }
