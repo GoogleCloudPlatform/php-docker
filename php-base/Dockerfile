@@ -54,8 +54,8 @@ ENV NGINX_DIR=/etc/nginx \
     UPLOAD_DIR=/upload \
     SESSION_SAVE_PATH=/tmp/sessions \
     PHP56_VERSION=5.6.30 \
-    PHP70_VERSION=7.0.15 \
-    PHP71_VERSION=7.1.1 \
+    PHP70_VERSION=7.0.19 \
+    PHP71_VERSION=7.1.5 \
     PATH=/opt/php/bin:$PATH \
     WWW_HOME=/var/www \
     COMPOSER_HOME=/opt/composer \
@@ -75,9 +75,7 @@ RUN (echo "deb http://packages.cloud.google.com/apt ${RUNTIME_DISTRIBUTION} main
     (curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
       | apt-key add -) && \
     apt-get -y update && \
-    /bin/bash /build-scripts/install_nginx.sh && \
-    /bin/bash /build-scripts/install_php71.sh && \
-    /bin/bash /build-scripts/install_composer.sh
+    /bin/bash /build-scripts/install_nginx.sh
 
 EXPOSE 8080
 
@@ -97,17 +95,11 @@ COPY nginx-app.conf $NGINX_USER_CONF_DIR
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY entrypoint.sh composer.sh whitelist_functions.php /
 
-RUN chgrp www-data composer.sh && chmod +x /entrypoint.sh /composer.sh \
-    # Temporary enable the shell for www-data
-    # We will disable it in entrypoint.sh
-    && chsh -s /bin/bash www-data
+RUN chgrp www-data composer.sh && \
+    chmod +x /entrypoint.sh /composer.sh
 
 # A script for extracting PHP version from composer.json.
-COPY detect_php_version.php /tmp/detect_php_version.php
-COPY install_extensions.php /tmp/install_extensions.php
-RUN chgrp www-data /tmp/detect_php_version.php && \
-    cd /tmp && \
-    su www-data -c "php /usr/local/bin/composer require composer/semver"
+COPY detect_php_version.php install_extensions.php /tmp/
 
 WORKDIR $APP_DIR
 

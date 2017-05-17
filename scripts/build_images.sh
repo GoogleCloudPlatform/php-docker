@@ -32,10 +32,13 @@ fi
 export RUNTIME_DISTRIBUTION
 export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
 export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
+export PHP_71_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php71:${TAG}"
 
 for TEMPLATE in `find . -name Dockerfile.in`
 do
-  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' < ${TEMPLATE} > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
+  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_71_IMAGE}' \
+    < ${TEMPLATE} \
+    > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
 done
 
 gcloud container builds submit . \

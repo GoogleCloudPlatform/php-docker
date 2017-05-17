@@ -22,11 +22,41 @@ steps:
     args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-base:$_TAG', '--config', '/workspace/php-base/php-base.yaml', '-v']
     waitFor: ['php-base']
 
+  # php71
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php71:$_TAG', '--build-arg', 'PHP_VERSION=7.1', '.']
+    dir: php-versioned
+    waitFor: ['php-base']
+    id: php71
+  - name: gcr.io/gcp-runtimes/structure_test
+    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php71:$_TAG', '--config', '/workspace/php-versioned/php71.yaml', '-v']
+    waitFor: ['php71']
+
+  # php70
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php70:$_TAG', '--build-arg', 'PHP_VERSION=7.0', '.']
+    dir: php-versioned
+    waitFor: ['php-base']
+    id: php70
+  - name: gcr.io/gcp-runtimes/structure_test
+    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php70:$_TAG', '--config', '/workspace/php-versioned/php70.yaml', '-v']
+    waitFor: ['php70']
+
+  # php56
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php56:$_TAG', '--build-arg', 'PHP_VERSION=5.6', '.']
+    dir: php-versioned
+    waitFor: ['php-base']
+    id: php56
+  - name: gcr.io/gcp-runtimes/structure_test
+    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php56:$_TAG', '--config', '/workspace/php-versioned/php56.yaml', '-v']
+    waitFor: ['php56']
+
   # php-onbuild
   - name: gcr.io/cloud-builders/docker
     args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php:$_TAG', '.']
     dir: php-onbuild
-    waitFor: ['php-base']
+    waitFor: ['php71']
     id: php-onbuild
   - name: gcr.io/gcp-runtimes/structure_test
     args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php:$_TAG', '--config', '/workspace/php-onbuild/php.yaml', '-v']
@@ -189,6 +219,9 @@ steps:
 
 images:
   - gcr.io/${_GOOGLE_PROJECT_ID}/php-base:$_TAG
+  - gcr.io/${_GOOGLE_PROJECT_ID}/php71:$_TAG
+  - gcr.io/${_GOOGLE_PROJECT_ID}/php70:$_TAG
+  - gcr.io/${_GOOGLE_PROJECT_ID}/php56:$_TAG
   - gcr.io/${_GOOGLE_PROJECT_ID}/php:$_TAG
   - gcr.io/${_GOOGLE_PROJECT_ID}/php/gen-dockerfile:$_TAG
   - gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG
