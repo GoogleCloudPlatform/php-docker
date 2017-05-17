@@ -52,6 +52,9 @@ then
     RUN_E2E_TESTS="true"
 fi
 
+# for testing
+RUN_E2E_TESTS="true"
+
 if [ -z "${RUN_E2E_TESTS}" ]
 then
     echo 'E2E test skipped'
