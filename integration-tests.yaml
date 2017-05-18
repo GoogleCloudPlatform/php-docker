@@ -34,6 +34,6 @@ steps:
     id: build_pipeline_php56
     env:
     - 'SERVICE_ACCOUNT_JSON=${_SERVICE_ACCOUNT_JSON}'
-    - 'TAG=${_TAG}-build-pipeline-php56'
+    - 'TAG=${_TAG}-bp-php56'
     - 'E2E_PROJECT_ID=${_E2E_PROJECT_ID}'
     - 'RUNTIME_BUILDER_ROOT=${_RUNTIME_BUILDER_ROOT}'
