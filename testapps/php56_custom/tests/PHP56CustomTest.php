@@ -243,7 +243,7 @@ class PHP56CustomTest extends \PHPUnit_Framework_TestCase
     public function testInteractiveOutput()
     {
         $resp = $this->client->get(
-            'readfile.php?f=' . urlencode('callable_output.txt')
+            'readfile.php?f=' . urlencode('../callable_output.txt')
         );
         $this->assertEquals(
             '200',
@@ -259,7 +259,7 @@ class PHP56CustomTest extends \PHPUnit_Framework_TestCase
     public function testPhpCliIni()
     {
         $resp = $this->client->get(
-            'readfile.php?f=' . urlencode('cli-ini-test.txt')
+            'readfile.php?f=' . urlencode('../cli-ini-test.txt')
         );
         $this->assertEquals(
             '200',
@@ -275,7 +275,7 @@ class PHP56CustomTest extends \PHPUnit_Framework_TestCase
     public function testCommandOutput()
     {
         $resp = $this->client->get(
-            'readfile.php?f=' . urlencode('script_output.txt')
+            'readfile.php?f=' . urlencode('../script_output.txt')
         );
         $this->assertEquals(
             '200',
@@ -284,6 +284,22 @@ class PHP56CustomTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertContains(
             'Testing Post Deploy Command',
+            $resp->getBody()->getContents()
+        );
+    }
+
+    public function testNginxHttpConf()
+    {
+        $resp = $this->client->get(
+            'readfile.php?f=' . urlencode('/etc/nginx/conf.d/nginx-http.conf')
+        );
+        $this->assertEquals(
+            '200',
+            $resp->getStatusCode(),
+            'readfile status code'
+        );
+        $this->assertContains(
+            '# nginx-http.conf',
             $resp->getBody()->getContents()
         );
     }

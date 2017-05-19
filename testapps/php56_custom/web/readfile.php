@@ -18,4 +18,4 @@
 // Reads the file and returns the content.
 
 $filename = $_GET['f'];
-echo file_get_contents(__DIR__ . '/../' . $filename);
+echo file_get_contents($filename);

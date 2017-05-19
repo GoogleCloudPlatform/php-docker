@@ -294,7 +294,15 @@ various config files" below).
 There are environment variables for adding config files.
 
 - NGINX_CONF_INCLUDE (defaults to nginx-app.conf)
-  This file will be inserted to the main nginx configuration.
+  This file will be inserted at the server block in the main nginx
+  configuration. Note that if you're using your own main nginx.conf
+  file and the file doesn't have the same include line, this file
+  won't be included.
+- NGINX_CONF_HTTP_INCLUDE (defaults to nginx-http.conf)
+  This file will be inserted at the http block in the main nginx
+  configuration. Note that if you're using your own main nginx.conf
+  file and the file doesn't have the same include line, this file
+  won't be included.
 - NGINX_CONF_OVERRIDE (defaults to nginx.conf)
   This file will entirely override the main nginx configuration.
 - PHP_FPM_CONF_OVERRIDE (defaults to php-fpm.conf)

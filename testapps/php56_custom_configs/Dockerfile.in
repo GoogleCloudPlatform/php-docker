@@ -15,6 +15,7 @@
 FROM ${BASE_IMAGE}
 
 ENV NGINX_CONF_INCLUDE=nginx-user.conf \
+    NGINX_CONF_HTTP_INCLUDE=nginx-custom-http.conf \
     NGINX_CONF_OVERRIDE=nginx-custom.conf \
     PHP_FPM_CONF_OVERRIDE=php-fpm-user.conf \
     PHP_INI_OVERRIDE=php-user.ini \
