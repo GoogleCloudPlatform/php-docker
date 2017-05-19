@@ -20,6 +20,13 @@
 
 set -xe
 
+# App specific piece of the nginx config file included in the http section.
+if [ -n "${NGINX_CONF_HTTP_INCLUDE}" ]; then
+    NGINX_CONF_HTTP_INCLUDE="${APP_DIR}/${NGINX_CONF_HTTP_INCLUDE}"
+else
+    NGINX_CONF_HTTP_INCLUDE="${APP_DIR}/nginx-http.conf"
+fi
+
 # App specific piece of the config file which is included from the
 # main configuration file.
 if [ -n "${NGINX_CONF_INCLUDE}" ]; then
@@ -39,6 +46,10 @@ fi
 # Move user-provided nginx config files.
 if [ -f "${NGINX_CONF_INCLUDE}" ]; then
     mv "${NGINX_CONF_INCLUDE}" "${NGINX_USER_CONF_DIR}/nginx-app.conf"
+fi
+
+if [ -f "${NGINX_CONF_HTTP_INCLUDE}" ]; then
+    mv "${NGINX_CONF_HTTP_INCLUDE}" "${NGINX_USER_CONF_DIR}/nginx-http.conf"
 fi
 
 if [ -f "${NGINX_CONF_OVERRIDE}" ]; then

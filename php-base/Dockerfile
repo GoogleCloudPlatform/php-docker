@@ -92,6 +92,7 @@ RUN mkdir -p $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
 # Put other config and shell files into place.
 COPY nginx.conf fastcgi_params gzip_params $NGINX_DIR/
 COPY nginx-app.conf $NGINX_USER_CONF_DIR
+RUN touch "${NGINX_USER_CONF_DIR}/nginx-http.conf"
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY entrypoint.sh composer.sh whitelist_functions.php /
 
