@@ -53,9 +53,6 @@ ENV NGINX_DIR=/etc/nginx \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
     UPLOAD_DIR=/upload \
     SESSION_SAVE_PATH=/tmp/sessions \
-    PHP56_VERSION=5.6.30 \
-    PHP70_VERSION=7.0.19 \
-    PHP71_VERSION=7.1.5 \
     PATH=/opt/php/bin:$PATH \
     WWW_HOME=/var/www \
     COMPOSER_HOME=/opt/composer \
@@ -75,6 +72,7 @@ RUN (echo "deb http://packages.cloud.google.com/apt ${RUNTIME_DISTRIBUTION} main
     (curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
       | apt-key add -) && \
     apt-get -y update && \
+    /bin/bash /build-scripts/dump_php_versions.sh && \
     /bin/bash /build-scripts/install_nginx.sh
 
 EXPOSE 8080
