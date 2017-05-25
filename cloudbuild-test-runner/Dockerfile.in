@@ -14,7 +14,7 @@
 
 # Dockerfile for running phpunit within a cloudbuild step.
 
-FROM gcr.io/google-appengine/php56:latest
+FROM ${PHP_56_IMAGE}
 
 RUN mkdir -p /opt/bin
 ENV PATH=${PATH}:/usr/local/bin:/opt/gcloud/google-cloud-sdk/bin

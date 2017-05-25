@@ -47,9 +47,9 @@ class DetectPhpVersion
     private static function detectAvailableVersions()
     {
         return [
-            getenv('PHP71_VERSION'),
-            getenv('PHP70_VERSION'),
-            getenv('PHP56_VERSION'),
+            trim(file_get_contents('/opt/php71_version')),
+            trim(file_get_contents('/opt/php70_version')),
+            trim(file_get_contents('/opt/php56_version'))
         ];
     }
 }
