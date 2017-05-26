@@ -61,6 +61,7 @@ ENV NGINX_DIR=/etc/nginx \
 
 # Install build scripts - composer, nginx, php
 COPY build-scripts /build-scripts
+RUN chown www-data /build-scripts
 
 ARG RUNTIME_DISTRIBUTION="gcp-php-runtime-jessie"
 
@@ -91,15 +92,9 @@ RUN mkdir -p $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
 COPY nginx.conf fastcgi_params gzip_params "${NGINX_DIR}/"
 COPY nginx-app.conf nginx-http.conf "${NGINX_USER_CONF_DIR}/"
 COPY supervisord.conf /etc/supervisor/supervisord.conf
-COPY entrypoint.sh composer.sh whitelist_functions.php /
 
-RUN chgrp www-data composer.sh && \
-    chmod +x /entrypoint.sh /composer.sh
-
-# A script for extracting PHP version from composer.json.
-COPY detect_php_version.php install_extensions.php /tmp/
+RUN chmod +x /build-scripts/entrypoint.sh /build-scripts/composer.sh
 
 WORKDIR $APP_DIR
 
-ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

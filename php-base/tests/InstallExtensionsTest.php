@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-require_once(__DIR__ . "/../install_extensions.php");
+require_once(__DIR__ . "/../build-scripts/install_extensions.php");
 
 class InstallExtensionsTest extends \PHPUnit_Framework_TestCase
 {

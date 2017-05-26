@@ -91,15 +91,15 @@ steps:
 
   # php56 test
   - name: gcr.io/cloud-builders/docker
-    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php56:$_TAG', '.']
+    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php56-test:$_TAG', '.']
     dir: testapps/php56
     waitFor: ['php-onbuild']
     id: php56-build
   - name: gcr.io/gcp-runtimes/structure_test
-    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php56:$_TAG', '--config', 'php56.yaml', '-v']
+    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php56-test:$_TAG', '--config', 'php56.yaml', '-v']
     waitFor: ['php56-build']
   - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG', '--name=php56', '-d', 'gcr.io/${_GOOGLE_PROJECT_ID}/php56:$_TAG']
+    args: ['run', '--net=nw_$_TAG', '--name=php56-test', '-d', 'gcr.io/${_GOOGLE_PROJECT_ID}/php56-test:$_TAG']
     waitFor: ['php56-build', 'test-network']
     id: php56-app
   - name: gcr.io/cloud-builders/docker

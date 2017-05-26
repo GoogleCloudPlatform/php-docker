@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2015 Google Inc.
+# Copyright 2017 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,10 +13,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-
-# This file configure the runtime dynamically based on the contents
-# and environment variables that user provides.
 
 set -xe
 
@@ -101,43 +97,3 @@ fi
 if [ -f "${SUPERVISORD_CONF_OVERRIDE}" ]; then
     mv "${SUPERVISORD_CONF_OVERRIDE}" /etc/supervisor/supervisord.conf
 fi
-
-# Configure memcached based session.
-if [ -n "${MEMCACHE_PORT_11211_TCP_ADDR}" ] && [ -n "${MEMCACHE_PORT_11211_TCP_PORT}" ]; then
-    cat <<EOF > ${PHP_DIR}/lib/conf.d/memcached-session.ini
-session.save_handler=memcached
-session.save_path="${MEMCACHE_PORT_11211_TCP_ADDR}:${MEMCACHE_PORT_11211_TCP_PORT}"
-EOF
-fi
-
-if [ -f "${APP_DIR}/composer.json" ]; then
-    # run the composer scripts for post-deploy
-    if su www-data -c "php /usr/local/bin/composer --no-ansi run-script -l" \
-        | grep -q "post-deploy-cmd"; then
-        su www-data -c \
-            "php /usr/local/bin/composer run-script post-deploy-cmd \
-            --no-ansi \
-            --no-interaction" \
-            || (echo 'Failed to execute post-deploy-cmd'; exit 1)
-    fi
-fi
-
-# Lock down the DOCUMENT_ROOT
-chown -R root.www-data ${DOCUMENT_ROOT}
-chmod -R 550 ${DOCUMENT_ROOT}
-
-# Change the www-data's shell back to /usr/sbin/nologin
-chsh -s /usr/sbin/nologin www-data
-
-# Enable suhosin for PHP 5.6.x
-if [ -x "${PHP56_DIR}/bin/php56-enmod" ]; then
-    ${PHP56_DIR}/bin/php56-enmod suhosin
-fi
-
-# Whitelist functions
-${PHP_DIR}/bin/php -d auto_prepend_file='' /whitelist_functions.php
-
-# Remove loose php-cli.ini
-rm /opt/php/lib/php-cli.ini
-
-exec "$@"

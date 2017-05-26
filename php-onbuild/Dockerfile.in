@@ -20,4 +20,7 @@ FROM ${PHP_71_IMAGE}
 ONBUILD COPY . $APP_DIR
 ONBUILD RUN chown -R www-data.www-data $APP_DIR
 
-ONBUILD RUN /composer.sh
+ONBUILD RUN /build-scripts/composer.sh
+
+ENTRYPOINT ["/build-scripts/entrypoint.sh"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

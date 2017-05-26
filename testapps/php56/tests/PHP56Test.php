@@ -29,7 +29,7 @@ class PHP56Test extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->client = new Client(['base_uri' => 'http://php56:8080/']);
+        $this->client = new Client(['base_uri' => 'http://php56-test:8080/']);
     }
 
     public function testIndex()
