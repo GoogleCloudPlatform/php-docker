@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright 2017 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,15 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Dockerfile for App Engine Flexible environment for PHP
+set -xe
 
-FROM {{ base_image }}
+# Lock down the DOCUMENT_ROOT
+chown -R root.www-data ${DOCUMENT_ROOT}
+chmod -R 550 ${DOCUMENT_ROOT}
 
-{{ env_string }}
+# Change the www-data's shell back to /usr/sbin/nologin
+chsh -s /usr/sbin/nologin www-data
 
-COPY . $APP_DIR
-RUN chown -R www-data.www-data $APP_DIR
-RUN /build-scripts/composer.sh
+# Enable suhosin for PHP 5.6.x
+if [ -x "${PHP56_DIR}/bin/php56-enmod" ]; then
+    ${PHP56_DIR}/bin/php56-enmod suhosin
+fi
 
-RUN /bin/bash /build-scripts/move-config-files.sh
-RUN /bin/bash /build-scripts/lockdown.sh
+# Whitelist functions
+${PHP_DIR}/bin/php -d auto_prepend_file='' \
+          /build-scripts/whitelist_functions.php
+
+# Remove loose php-cli.ini
+rm /opt/php/lib/php-cli.ini

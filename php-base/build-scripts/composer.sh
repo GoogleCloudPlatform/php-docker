@@ -25,12 +25,8 @@ if [ -f ${APP_DIR}/composer.json ]; then
         PHP_VERSION="${DETECTED_PHP_VERSION}"
     else
         # Extract php version from the composer.json.
-        CMD="php /tmp/detect_php_version.php ${APP_DIR}/composer.json"
+        CMD="php /build-scripts/detect_php_version.php ${APP_DIR}/composer.json"
         PHP_VERSION=`su www-data -c "${CMD}"`
-
-        # Remove files and directories for detecting PHP version.
-        # These files are created in Dockerfile.
-        rm -rf /tmp/vendor /tmp/detect_php_version.php /tmp/composer.*
 
         if [ "${PHP_VERSION}" != "5.6" ] && [ "${PHP_VERSION}" != "7.0" ] && [ "${PHP_VERSION}" != "7.1" ]; then
             cat<<EOF
@@ -77,7 +73,7 @@ EOF
     rm -rf ${APP_DIR}/vendor
 
     # Auto install extensions
-    php -d auto_prepend_file='' /tmp/install_extensions.php ${APP_DIR}/composer.json ${PHP_DIR}/lib/conf.d/extensions.ini ${PHP_VERSION}
+    php -d auto_prepend_file='' /build-scripts/install_extensions.php ${APP_DIR}/composer.json ${PHP_DIR}/lib/conf.d/extensions.ini ${PHP_VERSION}
 
     # Run Composer.
     if [ -n "${GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT}" ]; then

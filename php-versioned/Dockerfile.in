@@ -20,9 +20,9 @@ ARG PHP_VERSION=7.1
 
 RUN /bin/bash /build-scripts/install_php.sh && \
     /bin/bash /build-scripts/install_composer.sh && \
-    chgrp www-data /tmp/detect_php_version.php && \
+    chgrp www-data /build-scripts/detect_php_version.php && \
     # Temporary enable the shell for www-data
-    # We will disable it in entrypoint.sh
+    # We will disable it in lockdown.sh
     chsh -s /bin/bash www-data && \
-      cd /tmp && \
+      cd /build-scripts && \
       su www-data -c "php /usr/local/bin/composer require composer/semver"

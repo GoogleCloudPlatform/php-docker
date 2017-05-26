@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-require_once(__DIR__ . "/../detect_php_version.php");
+require_once(__DIR__ . "/../build-scripts/detect_php_version.php");
 
 class DetectPhpVersionTest extends \PHPUnit_Framework_TestCase
 {
