@@ -36,7 +36,9 @@ export BASE_IMAGE="gcr.io/google-appengine/php"
 
 for TEMPLATE in `find . -name Dockerfile.in`
 do
-  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE}' < ${TEMPLATE} > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
+    envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_71_IMAGE} ${PHP_56_IMAGE}' \
+             < ${TEMPLATE} \
+             > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
 done
 
 if [ -z "${E2E_PROJECT_ID}" ]
