@@ -28,15 +28,19 @@ gcloud auth activate-service-account \
 
 SRC_TMP=$(mktemp -d)
 
-# build the php test runner and export the name
-export TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
+# build the php test runner
+export PHP_56_IMAGE="gcr.io/google-appengine/php56:latest"
+envsubst '${PHP_56_IMAGE}' \
+         < cloudbuild-test-runner/Dockerfile.in \
+         > cloudbuild-test-runner/Dockerfile
+
+TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
 
 gcloud -q container builds submit --tag "${TEST_RUNNER}" \
     cloudbuild-test-runner
 
-SRC_DIR="${SRC_TMP}/check-versions"
-cp -R check-versions ${SRC_DIR}
-envsubst < "${SRC_DIR}/cloudbuild.yaml.in" > "${SRC_DIR}/cloudbuild.yaml"
+# Check the version
+gcloud -q container builds submit check-versions \
+       --config check-versions/cloudbuild.yaml \
+       --substitutions _TEST_RUNNER="${TEST_RUNNER}"
 
-gcloud -q container builds submit ${SRC_DIR} \
-    --config "${SRC_DIR}/cloudbuild.yaml"
