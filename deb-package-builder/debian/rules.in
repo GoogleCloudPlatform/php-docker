@@ -36,6 +36,7 @@ override_dh_auto_configure:
 	--with-curl \
 	--with-gettext=shared \
 	--with-gd=shared \
+	--with-gmp \
 	--with-freetype-dir=/usr \
 	--with-jpeg-dir=/usr \
 	--with-mcrypt \
