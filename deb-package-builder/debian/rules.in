@@ -10,6 +10,7 @@
 override_dh_auto_configure:
 	rm -f configure \
 	&& ./buildconf --force \
+	&& ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h \
 	&& dh_auto_configure -- --prefix=/opt/php${SHORT_VERSION} \
 	--with-config-file-path=/opt/php${SHORT_VERSION}/lib \
 	--with-config-file-scan-dir=/opt/php${SHORT_VERSION}/lib/ext.enabled:/opt/php${SHORT_VERSION}/lib/conf.d:/app \
@@ -36,6 +37,7 @@ override_dh_auto_configure:
 	--with-curl \
 	--with-gettext=shared \
 	--with-gd=shared \
+	--with-gmp \
 	--with-freetype-dir=/usr \
 	--with-jpeg-dir=/usr \
 	--with-mcrypt \
