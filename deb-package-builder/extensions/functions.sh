@@ -4,6 +4,26 @@
 
 E_PARAM_ERR=250
 
+with_retry()
+{
+    # Execute command up to x times
+    # Usage:
+    # with_retry "pecl download apcu" 5
+    if [ -z "$2" ]; then
+        echo 'missing argument for retry. usage: with_retry <command> <max-attempts>'
+        exit $E_PARAM_ERR
+    fi
+
+    attempt=0
+    until [ $attempt -ge $2 ]
+    do
+        $1 && break
+        attempt=$[$attempt+1]
+        echo "command '$1' failed"
+        sleep $((2**$attempt))
+    done
+}
+
 download_from_pecl()
 {
     # Download the source code, rename, extract it for debian package
@@ -22,12 +42,12 @@ download_from_pecl()
     PACKAGE_SHORT_NAME=$(basename ${PECL_PACKAGE_NAME} -beta)
 
     if [ -z "$2" ]; then
-        pecl download "${PECL_PACKAGE_NAME}"
+        with_retry "pecl download ${PECL_PACKAGE_NAME}" 6
         # determine the downloaded version
         EXT_VERSION=$(ls ${PACKAGE_SHORT_NAME}-*.tgz | \
                 sed "s/${PACKAGE_SHORT_NAME}-\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\)\.tgz/\1/")
     else
-        pecl download "${PECL_PACKAGE_NAME}-${2}"
+        with_retry "pecl download ${PECL_PACKAGE_NAME}-${2}" 6
         EXT_VERSION="${2}"
     fi
 
@@ -61,7 +81,7 @@ download_from_tarball()
     PACKAGE_DIR=${PNAME}-${PACKAGE_VERSION}
 
     # Download the file
-    curl -L $1 -o ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz
+    with_retry "curl -L $1 -o ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz" 6
     mkdir -p ${PACKAGE_DIR}
     tar zxf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz \
         -C ${PACKAGE_DIR} --strip-components=1
