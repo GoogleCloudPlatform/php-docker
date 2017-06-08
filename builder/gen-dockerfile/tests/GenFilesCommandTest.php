@@ -69,7 +69,8 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
         $expectedDocRoot,
         $expectedDockerIgnore,
         $expectedFrom,
-        $otherExpectations = []
+        $otherExpectations = [],
+        $expectedException = null
     ) {
         if ($baseImages === null) {
             $baseImages =
@@ -78,6 +79,9 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                     '--php70-image' => 'gcr.io/google-appengine/php70:latest',
                     '--php71-image' => 'gcr.io/google-appengine/php71:latest',
                 ];
+        }
+        if ($expectedException !== null) {
+            $this->setExpectedExceptionRegExp($expectedException);
         }
         // Copy all the files to the test dir
         foreach (self::$files as $file) {
@@ -162,34 +166,45 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
             [
-                // whitelist_functions
-                __DIR__ . '/test_data/whitelist_functions',
+                // values on env_variables
+                __DIR__ . '/test_data/values_only_on_env',
                 null,
                 '',
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php71:latest',
-                ["WHITELIST_FUNCTIONS=exec \\\n"]
+                [
+                    "WHITELIST_FUNCTIONS=exec \\\n",
+                    "FRONT_CONTROLLER_FILE=app.php",
+                    "NGINX_CONF_HTTP_INCLUDE=files/nginx-http.conf",
+                    "NGINX_CONF_INCLUDE=files/nginx-app.conf",
+                    "NGINX_CONF_OVERRIDE=files/nginx.conf",
+                    "PHP_FPM_CONF_OVERRIDE=files/php-fpm.conf",
+                    "PHP_INI_OVERRIDE=files/php.ini",
+                    "SUPERVISORD_CONF_ADDITION=files/additional-supervisord.conf",
+                    "SUPERVISORD_CONF_OVERRIDE=files/supervisord.conf"
+                ]
             ],
             [
-                // whitelist_functions on env_variables
-                __DIR__ . '/test_data/whitelist_functions_on_env',
+                // Values in both places will throw an exception.
+                __DIR__ . '/test_data/values_on_both',
                 null,
                 '',
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php71:latest',
-                ["WHITELIST_FUNCTIONS=exec \\\n"]
-            ],
-            [
-                // whitelist_functions runtime_config wins
-                __DIR__ . '/test_data/whitelist_functions_on_both',
-                null,
-                '',
-                '/app',
-                'added by the php runtime builder',
-                'gcr.io/google-appengine/php71:latest',
-                ["WHITELIST_FUNCTIONS=exec \\\n"]
+                [
+                    "WHITELIST_FUNCTIONS=exec \\\n",
+                    "FRONT_CONTROLLER_FILE=app.php",
+                    "NGINX_CONF_HTTP_INCLUDE=files/nginx-http.conf",
+                    "NGINX_CONF_INCLUDE=files/nginx-app.conf",
+                    "NGINX_CONF_OVERRIDE=files/nginx.conf",
+                    "PHP_FPM_CONF_OVERRIDE=files/php-fpm.conf",
+                    "PHP_INI_OVERRIDE=files/php.ini",
+                    "SUPERVISORD_CONF_ADDITION=files/additional-supervisord.conf",
+                    "SUPERVISORD_CONF_OVERRIDE=files/supervisord.conf"
+                ],
+                '\\RuntimeException'
             ],
             [
                 // front_controller_file
@@ -242,13 +257,15 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 'gcr.io/google-appengine/php71:latest'
             ],
             [
-                // document_root in runtime_config wins
+                // document_root in both will throw exception
                 __DIR__ . '/test_data/docroot_on_both',
                 null,
                 '',
                 '/app/web',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php71:latest'
+                'gcr.io/google-appengine/php71:latest',
+                [],
+                '\\RuntimeException'
             ],
             [
                 // Has files already

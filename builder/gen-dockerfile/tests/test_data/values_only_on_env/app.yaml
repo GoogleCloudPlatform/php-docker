@@ -1,0 +1,13 @@
+env: flex
+runtime: php
+
+env_variables:
+  WHITELIST_FUNCTIONS: exec
+  FRONT_CONTROLLER_FILE: app.php
+  NGINX_CONF_HTTP_INCLUDE: files/nginx-http.conf
+  NGINX_CONF_INCLUDE: files/nginx-app.conf
+  NGINX_CONF_OVERRIDE: files/nginx.conf
+  PHP_FPM_CONF_OVERRIDE: files/php-fpm.conf
+  PHP_INI_OVERRIDE: files/php.ini
+  SUPERVISORD_CONF_ADDITION: files/additional-supervisord.conf
+  SUPERVISORD_CONF_OVERRIDE: files/supervisord.conf

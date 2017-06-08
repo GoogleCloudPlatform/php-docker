@@ -1,5 +1,0 @@
-env: flex
-runtime: php
-
-env_variables:
-  WHITELIST_FUNCTIONS: exec

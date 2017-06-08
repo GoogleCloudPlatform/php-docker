@@ -1,0 +1,24 @@
+env: flex
+runtime: php
+
+runtime_config:
+  whitelist_functions: exec
+  front_controller_file: app.php
+  nginx_conf_http_include: files/nginx-http.conf
+  nginx_conf_include: files/nginx-app.conf
+  nginx_conf_override: files/nginx.conf
+  php_fpm_conf_override: files/php-fpm.conf
+  php_ini_override: files/php.ini
+  supervisord_conf_addition: files/additional-supervisord.conf
+  supervisord_conf_override: files/supervisord.conf
+
+env_variables:
+  WHITELIST_FUNCTIONS: none
+  FRONT_CONTROLLER_FILE: bogus
+  NGINX_CONF_HTTP_INCLUDE: bogus
+  NGINX_CONF_INCLUDE: bogus
+  NGINX_CONF_OVERRIDE: bogus
+  PHP_FPM_CONF_OVERRIDE: bogus
+  PHP_INI_OVERRIDE: bogus
+  SUPERVISORD_CONF_ADDITION: bogus
+  SUPERVISORD_CONF_OVERRIDE: bogus

@@ -138,22 +138,45 @@ Using PHP version 7.1.x...</info>
         if (!is_array($this->appYaml) || !array_key_exists('runtime_config', $this->appYaml)) {
             return $ret;
         }
-        $runtime_config = $this->appYaml['runtime_config'];
-
-        // TODO: Generalize this process
-        if (array_key_exists('whitelist_functions', $runtime_config)) {
-            $ret['WHITELIST_FUNCTIONS'] =
-                $runtime_config['whitelist_functions'];
+        $runtimeConfig = $this->appYaml['runtime_config'];
+        $envVariables = array_key_exists('env_variables', $this->appYaml)
+            ? $this->appYaml['env_variables']
+            : [];
+        $maps = [
+            'document_root' => 'DOCUMENT_ROOT',
+            'whitelist_functions' => 'WHITELIST_FUNCTIONS',
+            'front_controller_file' => 'FRONT_CONTROLLER_FILE',
+            'nginx_conf_http_include' => 'NGINX_CONF_HTTP_INCLUDE',
+            'nginx_conf_include' => 'NGINX_CONF_INCLUDE',
+            'nginx_conf_override' => 'NGINX_CONF_OVERRIDE',
+            'php_fpm_conf_override' => 'PHP_FPM_CONF_OVERRIDE',
+            'php_ini_override' => 'PHP_INI_OVERRIDE',
+            'supervisord_conf_addition' => 'SUPERVISORD_CONF_ADDITION',
+            'supervisord_conf_override' => 'SUPERVISORD_CONF_OVERRIDE'
+        ];
+        $errorKeys = [];
+        foreach ($maps as $k => $v) {
+            if (array_key_exists($k, $runtimeConfig)
+                && !empty($runtimeConfig[$k])) {
+                // Fail if we find the corresponding values in env_variables.
+                if (array_key_exists($v, $envVariables)) {
+                    $errorKeys[] = $v;
+                }
+                if ($v === 'DOCUMENT_ROOT') {
+                    // Add ${APP_DIR} for making it a full path.
+                    $ret[$v] = self::APP_DIR . '/' . $runtimeConfig[$k];
+                } else {
+                    $ret[$v] = $runtimeConfig[$k];
+                }
+            }
         }
-        if (array_key_exists('front_controller_file', $runtime_config)
-            && !empty($runtime_config['front_controller_file'])) {
-            $ret['FRONT_CONTROLLER_FILE'] =
-                $runtime_config['front_controller_file'];
-        }
-        if (array_key_exists('document_root', $runtime_config)
-            && !empty($runtime_config['document_root'])) {
-            $ret['DOCUMENT_ROOT'] =
-                self::APP_DIR . '/' . $runtime_config['document_root'];
+        if (count($errorKeys) > 0) {
+            throw new \RuntimeException(
+                "There are values defined on both 'env_variables' and "
+                . "'runtime_config'. Remove the following keys in "
+                . "'env_variables': "
+                . implode(" ", $errorKeys)
+            );
         }
         return $ret;
     }
