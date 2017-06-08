@@ -69,7 +69,8 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
         $expectedDocRoot,
         $expectedDockerIgnore,
         $expectedFrom,
-        $otherExpectations = []
+        $otherExpectations = [],
+        $expectedException = null
     ) {
         if ($baseImages === null) {
             $baseImages =
@@ -78,6 +79,9 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                     '--php70-image' => 'gcr.io/google-appengine/php70:latest',
                     '--php71-image' => 'gcr.io/google-appengine/php71:latest',
                 ];
+        }
+        if ($expectedException !== null) {
+            $this->setExpectedExceptionRegExp($expectedException);
         }
         // Copy all the files to the test dir
         foreach (self::$files as $file) {
@@ -182,7 +186,7 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
             [
-                // values in runtime_config win
+                // Values in both places will throw an exception.
                 __DIR__ . '/test_data/values_on_both',
                 null,
                 '',
@@ -199,7 +203,8 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                     "PHP_INI_OVERRIDE=files/php.ini",
                     "SUPERVISORD_CONF_ADDITION=files/additional-supervisord.conf",
                     "SUPERVISORD_CONF_OVERRIDE=files/supervisord.conf"
-                ]
+                ],
+                '\\RuntimeException'
             ],
             [
                 // front_controller_file
@@ -252,13 +257,15 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 'gcr.io/google-appengine/php71:latest'
             ],
             [
-                // document_root in runtime_config wins
+                // document_root in both will throw exception
                 __DIR__ . '/test_data/docroot_on_both',
                 null,
                 '',
                 '/app/web',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php71:latest'
+                'gcr.io/google-appengine/php71:latest',
+                [],
+                '\\RuntimeException'
             ],
             [
                 // Has files already
