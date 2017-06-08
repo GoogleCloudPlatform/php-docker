@@ -140,15 +140,22 @@ Using PHP version 7.1.x...</info>
         }
         $runtime_config = $this->appYaml['runtime_config'];
 
-        // TODO: Generalize this process
-        if (array_key_exists('whitelist_functions', $runtime_config)) {
-            $ret['WHITELIST_FUNCTIONS'] =
-                $runtime_config['whitelist_functions'];
-        }
-        if (array_key_exists('front_controller_file', $runtime_config)
-            && !empty($runtime_config['front_controller_file'])) {
-            $ret['FRONT_CONTROLLER_FILE'] =
-                $runtime_config['front_controller_file'];
+        $maps = [
+            'whitelist_functions' => 'WHITELIST_FUNCTIONS',
+            'front_controller_file' => 'FRONT_CONTROLLER_FILE',
+            'nginx_conf_http_include' => 'NGINX_CONF_HTTP_INCLUDE',
+            'nginx_conf_include' => 'NGINX_CONF_INCLUDE',
+            'nginx_conf_override' => 'NGINX_CONF_OVERRIDE',
+            'php_fpm_conf_override' => 'PHP_FPM_CONF_OVERRIDE',
+            'php_ini_override' => 'PHP_INI_OVERRIDE',
+            'supervisord_conf_addition' => 'SUPERVISORD_CONF_ADDITION',
+            'supervisord_conf_override' => 'SUPERVISORD_CONF_OVERRIDE'
+        ];
+        foreach ($maps as $k => $v) {
+            if (array_key_exists($k, $runtime_config)
+                && !empty($runtime_config[$k])) {
+                $ret[$v] = $runtime_config[$k];
+            }
         }
         if (array_key_exists('document_root', $runtime_config)
             && !empty($runtime_config['document_root'])) {
