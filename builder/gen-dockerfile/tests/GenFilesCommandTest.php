@@ -162,34 +162,44 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
             [
-                // whitelist_functions
-                __DIR__ . '/test_data/whitelist_functions',
+                // values on env_variables
+                __DIR__ . '/test_data/values_only_on_env',
                 null,
                 '',
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php71:latest',
-                ["WHITELIST_FUNCTIONS=exec \\\n"]
+                [
+                    "WHITELIST_FUNCTIONS=exec \\\n",
+                    "FRONT_CONTROLLER_FILE=app.php",
+                    "NGINX_CONF_HTTP_INCLUDE=files/nginx-http.conf",
+                    "NGINX_CONF_INCLUDE=files/nginx-app.conf",
+                    "NGINX_CONF_OVERRIDE=files/nginx.conf",
+                    "PHP_FPM_CONF_OVERRIDE=files/php-fpm.conf",
+                    "PHP_INI_OVERRIDE=files/php.ini",
+                    "SUPERVISORD_CONF_ADDITION=files/additional-supervisord.conf",
+                    "SUPERVISORD_CONF_OVERRIDE=files/supervisord.conf"
+                ]
             ],
             [
-                // whitelist_functions on env_variables
-                __DIR__ . '/test_data/whitelist_functions_on_env',
+                // values in runtime_config win
+                __DIR__ . '/test_data/values_on_both',
                 null,
                 '',
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php71:latest',
-                ["WHITELIST_FUNCTIONS=exec \\\n"]
-            ],
-            [
-                // whitelist_functions runtime_config wins
-                __DIR__ . '/test_data/whitelist_functions_on_both',
-                null,
-                '',
-                '/app',
-                'added by the php runtime builder',
-                'gcr.io/google-appengine/php71:latest',
-                ["WHITELIST_FUNCTIONS=exec \\\n"]
+                [
+                    "WHITELIST_FUNCTIONS=exec \\\n",
+                    "FRONT_CONTROLLER_FILE=app.php",
+                    "NGINX_CONF_HTTP_INCLUDE=files/nginx-http.conf",
+                    "NGINX_CONF_INCLUDE=files/nginx-app.conf",
+                    "NGINX_CONF_OVERRIDE=files/nginx.conf",
+                    "PHP_FPM_CONF_OVERRIDE=files/php-fpm.conf",
+                    "PHP_INI_OVERRIDE=files/php.ini",
+                    "SUPERVISORD_CONF_ADDITION=files/additional-supervisord.conf",
+                    "SUPERVISORD_CONF_OVERRIDE=files/supervisord.conf"
+                ]
             ],
             [
                 // front_controller_file
