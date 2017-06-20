@@ -47,7 +47,7 @@ class DetectPhpVersion
                 && array_key_exists('php', $composer['require'])) {
                 $constraints = $composer['require']['php'];
 
-                if (self::isExactVersion($constraits)) {
+                if (self::isExactVersion($constraints)) {
                     return self::EXACT_VERSION_SPECIFIED;
                 }
 
