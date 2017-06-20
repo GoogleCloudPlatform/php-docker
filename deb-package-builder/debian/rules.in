@@ -56,8 +56,7 @@ override_dh_auto_configure:
 	--with-pcre-regex \
 	--with-readline \
 	--with-recode \
-	--with-zlib \
-	--without-pear
+	--with-zlib
 
 override_dh_auto_test:
 

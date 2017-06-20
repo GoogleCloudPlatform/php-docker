@@ -64,7 +64,7 @@ build_php_version()
     else
       echo "Building ${PACKAGE_NAME} version ${FULL_VERSION}"
 
-      if [ ${PHP_VERSION} == *"alpha"* ]; then
+      if [[ "${PHP_VERSION}" == *"alpha"* ]]; then
           curl -sL "https://downloads.php.net/~pollita/php-${PHP_VERSION}.tar.gz" \
               > php-${PHP_VERSION}.tar.gz
           curl -sL "https://downloads.php.net/~pollita/php-${PHP_VERSION}.tar.gz.asc" \
@@ -74,12 +74,13 @@ build_php_version()
               > php-${PHP_VERSION}.tar.gz
           curl -sL "https://php.net/get/php-${PHP_VERSION}.tar.gz.asc/from/this/mirror" \
               > php-${PHP_VERSION}.tar.gz.asc
-          cat ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}/* | gpg --dearmor \
-              > ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}.gpg
-          gpg --no-default-keyring --keyring \
-              ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}.gpg \
-              --verify php-${PHP_VERSION}.tar.gz.asc
       fi
+      cat ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}/* | gpg --dearmor \
+          > ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}.gpg
+      gpg --no-default-keyring --keyring \
+          ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}.gpg \
+          --verify php-${PHP_VERSION}.tar.gz.asc
+
       rm php-${PHP_VERSION}.tar.gz.asc
       mv php-${PHP_VERSION}.tar.gz \
           ${PACKAGE_NAME}_${PHP_VERSION}.orig.tar.gz
