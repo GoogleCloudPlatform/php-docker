@@ -23,6 +23,7 @@ class DetectPhpVersion
 {
     const NO_PHP_CONSTRAINT_FOUND = 'NO_PHP_CONSTRAINT_FOUND';
     const NO_MATCHED_VERSION_FOUND = 'NO_MATCHED_VERSION_FOUND';
+    const EXACT_VERSION_SPECIFIED = 'EXACT_VERSION_SPECIFIED';
 
     /**
      * Extract the PHP version constraint from the composer file and match
@@ -33,7 +34,7 @@ class DetectPhpVersion
      * @param array|null $availableVersions **Defaults to** null.
      *
      * @return string Full version string in the form of x.y.z,
-     *         NO_PHP_CONSTRAINT_FOUND, or NO_MATCHED_VERSION_FOUND.
+     *         NO_PHP_CONSTRAINT_FOUND, NO_MATCHED_VERSION_FOUND, or EXACT_VERSION_SPECIFIED.
      */
     public static function determinePhpVersionFromComposer(
         $filename,
@@ -45,6 +46,11 @@ class DetectPhpVersion
                 && array_key_exists('require', $composer)
                 && array_key_exists('php', $composer['require'])) {
                 $constraints = $composer['require']['php'];
+
+                if (self::isExactVersion($constraints)) {
+                    return self::EXACT_VERSION_SPECIFIED;
+                }
+
                 return self::getFirstMatchedVersion(
                     $constraints,
                     $availableVersions
@@ -76,6 +82,17 @@ class DetectPhpVersion
             }
         }
         return self::NO_MATCHED_VERSION_FOUND;
+    }
+
+    /**
+     * Returns whether the requested PHP version is an exact version constraint.
+     *
+     * @param string $contraint
+     * @return bool Whether or not the constraint is asking for an exact version
+     */
+    public static function isExactVersion($constraint)
+    {
+        return !!preg_match('/^\d+\.\d+\.\d+$/', $constraint);
     }
 
     private static function detectAvailableVersions()

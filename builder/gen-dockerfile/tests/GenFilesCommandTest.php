@@ -276,6 +276,17 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 'User defined .dockerignore',
                 'gcr.io/google_appengine/debian'
             ],
+            [
+                // Exact PHP version is specified
+                __DIR__ . '/test_data/exact_php_version',
+                null,
+                '',
+                '/app',
+                'added by the php runtime builder',
+                'gcr.io/google-appengine/php56:latest',
+                [],
+                '\\RuntimeException'
+            ]
         ];
     }
 }

@@ -100,6 +100,11 @@ composer require php 7.1.* (replace it with your desired minor version)
 
 Using PHP version 7.1.x...</info>
 ");
+        } elseif ($version === DetectPhpVersion::EXACT_VERSION_SPECIFIED) {
+            throw new \RuntimeException(
+                "An exact PHP version was specified in composer.json. Please pin your" .
+                "PHP version to a minor version such as '7.1.*'."
+            );
         }
         if (substr($version, 0, 3) === '5.6') {
             $this->baseImage = $input->getOption('php56-image');
