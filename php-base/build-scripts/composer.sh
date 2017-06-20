@@ -27,8 +27,14 @@ if [ -f ${APP_DIR}/composer.json ]; then
         # Extract php version from the composer.json.
         CMD="php /build-scripts/detect_php_version.php ${APP_DIR}/composer.json"
         PHP_VERSION=`su www-data -c "${CMD}"`
+        echo "PHP_VERSION: ${PHP_VERSION}"
 
-        if [ "${PHP_VERSION}" != "5.6" ] && [ "${PHP_VERSION}" != "7.0" ] && [ "${PHP_VERSION}" != "7.1" ]; then
+        if [ "${PHP_VERSION}" == "exact" ]; then
+            cat<<EOF
+An exact PHP version was specified in composer.json. Please pin your PHP version to a minor version such as '7.1.*'.
+EOF
+            exit 1
+        elif [ "${PHP_VERSION}" != "5.6" ] && [ "${PHP_VERSION}" != "7.0" ] && [ "${PHP_VERSION}" != "7.1" ]; then
             cat<<EOF
 There is no PHP runtime version specified in composer.json, or we don't support the version you specified. Google App Engine uses the latest 7.1.x version. We recommend pinning your PHP version by running:
 
