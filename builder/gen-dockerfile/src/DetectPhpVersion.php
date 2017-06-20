@@ -90,7 +90,7 @@ class DetectPhpVersion
      * @param string $contraint
      * @return bool Whether or not the constraint is asking for an exact version
      */
-    public static function isExactVersion($contraint)
+    public static function isExactVersion($constraint)
     {
         return !!preg_match('/^\d+.\d+\d+$/', $constraint);
     }
