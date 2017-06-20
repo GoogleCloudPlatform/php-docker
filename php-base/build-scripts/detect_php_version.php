@@ -34,7 +34,7 @@ class DetectPhpVersion
 
     public static function version($constraint, $availableVersions = null)
     {
-        if (preg_match('//', $constraint)) {
+        if (preg_match('/^\d+.\d+\d+$/', $constraint)) {
             return 'exact';
         }
 

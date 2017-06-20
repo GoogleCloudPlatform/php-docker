@@ -27,6 +27,7 @@ if [ -f ${APP_DIR}/composer.json ]; then
         # Extract php version from the composer.json.
         CMD="php /build-scripts/detect_php_version.php ${APP_DIR}/composer.json"
         PHP_VERSION=`su www-data -c "${CMD}"`
+        echo "PHP_VERSION: ${PHP_VERSION}"
 
         if [ "${PHP_VERSION}" == "exact" ]; then
             cat<<EOF
