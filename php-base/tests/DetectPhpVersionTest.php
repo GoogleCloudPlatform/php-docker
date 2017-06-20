@@ -45,4 +45,10 @@ class DetectPhpVersionTest extends \PHPUnit_Framework_TestCase
         $version = DetectPhpVersion::version('7.1.100', self::AVAILABLE_VERSIONS);
         $this->assertEquals('', $version);
     }
+
+    public function testExactVersionReturnsExactString()
+    {
+        $version = DetectPhpVersion::versionFromComposer(__DIR__ . '/samples/exact.json', self::AVAILABLE_VERSIONS);
+        $this->assertEquals('exact', $version);
+    }
 }

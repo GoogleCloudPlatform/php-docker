@@ -34,6 +34,10 @@ class DetectPhpVersion
 
     public static function version($constraint, $availableVersions = null)
     {
+        if (preg_match('//', $constraint)) {
+            return 'exact';
+        }
+
         $availableVersions = $availableVersions ?: self::detectAvailableVersions();
         foreach ($availableVersions as $version) {
             if (Semver::satisfies($version, $constraint)) {
