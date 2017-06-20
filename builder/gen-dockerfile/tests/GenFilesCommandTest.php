@@ -283,7 +283,7 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 '',
                 '/app',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php71:latest',
+                'gcr.io/google-appengine/php56:latest',
                 [],
                 '\\RuntimeException'
             ]

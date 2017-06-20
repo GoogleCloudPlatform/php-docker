@@ -92,7 +92,7 @@ class DetectPhpVersion
      */
     public static function isExactVersion($constraint)
     {
-        return !!preg_match('/^\d+.\d+\d+$/', $constraint);
+        return !!preg_match('/^\d+\.\d+\.\d+$/', $constraint);
     }
 
     private static function detectAvailableVersions()
