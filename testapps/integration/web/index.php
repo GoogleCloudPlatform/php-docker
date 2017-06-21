@@ -40,7 +40,7 @@ $app->post('/logging_standard', function (Request $request) {
 });
 
 // This test doesn't work yet. Custom logging client is NYI.
-$app->post('/logging_custom', function() {
+$app->post('/logging_custom', function () {
     return 'NYI';
 });
 
@@ -54,7 +54,7 @@ $app->post('/exception', function () {
     return 'NYI';
 });
 
-$app->post('/custom', function() {
+$app->post('/custom', function () {
     // No custom tests, so just return OK.
     return 'OK';
 });
