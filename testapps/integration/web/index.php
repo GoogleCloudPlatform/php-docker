@@ -28,7 +28,7 @@ $app->get('/', function () {
     return 'Hello World!';
 });
 
-$app->post('/logging', function (Request $request) {
+$app->post('/logging_standard', function (Request $request) {
     $logName = $request->get('log_name');
     $token = $request->get('token');
 
@@ -39,6 +39,11 @@ $app->post('/logging', function (Request $request) {
     return 'OK';
 });
 
+// This test doesn't work yet. Custom logging client is NYI.
+$app->post('/logging_custom', function() {
+    return 'NYI';
+});
+
 // This test does not work yet. The monitoring client is NYI.
 $app->post('/monitoring', function () {
     return 'NYI';
@@ -47,6 +52,11 @@ $app->post('/monitoring', function () {
 // This test does not work yet. The exception reporting client is NYI.
 $app->post('/exception', function () {
     return 'NYI';
+});
+
+$app->post('/custom', function() {
+    // No custom tests, so just return OK.
+    return 'OK';
 });
 
 // @codeCoverageIgnoreStart
