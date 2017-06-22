@@ -34,6 +34,7 @@ apt-get install -y \
         gcp-php56-oauth \
         gcp-php56-phalcon \
         gcp-php56-pq \
+        gcp-php56-protobuf \
         gcp-php56-rdkafka \
         gcp-php56-redis \
         gcp-php56-suhosin \
