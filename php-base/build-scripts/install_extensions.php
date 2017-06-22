@@ -46,6 +46,7 @@ class InstallExtensions
         'oauth',
         'phalcon',
         'pq',
+        'protobuf',
         'raphf',
         'rdkafka',
         'redis'
