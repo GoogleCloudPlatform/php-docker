@@ -13,3 +13,4 @@
 # limitations under the License.
 
 FROM ${STAGING_IMAGE}
+ENV DOCUMENT_ROOT /app/web
