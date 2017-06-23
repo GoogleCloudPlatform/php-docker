@@ -18,7 +18,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Composer\Semver\Semver;
 
-class ExactVersionException extends Exception {}
+class ExactVersionException extends Exception
+{
+}
 
 class DetectPhpVersion
 {
