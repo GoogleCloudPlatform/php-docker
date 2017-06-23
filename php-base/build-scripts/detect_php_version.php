@@ -18,6 +18,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Composer\Semver\Semver;
 
+class ExactVersionException extends Exception {}
+
 class DetectPhpVersion
 {
     public static function versionFromComposer($filename, $availableVersions = null)
@@ -35,7 +37,7 @@ class DetectPhpVersion
     public static function version($constraint, $availableVersions = null)
     {
         if (preg_match('/^\d+\.\d+\.\d+$/', $constraint)) {
-            return 'exact';
+            throw new ExactVersionException();
         }
 
         $availableVersions = $availableVersions ?: self::detectAvailableVersions();
@@ -63,8 +65,12 @@ if (basename($argv[0]) == basename(__FILE__)) {
         die("Usage:\n" . $argv[0] . " filename\n");
     }
 
-    $version = DetectPhpVersion::versionFromComposer($argv[1]);
+    try {
+        $version = DetectPhpVersion::versionFromComposer($argv[1]);
 
-    # only echo out the major/minor
-    echo substr($version, 0, strrpos($version, '.'));
+        # only echo out the major/minor
+        echo substr($version, 0, strrpos($version, '.'));
+    } catch (ExactVersionException $e) {
+        echo 'exact';
+    }
 }
