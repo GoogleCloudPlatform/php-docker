@@ -49,8 +49,24 @@ class DetectPhpVersionTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \ExactVersionException
      */
-    public function testExactVersionReturnsExactString()
+    public function testExactVersion()
     {
         $version = DetectPhpVersion::versionFromComposer(__DIR__ . '/samples/exact.json', self::AVAILABLE_VERSIONS);
+    }
+
+    /**
+     * @expectedException \NoSpecifiedVersionException
+     */
+    public function testNoVersionString()
+    {
+        $version = DetectPhpVersion::versionFromComposer(__DIR__ . '/samples/no_version.json', self::AVAILABLE_VERSIONS);
+    }
+
+    /**
+     * @expectedException \InvalidVersionException
+     */
+    public function testInvalidVersion()
+    {
+        $version = DetectPhpVersion::versionFromComposer(__DIR__ . '/samples/invalid.json', self::AVAILABLE_VERSIONS);
     }
 }
