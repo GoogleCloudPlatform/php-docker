@@ -18,6 +18,26 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Composer\Semver\Semver;
 
+class ExactVersionException extends Exception
+{
+}
+
+class NoSpecifiedVersionException extends Exception
+{
+    public function __construct()
+    {
+        parent::__construct("No version found in composer.json");
+    }
+}
+
+class InvalidVersionException extends Exception
+{
+    public function __construct($constraint, $availableVersions)
+    {
+        parent::__construct("No suitable version for for '$constraint' in ${implode(',', $availableVersions)}");
+    }
+}
+
 class DetectPhpVersion
 {
     public static function versionFromComposer($filename, $availableVersions = null)
@@ -29,13 +49,13 @@ class DetectPhpVersion
             $constraints = $composer['require']['php'];
             return self::version($constraints, $availableVersions);
         }
-        return '';
+        throw new NoSpecifiedVersionException();
     }
 
     public static function version($constraint, $availableVersions = null)
     {
         if (preg_match('/^\d+\.\d+\.\d+$/', $constraint)) {
-            return 'exact';
+            throw new ExactVersionException();
         }
 
         $availableVersions = $availableVersions ?: self::detectAvailableVersions();
@@ -45,7 +65,7 @@ class DetectPhpVersion
                 return $version;
             }
         }
-        return '';
+        throw new InvalidVersionException($constraint, $availableVersions);
     }
 
     private static function detectAvailableVersions()
@@ -63,8 +83,16 @@ if (basename($argv[0]) == basename(__FILE__)) {
         die("Usage:\n" . $argv[0] . " filename\n");
     }
 
-    $version = DetectPhpVersion::versionFromComposer($argv[1]);
+    try {
+        $version = DetectPhpVersion::versionFromComposer($argv[1]);
 
-    # only echo out the major/minor
-    echo substr($version, 0, strrpos($version, '.'));
+        # only echo out the major/minor
+        echo substr($version, 0, strrpos($version, '.'));
+    } catch (ExactVersionException $e) {
+        echo 'exact';
+    } catch (NoSpecifiedVersionException $e) {
+        echo $e->getMessage();
+    } catch (InvalidVersionException $e) {
+        echo $e->getMessage();
+    }
 }
