@@ -36,6 +36,7 @@ if [ -n "${REBUILD_TEST_RUNNER}" ]; then
            cloudbuild-test-runner
 fi
 
-gcloud -q container builds submit  perf-dashboard/deployment-latency\
+gcloud -q container builds submit perf-dashboard/deployment-latency\
+       --timeout 7200 \
        --config perf-dashboard/deployment-latency/cloudbuild.yaml \
        --substitutions _TEST_RUNNER="${TEST_RUNNER}"
