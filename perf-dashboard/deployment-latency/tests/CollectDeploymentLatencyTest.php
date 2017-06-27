@@ -85,12 +85,12 @@ class CollectDeploymentLatencyTest extends \PHPUnit_Framework_TestCase
                 }
                 $command .= ' --version ' . str_replace('.', '', $reportName);
                 $command .= ' --no-stop-previous-version --no-promote';
-                $before = microtime(true);
                 $latency = 0.0;
                 while ($failureCount < self::DEPLOYMENT_MAX_RETRY) {
+                    $start = microtime(true);
                     $ret = self::execWithResult($command);
                     if ($ret === 0) {
-                        $latency = microtime(true) - $before;
+                        $latency = microtime(true) - $start;
                         break;
                     }
                     $failureCount++;
