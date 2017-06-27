@@ -21,7 +21,6 @@ use Google\Cloud\BigQuery\BigQueryClient;
 
 class CollectDeploymentLatencyTest extends \PHPUnit_Framework_TestCase
 {
-
     const DEPLOYMENT_MAX_RETRY = 5;
     const PROJECT_ID = 'php-perf-dash';
     const DATASET_ID = 'deployment_latency';
@@ -124,7 +123,7 @@ class CollectDeploymentLatencyTest extends \PHPUnit_Framework_TestCase
             ]
         );
         $url = 'http://metadata.google.internal/computeMetadata/'
-            .'v1/instance/service-accounts/default/token';
+            . 'v1/instance/service-accounts/default/token';
         $token = json_decode(file_get_contents($url, false, $context), true);
 
         return new BigQueryClient(
