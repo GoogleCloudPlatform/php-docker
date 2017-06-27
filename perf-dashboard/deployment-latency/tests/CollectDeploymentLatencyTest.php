@@ -57,7 +57,7 @@ class CollectDeploymentLatencyTest extends \PHPUnit_Framework_TestCase
     {
         self::execWithError(
             'gcloud config set app/use_runtime_builders true',
-            'use-runitme-builder'
+            'use-runtime-builder'
         );
     }
 
