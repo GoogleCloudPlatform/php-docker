@@ -17,6 +17,9 @@
 
 namespace Google\Cloud\Runtimes\Builder;
 
+use Google\Cloud\Runtimes\Builder\Exception\EnvConflictException;
+use Google\Cloud\Runtimes\Builder\Exception\ExactVersionException;
+use Google\Cloud\Runtimes\Builder\Exception\MissingDocumentRootException;
 use Google\Cloud\Runtimes\DetectPhpVersion;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -101,7 +104,7 @@ composer require php 7.1.* (replace it with your desired minor version)
 Using PHP version 7.1.x...</info>
 ");
         } elseif ($version === DetectPhpVersion::EXACT_VERSION_SPECIFIED) {
-            throw new \RuntimeException(
+            throw new ExactVersionException(
                 "An exact PHP version was specified in composer.json. Please pin your" .
                 "PHP version to a minor version such as '7.1.*'."
             );
@@ -181,7 +184,7 @@ Using PHP version 7.1.x...</info>
             }
         }
         if (count($errorKeys) > 0) {
-            throw new \RuntimeException(
+            throw new EnvConflictException(
                 "There are values defined on both 'env_variables' and "
                 . "'runtime_config'. Remove the following keys in "
                 . "'env_variables': "
@@ -211,7 +214,7 @@ Using PHP version 7.1.x...</info>
             ];
         // Fail if DOCUMENT_ROOT is not set.
         if (! array_key_exists('DOCUMENT_ROOT', $envs)) {
-            throw new \RuntimeException(
+            throw new MissingDocumentRootException(
                 'You have to set document_root in the runtime_config section'
                 . ' in app.yaml.'
             );
