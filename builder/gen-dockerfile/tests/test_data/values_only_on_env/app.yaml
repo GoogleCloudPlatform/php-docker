@@ -2,6 +2,7 @@ env: flex
 runtime: php
 
 env_variables:
+  DOCUMENT_ROOT: /app
   WHITELIST_FUNCTIONS: exec
   FRONT_CONTROLLER_FILE: app.php
   NGINX_CONF_HTTP_INCLUDE: files/nginx-http.conf
