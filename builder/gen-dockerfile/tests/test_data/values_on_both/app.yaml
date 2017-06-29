@@ -2,6 +2,7 @@ env: flex
 runtime: php
 
 runtime_config:
+  document_root: /app
   whitelist_functions: exec
   front_controller_file: app.php
   nginx_conf_http_include: files/nginx-http.conf

@@ -168,8 +168,13 @@ Using PHP version 7.1.x...</info>
                     $errorKeys[] = $v;
                 }
                 if ($v === 'DOCUMENT_ROOT') {
-                    // Add ${APP_DIR} for making it a full path.
-                    $ret[$v] = self::APP_DIR . '/' . $runtimeConfig[$k];
+                    if (substr($runtimeConfig[$k], 0, 1) === '/') {
+                        // Pass full path as it is.
+                        $ret[$v] = $runtimeConfig[$k];
+                    } else {
+                        // Otherwise prepend the app dir.
+                        $ret[$v] = self::APP_DIR . '/' . $runtimeConfig[$k];
+                    }
                 } else {
                     $ret[$v] = $runtimeConfig[$k];
                 }
@@ -200,11 +205,17 @@ Using PHP version 7.1.x...</info>
         $envs = $this->envsFromRuntimeConfig()
             + $this->envsFromAppYaml()
             + [
-                'DOCUMENT_ROOT' => self::APP_DIR,
                 'FRONT_CONTROLLER_FILE' => self::DEFAULT_FRONT_CONTROLLER_FILE,
                 'GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT' => 'true',
                 'DETECTED_PHP_VERSION' => $this->detectedPhpVersion
             ];
+        // Fail if DOCUMENT_ROOT is not set.
+        if (! array_key_exists('DOCUMENT_ROOT', $envs)) {
+            throw new \RuntimeException(
+                'You have to set document_root in the runtime_config section'
+                . ' in app.yaml.'
+            );
+        }
         $envString = 'ENV ';
         foreach ($envs as $key => $value) {
             $envString .= "$key=$value \\\n";

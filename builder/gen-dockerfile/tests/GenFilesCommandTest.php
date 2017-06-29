@@ -187,6 +187,17 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 // Values in both places will throw an exception.
+                __DIR__ . '/test_data/no_docroot',
+                null,
+                '',
+                '/app',
+                'added by the php runtime builder',
+                'gcr.io/google-appengine/php71:latest',
+                [],
+                '\\RuntimeException'
+            ],
+            [
+                // Values in both places will throw an exception.
                 __DIR__ . '/test_data/values_on_both',
                 null,
                 '',
