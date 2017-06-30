@@ -29,6 +29,15 @@ $app->get('/', function () {
 });
 
 $app->post('/logging_standard', function (Request $request) {
+    $token = $request->request->get('token');
+    $stderr = fopen('php://stderr', 'w');
+    fwrite($stderr, $token . PHP_EOL);
+    fclose($stderr);
+
+    return 'OK';
+});
+
+$app->post('/logging_custom', function () {
     $logName = $request->request->get('log_name');
     $token = $request->request->get('token');
     $level = $request->request->get('level');
@@ -37,11 +46,6 @@ $app->post('/logging_standard', function (Request $request) {
     $logger->log($level, $token);
 
     return 'OK';
-});
-
-// This test doesn't work yet. Custom logging client is NYI.
-$app->post('/logging_custom', function () {
-    return 'NYI';
 });
 
 // This test does not work yet. The monitoring client is NYI.
