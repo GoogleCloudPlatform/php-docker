@@ -59,6 +59,8 @@ $app->post('/custom', function () {
     return 'OK';
 });
 
+$app['debug'] = true;
+
 // @codeCoverageIgnoreStart
 if (PHP_SAPI != 'cli') {
     $app->run();
