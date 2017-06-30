@@ -34,7 +34,7 @@ $app->post('/logging_standard', function (Request $request) {
     fwrite($stderr, $token . PHP_EOL);
     fclose($stderr);
 
-    return 'OK';
+    return 'appengine.googleapis.com%2Fstderr';
 });
 
 $app->post('/logging_custom', function () {
@@ -45,7 +45,7 @@ $app->post('/logging_custom', function () {
     $logger = LoggingClient::psrBatchLogger($logName);
     $logger->log($level, $token);
 
-    return 'OK';
+    return $logName;
 });
 
 // This test does not work yet. The monitoring client is NYI.
