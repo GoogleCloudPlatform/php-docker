@@ -29,19 +29,23 @@ $app->get('/', function () {
 });
 
 $app->post('/logging_standard', function (Request $request) {
-    $logName = $request->get('log_name');
-    $token = $request->get('token');
+    $token = $request->request->get('token');
+    $stderr = fopen('php://stderr', 'w');
+    fwrite($stderr, $token . PHP_EOL);
+    fclose($stderr);
 
-    $logging = new LoggingClient();
-    $logger = $logging->logger($logName);
-    $logger->write($token);
-
-    return 'OK';
+    return 'appengine.googleapis.com%2Fstderr';
 });
 
-// This test doesn't work yet. Custom logging client is NYI.
 $app->post('/logging_custom', function () {
-    return 'NYI';
+    $logName = $request->request->get('log_name');
+    $token = $request->request->get('token');
+    $level = $request->request->get('level');
+
+    $logger = LoggingClient::psrBatchLogger($logName);
+    $logger->log($level, $token);
+
+    return $logName;
 });
 
 // This test does not work yet. The monitoring client is NYI.
@@ -60,6 +64,13 @@ $app->post('/custom', function () {
 });
 
 $app['debug'] = true;
+
+$app->before(function (Request $request) {
+    if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace(is_array($data) ? $data : array());
+    }
+});
 
 // @codeCoverageIgnoreStart
 if (PHP_SAPI != 'cli') {
