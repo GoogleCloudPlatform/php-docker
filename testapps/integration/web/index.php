@@ -31,10 +31,10 @@ $app->get('/', function () {
 $app->post('/logging_standard', function (Request $request) {
     $logName = $request->request->get('log_name');
     $token = $request->request->get('token');
+    $level = $request->request->get('level');
 
-    $logging = new LoggingClient();
-    $logger = $logging->logger($logName);
-    $logger->write($token);
+    $logger = LoggingClient::psrBatchLogger($logName);
+    $logger->log($level, $token);
 
     return 'OK';
 });
