@@ -58,9 +58,9 @@ $app->post('/exception', function () {
     return 'NYI';
 });
 
-$app->post('/custom', function () {
-    // No custom tests, so just return OK.
-    return 'OK';
+$app->get('/custom', function () use ($app) {
+    // No custom tests, so just return an empty array.
+    return $app->json([]);
 });
 
 $app['debug'] = true;
