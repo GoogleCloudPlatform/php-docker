@@ -38,10 +38,10 @@ steps:
     - 'E2E_PROJECT_ID=${_E2E_PROJECT_ID}'
     - 'RUNTIME_BUILDER_ROOT=${_RUNTIME_BUILDER_ROOT}'
 
- - name: gcr.io/gcp-runtimes/integration_test
-   args: [
-     '-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php56:$_TAG',
-     '-d', 'testapps/integration',
-     '--skip-monitoring-tests'
-   ]
-   waitFor: ['-']
+  - name: gcr.io/gcp-runtimes/integration_test
+    args: [
+      '-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php56:${_TAG}',
+      '-d', '/workspace/testapps/integration',
+      '--skip-monitoring-tests'
+    ]
+    waitFor: ['-']
