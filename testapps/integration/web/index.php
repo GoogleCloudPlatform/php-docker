@@ -37,7 +37,7 @@ $app->post('/logging_standard', function (Request $request) {
     return 'appengine.googleapis.com%2Fstderr';
 });
 
-$app->post('/logging_custom', function () {
+$app->post('/logging_custom', function (Request $request) {
     $logName = $request->request->get('log_name');
     $token = $request->request->get('token');
     $level = $request->request->get('level');
@@ -58,7 +58,7 @@ $app->post('/exception', function () {
     return 'NYI';
 });
 
-$app->post('/custom', function () {
+$app->get('/custom', function () {
     // No custom tests, so just return OK.
     return 'OK';
 });
