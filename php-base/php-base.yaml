@@ -6,13 +6,13 @@ commandTests:
     expectedOutput: [""]
   - name: "php56-version"
     command: ["cat", "/opt/php56_version"]
-    expectedOutput: ["5\\.6\\.30"]
+    expectedOutput: ["5\\.6.*"]
   - name: "php70-version"
     command: ["cat", "/opt/php70_version"]
-    expectedOutput: ["7\\.0\\.20"]
+    expectedOutput: ["7\\.0.*"]
   - name: "php71-version"
     command: ["cat", "/opt/php71_version"]
-    expectedOutput: ["7\\.1\\.6"]
+    expectedOutput: ["7\\.1.*"]
 licenseTests:
   - debian: true
     files: []
