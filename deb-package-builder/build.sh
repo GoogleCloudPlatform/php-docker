@@ -65,9 +65,9 @@ build_php_version()
       echo "Building ${PACKAGE_NAME} version ${FULL_VERSION}"
 
       if [[ "${PHP_VERSION}" == *"alpha"* ]]; then
-          curl -sL "https://downloads.php.net/~pollita/php-${PHP_VERSION}.tar.gz" \
+          curl -sL "https://downloads.php.net/~remi/php-${PHP_VERSION}.tar.gz" \
               > php-${PHP_VERSION}.tar.gz
-          curl -sL "https://downloads.php.net/~pollita/php-${PHP_VERSION}.tar.gz.asc" \
+          curl -sL "https://downloads.php.net/~remi/php-${PHP_VERSION}.tar.gz.asc" \
               > php-${PHP_VERSION}.tar.gz.asc
       else
           curl -sL "https://php.net/get/php-${PHP_VERSION}.tar.gz/from/this/mirror" \
