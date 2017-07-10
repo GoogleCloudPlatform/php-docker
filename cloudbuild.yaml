@@ -17,7 +17,7 @@ steps:
 
   # php72
   - name: gcr.io/cloud-builders/docker
-    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php71:$_TAG', '--build-arg', 'PHP_VERSION=7.1', '.']
+    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php72:$_TAG', '--build-arg', 'PHP_VERSION=7.2', '.']
     dir: php-versioned
     waitFor: ['php-base']
     id: php72
