@@ -32,6 +32,7 @@ apt-get install -y \
         gcp-php71-mongodb \
         gcp-php71-oauth \
         gcp-php71-pq \
+        gcp-php71-protobuf \
         gcp-php71-rdkafka \
         gcp-php71-redis \
         --no-install-recommends

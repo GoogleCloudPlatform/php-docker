@@ -1,0 +1,8 @@
+runtime: php
+env: flex
+
+manual_scaling:
+  instances: 1
+
+runtime_config:
+  document_root: web

@@ -33,6 +33,7 @@ apt-get install -y \
         gcp-php70-oauth \
         gcp-php70-phalcon \
         gcp-php70-pq \
+        gcp-php70-protobuf \
         gcp-php70-rdkafka \
         gcp-php70-redis \
         --no-install-recommends

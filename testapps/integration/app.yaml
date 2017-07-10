@@ -1,5 +1,2 @@
-runtime: php
+runtime: custom
 env: flex
-
-runtime_config:
-  document_root: web

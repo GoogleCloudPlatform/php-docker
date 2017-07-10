@@ -26,6 +26,7 @@
         "ext-raphf": "*",
         "ext-pq": "*",
         "ext-rdkafka": "*",
-        "ext-cassandra": "*"
+        "ext-cassandra": "*",
+        "ext-protobuf": "*"
     }
 }

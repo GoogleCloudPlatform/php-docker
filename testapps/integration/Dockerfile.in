@@ -12,4 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM ${BASE_IMAGE}
+FROM ${STAGING_IMAGE}
+ENV DOCUMENT_ROOT /app/web

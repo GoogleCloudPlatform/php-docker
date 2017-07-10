@@ -28,15 +28,24 @@ $app->get('/', function () {
     return 'Hello World!';
 });
 
-$app->post('/logging', function (Request $request) {
-    $logName = $request->get('log_name');
-    $token = $request->get('token');
+$app->post('/logging_standard', function (Request $request) {
+    $token = $request->request->get('token');
+    $stderr = fopen('php://stderr', 'w');
+    fwrite($stderr, $token . PHP_EOL);
+    fclose($stderr);
 
-    $logging = new LoggingClient();
-    $logger = $logging->logger($logName);
-    $logger->write($token);
+    return 'appengine.googleapis.com%2Fstderr';
+});
 
-    return 'OK';
+$app->post('/logging_custom', function (Request $request) {
+    $logName = $request->request->get('log_name');
+    $token = $request->request->get('token');
+    $level = $request->request->get('level');
+
+    $logger = LoggingClient::psrBatchLogger($logName);
+    $logger->log($level, $token);
+
+    return $logName;
 });
 
 // This test does not work yet. The monitoring client is NYI.
@@ -47,6 +56,20 @@ $app->post('/monitoring', function () {
 // This test does not work yet. The exception reporting client is NYI.
 $app->post('/exception', function () {
     return 'NYI';
+});
+
+$app->get('/custom', function () {
+    // No custom tests, so just return OK.
+    return 'OK';
+});
+
+$app['debug'] = true;
+
+$app->before(function (Request $request) {
+    if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace(is_array($data) ? $data : array());
+    }
 });
 
 // @codeCoverageIgnoreStart
