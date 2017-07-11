@@ -14,7 +14,7 @@
 
 # Dockerfile for PHP 5.6/7.0 using nginx as the webserver.
 
-FROM gcr.io/google_appengine/debian8
+FROM gcr.io/google_appengine/debian9
 
 RUN apt-get update -y && \
     apt-get -y upgrade && \
@@ -22,16 +22,17 @@ RUN apt-get update -y && \
     curl \
     gettext \
     git \
+    gnupg \
     libbz2-1.0 \
-    libicu52 \
+    libicu57 \
     libjpeg62-turbo \
     libmcrypt4 \
     libmemcached11 \
     libmemcachedutil2 \
     libpcre3 \
-    libpng12-0 \
+    libpng16-16 \
     libpq5 \
-    libreadline6 \
+    libreadline7 \
     librecode0 \
     libsasl2-modules \
     libsqlite3-0 \
