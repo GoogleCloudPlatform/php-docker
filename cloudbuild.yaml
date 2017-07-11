@@ -15,6 +15,16 @@ steps:
     args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-base:$_TAG', '--config', '/workspace/php-base/php-base.yaml', '-v']
     waitFor: ['php-base']
 
+  # php72
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php72:$_TAG', '--build-arg', 'PHP_VERSION=7.2', '.']
+    dir: php-versioned
+    waitFor: ['php-base']
+    id: php72
+  - name: gcr.io/gcp-runtimes/structure_test
+    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php72:$_TAG', '--config', '/workspace/php-versioned/php72.yaml', '-v']
+    waitFor: ['php72']
+
   # php71
   - name: gcr.io/cloud-builders/docker
     args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php71:$_TAG', '--build-arg', 'PHP_VERSION=7.1', '.']
@@ -219,6 +229,7 @@ steps:
 
 images:
   - gcr.io/${_GOOGLE_PROJECT_ID}/php-base:$_TAG
+  - gcr.io/${_GOOGLE_PROJECT_ID}/php72:$_TAG
   - gcr.io/${_GOOGLE_PROJECT_ID}/php71:$_TAG
   - gcr.io/${_GOOGLE_PROJECT_ID}/php70:$_TAG
   - gcr.io/${_GOOGLE_PROJECT_ID}/php56:$_TAG

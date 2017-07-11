@@ -49,6 +49,7 @@ ENV NGINX_DIR=/etc/nginx \
     PHP56_DIR=/opt/php56 \
     PHP70_DIR=/opt/php70 \
     PHP71_DIR=/opt/php71 \
+    PHP72_DIR=/opt/php72 \
     APP_DIR=/app \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
     UPLOAD_DIR=/upload \

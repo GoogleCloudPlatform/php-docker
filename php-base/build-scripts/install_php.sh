@@ -25,6 +25,9 @@ case $PHP_VERSION in
     7.0*)
         /bin/bash /build-scripts/install_php70.sh
         ;;
+    7.2*)
+        /bin/bash /build-scripts/install_php72.sh
+        ;;
     *)
         /bin/bash /build-scripts/install_php71.sh
         ;;
