@@ -76,7 +76,7 @@ class CollectDeploymentLatencyTest extends \PHPUnit_Framework_TestCase
                     . str_replace('.', '', $reportName)
                     . ' --no-stop-previous-version --no-promote';
                 $configCmd = 'gcloud config set app/use_runtime_builders '
-                    . $type === 'xrt' ? 'false' : 'true';
+                    . ($type === 'xrt' ? 'false' : 'true');
                 self::execWithError($configCmd, 'runtime-builders-config');
                 $latency = 0.0;
                 while ($failureCount < self::DEPLOYMENT_MAX_RETRY) {
