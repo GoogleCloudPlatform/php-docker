@@ -1,2 +1,4 @@
 steps:
-        - name: ${_TEST_RUNNER}
+    - name: ${_TEST_RUNNER}
+      env:
+      - GCLOUD_TRACK=${_GCLOUD_TRACK}

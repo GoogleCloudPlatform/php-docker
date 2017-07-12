@@ -53,14 +53,6 @@ class CollectDeploymentLatencyTest extends \PHPUnit_Framework_TestCase
         return $tempDir;
     }
 
-    public static function setUpBeforeClass()
-    {
-        self::execWithError(
-            'gcloud config set app/use_runtime_builders true',
-            'use-runtime-builder'
-        );
-    }
-
     public function testDeploymentLatency()
     {
         $phpVersions = [
@@ -72,19 +64,20 @@ class CollectDeploymentLatencyTest extends \PHPUnit_Framework_TestCase
             'xrt',
             'builder'
         ];
+        $gcloudTrack = getenv('GCLOUD_TRACK') === 'beta' ? 'beta' : '';
         foreach ($phpVersions as $phpVersion) {
             $dir = self::createApp($phpVersion);
             chdir($dir);
             foreach ($types as $type) {
                 $reportName = sprintf('%s-%s', $type, $phpVersion);
                 $failureCount = 0;
-                if ($type === 'xrt') {
-                    $command = 'gcloud -q app deploy';
-                } else {
-                    $command = 'gcloud -q beta app deploy';
-                }
-                $command .= ' --version ' . str_replace('.', '', $reportName);
-                $command .= ' --no-stop-previous-version --no-promote';
+                $command = 'gcloud -q ' . $gcloudTrack . ' app deploy'
+                    . ' --version '
+                    . str_replace('.', '', $reportName)
+                    . ' --no-stop-previous-version --no-promote';
+                $configCmd = 'gcloud config set app/use_runtime_builders '
+                    . $type === 'xrt' ? 'false' : 'true';
+                self::execWithError($configCmd, 'runtime-builders-config');
                 $latency = 0.0;
                 while ($failureCount < self::DEPLOYMENT_MAX_RETRY) {
                     $start = microtime(true);

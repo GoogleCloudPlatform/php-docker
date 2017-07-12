@@ -20,6 +20,10 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
     exit 1
 fi
 
+if [ -z "${GCLOUD_TRACK}" ]; then
+    export GCLOUD_TRACK=ga
+fi
+
 if [ -z "${TAG}" ]; then
     export TAG=default
 fi
@@ -40,3 +44,4 @@ gcloud -q container builds submit perf-dashboard/deployment-latency\
        --timeout 7200 \
        --config perf-dashboard/deployment-latency/cloudbuild.yaml \
        --substitutions _TEST_RUNNER="${TEST_RUNNER}"
+       --substitutions _GCLOUD_TRACK="${GCLOUD_TRACK}"
