@@ -43,5 +43,4 @@ fi
 gcloud -q container builds submit perf-dashboard/deployment-latency\
        --timeout 7200 \
        --config perf-dashboard/deployment-latency/cloudbuild.yaml \
-       --substitutions _TEST_RUNNER="${TEST_RUNNER}"
-       --substitutions _GCLOUD_TRACK="${GCLOUD_TRACK}"
+       --substitutions _TEST_RUNNER="${TEST_RUNNER}",_GCLOUD_TRACK="${GCLOUD_TRACK}"
