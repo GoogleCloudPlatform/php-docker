@@ -2,3 +2,4 @@ steps:
     - name: ${_TEST_RUNNER}
       env:
       - GCLOUD_TRACK=${_GCLOUD_TRACK}
+      - GOOGLE_PROJECT_ID=${_GOOGLE_PROJECT_ID}
