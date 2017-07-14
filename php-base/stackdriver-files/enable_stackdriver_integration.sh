@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright 2017 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,17 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Dockerfile for App Engine Flexible environment for PHP
 
-FROM {{ base_image }}
+# A shell script for installing composer
+set -xe
 
-{{ env_string }}
+# To start the batch daemon
+cp /stackdriver-files/batch-daemon.conf /etc/supervisor/conf.d
 
-COPY . $APP_DIR
-RUN chown -R www-data.www-data $APP_DIR
-RUN /build-scripts/composer.sh
-
-RUN /bin/bash /build-scripts/move-config-files.sh
-RUN /bin/bash /build-scripts/lockdown.sh
-
-{{ enable_stackdriver_cmd }}
+# For enabling automatic error reporting
+cp /stackdriver-files/stackdriver-errorreporting.ini ${PHP_DIR}/lib/conf.d

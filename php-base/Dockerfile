@@ -62,6 +62,9 @@ ENV NGINX_DIR=/etc/nginx \
 
 # Install build scripts - composer, nginx, php
 COPY build-scripts /build-scripts
+# Files for stackdriver setup
+COPY stackdriver-files /stackdriver-files
+
 RUN chown www-data /build-scripts
 
 ARG RUNTIME_DISTRIBUTION="gcp-php-runtime-jessie"

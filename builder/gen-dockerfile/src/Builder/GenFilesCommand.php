@@ -21,6 +21,7 @@ use Google\Cloud\Runtimes\Builder\Exception\EnvConflictException;
 use Google\Cloud\Runtimes\Builder\Exception\ExactVersionException;
 use Google\Cloud\Runtimes\Builder\Exception\MissingDocumentRootException;
 use Google\Cloud\Runtimes\DetectPhpVersion;
+use Google\Cloud\Runtimes\ValidateGoogleCloud;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -33,6 +34,7 @@ class GenFilesCommand extends Command
     const DEFAULT_WORKSPACE = '/workspace';
     const DEFAULT_YAML_PATH = 'app.yaml';
     const DEFAULT_FRONT_CONTROLLER_FILE = 'index.php';
+    const STACKDRIVER_INTEGRATION_ENV = 'ENABLE_STACKDRIVER_INTEGRATION';
 
     /* @var string */
     private $workspace;
@@ -140,6 +142,18 @@ Using PHP version 7.1.x...</info>
             : [];
     }
 
+    protected static function isStackdriverIntegrationEnabled($envs)
+    {
+        if (array_key_exists(self::STACKDRIVER_INTEGRATION_ENV, $envs)
+            && filter_var(
+                $envs[self::STACKDRIVER_INTEGRATION_ENV],
+                FILTER_VALIDATE_BOOLEAN
+            )) {
+            return true;
+        }
+        return false;
+    }
+
     protected function envsFromRuntimeConfig()
     {
         $ret = [];
@@ -152,7 +166,7 @@ Using PHP version 7.1.x...</info>
             : [];
         $maps = [
             'document_root' => 'DOCUMENT_ROOT',
-            'whitelist_functions' => 'WHITELIST_FUNCTIONS',
+            'enable_stackdriver_integration' => self::STACKDRIVER_INTEGRATION_ENV,
             'front_controller_file' => 'FRONT_CONTROLLER_FILE',
             'nginx_conf_http_include' => 'NGINX_CONF_HTTP_INCLUDE',
             'nginx_conf_include' => 'NGINX_CONF_INCLUDE',
@@ -160,7 +174,8 @@ Using PHP version 7.1.x...</info>
             'php_fpm_conf_override' => 'PHP_FPM_CONF_OVERRIDE',
             'php_ini_override' => 'PHP_INI_OVERRIDE',
             'supervisord_conf_addition' => 'SUPERVISORD_CONF_ADDITION',
-            'supervisord_conf_override' => 'SUPERVISORD_CONF_OVERRIDE'
+            'supervisord_conf_override' => 'SUPERVISORD_CONF_OVERRIDE',
+            'whitelist_functions' => 'WHITELIST_FUNCTIONS'
         ];
         $errorKeys = [];
         foreach ($maps as $k => $v) {
@@ -219,6 +234,14 @@ Using PHP version 7.1.x...</info>
                 . ' in app.yaml.'
             );
         }
+        if (self::isStackdriverIntegrationEnabled($envs)) {
+            ValidateGoogleCloud::doCheck($this->workspace);
+            $enableStackdriverCmd = 'RUN /bin/bash /stackdriver-files/'
+                . 'enable_stackdriver_integration.sh';
+            $envs['IS_BATCH_DAEMON_RUNNING'] = 'true';
+        } else {
+            $enableStackdriverCmd = '';
+        }
         $envString = 'ENV ';
         foreach ($envs as $key => $value) {
             $envString .= "$key=$value \\\n";
@@ -227,9 +250,11 @@ Using PHP version 7.1.x...</info>
         $envString = rtrim($envString, "\n");
         $envString = rtrim($envString, '\\');
         $template = $this->twig->load('Dockerfile.twig');
+
         $dockerfile = $template->render(array(
             'base_image' => $baseImage,
-            'env_string' => $envString
+            'env_string' => $envString,
+            'enable_stackdriver_cmd' => $enableStackdriverCmd
         ));
         file_put_contents($this->workspace . '/Dockerfile', $dockerfile);
     }
