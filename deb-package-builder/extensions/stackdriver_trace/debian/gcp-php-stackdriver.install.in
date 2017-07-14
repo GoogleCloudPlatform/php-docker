@@ -1,0 +1,1 @@
+debian/ext-stackdriver-trace.ini opt/php${SHORT_VERSION}/lib/ext.available
