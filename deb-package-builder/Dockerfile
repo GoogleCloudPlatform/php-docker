@@ -18,14 +18,18 @@
 # Then you'll get deb packages in /mydir.
 
 # Inherit the php base image so we use the same dependency libraries
-FROM gcr.io/google-appengine/php
+FROM gcr.io/google-appengine/debian9
+
+ENV PATH=${PATH}:/opt/php/bin \
+  PHP_DIR=/opt/php
 
 # Need to install debian packaging tools etc
-RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list && \
-    apt-get update -y && \
+RUN apt-get update -y && \
     apt-get install -y -q --no-install-recommends \
+        curl \
         debhelper \
         devscripts \
+        gnupg \
         libparse-debcontrol-perl \
         # headers
         libbz2-dev \
@@ -33,7 +37,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
         libfreetype6-dev \
         libgettextpo-dev \
         libgmp-dev \
-        libuv1-dev/jessie-backports \
+        libuv1-dev \
         libicu-dev \
         libjpeg62-turbo-dev \
         libjson-c-dev \
@@ -46,6 +50,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
         libreadline6-dev \
         librecode-dev \
         libsasl2-dev \
+        libsasl2-modules \
         libsqlite3-dev \
         libssl-dev \
         libxml2-dev \
@@ -73,5 +78,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 COPY build.sh /
 RUN mkdir -p /workspace
 WORKDIR /workspace
+
+# COPY . /workspace
 
 ENTRYPOINT ["/build.sh"]
