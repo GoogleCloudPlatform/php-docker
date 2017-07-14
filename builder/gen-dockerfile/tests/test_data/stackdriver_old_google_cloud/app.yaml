@@ -1,0 +1,6 @@
+env: flex
+runtime: php
+
+runtime_config:
+  enable_stackdriver_integration: true
+  document_root: web
