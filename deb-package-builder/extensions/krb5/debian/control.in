@@ -1,0 +1,12 @@
+Source: gcp-php${SHORT_VERSION}-krb5
+Section: php
+Priority: optional
+Maintainer: Jeff Ching <chingor@google.com>
+Build-Depends: debhelper (>= 9), gcp-php${SHORT_VERSION}
+Standards-Version: 3.9.5
+Homepage: https://pecl.php.net/package/krb5
+
+Package: gcp-php${SHORT_VERSION}-krb5
+Architecture: any
+Depends: libkrb5-3, libc6 (>= 2.4), gcp-php${SHORT_VERSION}
+Description: krb5 extension module for gcp-php${SHORT_VERSION}
