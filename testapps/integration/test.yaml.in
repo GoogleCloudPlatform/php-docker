@@ -1,0 +1,7 @@
+steps:
+  - name: '${STAGING_BUILDER_IMAGE}'
+    args: ['--php71-image', 'gcr.io/google-appengine/php71:staging', '--php70-image', 'gcr.io/google-appengine/php70:staging', '--php56-image', 'gcr.io/google-appengine/php56:staging']
+  - name: 'gcr.io/cloud-builders/docker:latest'
+    args: ['build', '-t', '$_OUTPUT_IMAGE', '.']
+images:
+  - '$_OUTPUT_IMAGE'

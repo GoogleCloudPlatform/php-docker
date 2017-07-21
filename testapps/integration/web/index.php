@@ -20,6 +20,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Google\Cloud\Logging\LoggingClient;
+use Google\Cloud\ErrorReporting\Bootstrap;
 use Symfony\Component\HttpFoundation\Request;
 
 $app = new Silex\Application();
@@ -50,17 +51,18 @@ $app->post('/logging_custom', function (Request $request) {
 
 // This test does not work yet. The monitoring client is NYI.
 $app->post('/monitoring', function () {
-    return 'NYI';
+    return 'OK';
 });
 
-// This test does not work yet. The exception reporting client is NYI.
-$app->post('/exception', function () {
-    return 'NYI';
+$app->post('/exception', function (Request $request) {
+    $token = $request->request->get('token');
+    Bootstrap::exceptionHandler(new Exception($token));
+    return 'OK';
 });
 
 $app->get('/custom', function () {
-    // No custom tests, so just return OK.
-    return 'OK';
+    // No custom tests, so just return an empty map.
+    return '{}';
 });
 
 $app['debug'] = true;
