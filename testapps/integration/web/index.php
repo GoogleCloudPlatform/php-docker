@@ -19,8 +19,8 @@
 // [START index_php]
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Google\Cloud\Logging\LoggingClient;
 use Google\Cloud\ErrorReporting\Bootstrap;
+use Google\Cloud\Logging\LoggingClient;
 use Symfony\Component\HttpFoundation\Request;
 
 $app = new Silex\Application();
