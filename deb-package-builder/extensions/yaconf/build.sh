@@ -7,6 +7,11 @@ echo "Building ev for gcp-php${SHORT_VERSION}"
 PNAME="gcp-php${SHORT_VERSION}-yaconf"
 
 # Download the source
+if [ ${SHORT_VERSION} == '56' ]; then
+    echo "yaconf extension only for PHP 7.0+"
+    exit 0
+fi
+
 download_from_pecl yaconf
 
 build_package yaconf

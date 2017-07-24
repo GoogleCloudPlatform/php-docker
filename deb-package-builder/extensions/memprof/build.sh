@@ -9,6 +9,10 @@ PNAME="gcp-php${SHORT_VERSION}-memprof"
 apt-get install -y gawk libjudy-dev
 
 # Download the source
-download_from_pecl memprof
+if [ ${SHORT_VERSION} == '56' ]; then
+    download_from_pecl memprof 1.0.0
+else
+    download_from_pecl memprof
+fi
 
 build_package memprof
