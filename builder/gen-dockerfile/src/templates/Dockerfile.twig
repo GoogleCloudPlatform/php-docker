@@ -18,9 +18,11 @@ FROM {{ base_image }}
 
 {{ env_string }}
 
+ARG BUILDER_PROJECT_ID
+
 COPY . $APP_DIR
 RUN chown -R www-data.www-data $APP_DIR
-RUN /build-scripts/composer.sh
+RUN env GCLOUD_PROJECT=${BUILDER_PROJECT_ID} /build-scripts/composer.sh
 
 RUN /bin/bash /build-scripts/move-config-files.sh
 RUN /bin/bash /build-scripts/lockdown.sh
