@@ -330,8 +330,7 @@ authenticate against github.com`, it means your IP (or effectively the IP of
 the ComputeEngine builder VM when you deploy to AppEngine) exceeded the
 API rate limit for anonymous access and composer can now only use the
 (significantly slower) VCS source method for fetching packages. To fix it,
-you can add a environment variable `COMPOSER_GITHUB_OAUTH_TOKEN` to your
-deployment (`app.yaml` or `Dockerfile` are both fine).
+you can add a file named `auth.json` besides `composer.json` ([examples](https://cloud.google.com/appengine/docs/flexible/php/using-php-libraries#using_private_repositories)).
 
 As this is your personal credential for GitHub, please make sure you do not
 commit this token to your repository.

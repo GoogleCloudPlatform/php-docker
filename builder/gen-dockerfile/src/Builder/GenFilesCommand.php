@@ -20,6 +20,7 @@ namespace Google\Cloud\Runtimes\Builder;
 use Google\Cloud\Runtimes\Builder\Exception\EnvConflictException;
 use Google\Cloud\Runtimes\Builder\Exception\ExactVersionException;
 use Google\Cloud\Runtimes\Builder\Exception\MissingDocumentRootException;
+use Google\Cloud\Runtimes\Builder\Exception\RemovedEnvVarException;
 use Google\Cloud\Runtimes\DetectPhpVersion;
 use Google\Cloud\Runtimes\ValidateGoogleCloud;
 use Symfony\Component\Console\Command\Command;
@@ -35,6 +36,9 @@ class GenFilesCommand extends Command
     const DEFAULT_YAML_PATH = 'app.yaml';
     const DEFAULT_FRONT_CONTROLLER_FILE = 'index.php';
     const STACKDRIVER_INTEGRATION_ENV = 'ENABLE_STACKDRIVER_INTEGRATION';
+    const REMOVED_ENV_VARS = [
+        'COMPOSER_GITHUB_OAUTH_TOKEN'
+    ];
 
     /* @var string */
     private $workspace;
@@ -137,9 +141,24 @@ Using PHP version 7.1.x...</info>
 
     protected function envsFromAppYaml()
     {
-        return array_key_exists('env_variables', $this->appYaml)
+        $ret = array_key_exists('env_variables', $this->appYaml)
             ? $this->appYaml['env_variables']
             : [];
+        $removedEnvVars = [];
+        foreach (self::REMOVED_ENV_VARS as $k) {
+            if (array_key_exists($k, $ret)) {
+                $removedEnvVars[] = $k;
+            }
+        }
+        if (count($removedEnvVars) > 0) {
+            throw new RemovedEnvVarException(
+                "There are environment variables which are no more"
+                . "supported. Remove the following keys in "
+                . "'env_variables': "
+                . implode(" ", $removedEnvVars)
+            );
+        }
+        return $ret;
     }
 
     protected static function isStackdriverIntegrationEnabled($envs)

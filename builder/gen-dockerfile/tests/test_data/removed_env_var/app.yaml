@@ -1,0 +1,8 @@
+env: flex
+runtime: php
+
+runtime_config:
+  document_root: /app
+
+env_variables:
+  COMPOSER_GITHUB_OAUTH_TOKEN: my_secret

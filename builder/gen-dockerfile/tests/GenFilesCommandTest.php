@@ -140,6 +140,17 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
             [
+                // Removed env var
+                __DIR__ . '/test_data/removed_env_var',
+                null,
+                '',
+                '',
+                '',
+                '',
+                [],
+                '\\Google\\Cloud\\Runtimes\\Builder\\Exception\\RemovedEnvVarException'
+            ],
+            [
                 // stackdriver simple case
                 __DIR__ . '/test_data/stackdriver_simple',
                 null,
