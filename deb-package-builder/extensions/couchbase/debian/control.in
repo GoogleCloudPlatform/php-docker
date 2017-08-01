@@ -8,5 +8,5 @@ Homepage: https://pecl.php.net/package/couchbase
 
 Package: gcp-php${SHORT_VERSION}-couchbase
 Architecture: any
-Depends: libc6 (>= 2.4), gcp-php${SHORT_VERSION}
+Depends: libcouchbase2-core, libc6 (>= 2.4), gcp-php${SHORT_VERSION}
 Description: couchbase extension module for gcp-php${SHORT_VERSION}
