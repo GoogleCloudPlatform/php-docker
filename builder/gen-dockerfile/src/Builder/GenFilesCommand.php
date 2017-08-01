@@ -35,6 +35,9 @@ class GenFilesCommand extends Command
     const DEFAULT_YAML_PATH = 'app.yaml';
     const DEFAULT_FRONT_CONTROLLER_FILE = 'index.php';
     const STACKDRIVER_INTEGRATION_ENV = 'ENABLE_STACKDRIVER_INTEGRATION';
+    const REMOVED_ENV_VARS = [
+        'COMPOSER_GITHUB_OAUTH_TOKEN'
+    ];
 
     /* @var string */
     private $workspace;
@@ -204,6 +207,20 @@ Using PHP version 7.1.x...</info>
                 . "'runtime_config'. Remove the following keys in "
                 . "'env_variables': "
                 . implode(" ", $errorKeys)
+            );
+        }
+        $removedEnvVars = [];
+        foreach (self::REMOVED_ENV_VARS as $k) {
+            if (array_key_exists($k, $ret)) {
+                $removedEnvVars[] = $k;
+            }
+        }
+        if (count($removedEnvVars) > 0) {
+            throw new RemovedEnvVarException(
+                "There are environment variables which are no more"
+                . "supported. Remove the following keys in "
+                . "'env_variables': "
+                . implode(" ", $removedEnvVars)
             );
         }
         return $ret;
