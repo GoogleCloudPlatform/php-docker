@@ -4,7 +4,7 @@ set -ex
 
 source ${DEB_BUILDER_DIR}/extensions/functions.sh
 
-echo "Building libvips cpp driver"
+echo "Building libvips"
 
 PNAME="libvips"
 VERSION="8.5.7"

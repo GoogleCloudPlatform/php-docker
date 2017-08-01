@@ -2,7 +2,7 @@
 set -ex
 source ${DEB_BUILDER_DIR}/extensions/functions.sh
 
-echo "Building ev for gcp-php${SHORT_VERSION}"
+echo "Building libv8"
 
 PNAME="libv8"
 VERSION=5.9.223

@@ -2,7 +2,7 @@
 set -ex
 source ${DEB_BUILDER_DIR}/extensions/functions.sh
 
-echo "Building ev for gcp-php${SHORT_VERSION}"
+echo "Building ${EXT_NAME} for gcp-php${SHORT_VERSION}"
 
 PNAME="gcp-php${SHORT_VERSION}-${EXT_NAME}"
 
