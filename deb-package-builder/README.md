@@ -95,6 +95,10 @@ grpc/
 The `build.sh` script is the entrypoint for generating the `.deb` package file
 and the `debian` folder contains the necessary packaging configuration.
 
+If the extension requires a development dependency, be sure to add an
+`apt-get install -y <dev dependency>` to the `build.sh` file. If the extension
+requires a runtime dependency, be sure to add it to the `control.in` file.
+
 You may need to update the license section of the `debian/copyright` file to
 match the license of the PHP extension.
 
