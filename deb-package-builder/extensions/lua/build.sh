@@ -13,6 +13,12 @@ fi
 
 apt-get install -y liblua5.3-dev
 
+for PKG in `apt-get install --reinstall --print-uris -qq liblua5.3-0 | cut -d"'" -f2`; do
+  if [ ! -f "${ARTIFACT_DIR}/$(basename $PKG)" ]; then
+      curl -o ${ARTIFACT_DIR}/$(basename $PKG) $PKG
+  fi
+done
+
 ln -s /usr/include/lua5.3 /usr/include/lua
 ln -s /usr/lib/x86_64-linux-gnu/liblua5.3.a /usr/lib/x86_64-linux-gnu/lua.a
 
