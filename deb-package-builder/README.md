@@ -12,7 +12,7 @@ We currently support the latest patch version of 5.6, 7.0, and 7.1. See
 * amqp
 * apcu
 * apcu_bc
-* apm
+* apm (7.0+)
 * couchbase (7.0+)
 * ds (7.0+)
 * eio
