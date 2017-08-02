@@ -9,16 +9,28 @@ We currently support the latest patch version of 5.6, 7.0, and 7.1. See
 
 ## Extensions
 
+* amqp
 * apcu
 * apcu_bc
+* apm
+* couchbase (7.0+)
+* ds (7.0+)
+* eio
 * ev
 * event
 * gprc
+* hprose
 * imagick
 * jsonc
+* jsond
+* krb5
+* libsodium (7.0, 7.1)
+* lua (7.0+)
+* LZF
 * mailparse
 * memcache
 * memcached
+* memprof
 * mongodb
 * oauth
 * phalcon
@@ -26,7 +38,19 @@ We currently support the latest patch version of 5.6, 7.0, and 7.1. See
 * raphf
 * rdkafka
 * redis
+* SeasLog
+* stomp
 * suhosin
+* swoole
+* sync
+* tcpwrap
+* timezonedb
+* v8js (7.0+)
+* vips (7.0+)
+* yaconf (7.0+)
+* yaf
+* yaml
+* zip
 
 ## Building Packages
 
