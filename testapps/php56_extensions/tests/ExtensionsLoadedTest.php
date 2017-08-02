@@ -28,24 +28,24 @@ class ExtensionsLoadedTest extends \PHPUnit_Framework_TestCase
     public function extensions()
     {
         return [
-            'amqp',
-            'apm',
-            'eio',
-            'hprose',
-            'jsond',
-            'krb5',
-            'libsodium',
-            'lzf',
-            'memprof',
-            'seaslog',
-            'stomp',
-            'swoole',
-            'sync',
-            'tcpwrap',
-            'timezonedb',
-            'yaf',
-            'yaml',
-            'zip'
+            ['amqp'],
+            ['apm'],
+            ['eio'],
+            ['hprose'],
+            ['jsond'],
+            ['krb5'],
+            ['libsodium'],
+            ['lzf'],
+            ['memprof'],
+            ['seaslog'],
+            ['stomp'],
+            ['swoole'],
+            ['sync'],
+            ['tcpwrap'],
+            ['timezonedb'],
+            ['yaf'],
+            ['yaml'],
+            ['zip']
         ];
     }
 }
