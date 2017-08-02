@@ -8,5 +8,5 @@ Homepage: https://pecl.php.net/package/APM
 
 Package: gcp-php${SHORT_VERSION}-apm
 Architecture: any
-Depends: libc6 (>= 2.4), gcp-php${SHORT_VERSION}
+Depends: libmysqlclient18, libc6 (>= 2.4), gcp-php${SHORT_VERSION}
 Description: apm extension module for gcp-php${SHORT_VERSION}
