@@ -36,5 +36,4 @@ RUN apt-get install -y gcp-php71-amqp \
                        gcp-php71-vips \
                        gcp-php71-yaconf \
                        gcp-php71-yaf \
-                       gcp-php71-yaml \
-                       gcp-php71-zip
+                       gcp-php71-yaml

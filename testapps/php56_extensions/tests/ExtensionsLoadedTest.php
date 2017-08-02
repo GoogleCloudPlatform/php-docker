@@ -44,8 +44,7 @@ class ExtensionsLoadedTest extends \PHPUnit_Framework_TestCase
             ['tcpwrap'],
             ['timezonedb'],
             ['yaf'],
-            ['yaml'],
-            ['zip']
+            ['yaml']
         ];
     }
 }
