@@ -13,3 +13,28 @@
 # limitations under the License.
 
 FROM ${BASE_IMAGE}
+
+RUN apt-get install -y gcp-php70-amqp \
+                       gcp-php70-apm \
+                       gcp-php70-couchbase \
+                       gcp-php70-ds \
+                       gcp-php70-eio \
+                       gcp-php70-hprose \
+                       gcp-php70-jsond \
+                       gcp-php70-krb5 \
+                       gcp-php70-libsodium \
+                       gcp-php70-lua \
+                       gcp-php70-lzf \
+                       gcp-php70-memprof \
+                       gcp-php70-seaslog \
+                       gcp-php70-stomp \
+                       gcp-php70-swoole \
+                       gcp-php70-sync \
+                       gcp-php70-tcpwrap \
+                       gcp-php70-timezonedb \
+                       gcp-php70-v8js \
+                       gcp-php70-vips \
+                       gcp-php70-yaconf \
+                       gcp-php70-yaf \
+                       gcp-php70-yaml \
+                       gcp-php70-zip

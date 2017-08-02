@@ -13,3 +13,28 @@
 # limitations under the License.
 
 FROM ${BASE_IMAGE}
+
+RUN apt-get install -y gcp-php71-amqp \
+                       gcp-php71-apm \
+                       gcp-php71-couchbase \
+                       gcp-php71-ds \
+                       gcp-php71-eio \
+                       gcp-php71-hprose \
+                       gcp-php71-jsond \
+                       gcp-php71-krb5 \
+                       gcp-php71-libsodium \
+                       gcp-php71-lua \
+                       gcp-php71-lzf \
+                       gcp-php71-memprof \
+                       gcp-php71-seaslog \
+                       gcp-php71-stomp \
+                       gcp-php71-swoole \
+                       gcp-php71-sync \
+                       gcp-php71-tcpwrap \
+                       gcp-php71-timezonedb \
+                       gcp-php71-v8js \
+                       gcp-php71-vips \
+                       gcp-php71-yaconf \
+                       gcp-php71-yaf \
+                       gcp-php71-yaml \
+                       gcp-php71-zip
