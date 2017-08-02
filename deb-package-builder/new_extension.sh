@@ -13,7 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# This script generates the configuration folder for building new debian packages.
+# The generated configuration is optimized for building php extensions from PECL.
+# Every package configuration utilizes a build.sh file which is responsible for
+# compiling and creating the .deb package.
+
 set -ex
+
+if [ "$#" -lt 4 ]; then
+    echo 'Usage: new_extension.sh <extension name> <upstream maintainer name> <upstream homepage> <package maintainer>'
+    exit 1
+fi
 
 export EXT_FULL_NAME=$1
 export EXT_NAME=${EXT_FULL_NAME//_/-}
@@ -21,7 +31,7 @@ export UPSTREAM_NAME=$2
 export HOMEPAGE=$3
 export MAINTAINER=$4
 
-echo "building ${EXT_NAME}"
+echo "generating extension package config for ${EXT_NAME}"
 
 if [ -d "extensions/${EXT_FULL_NAME}" ]
 then

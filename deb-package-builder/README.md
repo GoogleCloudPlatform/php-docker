@@ -62,3 +62,42 @@ uploaded to the bucket named `$BUCKET` (defaults to the project id).
 
 If you want to build for specific versions of PHP, set the `$PHP_VERSIONS` environment variable to a comma separated list
 of PHP versions. This defaults to a hard-coded list defined in the `build_packages.sh` file
+
+## Adding New Extensions
+
+This folder contains a `new_extension.sh` script to generate the skeleton for
+adding support for a new extension.
+
+Example:
+
+```bash
+$ ./new_extension.sh
+Usage: new_extension.sh <extension name> <upstream maintainer name> <upstream homepage> <package maintainer>
+
+$ ./new_extension.sh grpc "Stanley Cheung <stanleycheung@google.com>" http://pecl.php.net/package/grpc "Jeff Ching <chingor@google.com>"
+```
+
+This will generate a folder `extensions/grpc` with the following directory
+structure:
+
+```
+grpc/
+|--- debian/
+|    |--- compat
+|    |--- control.in
+|    |--- copyright
+|    |--- ext-grpc.ini
+|    |--- gcp-php-grpc.install.in
+|    |--- rules.in
+|--- build.sh
+```
+
+The `build.sh` script is the entrypoint for generating the `.deb` package file
+and the `debian` folder contains the necessary packaging configuration.
+
+You may need to update the license section of the `debian/copyright` file to
+match the license of the PHP extension.
+
+You may also need to modify the `build.sh` file to skip builds for unsupported
+PHP versions (see libsodium for an example) or to specify an older version (see
+mailparse for an example).
