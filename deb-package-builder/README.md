@@ -50,7 +50,6 @@ We currently support the latest patch version of 5.6, 7.0, and 7.1. See
 * yaconf (7.0+)
 * yaf
 * yaml
-* zip
 
 ## Building Packages
 
