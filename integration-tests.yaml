@@ -26,6 +26,7 @@ steps:
     - 'TAG=${_TAG}-build-pipeline'
     - 'E2E_PROJECT_ID=${_E2E_PROJECT_ID}'
     - 'RUNTIME_BUILDER_ROOT=${_RUNTIME_BUILDER_ROOT}'
+    - 'TEST_VM_IMAGE=${_TEST_VM_IMAGE}'
 
   # build_pipeline_56 test
   - name: gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG
@@ -37,3 +38,4 @@ steps:
     - 'TAG=${_TAG}-bp-php56'
     - 'E2E_PROJECT_ID=${_E2E_PROJECT_ID}'
     - 'RUNTIME_BUILDER_ROOT=${_RUNTIME_BUILDER_ROOT}'
+    - 'TEST_VM_IMAGE=${_TEST_VM_IMAGE}'

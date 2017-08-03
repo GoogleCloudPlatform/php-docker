@@ -68,5 +68,5 @@ else
     gcloud container builds submit . \
       --config integration-tests.yaml \
       --timeout 3600 \
-      --substitutions _GOOGLE_PROJECT_ID=$GOOGLE_PROJECT_ID,_TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$E2E_PROJECT_ID,_RUNTIME_BUILDER_ROOT=file:///workspace/builder/
+      --substitutions _GOOGLE_PROJECT_ID=$GOOGLE_PROJECT_ID,_TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$E2E_PROJECT_ID,_RUNTIME_BUILDER_ROOT=file:///workspace/builder/,_TEST_VM_IMAGE=
 fi
