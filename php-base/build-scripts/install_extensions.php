@@ -173,7 +173,7 @@ class InstallExtensions
     private function addExtension($package, $version)
     {
         // See if we support the package at all
-        if (!in_array($package, self::AVAILABLE_EXTENSIONS) ||
+        if (!in_array($package, self::AVAILABLE_EXTENSIONS) &&
             !in_array($package, self::AVAILABLE_EXTENSIONS_TO_INSTALL)) {
             $this->errors[] = "- $package $version is not available on your system.";
             return;
