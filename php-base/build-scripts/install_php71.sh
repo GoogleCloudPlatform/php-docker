@@ -42,7 +42,7 @@ apt-get install -y \
 ln -s ${PHP71_DIR}/bin/php71-enmod ${PHP71_DIR}/bin/php-enmod
 ln -s ${PHP71_DIR}/bin/php71-dismod  ${PHP71_DIR}/bin/php-dismod
 ${PHP71_DIR}/bin/php71-enmod apcu-bc
-${PHP56_DIR}/bin/php71-enmod sodium
+${PHP71_DIR}/bin/php71-enmod sodium
 ${PHP71_DIR}/bin/php71-enmod mailparse
 ${PHP71_DIR}/bin/php71-enmod memcached
 
