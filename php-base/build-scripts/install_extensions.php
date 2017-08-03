@@ -155,6 +155,7 @@ class InstallExtensions
 
     private function installPackages()
     {
+        system('apt-get -y update');
         $command = 'apt-get install -y --no-install-recommends '
             . implode(array_map([$this, 'packageName'], $this->extensionsToInstall), ' ');
         echo $command . PHP_EOL;
