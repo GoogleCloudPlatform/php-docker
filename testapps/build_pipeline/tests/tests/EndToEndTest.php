@@ -88,6 +88,16 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
 
     public static function deploy($project_id, $e2e_test_version)
     {
+        $testVmImage = getenv('TEST_VM_IMAGE');
+        if ($testVmImage !== false) {
+            $betaSettings = "beta_settings:\n"
+                . "  image: $testVmImage\n";
+            file_put_contents(
+                '../app.yaml',
+                $betaSettings,
+                FILE_APPEND | LOCK_EX
+            );
+        }
         $command = "gcloud -q beta app deploy --version $e2e_test_version"
             . " --project $project_id --no-promote"
             . ' ../app.yaml';
