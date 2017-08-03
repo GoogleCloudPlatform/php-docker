@@ -54,7 +54,6 @@ class InstallExtensions
         'krb5',
         'lua',
         'lzf',
-        'mailparse',
         'memprof',
         'mongodb',
         'oauth',
