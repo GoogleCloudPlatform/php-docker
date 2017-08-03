@@ -25,7 +25,6 @@ apt-get install -y \
         gcp-php71-grpc \
         gcp-php71-imagick \
         gcp-php71-libsodium \
-        gcp-php71-mailparse \
         gcp-php71-memcached \
         gcp-php71-protobuf \
         --no-install-recommends
