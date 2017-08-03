@@ -27,6 +27,7 @@ apt-get install -y \
         gcp-php56-grpc \
         gcp-php56-imagick \
         gcp-php56-json \
+        gcp-php56-libsodium \
         gcp-php56-mailparse \
         gcp-php56-memcache \
         gcp-php56-memcached \
@@ -45,6 +46,7 @@ ln -s ${PHP56_DIR}/bin/php56-enmod ${PHP56_DIR}/bin/php-enmod
 ln -s ${PHP56_DIR}/bin/php56-dismod ${PHP56_DIR}/bin/php-dismod
 ${PHP56_DIR}/bin/php56-enmod apcu
 ${PHP56_DIR}/bin/php56-enmod json
+${PHP56_DIR}/bin/php56-enmod libsodium
 ${PHP56_DIR}/bin/php56-enmod mailparse
 ${PHP56_DIR}/bin/php56-enmod memcached
 
