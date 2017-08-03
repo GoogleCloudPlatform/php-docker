@@ -29,7 +29,6 @@ class ExtensionsLoadedTest extends \PHPUnit_Framework_TestCase
     {
         return [
             ['amqp'],
-            ['apm'],
             ['eio'],
             ['hprose'],
             ['jsond'],
