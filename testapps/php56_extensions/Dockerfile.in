@@ -20,7 +20,6 @@ RUN apt-get update && \
                        gcp-php56-hprose \
                        gcp-php56-jsond \
                        gcp-php56-krb5 \
-                       gcp-php56-libsodium \
                        gcp-php56-lzf \
                        gcp-php56-memprof \
                        gcp-php56-seaslog \

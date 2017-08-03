@@ -23,7 +23,6 @@ RUN apt-get update && \
                        gcp-php70-hprose \
                        gcp-php70-jsond \
                        gcp-php70-krb5 \
-                       gcp-php70-libsodium \
                        gcp-php70-lua \
                        gcp-php70-lzf \
                        gcp-php70-memprof \
