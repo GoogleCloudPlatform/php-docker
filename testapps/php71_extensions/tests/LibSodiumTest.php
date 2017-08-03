@@ -25,7 +25,7 @@ class LibsodiumTest extends \PHPUnit_Framework_TestCase
     public function testLoadImage()
     {
         $re = new ReflectionExtension('sodium');
-        $libsodiumVersion = $er->getVersion();
+        $libsodiumVersion = $re->getVersion();
         $this->assertTrue(version_compare($libsodiumVersion, '2.0.0', '>='));
     }
 }
