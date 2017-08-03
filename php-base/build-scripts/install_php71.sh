@@ -22,20 +22,11 @@ apt-get install -y \
         gcp-php71 \
         gcp-php71-apcu \
         gcp-php71-apcu-bc \
-        gcp-php71-cassandra \
-        gcp-php71-ev \
-        gcp-php71-event \
         gcp-php71-grpc \
         gcp-php71-imagick \
         gcp-php71-libsodium \
-        gcp-php71-mailparse \
         gcp-php71-memcached \
-        gcp-php71-mongodb \
-        gcp-php71-oauth \
-        gcp-php71-pq \
         gcp-php71-protobuf \
-        gcp-php71-rdkafka \
-        gcp-php71-redis \
         --no-install-recommends
 
 # Enable some extensions for backward compatibility
