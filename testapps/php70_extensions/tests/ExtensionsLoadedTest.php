@@ -36,7 +36,7 @@ class ExtensionsLoadedTest extends \PHPUnit_Framework_TestCase
             ['hprose'],
             ['jsond'],
             ['krb5'],
-            ['libsodium'],
+            ['sodium'],
             ['lua'],
             ['lzf'],
             ['memprof'],
