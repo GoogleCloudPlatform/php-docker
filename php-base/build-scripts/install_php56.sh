@@ -21,13 +21,23 @@ set -xe
 apt-get install -y \
         gcp-php56 \
         gcp-php56-apcu \
+        gcp-php56-cassandra \
+        gcp-php56-ev \
+        gcp-php56-event \
         gcp-php56-grpc \
         gcp-php56-imagick \
         gcp-php56-json \
         gcp-php56-libsodium \
+        gcp-php56-mailparse \
         gcp-php56-memcache \
         gcp-php56-memcached \
+        gcp-php56-mongodb \
+        gcp-php56-oauth \
+        gcp-php56-phalcon \
+        gcp-php56-pq \
         gcp-php56-protobuf \
+        gcp-php56-rdkafka \
+        gcp-php56-redis \
         gcp-php56-suhosin \
         --no-install-recommends
 
