@@ -1,0 +1,13 @@
+Source: libv8
+Section: libs
+Priority: optional
+Maintainer: Jeff Ching <chingor@google.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/jcupitt/libvips
+
+Package: libv8
+Section: libs
+Architecture: any
+Depends: libc6 (>= 2.4)
+Description: V8 JavaScript Engine

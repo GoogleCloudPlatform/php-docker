@@ -1,0 +1,12 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: ds
+Upstream-Contact: Joe Watkins <pthreads@pthreads.org>
+Source: https://pecl.php.net/package/ds
+
+Files: *
+Copyright: 2016 Rudi Theunissen
+License: MIT
+
+Files: debian/*
+Copyright: 2017 Google, Inc.
+License: Apache-2.0

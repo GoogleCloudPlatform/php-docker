@@ -40,7 +40,7 @@ PHP_VERSIONS=${1}
 EXTENSIONS=${2}
 if [ -z "$EXTENSIONS" ]; then
     # Explicitly declaring because some extenions depend on others (pq depends on raphf)
-    EXTENSIONS="apcu,apcu_bc,ev,event,grpc,imagick,jsonc,mailparse,memcache,memcached,mongodb,oauth,phalcon,protobuf,raphf,pq,rdkafka,redis,suhosin,libuv,cassandra-cpp-driver,cassandra,stackdriver_trace"
+    EXTENSIONS="amqp,apcu,apcu_bc,apm,libuv,cassandra-cpp-driver,cassandra,couchbase,ds,eio,ev,event,grpc,hprose,imagick,jsonc,jsond,krb5,libsodium,lua,lzf,mailparse,memcache,memcached,memprof,mongodb,oauth,phalcon,protobuf,raphf,pq,rdkafka,redis,seaslog,stackdriver_trace,stomp,suhosin,swoole,sync,tcpwrap,timezonedb,libv8,v8js,libvips,vips,yaconf,yaf,yaml"
 fi
 
 cd ${BUILD_DIR}

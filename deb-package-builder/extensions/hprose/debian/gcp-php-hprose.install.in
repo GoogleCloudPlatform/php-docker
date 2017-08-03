@@ -1,0 +1,1 @@
+debian/ext-hprose.ini opt/php${SHORT_VERSION}/lib/ext.available

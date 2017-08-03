@@ -1,0 +1,12 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: v8js
+Upstream-Contact: Stefan Siegl <stesie@brokenpipe.de>
+Source: https://pecl.php.net/package/v8js
+
+Files: *
+Copyright: 2013 The PHP Group
+License: MIT
+
+Files: debian/*
+Copyright: 2017 Google, Inc.
+License: Apache-2.0
