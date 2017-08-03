@@ -51,12 +51,44 @@ class InstallExtensions
         'rdkafka',
         'redis'
     ];
+    const AVAILABLE_EXTENSIONS_TO_INSTALL = [
+        'amqp',
+        'apm',
+        'couchbase',
+        'ds',
+        'eio',
+        'hprose',
+        'jsond',
+        'krb5',
+        'lua',
+        'lzf',
+        'memprof',
+        'seaslog',
+        'stomp',
+        'swoole',
+        'sync',
+        'tcpwrap',
+        'timezonedb',
+        'v8js',
+        'vips',
+        'yaconf',
+        'yaf',
+        'yaml'
+    ];
     const UNAVAILABLE_EXTENSIONS = [
+        'apm' => ['5.6'],
+        'couchbase' => ['5.6'],
+        'ds' => ['5.6'],
+        'lua' => ['5.6'],
         'memcache' => ['7.0', '7.1'],
-        'phalcon' => ['7.1']
+        'phalcon' => ['7.1'],
+        'v8js' => ['5.6'],
+        'vips' => ['5.6'],
+        'yaconf' => ['5.6']
     ];
 
     private $extensions = [];
+    private $extensionsToInstall = [];
     private $phpVersion;
     private $configFile;
     private $errors = [];
@@ -97,13 +129,18 @@ class InstallExtensions
             return true;
         }
 
-        $fp = fopen($this->configFile, 'a');
-        foreach ($this->extensions as $extension => $version) {
-            fwrite($fp, "extension=$extension.so" . PHP_EOL);
-        }
-        fclose($fp);
+        // Install any new debian packages
+        $this->installPackages();
+
+        // Write a custom php.ini file that enables each extension
+        $this->writeConfigFile();
 
         return true;
+    }
+
+    public function packageName($extension)
+    {
+        return 'gcp-php' . str_replace('.', '', $this->phpVersion) . '-' . $extension;
     }
 
     private function defaultConfigFile()
@@ -116,10 +153,28 @@ class InstallExtensions
         ], '/');
     }
 
+    private function installPackages()
+    {
+        $command = 'apt-get install -y --no-install-recommends '
+            . implode(array_map([$this, 'packageName'], $this->extensionsToInstall), ' ');
+        echo $command . PHP_EOL;
+        system($command);
+    }
+
+    private function writeConfigFile()
+    {
+        $fp = fopen($this->configFile, 'a');
+        foreach ($this->extensions as $extension) {
+            fwrite($fp, "extension=$extension.so" . PHP_EOL);
+        }
+        fclose($fp);
+    }
+
     private function addExtension($package, $version)
     {
         // See if we support the package at all
-        if (!in_array($package, self::AVAILABLE_EXTENSIONS)) {
+        if (!in_array($package, self::AVAILABLE_EXTENSIONS) ||
+            !in_array($package, self::AVAILABLE_EXTENSIONS_TO_INSTALL)) {
             $this->errors[] = "- $package $version is not available on your system.";
             return;
         }
@@ -138,7 +193,12 @@ class InstallExtensions
         }
 
         // We can install this extension
-        $this->extensions[$package] = $version;
+        $this->extensions[] = $package;
+
+        // See if we need to install the debian package
+        if (in_array($package, self::AVAILABLE_EXTENSIONS_TO_INSTALL)) {
+            $this->extensionsToInstall[] = $package;
+        }
     }
 }
 
