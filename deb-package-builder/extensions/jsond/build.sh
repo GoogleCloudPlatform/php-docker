@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ex
-source ${DEB_BUILDER_DIR}/extensions/functions.sh
+source ${DEB_BUILDER_DIR}/functions.sh
 
 echo "Building jsond for gcp-php${SHORT_VERSION}"
 
