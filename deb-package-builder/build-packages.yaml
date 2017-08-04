@@ -1,9 +1,30 @@
 steps:
   - name: gcr.io/cloud-builders/docker
     args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/deb-package-builder', '.']
+    waitFor: ['-']
+    id: deb-package-builder
+
   - name: gcr.io/cloud-builders/gsutil
-    args: ['-m', 'rsync', 'gs://${_BUCKET}/packages/${_PHP_VERSION}/', '/workspace/pkg/']
+    args: ['-m', 'rsync', 'gs://${_BUCKET}/packages/libraries/', '/workspace/pkg/libraries']
+    waitFor: ['-']
+    id: import-libraries
+
+  - name: gcr.io/cloud-builders/gsutil
+    args: ['-m', 'rsync', 'gs://${_BUCKET}/packages/${_PHP_VERSION}/', '/workspace/pkg/${_PHP_VERSION}/']
+    waitFor: ['-']
+    id: import-packages
+
   - name: gcr.io/${_GOOGLE_PROJECT_ID}/deb-package-builder
     args: ['${_PHP_VERSION}']
+    waitFor: ['deb-package-builder', 'import-libraries', 'import-packages']
+    id: package-build
+
   - name: gcr.io/cloud-builders/gsutil
-    args: ['-m', 'rsync', '/workspace/pkg/', 'gs://${_BUCKET}/packages/${_PHP_VERSION}/']
+    args: ['-m', 'rsync', '/workspace/pkg/libraries/', 'gs://${_BUCKET}/packages/libraries/']
+    waitFor: ['package-build']
+    id: 'export-libraries'
+
+  - name: gcr.io/cloud-builders/gsutil
+    args: ['-m', 'rsync', '/workspace/pkg/${_PHP_VERSION}/', 'gs://${_BUCKET}/packages/${_PHP_VERSION}/']
+    waitFor: ['package-build']
+    id: 'export-packages'
