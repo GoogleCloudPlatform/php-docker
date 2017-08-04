@@ -17,7 +17,7 @@ if [ ! -f "${ARTIFACT_LIB_DIR}/${OUTPUT_FILE}" ]; then
     # Download the source
     download_from_tarball https://github.com/jcupitt/libvips/releases/download/v${VERSION}/vips-${VERSION}.tar.gz ${VERSION}
 
-    cp -R ${DEB_BUILDER_DIR}/extensions/libvips/debian ${PACKAGE_DIR}
+    cp -R ${DEB_BUILDER_DIR}/libraries/libvips/debian ${PACKAGE_DIR}
 
     chmod +x ${PACKAGE_DIR}/debian/rules
 

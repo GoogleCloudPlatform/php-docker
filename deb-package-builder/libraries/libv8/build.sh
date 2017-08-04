@@ -21,7 +21,7 @@ if [ ! -f "${ARTIFACT_LIB_DIR}/${OUTPUT_FILE}" ]; then
     git checkout ${VERSION}
     gclient sync
 
-    cp -R ${DEB_BUILDER_DIR}/extensions/libv8/debian .
+    cp -R ${DEB_BUILDER_DIR}/libraries/libv8/debian .
 
     dch --create -v "${VERSION}-1~gcp8+1" \
         --package ${PNAME} --empty -M \
