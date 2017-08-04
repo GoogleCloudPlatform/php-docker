@@ -93,7 +93,7 @@ install_last_package()
         echo "missing argument for install_last_package"
         exit $E_PARAM_ERR
     fi
-    ls -t ${ARTIFACT_PKG_DIR}/$1_* | head -n 1 | xargs dpkg -i
+    ls -t ${ARTIFACT_DIR}/**/$1_* | head -n 1 | xargs dpkg -i
 }
 
 build_package()

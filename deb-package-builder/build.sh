@@ -44,9 +44,9 @@ if [ -z "$EXTENSIONS" ]; then
     EXTENSIONS="amqp,apcu,apcu_bc,apm,cassandra,couchbase,ds,eio,ev,event,grpc,hprose,imagick,jsonc,jsond,krb5,libsodium,lua,lzf,mailparse,memcache,memcached,memprof,mongodb,oauth,phalcon,protobuf,raphf,pq,rdkafka,redis,seaslog,stackdriver_trace,stomp,suhosin,swoole,sync,tcpwrap,timezonedb,v8js,vips,yaconf,yaf,yaml"
 fi
 
-LIBARIES=${3}
-if [ -z "$LIBARIES" ]; then
-    LIBARIES="libuv,cassandra-cpp-driver,libsodium,libv8,libvips"
+LIBRARIES=${3}
+if [ -z "$LIBRARIES" ]; then
+    LIBRARIES="libuv,cassandra-cpp-driver,libsodium,libv8,libvips"
 fi
 
 
@@ -64,10 +64,12 @@ build_php_version()
     export SHORT_VERSION=$(echo ${BASE_VERSION} | tr -d ".")
     export PACKAGE_NAME="gcp-php${SHORT_VERSION}"
     PHP_PACKAGE="gcp-php${SHORT_VERSION}_${FULL_VERSION}_amd64.deb"
-    export ARTIFACT_PKG_DIR="${ARTIFACT_DIR}/${PHP_VERSION}"
+    export ARTIFACT_PKG_DIR="${ARTIFACT_DIR}/${FULL_VERSION}"
     mkdir -p ${ARTIFACT_PKG_DIR}
 
-    if [ -e "${ARTIFACT_LIB_DIR}/${PHP_PACKAGE}" ]; then
+    ls -l ${ARTIFACT_PKG_DIR}
+
+    if [ -e "${ARTIFACT_PKG_DIR}/${PHP_PACKAGE}" ]; then
         echo "$PHP_PACKAGE already exists, skipping"
     else
       echo "Building ${PACKAGE_NAME} version ${FULL_VERSION}"
