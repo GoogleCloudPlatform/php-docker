@@ -68,6 +68,11 @@ build_php_version()
               > php-${PHP_VERSION}.tar.gz
           curl -sL "https://downloads.php.net/~remi/php-${PHP_VERSION}.tar.gz.asc" \
               > php-${PHP_VERSION}.tar.gz.asc
+      elif [[ "${PHP_VERSION}" == *"beta"* ]]; then
+          curl -sL "https://downloads.php.net/~pollita/php-${PHP_VERSION}.tar.gz" \
+              > php-${PHP_VERSION}.tar.gz
+          curl -sL "https://downloads.php.net/~pollita/php-${PHP_VERSION}.tar.gz.asc" \
+              > php-${PHP_VERSION}.tar.gz.asc
       else
           curl -sL "https://php.net/get/php-${PHP_VERSION}.tar.gz/from/this/mirror" \
               > php-${PHP_VERSION}.tar.gz
