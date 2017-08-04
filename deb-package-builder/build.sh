@@ -26,9 +26,10 @@ fi
 
 export BUILD_DIR
 export ARTIFACT_DIR='/workspace/pkg'
+export ARTIFACT_LIB_DIR="${ARTIFACT_DIR}/libraries"
 export DEB_BUILDER_DIR='/workspace'
 
-mkdir -p ${BUILD_DIR} ${ARTIFACT_DIR}
+mkdir -p ${BUILD_DIR} ${ARTIFACT_LIB_DIR}
 
 # Remove everything and start fresh
 rm -rf ${BUILD_DIR}/*
@@ -40,8 +41,14 @@ PHP_VERSIONS=${1}
 EXTENSIONS=${2}
 if [ -z "$EXTENSIONS" ]; then
     # Explicitly declaring because some extenions depend on others (pq depends on raphf)
-    EXTENSIONS="amqp,apcu,apcu_bc,apm,libuv,cassandra-cpp-driver,cassandra,couchbase,ds,eio,ev,event,grpc,hprose,imagick,jsonc,jsond,krb5,libsodium,lua,lzf,mailparse,memcache,memcached,memprof,mongodb,oauth,phalcon,protobuf,raphf,pq,rdkafka,redis,seaslog,stackdriver_trace,stomp,suhosin,swoole,sync,tcpwrap,timezonedb,libv8,v8js,libvips,vips,yaconf,yaf,yaml"
+    EXTENSIONS="amqp,apcu,apcu_bc,apm,cassandra,couchbase,ds,eio,ev,event,grpc,hprose,imagick,jsonc,jsond,krb5,libsodium,lua,lzf,mailparse,memcache,memcached,memprof,mongodb,oauth,phalcon,protobuf,raphf,pq,rdkafka,redis,seaslog,stackdriver_trace,stomp,suhosin,swoole,sync,tcpwrap,timezonedb,v8js,vips,yaconf,yaf,yaml"
 fi
+
+LIBARIES=${3}
+if [ -z "$LIBARIES" ]; then
+    LIBARIES="libuv,cassandra-cpp-driver,libsodium,libv8,libvips"
+fi
+
 
 cd ${BUILD_DIR}
 
@@ -57,8 +64,10 @@ build_php_version()
     export SHORT_VERSION=$(echo ${BASE_VERSION} | tr -d ".")
     export PACKAGE_NAME="gcp-php${SHORT_VERSION}"
     PHP_PACKAGE="gcp-php${SHORT_VERSION}_${FULL_VERSION}_amd64.deb"
+    export ARTIFACT_PKG_DIR="${ARTIFACT_DIR}/${PHP_VERSION}"
+    mkdir -p ${ARTIFACT_PKG_DIR}
 
-    if [ -e "${ARTIFACT_DIR}/${PHP_PACKAGE}" ]; then
+    if [ -e "${ARTIFACT_LIB_DIR}/${PHP_PACKAGE}" ]; then
         echo "$PHP_PACKAGE already exists, skipping"
     else
       echo "Building ${PACKAGE_NAME} version ${FULL_VERSION}"
@@ -121,8 +130,14 @@ build_php_version()
       dpkg-buildpackage -us -uc -j"$(nproc)"
       popd
 
-      cp $PHP_PACKAGE $ARTIFACT_DIR
+      cp $PHP_PACKAGE $ARTIFACT_PKG_DIR
     fi
+}
+
+build_library()
+{
+    echo "Building $1 library..."
+    ${DEB_BUILDER_DIR}/libraries/$1/build.sh
 }
 
 build_php_extension()
@@ -131,11 +146,15 @@ build_php_extension()
     ${DEB_BUILDER_DIR}/extensions/$1/build.sh
 }
 
+for LIBRARY in $(echo ${LIBRARIES} | tr "," "\n"); do
+    build_library $LIBRARY
+done
+
 for VERSION in $(echo ${PHP_VERSIONS} | tr "," "\n"); do
     build_php_version $VERSION
 
     # install the php package
-    dpkg -i "$ARTIFACT_DIR/$PHP_PACKAGE"
+    dpkg -i "$ARTIFACT_PKG_DIR/$PHP_PACKAGE"
     # Make it a default
     rm -rf ${PHP_DIR}
     ln -sf /opt/php${SHORT_VERSION} ${PHP_DIR}

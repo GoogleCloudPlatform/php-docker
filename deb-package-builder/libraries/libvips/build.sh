@@ -13,7 +13,7 @@ OUTPUT_FILE="${PNAME}_${VERSION}-1~gcp8+1_amd64.deb"
 
 apt-get install -y libtiff5-dev libjpeg62-turbo-dev libgsf-1-dev
 
-if [ ! -f "${ARTIFACT_DIR}/${OUTPUT_FILE}" ]; then
+if [ ! -f "${ARTIFACT_LIB_DIR}/${OUTPUT_FILE}" ]; then
     # Download the source
     download_from_tarball https://github.com/jcupitt/libvips/releases/download/v${VERSION}/vips-${VERSION}.tar.gz ${VERSION}
 
@@ -22,10 +22,10 @@ if [ ! -f "${ARTIFACT_DIR}/${OUTPUT_FILE}" ]; then
     chmod +x ${PACKAGE_DIR}/debian/rules
 
     pushd ${PACKAGE_DIR}
-    dch --create -v "${VERSION}" \
+    dch --create -v "${VERSION}-1~gcp8+1" \
         --package ${PNAME} --empty -M \
-        "Build ${VERSION} of ${PNAME}"
+        "Build ${VERSION}-1~gcp8+1 of ${PNAME}"
     dpkg-buildpackage -us -uc -j"$(nproc)"
-    cp ../*.deb ${ARTIFACT_DIR}
+    cp ../*.deb ${ARTIFACT_LIB_DIR}
     popd
 fi
