@@ -101,6 +101,8 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
                 FILE_APPEND | LOCK_EX
             );
         }
+        echo 'Deploying with the following app.yaml' . PHP_EOL;
+        echo file_get_contents('../app.yaml');
         $command = "gcloud -q beta app deploy --version $e2e_test_version"
             . " --project $project_id --no-promote"
             . ' ../app.yaml';
