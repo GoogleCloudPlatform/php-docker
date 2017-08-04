@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ex
-source ${DEB_BUILDER_DIR}/extensions/functions.sh
+source ${DEB_BUILDER_DIR}/functions.sh
 
 echo "Building libv8"
 
@@ -9,7 +9,7 @@ VERSION=5.9.223
 
 OUTPUT_FILE=${PNAME}_${VERSION}-1~gcp8+1_amd64.deb
 
-if [ ! -f "${ARTIFACT_DIR}/${OUTPUT_FILE}" ]; then
+if [ ! -f "${ARTIFACT_LIB_DIR}/${OUTPUT_FILE}" ]; then
     git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
     export PATH=`pwd`/depot_tools:"$PATH"
 
@@ -21,13 +21,13 @@ if [ ! -f "${ARTIFACT_DIR}/${OUTPUT_FILE}" ]; then
     git checkout ${VERSION}
     gclient sync
 
-    cp -R ${DEB_BUILDER_DIR}/extensions/libv8/debian .
+    cp -R ${DEB_BUILDER_DIR}/libraries/libv8/debian .
 
     dch --create -v "${VERSION}-1~gcp8+1" \
         --package ${PNAME} --empty -M \
         "Build ${VERSION}-1~gcp8+1 of ${PNAME}"
     dpkg-buildpackage -us -uc -j"$(nproc)"
-    cp ../${OUTPUT_FILE} ${ARTIFACT_DIR}
+    cp ../${OUTPUT_FILE} ${ARTIFACT_LIB_DIR}
 
     popd
 fi

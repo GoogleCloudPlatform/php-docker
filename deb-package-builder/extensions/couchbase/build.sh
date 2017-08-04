@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ex
-source ${DEB_BUILDER_DIR}/extensions/functions.sh
+source ${DEB_BUILDER_DIR}/functions.sh
 
 echo "Building couchbase for gcp-php${SHORT_VERSION}"
 
@@ -24,7 +24,7 @@ build_package couchbase
 
 # download libcouchbase2-core (runtime dependency)
 for PKG in `apt-get install --reinstall --print-uris -qq libcouchbase2-core | cut -d"'" -f2`; do
-  if [ ! -f "${ARTIFACT_DIR}/$(basename $PKG)" ]; then
-      curl -o ${ARTIFACT_DIR}/$(basename $PKG) $PKG
+  if [ ! -f "${ARTIFACT_PKG_DIR}/$(basename $PKG)" ]; then
+      curl -o ${ARTIFACT_PKG_DIR}/$(basename $PKG) $PKG
   fi
 done

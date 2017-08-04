@@ -93,14 +93,14 @@ install_last_package()
         echo "missing argument for install_last_package"
         exit $E_PARAM_ERR
     fi
-    ls -t ${ARTIFACT_DIR}/$1_* | head -n 1 | xargs dpkg -i
+    ls -t ${ARTIFACT_DIR}/**/$1_* | head -n 1 | xargs dpkg -i
 }
 
 build_package()
 {
     OUTPUT_FILE=${PNAME}_${EXT_VERSION}-${FULL_VERSION}_amd64.deb
 
-    if [ ! -f "${ARTIFACT_DIR}/${OUTPUT_FILE}" ]; then
+    if [ ! -f "${ARTIFACT_PKG_DIR}/${OUTPUT_FILE}" ]; then
         cp -R ${DEB_BUILDER_DIR}/extensions/${1}/debian ${PACKAGE_DIR}
 
         if [ -e "${PACKAGE_DIR}/debian/rules.in" ]; then
@@ -123,7 +123,7 @@ build_package()
             --package ${PNAME} --empty -M \
             "Build ${EXT_VERSION}-${FULL_VERSION} of ${PNAME}"
         dpkg-buildpackage -us -uc -j"$(nproc)"
-        cp ../${OUTPUT_FILE} ${ARTIFACT_DIR}
+        cp ../${OUTPUT_FILE} ${ARTIFACT_PKG_DIR}
         popd
     fi
 }

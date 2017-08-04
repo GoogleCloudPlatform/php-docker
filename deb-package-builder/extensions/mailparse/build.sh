@@ -2,7 +2,7 @@
 
 set -ex
 
-source ${DEB_BUILDER_DIR}/extensions/functions.sh
+source ${DEB_BUILDER_DIR}/functions.sh
 
 echo "Building mailparse for gcp-php${SHORT_VERSION}"
 
