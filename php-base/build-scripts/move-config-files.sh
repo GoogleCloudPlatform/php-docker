@@ -14,7 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -xe
+if [ "${BUILDER_DEBUG_OUTPUT}" = "true" ]; then
+    set -xe
+else
+    set -e
+fi
+
+echo "Moving user supplied config files..."
 
 # App specific piece of the nginx config file included in the http section.
 if [ -n "${NGINX_CONF_HTTP_INCLUDE}" ]; then

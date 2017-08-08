@@ -184,6 +184,7 @@ Using PHP version 7.1.x...</info>
             ? $this->appYaml['env_variables']
             : [];
         $maps = [
+            'builder_debug_output' => 'BUILDER_DEBUG_OUTPUT',
             'document_root' => 'DOCUMENT_ROOT',
             'enable_stackdriver_integration' => self::STACKDRIVER_INTEGRATION_ENV,
             'front_controller_file' => 'FRONT_CONTROLLER_FILE',
@@ -212,6 +213,12 @@ Using PHP version 7.1.x...</info>
                         // Otherwise prepend the app dir.
                         $ret[$v] = self::APP_DIR . '/' . $runtimeConfig[$k];
                     }
+                } elseif ($v === 'BUILDER_DEBUG_OUTPUT') {
+                    $ret[$v] = filter_var(
+                        $runtimeConfig[$k], FILTER_VALIDATE_BOOLEAN
+                    )
+                        ? 'true'
+                        : 'false';
                 } else {
                     $ret[$v] = $runtimeConfig[$k];
                 }

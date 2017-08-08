@@ -15,8 +15,15 @@
 # limitations under the License.
 
 
-# A shell script for installing composer
-set -xe
+# A shell script for enabling stackdriver integration
+
+if [ "${BUILDER_DEBUG_OUTPUT}" = "true" ]; then
+    set -xe
+else
+    set -e
+fi
+
+echo "Enabling stackdriver integration..."
 
 # To start the batch daemon
 cp /stackdriver-files/batch-daemon.conf /etc/supervisor/conf.d
