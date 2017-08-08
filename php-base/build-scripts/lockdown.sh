@@ -14,7 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -xe
+if [ "${BUILDER_DEBUG_OUTPUT}" = "true" ]; then
+    set -xe
+else
+    set -e
+fi
+
+echo "Locking down the document root..."
 
 # Lock down the DOCUMENT_ROOT
 chown -R root.www-data ${DOCUMENT_ROOT}

@@ -16,7 +16,12 @@
 
 
 # A shell script for installing dependencies with composer.
-set -xe
+
+if [ "${BUILDER_DEBUG_OUTPUT}" = "true" ]; then
+    set -xe
+else
+    set -e
+fi
 
 DEFAULT_PHP_VERSION="7.1"
 
@@ -24,10 +29,10 @@ if [ -f ${APP_DIR}/composer.json ]; then
     if [ -n "${DETECTED_PHP_VERSION}" ]; then
         PHP_VERSION="${DETECTED_PHP_VERSION}"
     else
+        echo "Detecting PHP version..."
         # Extract php version from the composer.json.
         CMD="php /build-scripts/detect_php_version.php ${APP_DIR}/composer.json"
         PHP_VERSION=`su www-data -c "${CMD}"`
-        echo "PHP_VERSION: ${PHP_VERSION}"
 
         if [ "${PHP_VERSION}" == "exact" ]; then
             cat<<EOF
@@ -60,13 +65,17 @@ EOF
         fi
     fi
 
+    echo "Using PHP version: ${PHP_VERSION}"
+
     # Workaround for https://github.com/docker/docker/issues/6047
     # We want to remove when Container Builder starts to use newer Docker.
     rm -rf ${APP_DIR}/vendor
 
+    echo "Install PHP extensions..."
     # Auto install extensions
     php -d auto_prepend_file='' /build-scripts/install_extensions.php ${APP_DIR}/composer.json ${PHP_DIR}/lib/conf.d/extensions.ini ${PHP_VERSION}
 
+    echo "Running composer..."
     # Run Composer.
     if [ -n "${GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT}" ]; then
         NOSCRIPT=''
