@@ -7,12 +7,13 @@ source ${DEB_BUILDER_DIR}/functions.sh
 echo "Building cassandra cpp driver"
 
 PNAME="cassandra-cpp-driver"
+VERSION=2.7.0
 
-OUTPUT_FILE="${PNAME}_2.6.0-1~gcp8+1_amd64.deb"
+OUTPUT_FILE="${PNAME}_${VERSION}-1~gcp8+1_amd64.deb"
 
 if [ ! -f "${ARTIFACT_LIB_DIR}/${OUTPUT_FILE}" ]; then
     # Download the source
-    download_from_tarball https://github.com/datastax/cpp-driver/archive/2.6.0.tar.gz 2.6.0
+    download_from_tarball https://github.com/datastax/cpp-driver/archive/${VERSION}.tar.gz ${VERSION}
     PACKAGE_DIR=${PACKAGE_DIR}/packaging
 
     pushd ${PACKAGE_DIR}
