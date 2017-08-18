@@ -95,7 +95,7 @@ class ValidateGoogleCloud
                 if (Comparator::lessThan($version, $minimumVersionMap[$package])) {
                     throw new GoogleCloudVersionException(
                         "stackdriver integration needs $package "
-                        . $minimumVersionMap[$package]. ' or higher'
+                        . $minimumVersionMap[$package] . ' or higher'
                     );
                 }
             }
