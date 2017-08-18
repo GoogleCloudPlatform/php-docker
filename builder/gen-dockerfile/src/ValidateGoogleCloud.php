@@ -23,11 +23,16 @@ use Google\Cloud\Runtimes\Builder\Exception\GoogleCloudVersionException;
 
 class ValidateGoogleCloud
 {
-    const MINIMUM_VERSION = 'v0.33';
+    const MINIMUM_GOOGLE_CLOUD_VERSION = 'v0.33';
+    const MINIMUM_GOOGLE_LOGGING_VERSION = 'v1.3.0';
+    const MINIMUM_GOOGLE_ER_VERSION = 'v0.4.0';
+    const FOUND_GOOGLE_CLOUD = 1;
+    const FOUND_INDIVIDUAL_PACKAGES = 2;
 
     /*
      * @param string $workspace
-     * @return bool
+     * @return int return FOUND_GOOGLE_CLOUD when we found google/cloud,
+     *         otherwise return FOUND_INDIVIDUAL_PACKAGES
      * @throw GoogleCloudVersionException
      */
     public static function doCheck($workspace)
@@ -39,52 +44,85 @@ class ValidateGoogleCloud
             );
         }
         $composer = json_decode(file_get_contents($filename), true);
-        if (is_array($composer)
-            && array_key_exists('require', $composer)
-            && array_key_exists('google/cloud', $composer['require'])) {
-            $constraints = $composer['require']['google/cloud'];
+        $constraintsMap = [];
+        $minimumVersionMap = [
+            'google/cloud' => self::MINIMUM_GOOGLE_CLOUD_VERSION,
+            'google/cloud-logging' => self::MINIMUM_GOOGLE_LOGGING_VERSION,
+            'google/cloud-error-reporting' => self::MINIMUM_GOOGLE_ER_VERSION
+        ];
+        // Make sure there is `require` field in `composer.json`.
+        if (!(is_array($composer) && array_key_exists('require', $composer))) {
+            throw new GoogleCloudVersionException(
+                'Required packages not found in composer.json. '
+                . 'Consider running `composer require google/cloud`'
+            );
+        }
+        // For google/cloud.
+        if (array_key_exists('google/cloud', $composer['require'])) {
+            $constraintsMap['google/cloud'] =
+                $composer['require']['google/cloud'];
+        } elseif (array_key_exists('google/cloud-logging',
+                                   $composer['require']) &&
+                  array_key_exists('google/cloud-error-reporting',
+                                   $composer['require'])) {
+            // For cloud-logging and cloud-error-reporting.
+            $constraintsMap['google/cloud-logging'] =
+                $composer['require']['google/cloud-logging'];
+            $constraintsMap['google/cloud-error-reporting'] =
+                $composer['require']['google/cloud-error-reporting'];
         } else {
             throw new GoogleCloudVersionException(
-                'google/cloud not found in composer.json'
+                'Required packages not found in composer.json. '
+                . 'Consider running `composer require google/cloud`'
             );
         }
 
-        $versions = self::getCurrentGoogleCloudVersions();
+        // Now we have $constraintsMap. All should have at least the minimum
+        // version.
 
-        // Check all the available versions against the constraints
-        // and returns matched ones
-        $filtered = Semver::satisfiedBy($versions, $constraints);
+        foreach ($constraintsMap as $package => $constraints) {
+            $versions = self::getCurrentPackageVersions($package);
 
-        if (count($filtered) === 0) {
-            throw new GoogleCloudVersionException(
-                'no available matching version of google/cloud'
-            );
-        }
-        foreach ($filtered as $version) {
-            if (Comparator::lessThan($version, self::MINIMUM_VERSION)) {
+            // Check all the available versions against the constraints
+            // and returns matched ones
+            $filtered = Semver::satisfiedBy($versions, $constraints);
+            if (count($filtered) === 0) {
                 throw new GoogleCloudVersionException(
-                    'stackdriver integration needs google/cloud '
-                    . self::MINIMUM_VERSION . ' or higher'
+                    "no available matching version of $package"
                 );
             }
+            foreach ($filtered as $version) {
+                if (Comparator::lessThan($version, $minimumVersionMap[$package])) {
+                    throw new GoogleCloudVersionException(
+                        "stackdriver integration needs $package "
+                        . $minimumVersionMap[$package]. ' or higher'
+                    );
+                }
+            }
         }
-        return true;
+
+        if (array_key_exists('google/cloud', $constraintsMap)) {
+            return self::FOUND_GOOGLE_CLOUD;
+        } else {
+            return self::FOUND_INDIVIDUAL_PACKAGES;
+        }
     }
 
     /**
-     * Determine available versions for google/cloud
+     * Determine available versions for a given package.
+     * @param string $package
      * @return array
      */
-    private static function getCurrentGoogleCloudVersions()
+    private static function getCurrentPackageVersions($package)
     {
         exec(
-            'composer show --all google/cloud |grep \'versions : \'',
+            "composer show --all $package |grep 'versions : '",
             $output,
             $ret
         );
         if ($ret !== 0) {
             throw new GoogleCloudVersionException(
-                'Failed to determine available versions of google/cloud package'
+                "Failed to determine available versions of $package package"
             );
         }
         // Remove the title

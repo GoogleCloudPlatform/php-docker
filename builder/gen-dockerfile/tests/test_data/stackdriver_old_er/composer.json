@@ -1,0 +1,6 @@
+{
+    "require": {
+        "google/cloud-logging": "^1.4.1",
+        "google/cloud-error-reporting": "^0.3.0"
+    }
+}
