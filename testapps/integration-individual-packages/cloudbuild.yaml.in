@@ -1,0 +1,7 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', '${IMAGE}', '.']
+  - name: gcr.io/gcp-runtimes/structure_test
+    args: ['-i', '${IMAGE}', '--config', 'php_default.yaml', '-v']
+  - name: gcr.io/gcp-runtimes/integration_test
+    args: ['-i', '${IMAGE}', '--no-monitoring', '--no-exception']

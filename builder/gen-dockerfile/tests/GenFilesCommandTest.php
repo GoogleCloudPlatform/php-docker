@@ -166,6 +166,43 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
             [
+                // stackdriver individual packages
+                __DIR__ . '/test_data/stackdriver_individual',
+                null,
+                '',
+                '/app/web',
+                'added by the php runtime builder',
+                'gcr.io/google-appengine/php71:latest',
+                ["GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT=true \\\n",
+                 "FRONT_CONTROLLER_FILE=index.php \\\n",
+                 "DETECTED_PHP_VERSION=7.1 \\\n",
+                 "IS_BATCH_DAEMON_RUNNING=true \n",
+                 "enable_stackdriver_integration.sh --individual"
+                ]
+            ],
+            [
+                // stackdriver old logging
+                __DIR__ . '/test_data/stackdriver_old_logging',
+                null,
+                '',
+                '/app/web',
+                'added by the php runtime builder',
+                'gcr.io/google-appengine/php71:latest',
+                [],
+                '\\Google\\Cloud\\Runtimes\\Builder\\Exception\\GoogleCloudVersionException'
+            ],
+            [
+                // stackdriver old error_reporting
+                __DIR__ . '/test_data/stackdriver_old_er',
+                null,
+                '',
+                '/app/web',
+                'added by the php runtime builder',
+                'gcr.io/google-appengine/php71:latest',
+                [],
+                '\\Google\\Cloud\\Runtimes\\Builder\\Exception\\GoogleCloudVersionException'
+            ],
+            [
                 // stackdriver no composer.json
                 __DIR__ . '/test_data/stackdriver_no_composer',
                 null,

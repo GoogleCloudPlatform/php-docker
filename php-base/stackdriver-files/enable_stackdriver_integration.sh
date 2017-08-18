@@ -28,5 +28,10 @@ echo "Enabling stackdriver integration..."
 # To start the batch daemon
 cp /stackdriver-files/batch-daemon.conf /etc/supervisor/conf.d
 
-# For enabling automatic error reporting
-cp /stackdriver-files/stackdriver-errorreporting.ini ${PHP_DIR}/lib/conf.d
+if [ "${1}" = "--individual" ]; then
+    # For enabling automatic error reporting for google/cloud-error-reporting
+    cp /stackdriver-files/stackdriver-errorreporting-individual.ini ${PHP_DIR}/lib/conf.d
+else
+    # For enabling automatic error reporting for google/cloud
+    cp /stackdriver-files/stackdriver-errorreporting.ini ${PHP_DIR}/lib/conf.d
+fi
