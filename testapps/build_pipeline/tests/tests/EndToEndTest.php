@@ -154,6 +154,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->eventuallyConsistentRetryCount = 10;
+        $this->catchAllExceptions = true;
 
         $url = sprintf('https://%s-dot-%s.appspot.com/',
                        getenv(self::VERSION_ENV),
