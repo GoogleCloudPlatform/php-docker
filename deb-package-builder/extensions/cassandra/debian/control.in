@@ -8,5 +8,5 @@ Homepage: http://pecl.php.net/package/cassandra
 
 Package: gcp-php${SHORT_VERSION}-cassandra
 Architecture: any
-Depends: cassandra-cpp-driver (>= 2.6.0), gcp-php${SHORT_VERSION}
+Depends: cassandra-cpp-driver (>= 2.7.0), gcp-php${SHORT_VERSION}
 Description: cassandra extension module for gcp-php${SHORT_VERSION}
