@@ -40,6 +40,8 @@ download_from_pecl()
     # we are downloading a beta version, but is not actually part of the
     # package name
     PACKAGE_SHORT_NAME=$(basename ${PECL_PACKAGE_NAME} -beta)
+    PACKAGE_SHORT_NAME=$(basename ${PACKAGE_SHORT_NAME} -alpha)
+    PACKAGE_SHORT_NAME=$(basename ${PACKAGE_SHORT_NAME} -devel)
 
     if [ -z "$2" ]; then
         with_retry "pecl download ${PECL_PACKAGE_NAME}" 6
