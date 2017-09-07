@@ -74,7 +74,7 @@ build_php_version()
     else
       echo "Building ${PACKAGE_NAME} version ${FULL_VERSION}"
 
-      if [[ "${PHP_VERSION}" == *"alpha"* ]]; then
+      if [[ "${PHP_VERSION}" == *"alpha"* ]] || [[ "${PHP_VERSION}" == *"RC"* ]] ; then
           curl -sL "https://downloads.php.net/~remi/php-${PHP_VERSION}.tar.gz" \
               > php-${PHP_VERSION}.tar.gz
           curl -sL "https://downloads.php.net/~remi/php-${PHP_VERSION}.tar.gz.asc" \
