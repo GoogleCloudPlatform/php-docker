@@ -31,6 +31,7 @@ apt-get install -y \
         gcp-php72-memcached \
         gcp-php72-mongodb \
         gcp-php72-oauth \
+        gcp-php72-opencensus \
         gcp-php72-pq \
         gcp-php72-protobuf \
         gcp-php72-rdkafka \
