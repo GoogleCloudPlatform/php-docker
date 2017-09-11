@@ -32,6 +32,7 @@ apt-get install -y \
         gcp-php70-memcached \
         gcp-php70-mongodb \
         gcp-php70-oauth \
+        gcp-php70-opencensus \
         gcp-php70-phalcon \
         gcp-php70-pq \
         gcp-php70-protobuf \
