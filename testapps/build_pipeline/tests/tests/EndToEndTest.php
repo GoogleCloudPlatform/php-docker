@@ -198,6 +198,28 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
         });
     }
 
+    /**
+     * @dataProvider extensions
+     */
+    public function testExtensions($extensionName)
+    {
+        $this->runEventuallyConsistentTest(function () {
+            $query = http_build_query(['ext' => $extensionName])
+            $resp = $this->client->get('/check_extensions.php?' . $query);
+            $this->assertEquals('200', $resp->getStatusCode(),
+                                "failed to confirm $ext extension is loaded");
+        });
+    }
+
+    public function extensions()
+    {
+        return [
+            ['grpc'],
+            ['opencensus'],
+            ['pdo_sqlite'],
+        ];
+    }
+
     public function testPhpInfo()
     {
         $this->runEventuallyConsistentTest(function () {
