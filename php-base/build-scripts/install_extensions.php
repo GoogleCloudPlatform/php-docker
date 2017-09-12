@@ -199,7 +199,7 @@ class InstallExtensions
         if (extension_loaded($package)) {
             return;
         }
-        
+
         // We can install this extension
         $this->extensions[] = $package;
 
