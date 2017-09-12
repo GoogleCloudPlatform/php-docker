@@ -21,7 +21,7 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
 fi
 
 if [ -z "${PHP_VERSIONS}" ]; then
-    PHP_VERSIONS='7.1.9-1,7.0.23-1,5.6.31-1,7.2.0beta2-1'
+    PHP_VERSIONS='7.1.9-2,7.0.23-2,5.6.31-2,7.2.0RC1-2'
     echo "Defaulting PHP Versions to: ${PHP_VERSIONS}"
 fi
 
@@ -36,5 +36,5 @@ do
     echo "Building packages for PHP ${VERSION}"
     gcloud container builds submit . --config=build-packages.yaml \
                                      --substitutions _PHP_VERSION=${VERSION},_GOOGLE_PROJECT_ID=${GOOGLE_PROJECT_ID},_BUCKET=${BUCKET} \
-                                     --timeout=90m
+                                     --timeout=180m
 done
