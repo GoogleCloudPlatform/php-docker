@@ -202,14 +202,14 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
     {
         // grpc, opencensus, pdo_sqlite should be in the extensions.ini file.
         // Others should not be there.
-        $extMap = [
-            'grpc' => true,
-            'opencensus' => true,
-            'pdo_sqlite' => true,
-            'mailparse' => false,
-            'mbstring' => false
-        ];
         $this->runEventuallyConsistentTest(function () {
+            $extMap = [
+                'grpc' => true,
+                'opencensus' => true,
+                'pdo_sqlite' => true,
+                'mailparse' => false,
+                'mbstring' => false
+            ];
             // Read the extension.ini file
             $query = http_build_query(
                 ['f' => '/opt/php/lib/conf.d/extensions.ini']
