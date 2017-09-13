@@ -198,6 +198,44 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
         });
     }
 
+    public function testExtensionIni()
+    {
+        // grpc, opencensus, pdo_sqlite should be in the extensions.ini file.
+        // Others should not be there.
+        $extMap = [
+            'grpc' => true,
+            'opencensus' => true,
+            'pdo_sqlite' => true,
+            'mailparse' => false,
+            'mbstring' => false
+        ];
+        $this->runEventuallyConsistentTest(function () {
+            // Read the extension.ini file
+            $query = http_build_query(
+                ['f' => '/opt/php/lib/conf.d/extensions.ini']
+            );
+            $resp = $this->client->get('readfile.php?' . $query);
+            $this->assertEquals('200', $resp->getStatusCode(),
+                                'readfile.php status code');
+            $body = $resp->getBody()->getContents();
+            foreach ($extMap as $ext => $shouldBeInIni) {
+                if ($shouldBeInIni) {
+                    $this->assertContains(
+                        $ext,
+                        $body,
+                        "$ext should be in extensions.ini file"
+                    );
+                } else {
+                    $this->assertContains(
+                        $ext,
+                        $body,
+                        "$ext should not be in extensions.ini file"
+                    );
+                }
+            }
+        });
+    }
+
     /**
      * @dataProvider extensions
      */
@@ -216,6 +254,8 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
         return [
             ['grpc'],
             ['opencensus'],
+            ['mailparse'],
+            ['mbstring'],
             ['pdo_sqlite'],
         ];
     }
