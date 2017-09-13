@@ -8,6 +8,8 @@
     "require": {
         "php": "7.1.*",
         "ext-grpc": "*",
+        "ext-mailparse": "*",
+        "ext-mbstring": "*",
         "ext-opencensus": "*",
         "ext-pdo_sqlite": "*",
         "google/auth": "^0.11",

@@ -195,6 +195,11 @@ class InstallExtensions
             return;
         }
 
+        // If it's already loaded, no need for activation
+        if (extension_loaded($package)) {
+            return;
+        }
+
         // We can install this extension
         $this->extensions[] = $package;
 
