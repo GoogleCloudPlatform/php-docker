@@ -226,7 +226,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
                         "$ext should be in extensions.ini file"
                     );
                 } else {
-                    $this->assertContains(
+                    $this->assertNotContains(
                         $ext,
                         $body,
                         "$ext should not be in extensions.ini file"
