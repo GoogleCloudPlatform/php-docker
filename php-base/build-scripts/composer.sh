@@ -77,18 +77,15 @@ EOF
 
     echo "Running composer..."
     # Run Composer.
-    if [ -n "${GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT}" ]; then
-        NOSCRIPT=''
-    else
-        NOSCRIPT='--no-scripts'
+    if [ -z "${COMPOSER_FLAGS}" ]; then
+        COMPOSER_FLAGS='--no-script --no-dev --prefer-dist'
     fi
     cd ${APP_DIR} && \
         su -m www-data -c "php -d auto_prepend_file='' /usr/local/bin/composer \
-          install ${NOSCRIPT} \
-          --no-dev \
-          --prefer-dist \
+          install \
           --optimize-autoloader \
           --no-interaction \
           --no-ansi \
-          --no-progress"
+          --no-progress \
+          ${COMPOSER_FLAGS}"
 fi

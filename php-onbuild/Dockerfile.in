@@ -16,6 +16,10 @@
 
 FROM ${PHP_71_IMAGE}
 
+# Allow customizing some composer flags
+ONBUILD ARG COMPOSER_FLAGS='--no-script --no-dev --prefer-dist'
+ONBUILD ENV COMPOSER_FLAGS=${COMPOSER_FLAGS}
+
 # Copy the app and change the owner
 ONBUILD COPY . $APP_DIR
 ONBUILD RUN chown -R www-data.www-data $APP_DIR
