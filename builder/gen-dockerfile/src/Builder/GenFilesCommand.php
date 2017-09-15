@@ -277,7 +277,7 @@ Using PHP version 7.1.x...</info>
         }
         $envString = 'ENV ';
         foreach ($envs as $key => $value) {
-            $envString .= "$key=$value \\\n";
+            $envString .= "$key='$value' \\\n";
         }
         // Remove the last new line and the backslash
         $envString = rtrim($envString, "\n");
