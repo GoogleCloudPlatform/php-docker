@@ -101,7 +101,7 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
         $dockerfile = file_get_contents(self::$testDir . '/Dockerfile');
         $this->assertTrue($dockerfile !== false, 'Dockerfile should exist');
         $this->assertContains(
-            'DOCUMENT_ROOT=' . $expectedDocRoot,
+            "DOCUMENT_ROOT='$expectedDocRoot'",
             $dockerfile
         );
         $this->assertContains('FROM ' . $expectedFrom, $dockerfile);
@@ -134,9 +134,9 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php71:latest',
-                ["GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT=true \\\n",
-                 "FRONT_CONTROLLER_FILE=index.php \\\n",
-                 "DETECTED_PHP_VERSION=7.1 \n"
+                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
+                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
+                 "DETECTED_PHP_VERSION='7.1' \n"
                 ]
             ],
             [
@@ -158,10 +158,10 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 '/app/web',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php71:latest',
-                ["GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT=true \\\n",
-                 "FRONT_CONTROLLER_FILE=index.php \\\n",
-                 "DETECTED_PHP_VERSION=7.1 \\\n",
-                 "IS_BATCH_DAEMON_RUNNING=true \n",
+                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
+                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
+                 "DETECTED_PHP_VERSION='7.1' \\\n",
+                 "IS_BATCH_DAEMON_RUNNING='true' \n",
                  "enable_stackdriver_integration.sh"
                 ]
             ],
@@ -173,10 +173,10 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 '/app/web',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php71:latest',
-                ["GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT=true \\\n",
-                 "FRONT_CONTROLLER_FILE=index.php \\\n",
-                 "DETECTED_PHP_VERSION=7.1 \\\n",
-                 "IS_BATCH_DAEMON_RUNNING=true \n",
+                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
+                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
+                 "DETECTED_PHP_VERSION='7.1' \\\n",
+                 "IS_BATCH_DAEMON_RUNNING='true' \n",
                  "enable_stackdriver_integration.sh --individual"
                 ]
             ],
@@ -243,9 +243,9 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php56:latest',
-                ["GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT=true \\\n",
-                 "FRONT_CONTROLLER_FILE=index.php \\\n",
-                 "DETECTED_PHP_VERSION=5.6 \n"
+                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
+                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
+                 "DETECTED_PHP_VERSION='5.6' \n"
                 ]
             ],
             [
@@ -256,9 +256,9 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php70:latest',
-                ["GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT=true \\\n",
-                 "FRONT_CONTROLLER_FILE=index.php \\\n",
-                 "DETECTED_PHP_VERSION=7.0 \n"
+                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
+                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
+                 "DETECTED_PHP_VERSION='7.0' \n"
                 ]
             ],
             [
@@ -270,15 +270,15 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php71:latest',
                 [
-                    "WHITELIST_FUNCTIONS=exec \\\n",
-                    "FRONT_CONTROLLER_FILE=app.php",
-                    "NGINX_CONF_HTTP_INCLUDE=files/nginx-http.conf",
-                    "NGINX_CONF_INCLUDE=files/nginx-app.conf",
-                    "NGINX_CONF_OVERRIDE=files/nginx.conf",
-                    "PHP_FPM_CONF_OVERRIDE=files/php-fpm.conf",
-                    "PHP_INI_OVERRIDE=files/php.ini",
-                    "SUPERVISORD_CONF_ADDITION=files/additional-supervisord.conf",
-                    "SUPERVISORD_CONF_OVERRIDE=files/supervisord.conf"
+                    "WHITELIST_FUNCTIONS='exec' \\\n",
+                    "FRONT_CONTROLLER_FILE='app.php'",
+                    "NGINX_CONF_HTTP_INCLUDE='files/nginx-http.conf'",
+                    "NGINX_CONF_INCLUDE='files/nginx-app.conf'",
+                    "NGINX_CONF_OVERRIDE='files/nginx.conf'",
+                    "PHP_FPM_CONF_OVERRIDE='files/php-fpm.conf'",
+                    "PHP_INI_OVERRIDE='files/php.ini'",
+                    "SUPERVISORD_CONF_ADDITION='files/additional-supervisord.conf'",
+                    "SUPERVISORD_CONF_OVERRIDE='files/supervisord.conf'"
                 ]
             ],
             [
@@ -301,15 +301,15 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php71:latest',
                 [
-                    "WHITELIST_FUNCTIONS=exec \\\n",
-                    "FRONT_CONTROLLER_FILE=app.php",
-                    "NGINX_CONF_HTTP_INCLUDE=files/nginx-http.conf",
-                    "NGINX_CONF_INCLUDE=files/nginx-app.conf",
-                    "NGINX_CONF_OVERRIDE=files/nginx.conf",
-                    "PHP_FPM_CONF_OVERRIDE=files/php-fpm.conf",
-                    "PHP_INI_OVERRIDE=files/php.ini",
-                    "SUPERVISORD_CONF_ADDITION=files/additional-supervisord.conf",
-                    "SUPERVISORD_CONF_OVERRIDE=files/supervisord.conf"
+                    "WHITELIST_FUNCTIONS='exec' \\\n",
+                    "FRONT_CONTROLLER_FILE='app.php'",
+                    "NGINX_CONF_HTTP_INCLUDE='files/nginx-http.conf'",
+                    "NGINX_CONF_INCLUDE='files/nginx-app.conf'",
+                    "NGINX_CONF_OVERRIDE='files/nginx.conf'",
+                    "PHP_FPM_CONF_OVERRIDE='files/php-fpm.conf'",
+                    "PHP_INI_OVERRIDE='files/php.ini'",
+                    "SUPERVISORD_CONF_ADDITION='files/additional-supervisord.conf'",
+                    "SUPERVISORD_CONF_OVERRIDE='files/supervisord.conf'"
                 ],
                 '\\Google\\Cloud\\Runtimes\\Builder\\Exception\\EnvConflictException'
             ],
@@ -321,7 +321,7 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php71:latest',
-                ["FRONT_CONTROLLER_FILE=app.php \\\n"]
+                ["FRONT_CONTROLLER_FILE='app.php' \\\n"]
             ],
             [
                 // Different yaml path

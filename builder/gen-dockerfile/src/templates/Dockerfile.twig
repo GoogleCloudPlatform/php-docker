@@ -16,7 +16,7 @@
 
 FROM {{ base_image }}
 
-{{ env_string }}
+{{ env_string|raw }}
 
 ARG BUILDER_PROJECT_ID
 ENV GCLOUD_PROJECT ${BUILDER_PROJECT_ID}

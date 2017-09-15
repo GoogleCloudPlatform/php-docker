@@ -185,6 +185,7 @@ Using PHP version 7.1.x...</info>
             : [];
         $maps = [
             'builder_debug_output' => 'BUILDER_DEBUG_OUTPUT',
+            'composer_flags' => 'COMPOSER_FLAGS',
             'document_root' => 'DOCUMENT_ROOT',
             'enable_stackdriver_integration' => self::STACKDRIVER_INTEGRATION_ENV,
             'front_controller_file' => 'FRONT_CONTROLLER_FILE',
@@ -250,7 +251,8 @@ Using PHP version 7.1.x...</info>
             + $this->envsFromAppYaml()
             + [
                 'FRONT_CONTROLLER_FILE' => self::DEFAULT_FRONT_CONTROLLER_FILE,
-                'GOOGLE_RUNTIME_RUN_COMPOSER_SCRIPT' => 'true',
+                // default composer flags for the runtime builder
+                'COMPOSER_FLAGS' => '--no-dev --prefer-dist',
                 'DETECTED_PHP_VERSION' => $this->detectedPhpVersion
             ];
         // Fail if DOCUMENT_ROOT is not set.
@@ -275,7 +277,7 @@ Using PHP version 7.1.x...</info>
         }
         $envString = 'ENV ';
         foreach ($envs as $key => $value) {
-            $envString .= "$key=$value \\\n";
+            $envString .= "$key='$value' \\\n";
         }
         // Remove the last new line and the backslash
         $envString = rtrim($envString, "\n");
