@@ -78,7 +78,7 @@ EOF
     echo "Running composer..."
     # Run Composer.
     if [ -z "${COMPOSER_FLAGS}" ]; then
-        COMPOSER_FLAGS='--no-script --no-dev --prefer-dist'
+        COMPOSER_FLAGS='--no-scripts --no-dev --prefer-dist'
     fi
     cd ${APP_DIR} && \
         su -m www-data -c "php -d auto_prepend_file='' /usr/local/bin/composer \

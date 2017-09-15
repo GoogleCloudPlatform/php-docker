@@ -17,7 +17,7 @@
 FROM ${PHP_71_IMAGE}
 
 # Allow customizing some composer flags
-ONBUILD ARG COMPOSER_FLAGS='--no-script --no-dev --prefer-dist'
+ONBUILD ARG COMPOSER_FLAGS='--no-scripts --no-dev --prefer-dist'
 ONBUILD ENV COMPOSER_FLAGS=${COMPOSER_FLAGS}
 
 # Copy the app and change the owner
