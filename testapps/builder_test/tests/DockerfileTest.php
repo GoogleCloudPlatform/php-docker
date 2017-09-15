@@ -22,6 +22,6 @@ class DockerfileTest extends \PHPUnit_Framework_TestCase
     {
         $dockerfile = file_get_contents('/workspace/Dockerfile');
         $this->assertTrue($dockerfile !== false);
-        $this->assertContains('DOCUMENT_ROOT=/app/web', $dockerfile);
+        $this->assertContains("DOCUMENT_ROOT='/app/web'", $dockerfile);
     }
 }
