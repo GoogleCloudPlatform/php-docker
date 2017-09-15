@@ -101,7 +101,7 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
         $dockerfile = file_get_contents(self::$testDir . '/Dockerfile');
         $this->assertTrue($dockerfile !== false, 'Dockerfile should exist');
         $this->assertContains(
-            'DOCUMENT_ROOT=' . $expectedDocRoot,
+            "DOCUMENT_ROOT='$expectedDocRoot'",
             $dockerfile
         );
         $this->assertContains('FROM ' . $expectedFrom, $dockerfile);
