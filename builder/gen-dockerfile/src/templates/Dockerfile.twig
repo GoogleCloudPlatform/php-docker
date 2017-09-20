@@ -26,6 +26,7 @@ RUN chown -R www-data.www-data $APP_DIR
 RUN /build-scripts/composer.sh
 
 RUN /bin/bash /build-scripts/move-config-files.sh
+RUN /usr/sbin/nginx -t -c /etc/nginx/nginx.conf
 RUN /bin/bash /build-scripts/lockdown.sh
 
 {{ enable_stackdriver_cmd }}

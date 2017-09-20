@@ -22,6 +22,9 @@ set -xe
 
 /bin/bash /build-scripts/move-config-files.sh
 
+# Checks the nginx config. We need to do this after moving the files.
+/usr/sbin/nginx -t -c /etc/nginx/nginx.conf
+
 # Configure memcached based session.
 if [ -n "${MEMCACHE_PORT_11211_TCP_ADDR}" ] && [ -n "${MEMCACHE_PORT_11211_TCP_PORT}" ]; then
     cat <<EOF > ${PHP_DIR}/lib/conf.d/memcached-session.ini
