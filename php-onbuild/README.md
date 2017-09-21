@@ -198,6 +198,19 @@ composer.json:
     }
 }
 ```
+## Enabling OPcache
+
+The runtime has [OPcache](http://php.net/manual/en/book.opcache.php)
+compiled in, but it's disabled by default. To use OPcache, create or
+edit the file `php.ini` with the following line:
+
+```ini
+zend_extension=opcache.so
+```
+
+See [the official
+doc](http://php.net/manual/en/opcache.configuration.php) for how to
+configure OPcache.
 
 ## Extensions
 
@@ -211,7 +224,6 @@ These extensions are enabled as builtin:
 - memcached
 - MySQL (PDO) (uses mysqlnd)
 - MySQLi (uses mysqlnd)
-- OPcache
 - OpenSSL
 - PCNTL (pcntl)
 - PostgreSQL
