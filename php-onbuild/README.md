@@ -198,19 +198,20 @@ composer.json:
     }
 }
 ```
-## Enabling OPcache
+## OPcache
 
 The runtime has [OPcache](http://php.net/manual/en/book.opcache.php)
-compiled in, but it's disabled by default. To use OPcache, create or
-edit the file `php.ini` with the following line:
-
-```ini
-zend_extension=opcache.so
-```
+compiled in, and it's enabled by default.
 
 See [the official
 doc](http://php.net/manual/en/opcache.configuration.php) for how to
 configure OPcache.
+
+To disable OPcache, create or edit the file `php.ini` with the following line:
+
+```
+opcache.enable=0
+```
 
 ## Extensions
 
