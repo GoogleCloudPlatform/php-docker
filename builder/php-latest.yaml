@@ -2,6 +2,6 @@ steps:
   - name: 'gcr.io/gcp-runtimes/php/gen-dockerfile:latest'
     args: ['--php71-image', 'gcr.io/google-appengine/php71:latest', '--php70-image', 'gcr.io/google-appengine/php70:latest', '--php56-image', 'gcr.io/google-appengine/php56:latest']
   - name: 'gcr.io/cloud-builders/docker:latest'
-    args: ['build', '-t', '$_OUTPUT_IMAGE', '--build-arg', 'BUILDER_PROJECT_ID=$PROJECT_ID', '.']
+    args: ['build', '-t', '$_OUTPUT_IMAGE', '--network=cloudbuild', '.']
 images:
   - '$_OUTPUT_IMAGE'

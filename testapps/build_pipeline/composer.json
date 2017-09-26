@@ -1,10 +1,4 @@
 {
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/stanley-cheung/Protobuf-PHP"
-        }
-    ],
     "require": {
         "php": "7.1.*",
         "ext-grpc": "*",
@@ -12,13 +6,13 @@
         "ext-mbstring": "*",
         "ext-opencensus": "*",
         "ext-pdo_sqlite": "*",
-        "google/auth": "^0.11",
-        "grpc/grpc": "^1.0",
+        "google/cloud": "*",
+        "grpc/grpc": "*",
         "silex/silex": "^1.3"
     },
     "scripts": {
         "post-install-cmd": [
-            "php gcloud-env.php"
+            "php logging-client.php"
         ]
     },
     "autoload": {
