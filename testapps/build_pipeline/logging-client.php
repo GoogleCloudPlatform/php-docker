@@ -15,10 +15,16 @@
  * limitations under the License.
  */
 
-// Just make sure the runtime buider process has this envvar. This script is
-// called during the build process by `post-install-cmd` in `composer.json`.
-if (empty(getenv('GCLOUD_PROJECT'))) {
-    exit(1);
-}
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Google\Cloud\Logging\LoggingClient;
+
+// Make sure we can initialize the Logging client and send a log. This ensures
+// the library can detect the project id and credentials. This file is called
+// by the `post-install-cmd` in the `composer.json` file.
+
+$client = new LoggingClient();
+$logger = $client->logger('e2e-testing');
+$logger->write('test log');
 
 exit(0);

@@ -13,12 +13,13 @@
         "ext-opencensus": "*",
         "ext-pdo_sqlite": "*",
         "google/auth": "^0.11",
+        "google/cloud": "*",
         "grpc/grpc": "^1.0",
         "silex/silex": "^1.3"
     },
     "scripts": {
         "post-install-cmd": [
-            "php gcloud-env.php"
+            "php logging-client.php"
         ]
     },
     "autoload": {
