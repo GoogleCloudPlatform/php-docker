@@ -81,7 +81,7 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 ];
         }
         if ($expectedException !== null) {
-            $this->setExpectedExceptionRegExp($expectedException);
+            $this->expectException($expectedException);
         }
         // Copy all the files to the test dir
         foreach (self::$files as $file) {
