@@ -61,6 +61,12 @@ class GenFilesCommand extends Command
             ->setName('create')
             ->setDescription('Create Dockerfile and .dockerignore file')
             ->addOption(
+                'php72-image',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'The PHP 72 base image of the Dockerfile'
+            )
+            ->addOption(
                 'php71-image',
                 null,
                 InputOption::VALUE_REQUIRED,
@@ -121,6 +127,9 @@ Using PHP version 7.1.x...</info>
         } elseif (substr($version, 0, 3) === '7.0') {
             $this->baseImage = $input->getOption('php70-image');
             $this->detectedPhpVersion = '7.0';
+        } elseif (substr($version, 0, 3) === '7.2') {
+            $this->baseImage = $input->getOption('php72-image');
+            $this->detectedPhpVersion = '7.2';
         } else {
             $this->baseImage = $input->getOption('php71-image');
             $this->detectedPhpVersion = '7.1';

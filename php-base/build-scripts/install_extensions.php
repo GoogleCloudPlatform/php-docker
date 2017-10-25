@@ -81,9 +81,9 @@ class InstallExtensions
         'couchbase' => ['5.6'],
         'ds' => ['5.6'],
         'lua' => ['5.6'],
-        'memcache' => ['7.0', '7.1'],
+        'memcache' => ['7.0', '7.1', '7.2'],
         'opencensus' => ['5.6'],
-        'phalcon' => ['7.1'],
+        'phalcon' => ['7.1', '7.2'],
         'v8js' => ['5.6'],
         'vips' => ['5.6'],
         'yaconf' => ['5.6']
