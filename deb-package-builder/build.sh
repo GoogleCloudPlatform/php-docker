@@ -74,7 +74,12 @@ build_php_version()
     else
       echo "Building ${PACKAGE_NAME} version ${FULL_VERSION}"
 
-      if [[ "${PHP_VERSION}" == *"alpha"* ]] || [[ "${PHP_VERSION}" == *"RC"* ]] ; then
+      if [[ "${PHP_VERSION}" == "7.2.0RC2" ]] || [[ "${PHP_VERSION}" == "7.2.0RC5" ]] ; then
+          curl -sL "https://downloads.php.net/~pollita/php-${PHP_VERSION}.tar.gz" \
+              > php-${PHP_VERSION}.tar.gz
+          curl -sL "https://downloads.php.net/~pollita/php-${PHP_VERSION}.tar.gz.asc" \
+              > php-${PHP_VERSION}.tar.gz.asc
+      elif [[ "${PHP_VERSION}" == *"alpha"* ]] || [[ "${PHP_VERSION}" == *"RC"* ]] ; then
           curl -sL "https://downloads.php.net/~remi/php-${PHP_VERSION}.tar.gz" \
               > php-${PHP_VERSION}.tar.gz
           curl -sL "https://downloads.php.net/~remi/php-${PHP_VERSION}.tar.gz.asc" \
