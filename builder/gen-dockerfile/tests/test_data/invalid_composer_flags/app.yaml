@@ -1,0 +1,7 @@
+env: flex
+runtime: php
+
+runtime_config:
+  document_root: /app
+  composer_flags: '--prefer-dist --no-dev && cat /etc/passwd'
+
