@@ -19,6 +19,7 @@ namespace Google\Cloud\Runtimes\Builder;
 
 use Google\Cloud\Runtimes\Builder\Exception\EnvConflictException;
 use Google\Cloud\Runtimes\Builder\Exception\ExactVersionException;
+use Google\Cloud\Runtimes\Builder\Exception\InvalidComposerFlagsException;
 use Google\Cloud\Runtimes\Builder\Exception\MissingDocumentRootException;
 use Google\Cloud\Runtimes\Builder\Exception\RemovedEnvVarException;
 use Google\Cloud\Runtimes\DetectPhpVersion;
@@ -264,6 +265,11 @@ Using PHP version 7.1.x...</info>
                 'COMPOSER_FLAGS' => '--no-dev --prefer-dist',
                 'DETECTED_PHP_VERSION' => $this->detectedPhpVersion
             ];
+        // Prevent shell injection with the COMPOSER_FLAGS by only accepting
+        // '-', ' ', and alphanumeric characters.
+        if (! preg_match('/^[-0-9a-zA-Z ]+$/', $envs['COMPOSER_FLAGS'])) {
+            throw new InvalidComposerFlagsException('Invalid COMPOSER_FLAGS');
+        }
         // Fail if DOCUMENT_ROOT is not set.
         if (! array_key_exists('DOCUMENT_ROOT', $envs)) {
             throw new MissingDocumentRootException(
