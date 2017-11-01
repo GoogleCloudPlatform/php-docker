@@ -151,6 +151,30 @@ class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
                 '\\Google\\Cloud\\Runtimes\\Builder\\Exception\\RemovedEnvVarException'
             ],
             [
+                // Correct composer flags
+                __DIR__ . '/test_data/correct_composer_flags',
+                null,
+                '',
+                '/app',
+                'added by the php runtime builder',
+                'gcr.io/google-appengine/php71:latest',
+                ["COMPOSER_FLAGS='--prefer-dist --no-dev --no-script' \\\n",
+                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
+                 "DETECTED_PHP_VERSION='7.1' \n"
+                ]
+            ],
+            [
+                // Invalid composer flags
+                __DIR__ . '/test_data/invalid_composer_flags',
+                null,
+                '',
+                '',
+                '',
+                '',
+                [],
+                '\\Google\\Cloud\\Runtimes\\Builder\\Exception\\InvalidComposerFlagsException'
+            ],
+            [
                 // stackdriver simple case
                 __DIR__ . '/test_data/stackdriver_simple',
                 null,
