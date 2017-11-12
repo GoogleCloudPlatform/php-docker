@@ -17,8 +17,9 @@
 namespace Google\Cloud\tests;
 
 use GuzzleHttp\Client;
+use PHPUnit\Framework\TestCase;
 
-class PHP56CustomConfigTest extends \PHPUnit_Framework_TestCase
+class PHP56CustomConfigTest extends TestCase
 {
     private $client;
 

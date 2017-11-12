@@ -15,9 +15,11 @@
  * limitations under the License.
  */
 
+use PHPUnit\Framework\TestCase;
+
 require_once(__DIR__ . "/../build-scripts/detect_php_version.php");
 
-class DetectPhpVersionTest extends \PHPUnit_Framework_TestCase
+class DetectPhpVersionTest extends TestCase
 {
     const PHP_71 = '7.1.3';
     const PHP_70 = '7.0.17';

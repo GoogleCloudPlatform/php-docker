@@ -15,9 +15,11 @@
  * limitations under the License.
  */
 
+use PHPUnit\Framework\TestCase;
+
 require_once(__DIR__ . "/../build-scripts/install_extensions.php");
 
-class InstallExtensionsTest extends \PHPUnit_Framework_TestCase
+class InstallExtensionsTest extends TestCase
 {
     public function testDetectsPackagedExtensions()
     {

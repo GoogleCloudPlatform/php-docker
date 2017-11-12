@@ -16,7 +16,9 @@
  */
 namespace Google\Cloud\tests;
 
-class DockerfileTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class DockerfileTest extends TestCase
 {
     public function testDockerfile()
     {
