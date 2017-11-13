@@ -33,12 +33,14 @@ We currently support the latest patch version of 5.6, 7.0, and 7.1. See
 * memprof
 * mongodb
 * oauth
+* opencensus
 * phalcon
 * pq
 * raphf
 * rdkafka
 * redis
 * SeasLog
+* stackdriver_debugger
 * stomp
 * suhosin
 * swoole
