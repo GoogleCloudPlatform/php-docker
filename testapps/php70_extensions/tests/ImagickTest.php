@@ -14,8 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+use PHPUnit\Framework\TestCase;
 
-class ImagickTest extends \PHPUnit_Framework_TestCase
+class ImagickTest extends TestCase
 {
     private $success = false;
 

@@ -14,8 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+use PHPUnit\Framework\TestCase;
 
-class RdkafkaTest extends \PHPUnit_Framework_TestCase
+class RdkafkaTest extends TestCase
 {
     private $success = false;
 

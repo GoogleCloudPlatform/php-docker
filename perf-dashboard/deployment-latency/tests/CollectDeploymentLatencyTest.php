@@ -18,8 +18,9 @@
 namespace Google\Cloud\PerfDashBoard;
 
 use Google\Cloud\BigQuery\BigQueryClient;
+use PHPUnit\Framework\TestCase;
 
-class CollectDeploymentLatencyTest extends \PHPUnit_Framework_TestCase
+class CollectDeploymentLatencyTest extends TestCase
 {
     const DEPLOYMENT_MAX_RETRY = 5;
     const DATASET_ID = 'deployment_latency';
