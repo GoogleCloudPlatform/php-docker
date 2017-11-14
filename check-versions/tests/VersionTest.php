@@ -16,8 +16,9 @@
  */
 
 use GuzzleHttp\Client;
+use PHPUnit\Framework\TestCase;
 
-class VersionTest extends \PHPUnit_Framework_TestCase
+class VersionTest extends TestCase
 {
     private static $versions;
 

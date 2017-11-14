@@ -17,8 +17,9 @@
 namespace Google\Cloud\Runtimes\Builder;
 
 use Symfony\Component\Console\Tester\CommandTester;
+use PHPUnit\Framework\TestCase;
 
-class GenFilesCommandTest extends \PHPUnit_Framework_TestCase
+class GenFilesCommandTest extends TestCase
 {
     public static $testDir;
 

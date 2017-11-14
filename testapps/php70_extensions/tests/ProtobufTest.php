@@ -14,8 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+use PHPUnit\Framework\TestCase;
 
-class ProtobufTest extends \PHPUnit_Framework_TestCase
+class ProtobufTest extends TestCase
 {
     private $success = false;
 

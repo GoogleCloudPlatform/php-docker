@@ -14,8 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+use PHPUnit\Framework\TestCase;
 
-class EvTest extends \PHPUnit_Framework_TestCase
+class EvTest extends TestCase
 {
     private $success = false;
 

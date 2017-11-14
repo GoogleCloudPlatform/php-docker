@@ -20,8 +20,9 @@ namespace Google\Cloud\tests;
 use Google\Cloud\TestUtils\EventuallyConsistentTestTrait;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
+use PHPUnit\Framework\TestCase;
 
-class EndToEndTest extends \PHPUnit_Framework_TestCase
+class EndToEndTest extends TestCase
 {
     use EventuallyConsistentTestTrait;
 
