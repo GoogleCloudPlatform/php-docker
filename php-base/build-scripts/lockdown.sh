@@ -20,18 +20,17 @@ else
     set -e
 fi
 
-if [ "${LOCAL_DEV_ENVIRONMENT}" != "true" ]; then
+if [ "${SKIP_LOCKDOWN_DOCUMENT_ROOT}" != "true" ]; then
     echo "Locking down the document root..."
-
     # Lock down the DOCUMENT_ROOT
     chown -R root.www-data ${DOCUMENT_ROOT}
     chmod -R 550 ${DOCUMENT_ROOT}
-
-    # Change the www-data's shell back to /usr/sbin/nologin
-    chsh -s /usr/sbin/nologin www-data
 else
-    echo "WARNING: Not locking down document root. Local dev environment set"
+    echo "WARNING: Not locking down document root."
 fi
+
+# Change the www-data's shell back to /usr/sbin/nologin
+chsh -s /usr/sbin/nologin www-data
 
 # Enable suhosin for PHP 5.6.x
 if [ -x "${PHP56_DIR}/bin/php56-enmod" ]; then
