@@ -20,11 +20,14 @@ else
     set -e
 fi
 
-echo "Locking down the document root..."
-
-# Lock down the DOCUMENT_ROOT
-chown -R root.www-data ${DOCUMENT_ROOT}
-chmod -R 550 ${DOCUMENT_ROOT}
+if [ "${SKIP_LOCKDOWN_DOCUMENT_ROOT}" != "true" ]; then
+    echo "Locking down the document root..."
+    # Lock down the DOCUMENT_ROOT
+    chown -R root.www-data ${DOCUMENT_ROOT}
+    chmod -R 550 ${DOCUMENT_ROOT}
+else
+    echo "WARNING: Not locking down document root."
+fi
 
 # Change the www-data's shell back to /usr/sbin/nologin
 chsh -s /usr/sbin/nologin www-data
