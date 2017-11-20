@@ -74,20 +74,15 @@ build_php_version()
     else
       echo "Building ${PACKAGE_NAME} version ${FULL_VERSION}"
 
-      if [[ "${PHP_VERSION}" == "7.2.0RC2" ]] || [[ "${PHP_VERSION}" == "7.2.0RC5" ]] ; then
-          curl -sL "https://downloads.php.net/~pollita/php-${PHP_VERSION}.tar.gz" \
+      if [[ "${PHP_VERSION}" == *"alpha"* ]] || [[ "${PHP_VERSION}" == *"beta"* ]] || [[ "${PHP_VERSION}" == *"RC"* ]]; then
+          # Set PRE_GA_PACKAGE_BASE_URL for overriding the behavior
+          if [ -z "${PRE_GA_PACKAGE_BASE_URL}" ]; then
+              # Defaults to https://downloads.php.net/~pollita/
+              PRE_GA_PACKAGE_BASE_URL="https://downloads.php.net/~pollita/"
+          fi
+          curl -sL "${PRE_GA_PACKAGE_BASE_URL}php-${PHP_VERSION}.tar.gz" \
               > php-${PHP_VERSION}.tar.gz
-          curl -sL "https://downloads.php.net/~pollita/php-${PHP_VERSION}.tar.gz.asc" \
-              > php-${PHP_VERSION}.tar.gz.asc
-      elif [[ "${PHP_VERSION}" == *"alpha"* ]] || [[ "${PHP_VERSION}" == *"RC"* ]] ; then
-          curl -sL "https://downloads.php.net/~remi/php-${PHP_VERSION}.tar.gz" \
-              > php-${PHP_VERSION}.tar.gz
-          curl -sL "https://downloads.php.net/~remi/php-${PHP_VERSION}.tar.gz.asc" \
-              > php-${PHP_VERSION}.tar.gz.asc
-      elif [[ "${PHP_VERSION}" == *"beta"* ]]; then
-          curl -sL "https://downloads.php.net/~pollita/php-${PHP_VERSION}.tar.gz" \
-              > php-${PHP_VERSION}.tar.gz
-          curl -sL "https://downloads.php.net/~pollita/php-${PHP_VERSION}.tar.gz.asc" \
+          curl -sL "${PRE_GA_PACKAGE_BASE_URL}php-${PHP_VERSION}.tar.gz.asc" \
               > php-${PHP_VERSION}.tar.gz.asc
       else
           curl -sL "https://php.net/get/php-${PHP_VERSION}.tar.gz/from/this/mirror" \
