@@ -36,6 +36,7 @@ apt-get install -y \
         gcp-php72-protobuf \
         gcp-php72-rdkafka \
         gcp-php72-redis \
+        libsodium18 \
         --no-install-recommends
 
 # Enable some extensions for backward compatibility
