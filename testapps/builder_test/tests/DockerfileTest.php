@@ -23,7 +23,7 @@ class DockerfileTest extends TestCase
     public function testDockerfile()
     {
         $dockerfile = file_get_contents('/workspace/Dockerfile');
-        $this->assertTrue($dockerfile !== false);
+        $this->assertNotFalse($dockerfile);
         $this->assertContains("DOCUMENT_ROOT='/app/web'", $dockerfile);
     }
 }
