@@ -238,9 +238,9 @@ steps:
     dir: testapps/php72_custom
     waitFor: ['php-onbuild']
     id: php72-custom-build
-  - name: gcr.io/gcp-runtimes/structure_test
-    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php72-custom:$_TAG', '--config', 'php72.yaml', '-v']
-    waitFor: ['php72-custom-build']
+#  - name: gcr.io/gcp-runtimes/structure_test
+#    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php72-custom:$_TAG', '--config', 'php72.yaml', '-v']
+#    waitFor: ['php72-custom-build']
   - name: gcr.io/cloud-builders/docker
     args: ['run', '--net=nw_$_TAG', '--name=php72-custom', '-d', 'gcr.io/${_GOOGLE_PROJECT_ID}/php72-custom:$_TAG']
     waitFor: ['php72-custom-build', 'test-network']
