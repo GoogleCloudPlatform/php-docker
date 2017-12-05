@@ -1,6 +1,6 @@
 {
     "require": {
-        "php": "^7.1",
+        "php": "7.2.*",
         "google/cloud": "*",
         "grpc/grpc": "*",
         "silex/silex": "^1.3"

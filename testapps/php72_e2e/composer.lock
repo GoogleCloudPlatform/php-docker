@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3691b1fc2359c57452bf0da4bd85783e",
-    "content-hash": "652fcebcc7a9d3e8fb86493bcbc87f7f",
+    "content-hash": "7dfba9351fa427ebe9916a7419d0b5e7",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -51,20 +50,20 @@
             ],
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
-            "time": "2017-06-27 22:17:23"
+            "time": "2017-06-27T22:17:23+00:00"
         },
         {
             "name": "google/auth",
-            "version": "v1.0.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-auth-library-php.git",
-                "reference": "db8e3022a308cb0e988026d38e67b91a42b41622"
+                "reference": "548d27d670f0236dc5258fa4cdde6e7b63464cfd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-auth-library-php/zipball/db8e3022a308cb0e988026d38e67b91a42b41622",
-                "reference": "db8e3022a308cb0e988026d38e67b91a42b41622",
+                "url": "https://api.github.com/repos/google/google-auth-library-php/zipball/548d27d670f0236dc5258fa4cdde6e7b63464cfd",
+                "reference": "548d27d670f0236dc5258fa4cdde6e7b63464cfd",
                 "shasum": ""
             },
             "require": {
@@ -81,9 +80,6 @@
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "src/"
-                ],
                 "psr-4": {
                     "Google\\Auth\\": "src"
                 }
@@ -99,26 +95,26 @@
                 "google",
                 "oauth2"
             ],
-            "time": "2017-07-31 16:34:40"
+            "time": "2017-10-10T17:01:45+00:00"
         },
         {
             "name": "google/cloud",
-            "version": "v0.39.2",
+            "version": "v0.46.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GoogleCloudPlatform/google-cloud-php.git",
-                "reference": "2ae1022a000624d3aaa98d9c184d0177363840c1"
+                "reference": "288c3daf85300233dd93f1dfd4f1d040a0cdb536"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GoogleCloudPlatform/google-cloud-php/zipball/2ae1022a000624d3aaa98d9c184d0177363840c1",
-                "reference": "2ae1022a000624d3aaa98d9c184d0177363840c1",
+                "url": "https://api.github.com/repos/GoogleCloudPlatform/google-cloud-php/zipball/288c3daf85300233dd93f1dfd4f1d040a0cdb536",
+                "reference": "288c3daf85300233dd93f1dfd4f1d040a0cdb536",
                 "shasum": ""
             },
             "require": {
                 "google/auth": "~0.9|^1.0",
-                "google/gax": "^0.23",
-                "google/proto-client": "^0.23",
+                "google/gax": "0.27.0",
+                "google/proto-client": "0.27.0",
                 "guzzlehttp/guzzle": "^5.3|^6.0",
                 "guzzlehttp/psr7": "^1.2",
                 "monolog/monolog": "~1",
@@ -128,29 +124,31 @@
                 "rize/uri-template": "~0.3"
             },
             "replace": {
-                "google/cloud-bigquery": "0.2.4",
-                "google/cloud-core": "1.9.0",
-                "google/cloud-datastore": "1.0.1",
-                "google/cloud-dlp": "0.1.2",
-                "google/cloud-error-reporting": "0.4.3",
-                "google/cloud-language": "0.5.0",
-                "google/cloud-logging": "1.4.0",
-                "google/cloud-monitoring": "0.4.3",
-                "google/cloud-pubsub": "0.7.0",
-                "google/cloud-spanner": "0.6.0",
-                "google/cloud-speech": "0.7.0",
-                "google/cloud-storage": "1.1.5",
-                "google/cloud-trace": "0.3.2",
-                "google/cloud-translate": "1.0.1",
-                "google/cloud-videointelligence": "0.4.0",
-                "google/cloud-vision": "0.4.1"
+                "google/cloud-bigquery": "0.3.1",
+                "google/cloud-bigtable": "0.1.0",
+                "google/cloud-core": "1.14.0",
+                "google/cloud-datastore": "1.1.0",
+                "google/cloud-dlp": "0.4.0",
+                "google/cloud-error-reporting": "0.7.0",
+                "google/cloud-firestore": "0.2.0",
+                "google/cloud-language": "0.10.0",
+                "google/cloud-logging": "1.7.0",
+                "google/cloud-monitoring": "0.7.0",
+                "google/cloud-pubsub": "0.10.0",
+                "google/cloud-spanner": "0.10.0",
+                "google/cloud-speech": "0.9.0",
+                "google/cloud-storage": "1.2.1",
+                "google/cloud-trace": "0.3.3",
+                "google/cloud-translate": "1.0.2",
+                "google/cloud-videointelligence": "0.8.0",
+                "google/cloud-vision": "0.7.0"
             },
             "require-dev": {
                 "erusev/parsedown": "^1.6",
                 "league/json-guard": "^0.3",
                 "phpdocumentor/reflection": "^3.0",
                 "phpseclib/phpseclib": "^2",
-                "phpunit/phpunit": "4.8.*",
+                "phpunit/phpunit": "^4.8|^5.0",
                 "squizlabs/php_codesniffer": "2.*",
                 "symfony/console": "^3.0",
                 "symfony/lock": "3.3.x-dev#1ba6ac9",
@@ -198,6 +196,7 @@
             "keywords": [
                 "big query",
                 "bigquery",
+                "bigtable",
                 "cloud",
                 "datastore",
                 "gcs",
@@ -220,73 +219,71 @@
                 "translation",
                 "vision"
             ],
-            "time": "2017-09-18 15:09:56"
+            "time": "2017-12-02T00:32:15+00:00"
         },
         {
             "name": "google/gax",
-            "version": "0.23.0",
+            "version": "0.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/gax-php.git",
-                "reference": "e09f219ed50ea1f6162d1945156d2ea6af6cd1f9"
+                "reference": "28d91f30966b91004d1ef66ca09df04fa730c8d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/gax-php/zipball/e09f219ed50ea1f6162d1945156d2ea6af6cd1f9",
-                "reference": "e09f219ed50ea1f6162d1945156d2ea6af6cd1f9",
+                "url": "https://api.github.com/repos/googleapis/gax-php/zipball/28d91f30966b91004d1ef66ca09df04fa730c8d9",
+                "reference": "28d91f30966b91004d1ef66ca09df04fa730c8d9",
                 "shasum": ""
             },
             "require": {
                 "google/auth": "~0.9|^1.0",
-                "google/protobuf": "^3.4",
+                "google/protobuf": "3.4.*",
                 "grpc/grpc": "^1.4",
                 "php": ">=5.5"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.8.*",
+                "phpunit/phpunit": "^4.8.36",
                 "squizlabs/php_codesniffer": "2.*"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Google\\GAX\\": "src/",
-                    "Google\\GAX\\UnitTests\\": "tests/",
-                    "Google\\": "src/generated/Google/",
-                    "GPBMetadata\\": "src/generated/GPBMetadata/"
+                    "Google\\": "src",
+                    "GPBMetadata\\Google\\": "metadata"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
-            "description": "Google API Extensions for PHP",
+            "description": "Google API Core for PHP",
             "homepage": "https://github.com/googleapis/gax-php",
             "keywords": [
                 "google"
             ],
-            "time": "2017-08-31 21:40:57"
+            "time": "2017-11-21T23:04:00+00:00"
         },
         {
             "name": "google/proto-client",
-            "version": "0.23.0",
+            "version": "0.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/proto-client-php.git",
-                "reference": "b159f408b6acdba55bf727c3639d03bb0117fc27"
+                "reference": "39a6917748da381945e23876e8a9bf6a8e917937"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/proto-client-php/zipball/b159f408b6acdba55bf727c3639d03bb0117fc27",
-                "reference": "b159f408b6acdba55bf727c3639d03bb0117fc27",
+                "url": "https://api.github.com/repos/googleapis/proto-client-php/zipball/39a6917748da381945e23876e8a9bf6a8e917937",
+                "reference": "39a6917748da381945e23876e8a9bf6a8e917937",
                 "shasum": ""
             },
             "require": {
-                "google/protobuf": "^3.3.2",
+                "google/protobuf": "^3.4",
                 "php": ">=5.5"
             },
             "require-dev": {
-                "google/gax": ">=0.20.0",
-                "phpunit/phpunit": "4.8.*"
+                "google/gax": ">=0.25.0",
+                "phpunit/phpunit": "^4.8.36"
             },
             "type": "library",
             "autoload": {
@@ -304,7 +301,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-09-01 22:33:04"
+            "time": "2017-11-22T22:05:44+00:00"
         },
         {
             "name": "google/protobuf",
@@ -345,7 +342,7 @@
             "keywords": [
                 "proto"
             ],
-            "time": "2017-09-14 19:24:28"
+            "time": "2017-09-14T19:24:28+00:00"
         },
         {
             "name": "grpc/grpc",
@@ -386,7 +383,7 @@
             "keywords": [
                 "rpc"
             ],
-            "time": "2017-09-11 20:50:39"
+            "time": "2017-09-11T20:50:39+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -451,7 +448,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2017-06-22 18:50:49"
+            "time": "2017-06-22T18:50:49+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -502,7 +499,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-12-20 10:07:11"
+            "time": "2016-12-20T10:07:11+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -567,7 +564,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2017-03-20 17:10:46"
+            "time": "2017-03-20T17:10:46+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -645,20 +642,20 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2017-06-19 01:22:40"
+            "time": "2017-06-19T01:22:40+00:00"
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.10",
+            "version": "v2.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "634bae8e911eefa89c1abfbf1b66da679ac8f54d"
+                "reference": "5da4d3c796c275c55f057af5a643ae297d96b4d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/634bae8e911eefa89c1abfbf1b66da679ac8f54d",
-                "reference": "634bae8e911eefa89c1abfbf1b66da679ac8f54d",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/5da4d3c796c275c55f057af5a643ae297d96b4d8",
+                "reference": "5da4d3c796c275c55f057af5a643ae297d96b4d8",
                 "shasum": ""
             },
             "require": {
@@ -693,7 +690,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2017-03-13 16:27:32"
+            "time": "2017-09-27T21:40:39+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -739,7 +736,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2013-11-22 08:30:29"
+            "time": "2013-11-22T08:30:29+00:00"
         },
         {
             "name": "psr/cache",
@@ -785,7 +782,7 @@
                 "psr",
                 "psr-6"
             ],
-            "time": "2016-08-06 20:24:11"
+            "time": "2016-08-06T20:24:11+00:00"
         },
         {
             "name": "psr/http-message",
@@ -835,7 +832,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06 14:39:51"
+            "time": "2016-08-06T14:39:51+00:00"
         },
         {
             "name": "psr/log",
@@ -882,7 +879,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -964,7 +961,7 @@
                 "identifier",
                 "uuid"
             ],
-            "time": "2017-09-22 20:46:04"
+            "time": "2017-09-22T20:46:04+00:00"
         },
         {
             "name": "rize/uri-template",
@@ -1008,7 +1005,7 @@
                 "template",
                 "uri"
             ],
-            "time": "2017-06-14 03:57:53"
+            "time": "2017-06-14T03:57:53+00:00"
         },
         {
             "name": "silex/silex",
@@ -1085,20 +1082,20 @@
             "keywords": [
                 "microframework"
             ],
-            "time": "2017-04-30 16:26:54"
+            "time": "2017-04-30T16:26:54+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.3.9",
+            "version": "v3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "8beb24eec70b345c313640962df933499373a944"
+                "reference": "fb2001e5d85f95d8b6ab94ae3be5d2672df128fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/8beb24eec70b345c313640962df933499373a944",
-                "reference": "8beb24eec70b345c313640962df933499373a944",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/fb2001e5d85f95d8b6ab94ae3be5d2672df128fd",
+                "reference": "fb2001e5d85f95d8b6ab94ae3be5d2672df128fd",
                 "shasum": ""
             },
             "require": {
@@ -1109,12 +1106,12 @@
                 "symfony/http-kernel": ">=2.3,<2.3.24|~2.4.0|>=2.5,<2.5.9|>=2.6,<2.6.2"
             },
             "require-dev": {
-                "symfony/http-kernel": "~2.8|~3.0"
+                "symfony/http-kernel": "~2.8|~3.0|~4.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -1141,7 +1138,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-09-01 13:23:39"
+            "time": "2017-11-21T09:01:46+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1201,7 +1198,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-19 10:44:15"
+            "time": "2016-07-19T10:44:15+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -1254,7 +1251,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-17 13:54:30"
+            "time": "2016-07-17T13:54:30+00:00"
         },
         {
             "name": "symfony/http-kernel",
@@ -1336,20 +1333,20 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-30 09:10:37"
+            "time": "2016-07-30T09:10:37+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.5.0",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "7c8fae0ac1d216eb54349e6a8baa57d515fe8803"
+                "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7c8fae0ac1d216eb54349e6a8baa57d515fe8803",
-                "reference": "7c8fae0ac1d216eb54349e6a8baa57d515fe8803",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
+                "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
                 "shasum": ""
             },
             "require": {
@@ -1361,7 +1358,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5-dev"
+                    "dev-master": "1.6-dev"
                 }
             },
             "autoload": {
@@ -1395,7 +1392,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-06-14 15:44:48"
+            "time": "2017-10-11T12:05:26+00:00"
         },
         {
             "name": "symfony/routing",
@@ -1470,7 +1467,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2016-06-29 05:40:00"
+            "time": "2016-06-29T05:40:00+00:00"
         }
     ],
     "packages-dev": [],
@@ -1480,7 +1477,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.1"
+        "php": "7.2.*"
     },
     "platform-dev": []
 }

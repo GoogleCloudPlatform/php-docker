@@ -232,6 +232,24 @@ steps:
     waitFor: ['php71-custom-app', 'test-runner']
     id: php71-custom-test
 
+  # php72-custom test
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php72-custom:$_TAG', '.']
+    dir: testapps/php72_custom
+    waitFor: ['php-onbuild']
+    id: php72-custom-build
+  - name: gcr.io/gcp-runtimes/structure_test
+    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php72-custom:$_TAG', '--config', 'php72.yaml', '-v']
+    waitFor: ['php72-custom-build']
+  - name: gcr.io/cloud-builders/docker
+    args: ['run', '--net=nw_$_TAG', '--name=php72-custom', '-d', 'gcr.io/${_GOOGLE_PROJECT_ID}/php72-custom:$_TAG']
+    waitFor: ['php72-custom-build', 'test-network']
+    id: php72-custom-app
+  - name: gcr.io/cloud-builders/docker
+    args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG', '/workspace/testapps/php72_custom/tests']
+    waitFor: ['php72-custom-app', 'test-runner']
+    id: php72-custom-test
+
   # php71-extensions test
   - name: gcr.io/cloud-builders/docker
     args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php71-extensions:$_TAG', '.']
