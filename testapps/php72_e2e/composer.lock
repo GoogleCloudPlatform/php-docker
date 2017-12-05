@@ -99,22 +99,22 @@
         },
         {
             "name": "google/cloud",
-            "version": "v0.45.1",
+            "version": "v0.46.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GoogleCloudPlatform/google-cloud-php.git",
-                "reference": "3f9def8696d50201d1f79a1d68a63f908cf113b3"
+                "reference": "288c3daf85300233dd93f1dfd4f1d040a0cdb536"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GoogleCloudPlatform/google-cloud-php/zipball/3f9def8696d50201d1f79a1d68a63f908cf113b3",
-                "reference": "3f9def8696d50201d1f79a1d68a63f908cf113b3",
+                "url": "https://api.github.com/repos/GoogleCloudPlatform/google-cloud-php/zipball/288c3daf85300233dd93f1dfd4f1d040a0cdb536",
+                "reference": "288c3daf85300233dd93f1dfd4f1d040a0cdb536",
                 "shasum": ""
             },
             "require": {
                 "google/auth": "~0.9|^1.0",
-                "google/gax": "^0.26",
-                "google/proto-client": "^0.26",
+                "google/gax": "0.27.0",
+                "google/proto-client": "0.27.0",
                 "guzzlehttp/guzzle": "^5.3|^6.0",
                 "guzzlehttp/psr7": "^1.2",
                 "monolog/monolog": "~1",
@@ -125,22 +125,23 @@
             },
             "replace": {
                 "google/cloud-bigquery": "0.3.1",
-                "google/cloud-core": "1.13.1",
+                "google/cloud-bigtable": "0.1.0",
+                "google/cloud-core": "1.14.0",
                 "google/cloud-datastore": "1.1.0",
-                "google/cloud-dlp": "0.3.1",
-                "google/cloud-error-reporting": "0.6.1",
-                "google/cloud-firestore": "0.1.1",
-                "google/cloud-language": "0.9.1",
-                "google/cloud-logging": "1.6.2",
-                "google/cloud-monitoring": "0.6.1",
-                "google/cloud-pubsub": "0.9.2",
-                "google/cloud-spanner": "0.9.1",
-                "google/cloud-speech": "0.8.1",
+                "google/cloud-dlp": "0.4.0",
+                "google/cloud-error-reporting": "0.7.0",
+                "google/cloud-firestore": "0.2.0",
+                "google/cloud-language": "0.10.0",
+                "google/cloud-logging": "1.7.0",
+                "google/cloud-monitoring": "0.7.0",
+                "google/cloud-pubsub": "0.10.0",
+                "google/cloud-spanner": "0.10.0",
+                "google/cloud-speech": "0.9.0",
                 "google/cloud-storage": "1.2.1",
                 "google/cloud-trace": "0.3.3",
                 "google/cloud-translate": "1.0.2",
-                "google/cloud-videointelligence": "0.7.0",
-                "google/cloud-vision": "0.6.1"
+                "google/cloud-videointelligence": "0.8.0",
+                "google/cloud-vision": "0.7.0"
             },
             "require-dev": {
                 "erusev/parsedown": "^1.6",
@@ -195,6 +196,7 @@
             "keywords": [
                 "big query",
                 "bigquery",
+                "bigtable",
                 "cloud",
                 "datastore",
                 "gcs",
@@ -217,20 +219,20 @@
                 "translation",
                 "vision"
             ],
-            "time": "2017-11-17T18:39:32+00:00"
+            "time": "2017-12-02T00:32:15+00:00"
         },
         {
             "name": "google/gax",
-            "version": "0.26.0",
+            "version": "0.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/gax-php.git",
-                "reference": "dda2b0fb91dc8d0135010468b09a5f03b8cbde9a"
+                "reference": "28d91f30966b91004d1ef66ca09df04fa730c8d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/gax-php/zipball/dda2b0fb91dc8d0135010468b09a5f03b8cbde9a",
-                "reference": "dda2b0fb91dc8d0135010468b09a5f03b8cbde9a",
+                "url": "https://api.github.com/repos/googleapis/gax-php/zipball/28d91f30966b91004d1ef66ca09df04fa730c8d9",
+                "reference": "28d91f30966b91004d1ef66ca09df04fa730c8d9",
                 "shasum": ""
             },
             "require": {
@@ -246,35 +248,33 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Google\\GAX\\": "src/",
-                    "Google\\GAX\\UnitTests\\": "tests/",
-                    "Google\\": "src/generated/Google/",
-                    "GPBMetadata\\": "src/generated/GPBMetadata/"
+                    "Google\\": "src",
+                    "GPBMetadata\\Google\\": "metadata"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
-            "description": "Google API Extensions for PHP",
+            "description": "Google API Core for PHP",
             "homepage": "https://github.com/googleapis/gax-php",
             "keywords": [
                 "google"
             ],
-            "time": "2017-11-15T00:16:32+00:00"
+            "time": "2017-11-21T23:04:00+00:00"
         },
         {
             "name": "google/proto-client",
-            "version": "0.26.0",
+            "version": "0.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/proto-client-php.git",
-                "reference": "93daa25c69e476ba76884984530e9e9b6eb1796f"
+                "reference": "39a6917748da381945e23876e8a9bf6a8e917937"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/proto-client-php/zipball/93daa25c69e476ba76884984530e9e9b6eb1796f",
-                "reference": "93daa25c69e476ba76884984530e9e9b6eb1796f",
+                "url": "https://api.github.com/repos/googleapis/proto-client-php/zipball/39a6917748da381945e23876e8a9bf6a8e917937",
+                "reference": "39a6917748da381945e23876e8a9bf6a8e917937",
                 "shasum": ""
             },
             "require": {
@@ -301,7 +301,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-11-14T21:47:37+00:00"
+            "time": "2017-11-22T22:05:44+00:00"
         },
         {
             "name": "google/protobuf",
@@ -1086,16 +1086,16 @@
         },
         {
             "name": "symfony/debug",
-            "version": "v3.3.13",
+            "version": "v3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "74557880e2846b5c84029faa96b834da37e29810"
+                "reference": "fb2001e5d85f95d8b6ab94ae3be5d2672df128fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/74557880e2846b5c84029faa96b834da37e29810",
-                "reference": "74557880e2846b5c84029faa96b834da37e29810",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/fb2001e5d85f95d8b6ab94ae3be5d2672df128fd",
+                "reference": "fb2001e5d85f95d8b6ab94ae3be5d2672df128fd",
                 "shasum": ""
             },
             "require": {
@@ -1106,12 +1106,12 @@
                 "symfony/http-kernel": ">=2.3,<2.3.24|~2.4.0|>=2.5,<2.5.9|>=2.6,<2.6.2"
             },
             "require-dev": {
-                "symfony/http-kernel": "~2.8|~3.0"
+                "symfony/http-kernel": "~2.8|~3.0|~4.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -1138,7 +1138,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-10T16:38:39+00:00"
+            "time": "2017-11-21T09:01:46+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
