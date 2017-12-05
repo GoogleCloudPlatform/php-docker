@@ -89,8 +89,8 @@ RUN mkdir -p $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
         $APP_DIR $UPLOAD_DIR $SESSION_SAVE_PATH \
         $NGINX_USER_CONF_DIR $WWW_HOME $COMPOSER_HOME \
     && chmod 755 $UPLOAD_DIR $SESSION_SAVE_PATH $COMPOSER_HOME \
-    # For easy access to php with `su www-data -c $CMD`
     && ln -sf ${PHP_DIR}/bin/php /usr/bin/php
+# Linking for easy access to php with `su www-data -c $CMD`
 
 # Put other config and shell files into place.
 COPY nginx.conf fastcgi_params gzip_params "${NGINX_DIR}/"
