@@ -100,7 +100,7 @@ class GenFilesCommandTest extends TestCase
         ]);
 
         $dockerfile = file_get_contents(self::$testDir . '/Dockerfile');
-        $this->assertTrue($dockerfile !== false, 'Dockerfile should exist');
+        $this->assertNotFalse($dockerfile, 'Dockerfile should exist');
         $this->assertContains(
             "DOCUMENT_ROOT='$expectedDocRoot'",
             $dockerfile
@@ -108,10 +108,7 @@ class GenFilesCommandTest extends TestCase
         $this->assertContains('FROM ' . $expectedFrom, $dockerfile);
         $genFiles->createDockerignore();
         $dockerignore = file_get_contents(self::$testDir . '/.dockerignore');
-        $this->assertTrue(
-            $dockerignore !== false,
-            '.dockerignore should exist'
-        );
+        $this->assertNotFalse($dockerignore, '.dockerignore should exist');
         $this->assertContains(
             $expectedDockerIgnore,
             $dockerignore
