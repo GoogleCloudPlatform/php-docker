@@ -47,7 +47,7 @@ download_from_pecl()
         with_retry "pecl download ${PECL_PACKAGE_NAME}" 6
         # determine the downloaded version
         EXT_VERSION=$(ls ${PACKAGE_SHORT_NAME}-*.tgz | \
-                sed -E "s/${PACKAGE_SHORT_NAME}-([0-9]+.[0-9]+(.[0-9]+)+).tgz/\1/")
+                sed -E "s/${PACKAGE_SHORT_NAME}-([0-9]+\.[0-9]+(\.[0-9]+)+)\.tgz/\1/")
     else
         with_retry "pecl download ${PECL_PACKAGE_NAME}-${2}" 6
         EXT_VERSION="${2}"
