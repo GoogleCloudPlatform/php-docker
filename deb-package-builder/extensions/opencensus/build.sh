@@ -10,7 +10,7 @@ if [ ${SHORT_VERSION} == '56' ]; then
     echo "opencensus doesn't support PHP 5.6"
     exit 0
 else
-    download_from_pecl opencensus-devel
+    download_from_pecl opencensus-alpha
 fi
 
 build_package opencensus
