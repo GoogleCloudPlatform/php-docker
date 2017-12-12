@@ -1,0 +1,12 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: igbinary
+Upstream-Contact: Oleg Grenrus <oleg.grenrus@iki.fi>
+Source: https://github.com/igbinary/igbinary/
+
+Files: *
+Copyright: 2008 Sulake Dynamoid Oy, 2008-2014 Oleg Grenrus, Teddy Grenman, igbinary contributors
+License: BSD-3-Clause
+
+Files: debian/*
+Copyright: 2017 Google, Inc.
+License: Apache-2.0

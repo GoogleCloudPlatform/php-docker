@@ -1,0 +1,12 @@
+Source: gcp-php${SHORT_VERSION}-igbinary
+Section: php
+Priority: optional
+Maintainer: Jeff Ching <chingor@google.com>
+Build-Depends: debhelper (>= 9), gcp-php${SHORT_VERSION}
+Standards-Version: 3.9.5
+Homepage: https://github.com/igbinary/igbinary/
+
+Package: gcp-php${SHORT_VERSION}-igbinary
+Architecture: any
+Depends: libc6 (>= 2.4), gcp-php${SHORT_VERSION}
+Description: igbinary extension module for gcp-php${SHORT_VERSION}
