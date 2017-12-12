@@ -1,0 +1,19 @@
+Source: libip2location
+Section: libs
+Priority: optional
+Maintainer: Jeff Ching <chingor@google.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://www.ip2location.com
+
+Package: libip2location
+Section: libs
+Architecture: any
+Depends: libc6 (>= 2.4)
+Description: IP2Location C Library
+
+Package: libip2location-dev
+Section: libdevel
+Architecture: any
+Depends: libip2location, libc6 (>= 2.4)
+Description: IP2Location C Library - development files

@@ -8,5 +8,5 @@ Homepage: http://www.ip2location.com/
 
 Package: gcp-php${SHORT_VERSION}-ip2location
 Architecture: any
-Depends: libc6 (>= 2.4), gcp-php${SHORT_VERSION}
+Depends: libip2location, libc6 (>= 2.4), gcp-php${SHORT_VERSION}
 Description: ip2location extension module for gcp-php${SHORT_VERSION}
