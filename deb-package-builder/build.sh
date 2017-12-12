@@ -41,7 +41,7 @@ PHP_VERSIONS=${1}
 EXTENSIONS=${2}
 if [ -z "$EXTENSIONS" ]; then
     # Explicitly declaring because some extenions depend on others (pq depends on raphf)
-    EXTENSIONS="amqp,apcu,apcu_bc,apm,cassandra,couchbase,ds,eio,ev,event,grpc,hprose,imagick,igbinary,ip2location,jsonc,jsond,krb5,libsodium,lua,lzf,mailparse,memcache,memcached,memprof,mongodb,oauth,opencensus,phalcon,protobuf,raphf,pq,rdkafka,redis,seaslog,stackdriver_debugger,stomp,suhosin,swoole,sync,tcpwrap,timezonedb,v8js,vips,yaconf,yaf,yaml"
+    EXTENSIONS="amqp,apcu,apcu_bc,apm,bitset,cassandra,couchbase,ds,eio,ev,event,grpc,hprose,imagick,igbinary,ip2location,jsonc,jsond,krb5,libsodium,lua,lzf,mailparse,memcache,memcached,memprof,mongodb,oauth,opencensus,phalcon,protobuf,raphf,pq,rdkafka,redis,seaslog,stackdriver_debugger,stomp,suhosin,swoole,sync,tcpwrap,timezonedb,v8js,vips,yaconf,yaf,yaml"
 fi
 
 LIBRARIES=${3}
