@@ -12,6 +12,6 @@ if [ ${SHORT_VERSION} == '56' ]; then
     exit 0
 fi
 
-download_from_tarball https://github.com/GoogleCloudPlatform/stackdriver-debugger-php-extension/archive/master.tar.gz ${EXT_VERSION}
+download_from_pecl stackdriver_debugger-devel
 
 build_package stackdriver_debugger
