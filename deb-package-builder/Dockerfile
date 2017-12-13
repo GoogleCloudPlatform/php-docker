@@ -68,7 +68,10 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
         cmake \
         dh-exec \
         lsb-release \
-        fakeroot
+        fakeroot \
+        libtool \
+        automake \
+        autotools-dev
 
 COPY build.sh /
 RUN mkdir -p /workspace
