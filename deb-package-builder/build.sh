@@ -65,6 +65,11 @@ build_php_version()
     export PACKAGE_NAME="gcp-php${SHORT_VERSION}"
     PHP_PACKAGE="gcp-php${SHORT_VERSION}_${FULL_VERSION}_amd64.deb"
     export ARTIFACT_PKG_DIR="${ARTIFACT_DIR}/${FULL_VERSION}"
+    if [ "${SHORT_VERSION}" == "72" ]; then
+        export EXTRA_DEPS="libsodium18, "
+    else
+        export EXTRA_DEPS=""
+    fi
     mkdir -p ${ARTIFACT_PKG_DIR}
 
     ls -l ${ARTIFACT_PKG_DIR}
@@ -114,7 +119,7 @@ build_php_version()
       fi
       envsubst '${SHORT_VERSION}' < debian/rules.in > debian/rules
       chmod +x debian/rules
-      envsubst '${SHORT_VERSION}' < debian/control.in > debian/control
+      envsubst '${SHORT_VERSION} ${EXTRA_DEPS}' < debian/control.in > debian/control
       envsubst '${SHORT_VERSION}' < debian/patches/series.in > \
                debian/patches/series
       envsubst '${SHORT_VERSION}' < debian/gcp-php.dirs.in > \
