@@ -10,7 +10,7 @@ PNAME="gcp-php${SHORT_VERSION}-bitset"
 if [ ${SHORT_VERSION} == "56" ]; then
     download_from_pecl bitset 2.0.4
 else
-    download_from_pecl bitset 3.0.1
+    download_from_pecl bitset
 fi
 
 build_package bitset
