@@ -204,6 +204,7 @@ Using PHP version 7.2.x...</info>
             'nginx_conf_override' => 'NGINX_CONF_OVERRIDE',
             'php_fpm_conf_override' => 'PHP_FPM_CONF_OVERRIDE',
             'php_ini_override' => 'PHP_INI_OVERRIDE',
+            'skip_lockdown_document_root' => 'SKIP_LOCKDOWN_DOCUMENT_ROOT',
             'supervisord_conf_addition' => 'SUPERVISORD_CONF_ADDITION',
             'supervisord_conf_override' => 'SUPERVISORD_CONF_OVERRIDE',
             'whitelist_functions' => 'WHITELIST_FUNCTIONS'
@@ -224,7 +225,8 @@ Using PHP version 7.2.x...</info>
                         // Otherwise prepend the app dir.
                         $ret[$v] = self::APP_DIR . '/' . $runtimeConfig[$k];
                     }
-                } elseif ($v === 'BUILDER_DEBUG_OUTPUT') {
+                } elseif ($v === 'BUILDER_DEBUG_OUTPUT'
+                          || $v === 'SKIP_LOCKDOWN_DOCUMENT_ROOT') {
                     $ret[$v] = filter_var(
                         $runtimeConfig[$k], FILTER_VALIDATE_BOOLEAN
                     )
