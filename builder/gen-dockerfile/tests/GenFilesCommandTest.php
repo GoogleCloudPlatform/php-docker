@@ -139,6 +139,20 @@ class GenFilesCommandTest extends TestCase
                 ]
             ],
             [
+                // skip_lockdown_document_root
+                __DIR__ . '/test_data/skip_lockdown_document_root',
+                null,
+                '',
+                '/app',
+                'added by the php runtime builder',
+                'gcr.io/google-appengine/php72:latest',
+                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
+                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
+                 "SKIP_LOCKDOWN_DOCUMENT_ROOT='true' \\\n",
+                 "DETECTED_PHP_VERSION='7.2' \n"
+                ]
+            ],
+            [
                 // Removed env var
                 __DIR__ . '/test_data/removed_env_var',
                 null,

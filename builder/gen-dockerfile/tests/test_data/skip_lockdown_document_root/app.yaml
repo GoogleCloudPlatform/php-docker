@@ -1,0 +1,6 @@
+env: flex
+runtime: php
+
+runtime_config:
+  document_root: /app
+  skip_lockdown_document_root: true
