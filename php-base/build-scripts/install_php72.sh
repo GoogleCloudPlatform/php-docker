@@ -36,7 +36,7 @@ apt-get install -y \
         gcp-php72-protobuf \
         gcp-php72-rdkafka \
         gcp-php72-redis \
-        gcp-php72-stackdriver_debugger \
+        gcp-php72-stackdriver-debugger \
         libsodium18 \
         --no-install-recommends
 

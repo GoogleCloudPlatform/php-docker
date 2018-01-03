@@ -38,7 +38,7 @@ apt-get install -y \
         gcp-php70-protobuf \
         gcp-php70-rdkafka \
         gcp-php70-redis \
-        gcp-php70-stackdriver_debugger
+        gcp-php70-stackdriver-debugger \
         --no-install-recommends
 
 # Enable some extensions for backward compatibility
