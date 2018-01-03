@@ -30,8 +30,10 @@ class ExtensionsLoadedTest extends TestCase
     {
         return [
             ['amqp'],
+            ['bitset'],
             ['eio'],
             ['hprose'],
+            ['igbinary'],
             ['jsond'],
             ['krb5'],
             ['lzf'],
