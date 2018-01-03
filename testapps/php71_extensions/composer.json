@@ -48,6 +48,10 @@
         "ext-pq": "*",
         "ext-rdkafka": "*",
         "ext-cassandra": "*",
-        "ext-protobuf": "*"
+        "ext-protobuf": "*",
+        "ext-stackdriver_debugger": "*",
+        "ext-opencensus": "*",
+        "ext-bitset": "*",
+        "ext-igbinary": "*"
     }
 }

@@ -42,6 +42,8 @@
         "ext-pq": "*",
         "ext-rdkafka": "*",
         "ext-cassandra": "*",
-        "ext-protobuf": "*"
+        "ext-protobuf": "*",
+        "ext-bitset": "*",
+        "ext-igbinary": "*"
     }
 }
