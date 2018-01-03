@@ -51,6 +51,8 @@
         "ext-cassandra": "*",
         "ext-protobuf": "*",
         "ext-stackdriver_debugger": "*",
-        "ext-opencensus": "*"
+        "ext-opencensus": "*",
+        "ext-bitset": "*",
+        "ext-igbinary": "*"
     }
 }
