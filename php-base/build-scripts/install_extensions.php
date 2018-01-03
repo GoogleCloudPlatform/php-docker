@@ -50,15 +50,18 @@ class InstallExtensions
         'protobuf',
         'raphf',
         'rdkafka',
-        'redis'
+        'redis',
+        'stackdriver_debugger'
     ];
     const AVAILABLE_EXTENSIONS_TO_INSTALL = [
         'amqp',
         'apm',
+        'bitset',
         'couchbase',
         'ds',
         'eio',
         'hprose',
+        'igbinary',
         'jsond',
         'krb5',
         'lua',
@@ -84,6 +87,7 @@ class InstallExtensions
         'memcache' => ['7.0', '7.1', '7.2'],
         'opencensus' => ['5.6'],
         'phalcon' => ['7.1', '7.2'],
+        'stackdriver_debugger' => ['5.6'],
         'v8js' => ['5.6'],
         'vips' => ['5.6'],
         'yaconf' => ['5.6']
