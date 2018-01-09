@@ -18,11 +18,6 @@ use PHPUnit\Framework\TestCase;
 
 class LibsodiumTest extends TestCase
 {
-    public function setUp()
-    {
-        $this->markTestSkipped('FIXME: need to compile sodium in php 7.2');
-    }
-
     public function testExtensionLoaded()
     {
         $this->assertTrue(extension_loaded('sodium'));
