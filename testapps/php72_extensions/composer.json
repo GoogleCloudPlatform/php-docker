@@ -1,6 +1,6 @@
 {
     "require": {
-        "php": "7.0.*",
+        "php": "7.2.*",
         "phpunit/phpunit": "^4.8.35",
         "ext-amqp": "*",
         "ext-apm": "*",
@@ -44,7 +44,6 @@
         "ext-ev": "*",
         "ext-event": "*",
         "ext-oauth": "*",
-        "ext-phalcon": "*",
         "ext-raphf": "*",
         "ext-pq": "*",
         "ext-rdkafka": "*",
