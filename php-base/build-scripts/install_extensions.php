@@ -179,6 +179,11 @@ class InstallExtensions
 
     private function addExtension($package, $version)
     {
+        // If it's already loaded, no need for activation
+        if (extension_loaded($package)) {
+            return;
+        }
+
         // See if we support the package at all
         if (!in_array($package, self::AVAILABLE_EXTENSIONS) &&
             !in_array($package, self::AVAILABLE_EXTENSIONS_TO_INSTALL)) {
@@ -196,11 +201,6 @@ class InstallExtensions
         if (array_key_exists($package, self::UNAVAILABLE_EXTENSIONS) &&
             in_array($this->phpVersion, self::UNAVAILABLE_EXTENSIONS[$package])) {
             $this->errors[] = "- $package is available, but not on php version {$this->phpVersion}";
-            return;
-        }
-
-        // If it's already loaded, no need for activation
-        if (extension_loaded($package)) {
             return;
         }
 
