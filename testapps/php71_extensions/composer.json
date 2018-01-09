@@ -52,6 +52,7 @@
         "ext-stackdriver_debugger": "*",
         "ext-opencensus": "*",
         "ext-bitset": "*",
-        "ext-igbinary": "*"
+        "ext-igbinary": "*",
+        "ext-iconv": "*"
     }
 }
