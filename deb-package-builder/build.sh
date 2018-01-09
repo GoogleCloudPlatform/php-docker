@@ -67,8 +67,10 @@ build_php_version()
     export ARTIFACT_PKG_DIR="${ARTIFACT_DIR}/${FULL_VERSION}"
     if [ "${SHORT_VERSION}" == "72" ]; then
         export EXTRA_DEPS="libsodium18, "
+        export EXTRA_OPTS="--with-sodium"
     else
         export EXTRA_DEPS=""
+        export EXTRA_OPTS=""
     fi
     mkdir -p ${ARTIFACT_PKG_DIR}
 
@@ -117,7 +119,7 @@ build_php_version()
               ${PACKAGE_NAME}-${PHP_VERSION}
           popd
       fi
-      envsubst '${SHORT_VERSION}' < debian/rules.in > debian/rules
+      envsubst '${SHORT_VERSION} ${EXTRA_OPTS}' < debian/rules.in > debian/rules
       chmod +x debian/rules
       envsubst '${SHORT_VERSION} ${EXTRA_DEPS}' < debian/control.in > debian/control
       envsubst '${SHORT_VERSION}' < debian/patches/series.in > \
