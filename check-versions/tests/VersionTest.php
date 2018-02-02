@@ -50,7 +50,15 @@ class VersionTest extends TestCase
             self::$versions['php71'] = $matches[1];
         } else {
             self::$versions['php71'] =
-                'Failed to detect the latest PHP70 version';
+                'Failed to detect the latest PHP71 version';
+        }
+
+        $pattern = '/PHP (7\.2\.\d+)/';
+        if (preg_match($pattern, $body, $matches)) {
+            self::$versions['php72'] = $matches[1];
+        } else {
+            self::$versions['php72'] =
+                'Failed to detect the latest PHP72 version';
         }
 
         exec('apt-get update');
@@ -86,6 +94,17 @@ class VersionTest extends TestCase
             $this->assertEquals($matches[1], self::$versions['php71']);
         } else {
             $this->fail('Failed to detect the current php71 version');
+        }
+    }
+
+    public function testPHP72Version()
+    {
+        $output = exec('apt-cache madison gcp-php72');
+        $pattern = '/(7\.1\.\d+)/';
+        if (preg_match($pattern, $output, $matches)) {
+            $this->assertEquals($matches[1], self::$versions['php72']);
+        } else {
+            $this->fail('Failed to detect the current php72 version');
         }
     }
 }
