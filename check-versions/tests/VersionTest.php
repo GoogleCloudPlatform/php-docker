@@ -100,7 +100,7 @@ class VersionTest extends TestCase
     public function testPHP72Version()
     {
         $output = exec('apt-cache madison gcp-php72');
-        $pattern = '/(7\.1\.\d+)/';
+        $pattern = '/(7\.2\.\d+)/';
         if (preg_match($pattern, $output, $matches)) {
             $this->assertEquals($matches[1], self::$versions['php72']);
         } else {
