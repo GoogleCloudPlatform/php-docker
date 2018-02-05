@@ -3,11 +3,13 @@ steps:
   - name: gcr.io/cloud-builders/docker
     args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG', '.']
     dir: cloudbuild-test-runner
+    waitFor: ['-']
     id: test-runner
 
   # php72_e2e test
   - name: gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG
     args: ['/workspace/testapps/php72_e2e/tests']
+    waitFor: ['test-runner']
     id: php72_e2e
     env:
     - 'SERVICE_ACCOUNT_JSON=${_SERVICE_ACCOUNT_JSON}'
@@ -18,6 +20,7 @@ steps:
   # build_pipeline test
   - name: gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG
     args: ['/workspace/testapps/build_pipeline/tests']
+    waitFor: ['test-runner']
     id: build_pipeline
     env:
     - 'SERVICE_ACCOUNT_JSON=${_SERVICE_ACCOUNT_JSON}'
@@ -29,6 +32,7 @@ steps:
   # build_pipeline_56 test
   - name: gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG
     args: ['/workspace/testapps/build_pipeline_php56/tests']
+    waitFor: ['test-runner']
     id: build_pipeline_php56
     env:
     - 'SERVICE_ACCOUNT_JSON=${_SERVICE_ACCOUNT_JSON}'
