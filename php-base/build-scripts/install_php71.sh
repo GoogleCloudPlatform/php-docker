@@ -41,8 +41,8 @@ apt-get install -y \
         --no-install-recommends
 
 # Enable some extensions for backward compatibility
-ln -s ${PHP71_DIR}/bin/php71-enmod ${PHP71_DIR}/bin/php-enmod
-ln -s ${PHP71_DIR}/bin/php71-dismod  ${PHP71_DIR}/bin/php-dismod
+ln -sf ${PHP71_DIR}/bin/php71-enmod ${PHP71_DIR}/bin/php-enmod
+ln -sf ${PHP71_DIR}/bin/php71-dismod  ${PHP71_DIR}/bin/php-dismod
 ${PHP71_DIR}/bin/php71-enmod apcu-bc
 ${PHP71_DIR}/bin/php71-enmod sodium
 ${PHP71_DIR}/bin/php71-enmod mailparse

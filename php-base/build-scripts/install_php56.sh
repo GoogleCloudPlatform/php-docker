@@ -42,8 +42,8 @@ apt-get install -y \
         --no-install-recommends
 
 # Enable some extensions for backward compatibility
-ln -s ${PHP56_DIR}/bin/php56-enmod ${PHP56_DIR}/bin/php-enmod
-ln -s ${PHP56_DIR}/bin/php56-dismod ${PHP56_DIR}/bin/php-dismod
+ln -sf ${PHP56_DIR}/bin/php56-enmod ${PHP56_DIR}/bin/php-enmod
+ln -sf ${PHP56_DIR}/bin/php56-dismod ${PHP56_DIR}/bin/php-dismod
 ${PHP56_DIR}/bin/php56-enmod apcu
 ${PHP56_DIR}/bin/php56-enmod json
 ${PHP56_DIR}/bin/php56-enmod libsodium
