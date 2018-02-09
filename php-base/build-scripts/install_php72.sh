@@ -15,7 +15,7 @@
 # limitations under the License.
 
 
-# A shell script for installing PHP 7.1.x.
+# A shell script for installing PHP 7.2.x.
 set -xe
 
 apt-get install -y \
@@ -41,8 +41,8 @@ apt-get install -y \
         --no-install-recommends
 
 # Enable some extensions for backward compatibility
-ln -s ${PHP72_DIR}/bin/php72-enmod ${PHP72_DIR}/bin/php-enmod
-ln -s ${PHP72_DIR}/bin/php72-dismod  ${PHP72_DIR}/bin/php-dismod
+ln -sf ${PHP72_DIR}/bin/php72-enmod ${PHP72_DIR}/bin/php-enmod
+ln -sf ${PHP72_DIR}/bin/php72-dismod  ${PHP72_DIR}/bin/php-dismod
 ${PHP72_DIR}/bin/php72-enmod apcu-bc
 ${PHP72_DIR}/bin/php72-enmod mailparse
 ${PHP72_DIR}/bin/php72-enmod memcached
