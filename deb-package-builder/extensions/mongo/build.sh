@@ -7,8 +7,8 @@ echo "Building mongo for gcp-php${SHORT_VERSION}"
 PNAME="gcp-php${SHORT_VERSION}-mongo"
 
 # Download the source
-if [ ${SHORT_VERSION} == '70' ] || [ ${SHORT_VERSION} == '71' ]; then
-    echo "deprecated mongo ext doesn't support PHP 7.x"
+if [ ${SHORT_VERSION} != '5.6' ]; then
+    echo "deprecated mongo ext supported only on PHP 5.6"
     exit 0
 else
     download_from_pecl mongo
