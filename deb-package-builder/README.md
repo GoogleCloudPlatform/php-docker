@@ -31,6 +31,7 @@ We currently support the latest patch version of 5.6, 7.0, and 7.1. See
 * memcache
 * memcached
 * memprof
+* mongo [deprecated] (5.6)
 * mongodb
 * oauth
 * opencensus

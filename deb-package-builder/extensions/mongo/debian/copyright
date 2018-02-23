@@ -1,0 +1,8 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: mongo
+Upstream-Contact: Daniel Holmes <dan@djcentric.com>
+Source: https://pecl.php.net/package/mongo
+
+Files: *
+Copyright: Copyright 2009-2014 MongoDB, Inc.
+License: Apache-2.0

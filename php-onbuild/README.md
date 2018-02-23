@@ -250,6 +250,7 @@ These extensions are compiled as shared, but disabled by default. You will need
 - intl (intl)
 - ImageMagick (imagick)
 - mbstring (mbstring)
+- mongo (deprecated, not available for PHP 7+)
 - mongodb (mongodb)
 - MySQL (mysql, not available for PHP 7+)
 - OAuth (oauth)
