@@ -47,15 +47,15 @@ fi
 
 # Move user-provided nginx config files.
 if [ -f "${NGINX_CONF_INCLUDE}" ]; then
-    mv "${NGINX_CONF_INCLUDE}" "${NGINX_USER_CONF_DIR}/nginx-app.conf"
+    cp "${NGINX_CONF_INCLUDE}" "${NGINX_USER_CONF_DIR}/nginx-app.conf"
 fi
 
 if [ -f "${NGINX_CONF_HTTP_INCLUDE}" ]; then
-    mv "${NGINX_CONF_HTTP_INCLUDE}" "${NGINX_USER_CONF_DIR}/nginx-http.conf"
+    cp "${NGINX_CONF_HTTP_INCLUDE}" "${NGINX_USER_CONF_DIR}/nginx-http.conf"
 fi
 
 if [ -f "${NGINX_CONF_OVERRIDE}" ]; then
-    mv "${NGINX_CONF_OVERRIDE}" "${NGINX_DIR}/nginx.conf"
+    cp "${NGINX_CONF_OVERRIDE}" "${NGINX_DIR}/nginx.conf"
 fi
 
 # User provided php-fpm.conf
@@ -67,7 +67,7 @@ fi
 
 # Move user-provided php-fpm config file.
 if [ -f "${PHP_FPM_CONF_OVERRIDE}" ]; then
-    mv "${PHP_FPM_CONF_OVERRIDE}" "${PHP_DIR}/etc/php-fpm-user.conf"
+    cp "${PHP_FPM_CONF_OVERRIDE}" "${PHP_DIR}/etc/php-fpm-user.conf"
 fi
 
 # User provided php.ini
@@ -79,7 +79,7 @@ fi
 
 # Move user-provided php.ini.
 if [ -f "${PHP_INI_OVERRIDE}" ]; then
-    mv "${PHP_INI_OVERRIDE}" "${PHP_DIR}/lib/conf.d"
+    cp "${PHP_INI_OVERRIDE}" "${PHP_DIR}/lib/conf.d"
 fi
 
 # User provided supervisord.conf
@@ -97,9 +97,9 @@ fi
 
 # Move user-provided supervisord.conf.
 if [ -f "${SUPERVISORD_CONF_ADDITION}" ]; then
-    mv "${SUPERVISORD_CONF_ADDITION}" /etc/supervisor/conf.d
+    cp "${SUPERVISORD_CONF_ADDITION}" /etc/supervisor/conf.d
 fi
 
 if [ -f "${SUPERVISORD_CONF_OVERRIDE}" ]; then
-    mv "${SUPERVISORD_CONF_OVERRIDE}" /etc/supervisor/supervisord.conf
+    cp "${SUPERVISORD_CONF_OVERRIDE}" /etc/supervisor/supervisord.conf
 fi
