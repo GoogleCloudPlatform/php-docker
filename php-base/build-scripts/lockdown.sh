@@ -42,4 +42,4 @@ ${PHP_DIR}/bin/php -d auto_prepend_file='' \
           /build-scripts/whitelist_functions.php
 
 # Remove loose php-cli.ini
-rm /opt/php/lib/php-cli.ini
+rm -f /opt/php/lib/php-cli.ini
