@@ -26,7 +26,6 @@ class ValidateGoogleCloud
     const MINIMUM_GOOGLE_CLOUD_VERSION = 'v0.33';
     const MINIMUM_GOOGLE_LOGGING_VERSION = 'v1.3.0';
     const MINIMUM_GOOGLE_ER_VERSION = 'v0.4.0';
-    const GOOGLE_CLOUD_RESTRUCTURE_VERSION = 'v0.58';
     const FOUND_GOOGLE_CLOUD = 1;
     const FOUND_INDIVIDUAL_PACKAGES = 2;
 
