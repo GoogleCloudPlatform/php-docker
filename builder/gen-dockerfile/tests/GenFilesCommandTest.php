@@ -203,6 +203,21 @@ class GenFilesCommandTest extends TestCase
                 ]
             ],
             [
+                // stackdriver wildcard dep
+                __DIR__ . '/test_data/stackdriver_wildcard',
+                null,
+                '',
+                '/app/web',
+                'added by the php runtime builder',
+                'gcr.io/google-appengine/php72:latest',
+                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
+                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
+                 "DETECTED_PHP_VERSION='7.2' \\\n",
+                 "IS_BATCH_DAEMON_RUNNING='true' \n",
+                 "enable_stackdriver_integration.sh"
+                ]
+            ],
+            [
                 // stackdriver individual packages
                 __DIR__ . '/test_data/stackdriver_individual',
                 null,
@@ -224,7 +239,7 @@ class GenFilesCommandTest extends TestCase
                 '',
                 '/app/web',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php71:latest',
+                'gcr.io/google-appengine/php72:latest',
                 [],
                 '\\Google\\Cloud\\Runtimes\\Builder\\Exception\\GoogleCloudVersionException'
             ],

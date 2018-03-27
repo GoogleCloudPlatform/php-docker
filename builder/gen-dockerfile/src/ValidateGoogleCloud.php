@@ -91,13 +91,18 @@ class ValidateGoogleCloud
                     "no available matching version of $package"
                 );
             }
+            $found = false;
             foreach ($filtered as $version) {
-                if (Comparator::lessThan($version, $minimumVersionMap[$package])) {
-                    throw new GoogleCloudVersionException(
-                        "stackdriver integration needs $package "
-                        . $minimumVersionMap[$package] . ' or higher'
-                    );
+                if (Comparator::greaterThanOrEqualTo($version, $minimumVersionMap[$package])) {
+                    $found = true;
+                    break;
                 }
+            }
+            if ($found === false) {
+                throw new GoogleCloudVersionException(
+                    "stackdriver integration needs $package "
+                    . $minimumVersionMap[$package] . ' or higher'
+                );
             }
         }
 
