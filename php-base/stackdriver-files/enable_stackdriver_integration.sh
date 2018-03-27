@@ -28,10 +28,15 @@ echo "Enabling stackdriver integration..."
 # To start the batch daemon
 cp /stackdriver-files/batch-daemon.conf /etc/supervisor/conf.d
 
-if [ "${1}" = "--individual" ]; then
-    # For enabling automatic error reporting for google/cloud-error-reporting
-    cp /stackdriver-files/stackdriver-errorreporting-individual.ini ${PHP_DIR}/lib/conf.d
-else
-    # For enabling automatic error reporting for google/cloud
-    cp /stackdriver-files/stackdriver-errorreporting.ini ${PHP_DIR}/lib/conf.d
+# Detect the stackdriver prepend path
+set +e
+PREPEND_PATH=`php /stackdriver-files/locate_stackdriver_prepend.php`
+set -e
+if [ $? -ne 0 ]; then
+    if [ "${1}" = "--individual" ]; then
+        PREPEND_PATH="/app/vendor/google/cloud-error-reporting/prepend.php"
+    else
+        PREPEND_PATH="/app/vendor/google/cloud/src/ErrorReporting/prepend.php"
+    fi
 fi
+echo "auto_prepend_file=$PREPEND_PATH" > ${PHP_DIR}/lib/conf.d/stackdriver-prepend.ini
