@@ -48,7 +48,7 @@ steps:
     id: build_pipeline_stackdriver
     env:
     - 'SERVICE_ACCOUNT_JSON=${_SERVICE_ACCOUNT_JSON}'
-    - 'TAG=${_TAG}-build-pipeline-std'
+    - 'TAG=${_TAG}-bp-std'
     - 'E2E_PROJECT_ID=${_E2E_PROJECT_ID}'
     - 'RUNTIME_BUILDER_ROOT=${_RUNTIME_BUILDER_ROOT}'
     - 'TEST_VM_IMAGE=${_TEST_VM_IMAGE}'
