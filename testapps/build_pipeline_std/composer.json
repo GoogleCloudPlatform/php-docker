@@ -6,7 +6,7 @@
         "ext-mbstring": "*",
         "ext-opencensus": "*",
         "ext-pdo_sqlite": "*",
-        "google/cloud": "*",
+        "google/cloud": "^0.39.2",
         "grpc/grpc": "*",
         "silex/silex": "^1.3"
     },
