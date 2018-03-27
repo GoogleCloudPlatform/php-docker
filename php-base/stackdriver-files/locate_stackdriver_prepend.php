@@ -29,7 +29,7 @@ if (class_exists(Bootstrap::class)) {
         echo Bootstrap::prependFileLocation() . PHP_EOL;
     } else {
         // default to same directory as the Bootstrap.php
-        echo realpath(dirname($reflection->getFileName()) . '/bootstrap.php') . PHP_EOL;
+        echo realpath(dirname($reflection->getFileName()) . '/prepend.php') . PHP_EOL;
     }
 } else {
     die('cannot find ErrorReporting\Bootstrap class');
