@@ -1,0 +1,21 @@
+{
+    "require": {
+        "php": "7.1.*",
+        "ext-grpc": "*",
+        "ext-mailparse": "*",
+        "ext-mbstring": "*",
+        "ext-opencensus": "*",
+        "ext-pdo_sqlite": "*",
+        "google/cloud": "^0.39.2",
+        "grpc/grpc": "*",
+        "silex/silex": "^1.3"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php logging-client.php"
+        ]
+    },
+    "autoload": {
+        "classmap": ["web"]
+    }
+}
