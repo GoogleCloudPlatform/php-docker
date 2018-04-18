@@ -49,7 +49,8 @@ class StackdriverIntegrationTest extends TestCase
         $this->assertStringEndsWith($expectedFile, $output);
     }
 
-    public function validVersions(){
+    public function validVersions()
+    {
         return [
             ['samples/stackdriver_individual', 'vendor/google/cloud-error-reporting/prepend.php'],
             ['samples/stackdriver_simple', 'vendor/google/cloud/src/ErrorReporting/prepend.php'],
