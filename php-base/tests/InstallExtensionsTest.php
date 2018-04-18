@@ -23,14 +23,14 @@ class InstallExtensionsTest extends TestCase
 {
     public function testDetectsPackagedExtensions()
     {
-        $installer = new InstallExtensions(__DIR__ . '/samples/phalcon.json');
-        $this->assertEquals(['phalcon' => '*'], $installer->extensions());
+        $installer = new InstallExtensions(__DIR__ . '/samples/igbinary.json');
+        $this->assertEquals(['igbinary'], $installer->extensions(), implode(',', $installer->errors()));
     }
 
     public function testDetectsSharedExtensions()
     {
         $installer = new InstallExtensions(__DIR__ . '/samples/shared.json');
-        $this->assertEquals(['mbstring' => '*'], $installer->extensions());
+        $this->assertEquals(['mbstring'], $installer->extensions());
     }
 
     public function testInstallsExtensions()
@@ -38,7 +38,7 @@ class InstallExtensionsTest extends TestCase
         $output = tempnam("/tmp", "php.ini");
         $installer = new InstallExtensions(__DIR__ . '/samples/mixed.json', $output);
         $this->assertTrue($installer->installExtensions());
-        $this->assertEquals("extension=phalcon.so\nextension=mbstring.so\n", file_get_contents($output));
+        $this->assertEquals("extension=igbinary.so\nextension=mbstring.so\n", file_get_contents($output));
 
         unlink($output);
     }
