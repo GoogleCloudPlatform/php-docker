@@ -17,7 +17,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once(__DIR__ . "/../build-scripts/detect_php_version.php");
+require_once(__DIR__ . "/../build-scripts/src/DetectPhpVersion.php");
 
 class DetectPhpVersionTest extends TestCase
 {
@@ -42,10 +42,20 @@ class DetectPhpVersionTest extends TestCase
         $this->assertEquals(self::PHP_71, $version);
     }
 
-    public function testFailureReturnsEmptyString()
+    /**
+     * @expectedException \ExactVersionException
+     */
+    public function testExactVersionDirect()
     {
-        $version = DetectPhpVersion::version('7.1.100', self::AVAILABLE_VERSIONS);
-        $this->assertEquals('', $version);
+        $version = DetectPhpVersion::version('7.1.10', self::AVAILABLE_VERSIONS);
+    }
+
+    /**
+     * @expectedException \InvalidVersionException
+     */
+    public function testInvalidVersionDirect()
+    {
+        $version = DetectPhpVersion::version('^7.1.100', self::AVAILABLE_VERSIONS);
     }
 
     /**

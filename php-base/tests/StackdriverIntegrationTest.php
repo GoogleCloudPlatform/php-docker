@@ -34,18 +34,50 @@ class StackdriverIntegrationTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
+     * @dataProvider validVersions
      */
-    public function testEnabler($directory)
+    public function testValidVersions($directory, $expectedFile)
     {
         $dir = realpath(__DIR__ . '/' . $directory);
-        exec("cd $dir && composer install");
-        exec("php enable_stackdriver_prepend.php -a $dir");
+        exec("cd $dir && composer install --ignore-platform-reqs -q 2>&1", $output, $retVal);
+        $this->assertEquals(0, $retVal, 'command failed with: ' . implode(';', $output));
+
+        exec("php stackdriver-files/enable_stackdriver_prepend.php -a $dir", $output, $retVal);
+        $this->assertEquals(0, $retVal, 'command failed with: ' . implode(';', $output));
+        $output = trim(array_pop($output));
+        $this->assertStringStartsWith('auto_prepend_file=', $output);
+        $this->assertStringEndsWith($expectedFile, $output);
     }
 
-    public function dataProvider(){
+    public function validVersions(){
         return [
-            ['samples/stackdriver_individual']
+            ['samples/stackdriver_individual', 'vendor/google/cloud-error-reporting/prepend.php'],
+            ['samples/stackdriver_simple', 'vendor/google/cloud/src/ErrorReporting/prepend.php'],
+            ['samples/stackdriver_wildcard', 'vendor/google/cloud/ErrorReporting/src/prepend.php'],
+            ['samples/stackdriver_dev', 'vendor/google/cloud/ErrorReporting/src/prepend.php'],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidVersions
+     */
+    public function testInvalidVersions($directory)
+    {
+        $dir = realpath(__DIR__ . '/' . $directory);
+        exec("cd $dir && composer install --ignore-platform-reqs -q 2>&1", $output, $retVal);
+        $this->assertEquals(0, $retVal, 'command failed with: ' . implode(';', $output));
+
+        exec("php stackdriver-files/enable_stackdriver_prepend.php -a $dir", $output, $retVal);
+        $this->assertNotEquals(0, $retVal, 'command: ' . implode(';', $output) . ' should have failed.');
+    }
+
+    public function invalidVersions()
+    {
+        return [
+            ['samples/stackdriver_no_google_cloud'],
+            ['samples/stackdriver_old_er'],
+            ['samples/stackdriver_old_google_cloud'],
+            ['samples/stackdriver_old_logging']
         ];
     }
 }

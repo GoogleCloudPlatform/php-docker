@@ -83,7 +83,12 @@ class StackdriverIntegration
      */
     public function validLoggingVersion()
     {
-        return class_exists(LoggingClient::class) &&
-            (float) LoggingClient::VERSION >= 1.3;
+        if (!class_exists(LoggingClient::class)) {
+            return false;
+        }
+        list($major, $minor, $patch) = explode('.', LoggingClient::VERSION);
+        $major = (int) $major;
+        $minor = (int) $minor;
+        return $major > 1 || ($major == 1 && $minor >= 3);
     }
 }

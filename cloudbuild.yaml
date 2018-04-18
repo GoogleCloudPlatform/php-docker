@@ -67,6 +67,13 @@ steps:
     waitFor: ['php56']
     id: test-runner
 
+  # base tests
+  - name: gcr.io/cloud-builders/docker
+    args: ['run', '-v', '/workspace/php-base:/workspace', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG']
+    waitFor: ['-']
+    id: php-base-tests
+    waitFor: ['test-runner', 'php-base']
+
   # php-onbuild
   - name: gcr.io/cloud-builders/docker
     args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php:$_TAG', '.']
