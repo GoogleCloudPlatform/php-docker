@@ -70,6 +70,7 @@ class StackdriverIntegrationTest extends TestCase
 
         exec("php stackdriver-files/enable_stackdriver_prepend.php -a $dir", $output, $retVal);
         $this->assertNotEquals(0, $retVal, 'command: ' . implode(';', $output) . ' should have failed.');
+        $this->assertContains('You must include', $output[0]);
     }
 
     public function invalidVersions()
@@ -80,5 +81,13 @@ class StackdriverIntegrationTest extends TestCase
             ['samples/stackdriver_old_google_cloud'],
             ['samples/stackdriver_old_logging']
         ];
+    }
+
+    public function testNoComposer()
+    {
+        $dir = realpath(__DIR__ . '/samples/no_composer');
+        exec("php stackdriver-files/enable_stackdriver_prepend.php -a $dir", $output, $retVal);
+        $this->assertNotEquals(0, $retVal, 'command: ' . implode(';', $output) . ' should have failed.');
+        $this->assertContains('You must include', $output[0]);
     }
 }

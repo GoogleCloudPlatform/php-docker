@@ -20,7 +20,10 @@ $options = getopt('a:o:') + [
     'o' => 'php://stdout'
 ];
 
-require_once $options['a'] . '/vendor/autoload.php';
+$autoload = $options['a'] . '/vendor/autoload.php';
+if (file_exists($autoload)) {
+    require_once $autoload;
+}
 require_once __DIR__ . '/stackdriver_integration.php';
 
 $integration = new StackdriverIntegration();

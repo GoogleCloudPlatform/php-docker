@@ -188,17 +188,6 @@ class GenFilesCommandTest extends TestCase
                 '\\Google\\Cloud\\Runtimes\\Builder\\Exception\\InvalidComposerFlagsException'
             ],
             [
-                // stackdriver no composer.json
-                __DIR__ . '/test_data/stackdriver_no_composer',
-                null,
-                '',
-                '/app/web',
-                'added by the php runtime builder',
-                'gcr.io/google-appengine/php72:latest',
-                [],
-                '\\Google\\Cloud\\Runtimes\\Builder\\Exception\\GoogleCloudVersionException'
-            ],
-            [
                 // PHP 5.6
                 __DIR__ . '/test_data/php56',
                 null,
