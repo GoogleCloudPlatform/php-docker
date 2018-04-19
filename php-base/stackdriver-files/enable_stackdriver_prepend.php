@@ -31,8 +31,14 @@ $integration = new StackdriverIntegration();
 try {
     $location = $integration->prependFileLocation();
     $fp = fopen($options['o'], 'w');
+    if ($fp === false) {
+        throw new RuntimeException(sprintf('Failed opening file %s for writing.', $options['o']));
+    }
     try {
-        fwrite($fp, 'auto_prepend_file=' . $location . PHP_EOL);
+        $ret = fwrite($fp, 'auto_prepend_file=' . $location . PHP_EOL);
+        if ($ret === false) {
+            throw new RuntimeException(sprintf('Failed writing to file: %s', $options['o']));
+        }
     } finally {
         fclose($fp);
     }
