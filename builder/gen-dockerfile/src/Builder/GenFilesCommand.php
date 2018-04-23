@@ -23,7 +23,6 @@ use Google\Cloud\Runtimes\Builder\Exception\InvalidComposerFlagsException;
 use Google\Cloud\Runtimes\Builder\Exception\MissingDocumentRootException;
 use Google\Cloud\Runtimes\Builder\Exception\RemovedEnvVarException;
 use Google\Cloud\Runtimes\DetectPhpVersion;
-use Google\Cloud\Runtimes\ValidateGoogleCloud;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -281,14 +280,8 @@ Using PHP version 7.2.x...</info>
         }
         if (self::isStackdriverIntegrationEnabled($envs)) {
             $envs['IS_BATCH_DAEMON_RUNNING'] = 'true';
-            $result = ValidateGoogleCloud::doCheck($this->workspace);
-            if ($result == ValidateGoogleCloud::FOUND_GOOGLE_CLOUD) {
-                $enableStackdriverCmd = 'RUN /bin/bash /stackdriver-files/'
-                    . 'enable_stackdriver_integration.sh';
-            } else {
-                $enableStackdriverCmd = 'RUN /bin/bash /stackdriver-files/'
-                    . 'enable_stackdriver_integration.sh --individual';
-            }
+            $enableStackdriverCmd = 'RUN /bin/bash /stackdriver-files/'
+                . 'enable_stackdriver_integration.sh';
         } else {
             $enableStackdriverCmd = '';
         }
