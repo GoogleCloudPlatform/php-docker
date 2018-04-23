@@ -2,6 +2,6 @@
     "require": {
         "php": "7.0.*",
         "ext-phalcon": "*",
-        "ext-mbstring": "*"
+        "ext-sqlite3": "*"
     }
 }

@@ -14,70 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 require_once __DIR__ . '/vendor/autoload.php';
-
-use Composer\Semver\Semver;
-
-class ExactVersionException extends Exception
-{
-}
-
-class NoSpecifiedVersionException extends Exception
-{
-    public function __construct()
-    {
-        parent::__construct("No version found in composer.json");
-    }
-}
-
-class InvalidVersionException extends Exception
-{
-    public function __construct($constraint, $availableVersions)
-    {
-        parent::__construct("No suitable version for for '$constraint' in ${implode(',', $availableVersions)}");
-    }
-}
-
-class DetectPhpVersion
-{
-    public static function versionFromComposer($filename, $availableVersions = null)
-    {
-        $composer = json_decode(file_get_contents($filename), true);
-        if (is_array($composer)
-            && array_key_exists('require', $composer)
-            && array_key_exists('php', $composer['require'])) {
-            $constraints = $composer['require']['php'];
-            return self::version($constraints, $availableVersions);
-        }
-        throw new NoSpecifiedVersionException();
-    }
-
-    public static function version($constraint, $availableVersions = null)
-    {
-        if (preg_match('/^\d+\.\d+\.\d+$/', $constraint)) {
-            throw new ExactVersionException();
-        }
-
-        $availableVersions = $availableVersions ?: self::detectAvailableVersions();
-        foreach ($availableVersions as $version) {
-            if (Semver::satisfies($version, $constraint)) {
-                // The first match wins, picking the highest version possible.
-                return $version;
-            }
-        }
-        throw new InvalidVersionException($constraint, $availableVersions);
-    }
-
-    private static function detectAvailableVersions()
-    {
-        return [
-            trim(file_get_contents('/opt/php72_version')),
-            trim(file_get_contents('/opt/php71_version')),
-            trim(file_get_contents('/opt/php70_version')),
-            trim(file_get_contents('/opt/php56_version'))
-        ];
-    }
-}
+require_once __DIR__ . '/src/DetectPhpVersion.php';
 
 if (basename($argv[0]) == basename(__FILE__)) {
     if (count($argv) < 2) {

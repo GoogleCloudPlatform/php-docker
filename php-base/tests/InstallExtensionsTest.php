@@ -17,28 +17,28 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once(__DIR__ . "/../build-scripts/install_extensions.php");
+require_once(__DIR__ . "/../build-scripts/src/InstallExtensions.php");
 
 class InstallExtensionsTest extends TestCase
 {
     public function testDetectsPackagedExtensions()
     {
         $installer = new InstallExtensions(__DIR__ . '/samples/phalcon.json');
-        $this->assertEquals(['phalcon' => '*'], $installer->extensions());
+        $this->assertEquals(['phalcon'], $installer->extensions(), implode(',', $installer->errors()));
     }
 
     public function testDetectsSharedExtensions()
     {
         $installer = new InstallExtensions(__DIR__ . '/samples/shared.json');
-        $this->assertEquals(['mbstring' => '*'], $installer->extensions());
+        $this->assertEquals(['sqlite3'], $installer->extensions());
     }
 
     public function testInstallsExtensions()
     {
         $output = tempnam("/tmp", "php.ini");
-        $installer = new InstallExtensions(__DIR__ . '/samples/mixed.json', $output);
+        $installer = new InstallExtensions(__DIR__ . '/samples/shared.json', $output);
         $this->assertTrue($installer->installExtensions());
-        $this->assertEquals("extension=phalcon.so\nextension=mbstring.so\n", file_get_contents($output));
+        $this->assertEquals("extension=sqlite3.so\n", file_get_contents($output));
 
         unlink($output);
     }
