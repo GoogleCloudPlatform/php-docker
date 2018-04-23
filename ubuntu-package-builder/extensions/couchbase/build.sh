@@ -23,7 +23,7 @@ download_from_pecl couchbase
 build_package couchbase
 
 # download libcouchbase2-core (runtime dependency)
-for PKG in `apt-get install --reinstall --print-uris -qq libcouchbase2-core | cut -d"'" -f2`; do
+for PKG in `apt-get download --print-uris -qq libcouchbase2-core | cut -d"'" -f2`; do
   if [ ! -f "${ARTIFACT_PKG_DIR}/$(basename $PKG)" ]; then
       curl -o ${ARTIFACT_PKG_DIR}/$(basename $PKG) $PKG
   fi

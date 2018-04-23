@@ -17,26 +17,54 @@
 #   docker run -v /mydir:/workspace deb-package-builder 5.6.29-1,7.0.14-2
 # Then you'll get deb packages in /mydir.
 
-# Inherit the php base image so we use the same dependency libraries
-FROM gcr.io/google-appengine/php
+FROM gcr.io/gcp-runtimes/ubuntu_16_0_4
+
+ENV PHP_DIR=/opt/php \
+    PATH=/opt/php/bin:$PATH
 
 # Need to install debian packaging tools etc
-RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list && \
-    apt-get update -y && \
+RUN apt-get update -y && \
     apt-get install -y -q --no-install-recommends \
+        # Tools
+        git \
+        # PHP deps
+        curl \
+        libcurl3-gnutls \
+        gettext \
+        libbz2-1.0 \
+        libgmp10 \
+        libicu55 \
+        libjpeg-turbo8 \
+        liblua5.3-0 \
+        libmcrypt4 \
+        libmemcached11 \
+        libmemcachedutil2 \
+        libpcre3 \
+        libpng12-0 \
+        libpq5 \
+        libreadline6 \
+        librecode0 \
+        libsasl2-modules \
+        libsqlite3-0 \
+        libxml2 \
+        libxslt1.1 \
+        sasl2-bin \
+        zlib1g \
+        # debian packages
         debhelper \
         devscripts \
         libparse-debcontrol-perl \
         # headers
         libbz2-dev \
-        libcurl4-openssl-dev \
+        libcurl4-gnutls-dev \
         libfreetype6-dev \
         libgettextpo-dev \
         libgmp-dev \
-        libuv1-dev/jessie-backports \
+        libuv1-dev \
         libicu-dev \
-        libjpeg62-turbo-dev \
+        libjpeg-turbo8-dev \
         libjson-c-dev \
+        liblua5.3-dev \
         libmagick++-dev \
         libmcrypt-dev \
         libmemcached-dev \
@@ -47,6 +75,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
         librecode-dev \
         libsasl2-dev \
         libsqlite3-dev \
+        libsodium-dev \
         libssl-dev \
         libxml2-dev \
         libxslt1-dev \
@@ -73,8 +102,16 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
         automake \
         autotools-dev
 
-COPY build.sh /
 RUN mkdir -p /workspace
 WORKDIR /workspace
 
-ENTRYPOINT ["/build.sh"]
+COPY debian /workspace/debian
+COPY extensions /workspace/extensions
+COPY functions.sh /workspace/functions.sh
+COPY libraries /workspace/libraries
+COPY gpgkeys /workspace/gpgkeys
+
+COPY build.sh /workspace/build.sh
+RUN chmod 0755 /workspace/build.sh
+
+ENTRYPOINT ["/workspace/build.sh"]
