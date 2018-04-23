@@ -1,0 +1,12 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: krb5
+Upstream-Contact: Moritz Bechler <mbechler@eenterphace.org>
+Source: https://pecl.php.net/package/krb5
+
+Files: *
+Copyright: 2008 Moritz Bechler
+License: New BSD License
+
+Files: debian/*
+Copyright: 2017 Google, Inc.
+License: Apache-2.0

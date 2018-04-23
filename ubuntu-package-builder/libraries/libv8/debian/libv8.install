@@ -1,0 +1,4 @@
+out.gn/x64.release/lib*.so /opt/v8/lib
+out.gn/x64.release/*_blob.bin /opt/v8/lib
+out.gn/x64.release/icudtl.dat /opt/v8/lib
+include/* /opt/v8/include

@@ -1,0 +1,12 @@
+Source: gcp-php${SHORT_VERSION}-event
+Section: php
+Priority: optional
+Maintainer: Jeff Ching <chingor@google.com>
+Build-Depends: debhelper (>= 9), gcp-php${SHORT_VERSION}
+Standards-Version: 3.9.5
+Homepage: http://pecl.php.net/package/event
+
+Package: gcp-php${SHORT_VERSION}-event
+Architecture: any
+Depends: libevent-2.0-5, libevent-openssl-2.0-5, libevent-extra-2.0-5, gcp-php${SHORT_VERSION}
+Description: event extension module for gcp-php${SHORT_VERSION}

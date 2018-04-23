@@ -1,0 +1,2 @@
+debian/php${SHORT_VERSION}-enmod opt/php${SHORT_VERSION}/bin
+debian/php${SHORT_VERSION}-dismod opt/php${SHORT_VERSION}/bin

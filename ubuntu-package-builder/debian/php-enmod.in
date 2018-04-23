@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+if [ -z "${1}" ]; then
+    exit 1
+fi
+
+if [ -f "/opt/php${SHORT_VERSION}/lib/ext.available/ext-${1}.ini" ]; then
+    ln -sf "/opt/php${SHORT_VERSION}/lib/ext.available/ext-${1}.ini" \
+        "/opt/php${SHORT_VERSION}/lib/ext.enabled"
+else
+    exit 1
+fi

@@ -1,0 +1,2 @@
+debian/ext-libsodium.ini opt/php${SHORT_VERSION}/lib/ext.available
+debian/ext-sodium.ini opt/php${SHORT_VERSION}/lib/ext.available

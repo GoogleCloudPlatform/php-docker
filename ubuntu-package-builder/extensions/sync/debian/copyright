@@ -1,0 +1,12 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: sync
+Upstream-Contact: Thomas Hruska
+Source: https://pecl.php.net/package/sync
+
+Files: *
+Copyright: 2014 CubicleSoft
+License: MIT
+
+Files: debian/*
+Copyright: 2017 Google, Inc.
+License: Apache-2.0
