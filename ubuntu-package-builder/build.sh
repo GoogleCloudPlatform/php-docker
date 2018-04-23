@@ -46,7 +46,7 @@ fi
 
 LIBRARIES=${3}
 if [ -z "$LIBRARIES" ]; then
-    LIBRARIES="libuv,cassandra-cpp-driver,libsodium,libv8,libvips"
+    LIBRARIES="cassandra-cpp-driver,libv8,libvips"
 fi
 
 

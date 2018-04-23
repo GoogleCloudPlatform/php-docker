@@ -4,7 +4,7 @@ This directory contains the code to build all of our debian packages for php and
 
 ## PHP Versions
 
-We currently support the latest patch version of 5.6, 7.0, and 7.1. See
+We currently support the latest patch version of 5.6, 7.0, 7.1, and 7.2. See
 [releases](https://github.com/GoogleCloudPlatform/php-docker/releases) for exact versions.
 
 ## Extensions

@@ -8,5 +8,5 @@ Homepage: https://pecl.php.net/package/amqp
 
 Package: gcp-php${SHORT_VERSION}-amqp
 Architecture: any
-Depends: librabbitmq1, libc6 (>= 2.4), gcp-php${SHORT_VERSION}
+Depends: librabbitmq4, libc6 (>= 2.4), gcp-php${SHORT_VERSION}
 Description: amqp extension module for gcp-php${SHORT_VERSION}

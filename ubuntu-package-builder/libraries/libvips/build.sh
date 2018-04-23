@@ -7,11 +7,11 @@ source ${DEB_BUILDER_DIR}/functions.sh
 echo "Building libvips"
 
 PNAME="libvips"
-VERSION="8.5.7"
+VERSION="8.6.3"
 
 OUTPUT_FILE="${PNAME}_${VERSION}-1~gcp8+1_amd64.deb"
 
-apt-get install -y libtiff5-dev libjpeg62-turbo-dev libgsf-1-dev
+apt-get install -y libtiff5-dev libgsf-1-dev
 
 if [ ! -f "${ARTIFACT_LIB_DIR}/${OUTPUT_FILE}" ]; then
     # Download the source
@@ -28,4 +28,4 @@ if [ ! -f "${ARTIFACT_LIB_DIR}/${OUTPUT_FILE}" ]; then
     dpkg-buildpackage -us -uc -j"$(nproc)"
     cp ../*.deb ${ARTIFACT_LIB_DIR}
     popd
-fi
+    fi
