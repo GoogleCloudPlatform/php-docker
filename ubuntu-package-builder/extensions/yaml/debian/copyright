@@ -1,0 +1,12 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: yaml
+Upstream-Contact: Bryan Davis <bd808@php.net>
+Source: https://pecl.php.net/package/yaml
+
+Files: *
+Copyright: 2007 Ryusuke SEKIYAMA, 2009 Keynetics Inc, 2015 Bryan Davis and contributors
+License: MIT
+
+Files: debian/*
+Copyright: 2017 Google, Inc.
+License: Apache-2.0

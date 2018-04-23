@@ -1,0 +1,1 @@
+debian/ext-mongo.ini opt/php${SHORT_VERSION}/lib/ext.available

@@ -1,0 +1,8 @@
+gcp-php for Debian
+-------------------
+
+This package contains a PHP installation for a Google Cloud Platform
+runtime image. It installs into the /opt/php/phpXY (where X = Major
+version and Y = Minor version of PHP) directory.
+
+ -- Takashi Matsuo <tmatsuo@google.com>  Thu, 15 Dec 2016 09:47:00 -0700

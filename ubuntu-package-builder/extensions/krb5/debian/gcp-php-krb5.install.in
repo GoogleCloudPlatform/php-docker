@@ -1,0 +1,1 @@
+debian/ext-krb5.ini opt/php${SHORT_VERSION}/lib/ext.available
