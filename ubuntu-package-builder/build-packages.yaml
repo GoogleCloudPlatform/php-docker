@@ -1,8 +1,8 @@
 steps:
   - name: gcr.io/cloud-builders/docker
-    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/deb-package-builder', '.']
+    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/ubuntu-package-builder', '.']
     waitFor: ['-']
-    id: deb-package-builder
+    id: ubuntu-package-builder
 
   # create local directories for the rsync
   - name: gcr.io/google-appengine/debian8
@@ -31,9 +31,9 @@ steps:
     id: import-packages
 
   # build the packages
-  - name: gcr.io/${_GOOGLE_PROJECT_ID}/deb-package-builder
+  - name: gcr.io/${_GOOGLE_PROJECT_ID}/ubuntu-package-builder
     args: ['${_PHP_VERSION}']
-    waitFor: ['deb-package-builder', 'import-libraries', 'import-packages']
+    waitFor: ['ubuntu-package-builder', 'import-libraries', 'import-packages']
     id: package-build
 
   # export artifacts to gs
