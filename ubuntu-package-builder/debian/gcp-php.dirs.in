@@ -1,0 +1,2 @@
+opt/php${SHORT_VERSION}/lib/conf.d
+opt/php${SHORT_VERSION}/lib/ext.enabled

@@ -1,0 +1,12 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: memprof
+Upstream-Contact: Arnaud Le Blanc
+Source: https://pecl.php.net/package/memprof
+
+Files: *
+Copyright: 2013 Arnaud Le Blanc
+License: BSD
+
+Files: debian/*
+Copyright: 2017 Google, Inc.
+License: Apache-2.0

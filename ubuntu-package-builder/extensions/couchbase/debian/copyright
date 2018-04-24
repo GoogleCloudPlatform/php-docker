@@ -1,0 +1,12 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: couchbase
+Upstream-Contact: Sergey Avseyev <sergey.avseyev@gmail.com>
+Source: https://pecl.php.net/package/couchbase
+
+Files: *
+Copyright: 2016-2017 Couchbase Inc.
+License: Apache-2.0
+
+Files: debian/*
+Copyright: 2017 Google, Inc.
+License: Apache-2.0

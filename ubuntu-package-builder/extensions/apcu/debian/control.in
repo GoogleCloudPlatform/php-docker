@@ -1,0 +1,12 @@
+Source: gcp-php${SHORT_VERSION}-apcu
+Section: php
+Priority: optional
+Maintainer: Takashi Matsuo <tmatsuo@google.com>
+Build-Depends: debhelper (>= 9), gcp-php${SHORT_VERSION}
+Standards-Version: 3.9.5
+Homepage: http://pecl.php.net/package/apcu
+
+Package: gcp-php${SHORT_VERSION}-apcu
+Architecture: any
+Depends: libc6 (>= 2.4), gcp-php${SHORT_VERSION}
+Description: apcu extension module for gcp-php${SHORT_VERSION}

@@ -1,0 +1,12 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: swoole
+Upstream-Contact: Han Tianfeng <mikan.tenny@gmail.com>
+Source: https://pecl.php.net/package/swoole
+
+Files: *
+Copyright: Tianfeng.Han [mikan.tenny@gmail.com]
+License: Apache-2.0
+
+Files: debian/*
+Copyright: 2017 Google, Inc.
+License: Apache-2.0

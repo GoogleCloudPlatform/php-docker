@@ -1,0 +1,12 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: cassandra
+Upstream-Contact: Michael Penick
+Source: https://pecl.php.net/package/cassandra/
+
+Files: *
+Copyright: 2015-2016 DataStax, Inc.
+License: Apache-2.0
+
+Files: debian/*
+Copyright: 2016 Google, Inc.
+License: Apache-2.0

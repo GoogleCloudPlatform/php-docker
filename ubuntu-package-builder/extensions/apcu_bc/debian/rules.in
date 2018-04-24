@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	phpize && \
+	./configure
+
+override_dh_auto_test:
+
+override_dh_auto_install:
+	INSTALL_ROOT=$(CURDIR)/debian/gcp-php${SHORT_VERSION}-apcu-bc \
+		dh_auto_install

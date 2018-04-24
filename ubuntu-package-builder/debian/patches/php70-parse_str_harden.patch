@@ -1,0 +1,33 @@
+diff -uNr php-7.0.5.org/ext/standard/string.c php-7.0.5/ext/standard/string.c
+--- php-7.0.5.org/ext/standard/string.c	2016-03-31 10:27:02.340935151 -0700
++++ php-7.0.5/ext/standard/string.c	2016-03-31 10:37:41.391319777 -0700
+@@ -4582,7 +4582,7 @@
+ }
+ /* }}} */
+ 
+-/* {{{ proto void parse_str(string encoded_string [, array result])
++/* {{{ proto void parse_str(string encoded_string , array result)
+    Parses GET/POST/COOKIE data and sets global variables */
+ PHP_FUNCTION(parse_str)
+ {
+@@ -4591,18 +4591,14 @@
+ 	char *res = NULL;
+ 	size_t arglen;
+ 
+-	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s|z/", &arg, &arglen, &arrayArg) == FAILURE) {
++	if (zend_parse_parameters(ZEND_NUM_ARGS(), "sz/", &arg, &arglen, &arrayArg) == FAILURE) {
+ 		return;
+ 	}
+ 
+ 	res = estrndup(arg, arglen);
+ 
+ 	if (arrayArg == NULL) {
+-		zval tmp;
+-		zend_array *symbol_table = zend_rebuild_symbol_table();
+-
+-		ZVAL_ARR(&tmp, symbol_table);
+-		sapi_module.treat_data(PARSE_STRING, res, &tmp);
++		return;
+ 	} else 	{
+ 		zval ret;
+ 

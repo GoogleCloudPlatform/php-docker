@@ -1,0 +1,12 @@
+Source: gcp-php${SHORT_VERSION}
+Section: unknown
+Priority: optional
+Maintainer: Takashi Matsuo <tmatsuo@google.com>
+Build-Depends: debhelper (>= 8.0.0), devscripts, build-essential, libparse-debcontrol-perl, libbz2-dev, libcurl-ssl-dev, libgettextpo-dev, libicu-dev, libjpeg-turbo8-dev, libmcrypt-dev, libmemcached-dev, libpcre3-dev, libpng-dev, libpq-dev, libreadline6-dev, librecode-dev, libsasl2-dev, libsqlite3-dev, libssl-dev, libxml2-dev, libxslt1-dev, zlib1g-dev, libfreetype6-dev
+Standards-Version: 3.9.4
+Homepage: http://php.net/
+
+Package: gcp-php${SHORT_VERSION}
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${EXTRA_DEPS}gettext, libbz2-1.0, libfreetype6, libicu55, libjpeg-turbo8-dev, libmcrypt4, libmemcached11, libmemcachedutil2, libpcre3, libpng12-0, libpq5, libreadline6, librecode0, libsasl2-modules, libsqlite3-0, libxml2, libxslt1.1, openssl, zlib1g
+Description: PHP for Google Cloud Platform runtimes

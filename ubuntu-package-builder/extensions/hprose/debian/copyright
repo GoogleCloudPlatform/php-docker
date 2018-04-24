@@ -1,0 +1,12 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: hprose
+Upstream-Contact: Bingyao Ma <mabingyao@gmail.com>
+Source: https://pecl.php.net/package/hprose
+
+Files: *
+Copyright: 2008-2016 http://hprose.com
+License: MIT
+
+Files: debian/*
+Copyright: 2017 Google, Inc.
+License: Apache-2.0
