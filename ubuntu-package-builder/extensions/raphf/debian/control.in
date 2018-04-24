@@ -1,0 +1,12 @@
+Source: gcp-php${SHORT_VERSION}-raphf
+Section: php
+Priority: optional
+Maintainer: Jeff Ching <chingor@google.com>
+Build-Depends: debhelper (>= 9), gcp-php${SHORT_VERSION}
+Standards-Version: 3.9.5
+Homepage: http://pecl.php.net/package/raphf
+
+Package: gcp-php${SHORT_VERSION}-raphf
+Architecture: any
+Depends: gcp-php${SHORT_VERSION}
+Description: raphf extension module for gcp-php${SHORT_VERSION}

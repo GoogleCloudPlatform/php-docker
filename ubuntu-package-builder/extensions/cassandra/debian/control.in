@@ -1,0 +1,12 @@
+Source: gcp-php${SHORT_VERSION}-cassandra
+Section: php
+Priority: optional
+Maintainer: Jeff Ching <chingor@google.com>
+Build-Depends: debhelper (>= 9), gcp-php${SHORT_VERSION}
+Standards-Version: 3.9.5
+Homepage: http://pecl.php.net/package/cassandra
+
+Package: gcp-php${SHORT_VERSION}-cassandra
+Architecture: any
+Depends: cassandra-cpp-driver (>= 2.7.0), gcp-php${SHORT_VERSION}
+Description: cassandra extension module for gcp-php${SHORT_VERSION}

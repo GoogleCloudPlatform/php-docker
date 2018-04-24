@@ -1,0 +1,12 @@
+Source: gcp-php${SHORT_VERSION}-memcached
+Section: php
+Priority: optional
+Maintainer: Takashi Matsuo <tmatsuo@google.com>
+Build-Depends: debhelper (>= 9), gcp-php${SHORT_VERSION}, libmemcached-dev (>= 1.0.0)
+Standards-Version: 3.9.5
+Homepage: http://pecl.php.net/package/memcached
+
+Package: gcp-php${SHORT_VERSION}-memcached
+Architecture: any
+Depends: libc6 (>= 2.4), libmemcached11, libmemcachedutil2, libsasl2-2, zlib1g (>= 1:1.1.4), gcp-php${SHORT_VERSION}
+Description: memcached extension module for gcp-php${SHORT_VERSION}

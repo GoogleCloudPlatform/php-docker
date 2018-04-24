@@ -1,0 +1,19 @@
+Source: libvips
+Section: libs
+Priority: optional
+Maintainer: Jeff Ching <chingor@google.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/jcupitt/libvips
+
+Package: libvips
+Section: libs
+Architecture: any
+Depends: libilmbase12, libopenexr22, libexif12, librsvg2-2, libtiff5, libjpeg-turbo8, libgsf-1-114, libc6 (>= 2.4)
+Description: Large image processing library
+
+Package: libvips-dev
+Section: libdevel
+Architecture: any
+Depends: libtiff5-dev, libjpeg-turbo8-dev, libgsf-1-dev, libvips
+Description: Large image processing library - development files

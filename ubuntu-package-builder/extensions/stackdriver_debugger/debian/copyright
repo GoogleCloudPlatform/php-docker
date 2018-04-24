@@ -1,0 +1,8 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: stackdriver-debugger
+Upstream-Contact: Jeff Ching <chingor@google.com>
+Source: https://github.com/GoogleCloudPlatform/stackdriver-debugger-php-extension
+
+Files: *
+Copyright: 2017 Google, Inc.
+License: Apache-2.0
