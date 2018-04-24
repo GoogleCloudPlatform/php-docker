@@ -28,4 +28,4 @@ if [ ! -f "${ARTIFACT_LIB_DIR}/${OUTPUT_FILE}" ]; then
     dpkg-buildpackage -us -uc -j"$(nproc)"
     cp ../*.deb ${ARTIFACT_LIB_DIR}
     popd
-    fi
+fi

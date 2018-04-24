@@ -102,16 +102,15 @@ RUN apt-get update -y && \
         automake \
         autotools-dev
 
+COPY build.sh /
+RUN chmod 0755 /build.sh
 RUN mkdir -p /workspace
 WORKDIR /workspace
 
-COPY debian /workspace/debian
-COPY extensions /workspace/extensions
-COPY functions.sh /workspace/functions.sh
-COPY libraries /workspace/libraries
-COPY gpgkeys /workspace/gpgkeys
+# COPY debian /workspace/debian
+# COPY extensions /workspace/extensions
+# COPY functions.sh /workspace/functions.sh
+# COPY libraries /workspace/libraries
+# COPY gpgkeys /workspace/gpgkeys
 
-COPY build.sh /workspace/build.sh
-RUN chmod 0755 /workspace/build.sh
-
-ENTRYPOINT ["/workspace/build.sh"]
+ENTRYPOINT ["/build.sh"]
