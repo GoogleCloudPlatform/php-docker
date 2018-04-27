@@ -29,5 +29,5 @@ echo "Enabling stackdriver integration..."
 cp /stackdriver-files/batch-daemon.conf /etc/supervisor/conf.d
 
 php /stackdriver-files/enable_stackdriver_prepend.php \
-    -a ${APP_DIR}
+    -a ${APP_DIR} \
     -o ${PHP_DIR}/lib/conf.d/stackdriver-prepend.ini
