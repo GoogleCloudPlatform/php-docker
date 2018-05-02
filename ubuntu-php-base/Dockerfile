@@ -14,7 +14,7 @@
 
 # Dockerfile for PHP 5.6/7.0 using nginx as the webserver.
 
-FROM gcr.io/google_appengine/debian8
+FROM gcr.io/gcp-runtimes/ubuntu_16_0_4
 
 RUN apt-get update -y && \
     apt-get -y upgrade && \
@@ -23,8 +23,11 @@ RUN apt-get update -y && \
     gettext \
     git \
     libbz2-1.0 \
-    libicu52 \
-    libjpeg62-turbo \
+    libcurl3-gnutls \
+    libgmp10 \
+    libicu55 \
+    libjpeg-turbo8 \
+    liblua5.3-0 \
     libmcrypt4 \
     libmemcached11 \
     libmemcachedutil2 \
@@ -65,15 +68,15 @@ COPY build-scripts /build-scripts
 # Files for stackdriver setup
 COPY stackdriver-files /stackdriver-files
 
-RUN chown www-data /build-scripts
+RUN chown -R www-data /build-scripts /stackdriver-files
 
-ARG RUNTIME_DISTRIBUTION="gcp-php-runtime-jessie"
+ARG RUNTIME_DISTRIBUTION="gcp-php-runtime-xenial-20180425-1"
 
 RUN mkdir -p $PHP_CONFIG_TEMPLATE
 COPY php-fpm.conf php.ini php-cli.ini "${PHP_CONFIG_TEMPLATE}/"
 
 RUN (echo "deb http://packages.cloud.google.com/apt ${RUNTIME_DISTRIBUTION} main" \
-    | tee /etc/apt/sources.list.d/gcp-php-runtime-jessie.list) && \
+    | tee /etc/apt/sources.list.d/gcp-php-runtime.list) && \
     (curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
       | apt-key add -) && \
     apt-get -y update && \
