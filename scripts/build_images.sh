@@ -25,25 +25,41 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
     exit 1
 fi
 
+if [ $# == 1 ] && [ $1 == 'ubuntu' ]; then
+    echo "Building ubuntu images"
+    DEFAULT_RUNTIME_DISTRIBUTION="gcp-php-runtime-xenial-20180425-1"
+    CLOUDBUILD_CONFIG="cloudbuild-ubuntu.yaml"
+    export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/ubuntu-php-base:${TAG}"
+    export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/ubuntu-php:${TAG}"
+    export PHP_56_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/ubuntu-php56:${TAG}"
+    export PHP_71_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/ubuntu-php71:${TAG}"
+    export PHP_72_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/ubuntu-php71:${TAG}"
+else
+    echo "Building debian images"
+    CLOUDBUILD_CONFIG="cloudbuild.yaml"
+    DEFAULT_RUNTIME_DISTRIBUTION="gcp-php-runtime-jessie"
+    export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
+    export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
+    export PHP_56_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php56:${TAG}"
+    export PHP_71_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php71:${TAG}"
+    export PHP_72_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php72:${TAG}"
+fi
+
 if [ -z "${RUNTIME_DISTRIBUTION}" ]; then
-    RUNTIME_DISTRIBUTION="gcp-php-runtime-jessie"
+    RUNTIME_DISTRIBUTION="${DEFAULT_RUNTIME_DISTRIBUTION}"
 fi
 
 export RUNTIME_DISTRIBUTION
-export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
-export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
-export PHP_56_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php56:${TAG}"
-export PHP_71_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php71:${TAG}"
 
 for TEMPLATE in `find . -name Dockerfile.in`
 do
-  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_71_IMAGE} ${PHP_56_IMAGE}' \
+  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_71_IMAGE} ${PHP_56_IMAGE} ${PHP_72_IMAGE}' \
     < ${TEMPLATE} \
     > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
 done
 
 gcloud container builds submit . \
-  --config cloudbuild.yaml \
+  --config "${CLOUDBUILD_CONFIG}" \
   --timeout 3600 \
   --substitutions _GOOGLE_PROJECT_ID=$GOOGLE_PROJECT_ID,_TAG=$TAG,_RUNTIME_DISTRIBUTION=$RUNTIME_DISTRIBUTION
 

@@ -26,3 +26,4 @@ fi
 
 # Then build the images and run the tests.
 scripts/build_images.sh
+scripts/build_images.sh ubuntu
