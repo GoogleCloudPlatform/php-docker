@@ -26,4 +26,7 @@ fi
 
 # Then build the images and run the tests.
 scripts/build_images.sh
+
+# clear this envvar for ubuntu repo
+unset RUNTIME_DISTRIBUTION
 scripts/build_images.sh ubuntu
