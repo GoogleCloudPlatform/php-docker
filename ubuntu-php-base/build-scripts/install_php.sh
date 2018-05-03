@@ -1,5 +1,6 @@
-#!/usr/bin/env bash
-# Copyright 2015 Google Inc.
+#!/bin/bash
+
+# Copyright 2017 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,20 +14,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -ex
 
-# A script to run all the test locally and if all the test passes,
-# deploy the image if PHP_DOCKER_DEPLOY envvar is set to 'true'.
+# A shell script for installing PHP depending on the PHP_VERSION environment variable
+set -xe
 
-# Run php-cs-fixer.
-# We want to fail fast for coding standard violations.
-if [ -z "${SKIP_CS_CHECK}" ]; then
-    vendor/bin/php-cs-fixer fix --dry-run --diff
-fi
-
-# Then build the images and run the tests.
-scripts/build_images.sh
-
-# clear this envvar for ubuntu repo
-unset RUNTIME_DISTRIBUTION
-scripts/build_images.sh ubuntu
+case $PHP_VERSION in
+    5.6*)
+        /bin/bash /build-scripts/install_php56.sh
+        ;;
+    7.0*)
+        /bin/bash /build-scripts/install_php70.sh
+        ;;
+    7.2*)
+        /bin/bash /build-scripts/install_php72.sh
+        ;;
+    *)
+        /bin/bash /build-scripts/install_php71.sh
+        ;;
+esac
