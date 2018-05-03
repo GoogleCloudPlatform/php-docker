@@ -27,7 +27,7 @@ fi
 
 if [ $# == 1 ] && [ $1 == 'ubuntu' ]; then
     echo "Building ubuntu images"
-    DEFAULT_RUNTIME_DISTRIBUTION="gcp-php-runtime-xenial-20180425-1"
+    DEFAULT_RUNTIME_DISTRIBUTION="gcp-php-runtime-xenial-unstable"
     CLOUDBUILD_CONFIG="cloudbuild-ubuntu.yaml"
     IMAGE_PREFIX="ubuntu-"
 else

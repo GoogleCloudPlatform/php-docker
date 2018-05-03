@@ -70,7 +70,7 @@ COPY stackdriver-files /stackdriver-files
 
 RUN chown -R www-data /build-scripts /stackdriver-files
 
-ARG RUNTIME_DISTRIBUTION="gcp-php-runtime-xenial-20180425-1"
+ARG RUNTIME_DISTRIBUTION="gcp-php-runtime-xenial-unstable"
 
 RUN mkdir -p $PHP_CONFIG_TEMPLATE
 COPY php-fpm.conf php.ini php-cli.ini "${PHP_CONFIG_TEMPLATE}/"
