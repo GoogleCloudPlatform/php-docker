@@ -64,7 +64,7 @@ steps:
   - name: gcr.io/cloud-builders/docker
     args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/ubuntu-php-test-runner:$_TAG', '.']
     dir: cloudbuild-test-runner
-    waitFor: ['php72']
+    waitFor: ['php56-structure']
     id: test-runner
 
   # base tests
