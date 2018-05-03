@@ -1,5 +1,6 @@
-#!/usr/bin/env bash
-# Copyright 2015 Google Inc.
+#!/bin/bash
+
+# Copyright 2017 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,20 +14,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -ex
 
-# A script to run all the test locally and if all the test passes,
-# deploy the image if PHP_DOCKER_DEPLOY envvar is set to 'true'.
+# A shell script for enabling stackdriver integration
 
-# Run php-cs-fixer.
-# We want to fail fast for coding standard violations.
-if [ -z "${SKIP_CS_CHECK}" ]; then
-    vendor/bin/php-cs-fixer fix --dry-run --diff
+if [ "${BUILDER_DEBUG_OUTPUT}" = "true" ]; then
+    set -xe
+else
+    set -e
 fi
 
-# Then build the images and run the tests.
-scripts/build_images.sh
+echo "Enabling stackdriver integration..."
 
-# clear this envvar for ubuntu repo
-unset RUNTIME_DISTRIBUTION
-scripts/build_images.sh ubuntu
+# To start the batch daemon
+cp /stackdriver-files/batch-daemon.conf /etc/supervisor/conf.d
+
+php /stackdriver-files/enable_stackdriver_prepend.php \
+    -a ${APP_DIR} \
+    -o ${PHP_DIR}/lib/conf.d/stackdriver-prepend.ini
