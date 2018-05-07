@@ -24,8 +24,7 @@ apt-get install -y --no-install-recommends \
         gcp-php72-apcu \
         gcp-php72-apcu-bc \
         gcp-php72-mailparse \
-        gcp-php72-memcached \
-        libsodium18
+        gcp-php72-memcached
 
 /bin/bash /build-scripts/apt-cleanup.sh
 
