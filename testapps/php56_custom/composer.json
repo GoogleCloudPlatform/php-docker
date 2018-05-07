@@ -2,6 +2,23 @@
     "require": {
         "php": "5.6.*",
         "ext-bcmath": "*",
+        "ext-calendar": "*",
+        "ext-exif": "*",
+        "ext-ftp": "*",
+        "ext-gd": "*",
+        "ext-gettext": "*",
+        "ext-intl": "*",
+        "ext-pcntl": "*",
+        "ext-shmop": "*",
+        "ext-soap": "*",
+        "ext-sqlite3": "*",
+        "ext-pdo_sqlite": "*",
+        "ext-xmlrpc": "*",
+        "ext-xsl": "*",
+        "ext-mongodb": "*",
+        "ext-redis": "*",
+        "ext-grpc": "*",
+        "ext-imagick": "*",
         "silex/silex": "^1.3"
     },
     "require-dev": {
