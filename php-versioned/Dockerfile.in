@@ -19,7 +19,6 @@ FROM ${PHP_BASE_IMAGE}
 ARG PHP_VERSION=7.1
 
 RUN /bin/bash /build-scripts/install_php.sh && \
-    /bin/bash /build-scripts/apt-cleanup.sh && \
     /bin/bash /build-scripts/install_composer.sh && \
     chgrp www-data /build-scripts/detect_php_version.php && \
     # Temporary enable the shell for www-data
