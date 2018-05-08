@@ -32,16 +32,31 @@ class InstallExtensions
         'sqlite3',
         'pdo_sqlite',
         'xmlrpc',
-        'xsl',
-        ## Debian package extensions below
+        'xsl'
+    ];
+    const AVAILABLE_EXTENSIONS_TO_INSTALL = [
+        'amqp',
+        'apm',
+        'bitset',
         'cassandra',
+        'couchbase',
+        'ds',
+        'eio',
         'ev',
         'event',
         'grpc',
+        'hprose',
+        'igbinary',
         'imagick',
+        'jsond',
+        'krb5',
+        'lua',
+        'lzf',
         'mailparse',
         'memcache',
         'memcached',
+        'memprof',
+        'mongo',
         'mongodb',
         'oauth',
         'opencensus',
@@ -51,24 +66,8 @@ class InstallExtensions
         'raphf',
         'rdkafka',
         'redis',
-        'stackdriver_debugger'
-    ];
-    const AVAILABLE_EXTENSIONS_TO_INSTALL = [
-        'amqp',
-        'apm',
-        'bitset',
-        'couchbase',
-        'ds',
-        'eio',
-        'hprose',
-        'igbinary',
-        'jsond',
-        'krb5',
-        'lua',
-        'lzf',
-        'memprof',
-        'mongo',
         'seaslog',
+        'stackdriver_debugger',
         'stomp',
         'swoole',
         'sync',
@@ -148,7 +147,8 @@ class InstallExtensions
 
     public function packageName($extension)
     {
-        return 'gcp-php' . str_replace('.', '', $this->phpVersion) . '-' . $extension;
+        return 'gcp-php' . str_replace('.', '', $this->phpVersion) . '-'
+            . str_replace('_', '-', $extension);
     }
 
     private function defaultConfigFile()
