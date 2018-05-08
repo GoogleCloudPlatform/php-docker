@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0ea051a9cbcc612d8cfd8c53b5dd887c",
-    "content-hash": "c4ed0783c5e92cd19034b9ddd66a7494",
+    "content-hash": "b0188ca972dbed2c76c5b92e7a51d58b",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -51,39 +50,38 @@
             ],
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
-            "time": "2017-06-27 22:17:23"
+            "time": "2017-06-27T22:17:23+00:00"
         },
         {
             "name": "google/auth",
-            "version": "v1.0.1",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-auth-library-php.git",
-                "reference": "db8e3022a308cb0e988026d38e67b91a42b41622"
+                "reference": "8f7c96146b2c62d3f4c6bbc4b5bb8a8e396b0b71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-auth-library-php/zipball/db8e3022a308cb0e988026d38e67b91a42b41622",
-                "reference": "db8e3022a308cb0e988026d38e67b91a42b41622",
+                "url": "https://api.github.com/repos/google/google-auth-library-php/zipball/8f7c96146b2c62d3f4c6bbc4b5bb8a8e396b0b71",
+                "reference": "8f7c96146b2c62d3f4c6bbc4b5bb8a8e396b0b71",
                 "shasum": ""
             },
             "require": {
                 "firebase/php-jwt": "~2.0|~3.0|~4.0|~5.0",
                 "guzzlehttp/guzzle": "~5.3.1|~6.0",
-                "guzzlehttp/psr7": "~1.2",
+                "guzzlehttp/psr7": "^1.2",
                 "php": ">=5.4",
                 "psr/cache": "^1.0",
                 "psr/http-message": "^1.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^1.11",
-                "phpunit/phpunit": "3.7.*"
+                "guzzlehttp/promises": "0.1.1|^1.3",
+                "phpunit/phpunit": "^4.8.36|^5.7",
+                "sebastian/comparator": ">=1.2.3"
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "src/"
-                ],
                 "psr-4": {
                     "Google\\Auth\\": "src"
                 }
@@ -99,26 +97,25 @@
                 "google",
                 "oauth2"
             ],
-            "time": "2017-07-31 16:34:40"
+            "time": "2018-04-06T19:26:30+00:00"
         },
         {
             "name": "google/cloud",
-            "version": "v0.39.2",
+            "version": "v0.64.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GoogleCloudPlatform/google-cloud-php.git",
-                "reference": "2ae1022a000624d3aaa98d9c184d0177363840c1"
+                "reference": "5edbb1ad732af282ba4a1560c30305ddea8f5650"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GoogleCloudPlatform/google-cloud-php/zipball/2ae1022a000624d3aaa98d9c184d0177363840c1",
-                "reference": "2ae1022a000624d3aaa98d9c184d0177363840c1",
+                "url": "https://api.github.com/repos/GoogleCloudPlatform/google-cloud-php/zipball/5edbb1ad732af282ba4a1560c30305ddea8f5650",
+                "reference": "5edbb1ad732af282ba4a1560c30305ddea8f5650",
                 "shasum": ""
             },
             "require": {
-                "google/auth": "~0.9|^1.0",
-                "google/gax": "^0.23",
-                "google/proto-client": "^0.23",
+                "google/gax": "^0.31.1",
+                "google/proto-client": "^0.38.0",
                 "guzzlehttp/guzzle": "^5.3|^6.0",
                 "guzzlehttp/psr7": "^1.2",
                 "monolog/monolog": "~1",
@@ -128,45 +125,59 @@
                 "rize/uri-template": "~0.3"
             },
             "replace": {
-                "google/cloud-bigquery": "0.2.4",
-                "google/cloud-core": "1.9.0",
-                "google/cloud-datastore": "1.0.1",
-                "google/cloud-dlp": "0.1.2",
-                "google/cloud-error-reporting": "0.4.3",
-                "google/cloud-language": "0.5.0",
-                "google/cloud-logging": "1.4.0",
-                "google/cloud-monitoring": "0.4.3",
-                "google/cloud-pubsub": "0.7.0",
-                "google/cloud-spanner": "0.6.0",
-                "google/cloud-speech": "0.7.0",
-                "google/cloud-storage": "1.1.5",
-                "google/cloud-trace": "0.3.2",
-                "google/cloud-translate": "1.0.1",
-                "google/cloud-videointelligence": "0.4.0",
-                "google/cloud-vision": "0.4.1"
+                "google/cloud-bigquery": "1.2.1",
+                "google/cloud-bigquerydatatransfer": "0.4.1",
+                "google/cloud-bigtable": "0.3.4",
+                "google/cloud-container": "0.3.4",
+                "google/cloud-core": "1.20.1",
+                "google/cloud-dataproc": "0.3.4",
+                "google/cloud-datastore": "1.5.1",
+                "google/cloud-debugger": "0.8.0",
+                "google/cloud-dialogflow": "0.1.1",
+                "google/cloud-dlp": "0.8.1",
+                "google/cloud-error-reporting": "0.9.5",
+                "google/cloud-firestore": "0.9.1",
+                "google/cloud-iot": "0.1.3",
+                "google/cloud-language": "0.13.4",
+                "google/cloud-logging": "1.10.5",
+                "google/cloud-monitoring": "0.9.4",
+                "google/cloud-oslogin": "0.3.4",
+                "google/cloud-pubsub": "1.1.4",
+                "google/cloud-redis": "0.1.0",
+                "google/cloud-spanner": "1.4.1",
+                "google/cloud-speech": "0.13.1",
+                "google/cloud-storage": "1.4.0",
+                "google/cloud-trace": "0.7.4",
+                "google/cloud-translate": "1.2.0",
+                "google/cloud-videointelligence": "0.10.4",
+                "google/cloud-vision": "0.11.4"
             },
             "require-dev": {
                 "erusev/parsedown": "^1.6",
+                "google/cloud-tools": "^0.6",
                 "league/json-guard": "^0.3",
+                "opis/closure": "^3.0",
                 "phpdocumentor/reflection": "^3.0",
                 "phpseclib/phpseclib": "^2",
-                "phpunit/phpunit": "4.8.*",
+                "phpunit/phpunit": "^4.8|^5.0",
                 "squizlabs/php_codesniffer": "2.*",
                 "symfony/console": "^3.0",
                 "symfony/lock": "3.3.x-dev#1ba6ac9",
                 "vierbergenlars/php-semver": "^3.0"
             },
             "suggest": {
+                "opis/closure": "May be used to serialize closures to process jobs in the batch daemon. Please require version ^3.",
                 "phpseclib/phpseclib": "May be used in place of OpenSSL for creating signed Cloud Storage URLs. Please require version ^2."
             },
             "bin": [
-                "src/Core/bin/google-cloud-batch"
+                "Core/bin/google-cloud-batch",
+                "Debugger/bin/google-cloud-debugger"
             ],
             "type": "library",
             "extra": {
                 "component": {
                     "id": "google-cloud",
-                    "target": "git@github.com:jdpedrie-gcp/google-cloud-php.git",
+                    "target": "GoogleCloudPlatform/google-cloud-php.git",
                     "path": "src",
                     "entry": [
                         "Version.php",
@@ -176,7 +187,33 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Google\\Cloud\\": "src"
+                    "Google\\Cloud\\": "src",
+                    "Google\\Cloud\\BigQuery\\": "BigQuery/src",
+                    "Google\\Cloud\\BigQuery\\DataTransfer\\": "BigQueryDataTransfer/src",
+                    "Google\\Cloud\\Bigtable\\": "Bigtable/src",
+                    "Google\\Cloud\\Container\\": "Container/src",
+                    "Google\\Cloud\\Core\\": "Core/src",
+                    "Google\\Cloud\\Dataproc\\": "Dataproc/src",
+                    "Google\\Cloud\\Datastore\\": "Datastore/src",
+                    "Google\\Cloud\\Debugger\\": "Debugger/src",
+                    "Google\\Cloud\\Dialogflow\\": "Dialogflow/src",
+                    "Google\\Cloud\\Dlp\\": "Dlp/src",
+                    "Google\\Cloud\\ErrorReporting\\": "ErrorReporting/src",
+                    "Google\\Cloud\\Firestore\\": "Firestore/src",
+                    "Google\\Cloud\\Iot\\": "Iot/src",
+                    "Google\\Cloud\\Language\\": "Language/src",
+                    "Google\\Cloud\\Logging\\": "Logging/src",
+                    "Google\\Cloud\\Monitoring\\": "Monitoring/src",
+                    "Google\\Cloud\\OsLogin\\": "OsLogin/src",
+                    "Google\\Cloud\\PubSub\\": "PubSub/src",
+                    "Google\\Cloud\\Redis\\": "Redis/src",
+                    "Google\\Cloud\\Spanner\\": "Spanner/src",
+                    "Google\\Cloud\\Speech\\": "Speech/src",
+                    "Google\\Cloud\\Storage\\": "Storage/src",
+                    "Google\\Cloud\\Trace\\": "Trace/src",
+                    "Google\\Cloud\\Translate\\": "Translate/src",
+                    "Google\\Cloud\\VideoIntelligence\\": "VideoIntelligence/src",
+                    "Google\\Cloud\\Vision\\": "Vision/src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -198,6 +235,7 @@
             "keywords": [
                 "big query",
                 "bigquery",
+                "bigtable",
                 "cloud",
                 "datastore",
                 "gcs",
@@ -220,73 +258,80 @@
                 "translation",
                 "vision"
             ],
-            "time": "2017-09-18 15:09:56"
+            "time": "2018-05-08T16:06:53+00:00"
         },
         {
             "name": "google/gax",
-            "version": "0.23.0",
+            "version": "0.31.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/gax-php.git",
-                "reference": "e09f219ed50ea1f6162d1945156d2ea6af6cd1f9"
+                "reference": "cae100c34c518e150db4adb6a1cfa6d5335d63f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/gax-php/zipball/e09f219ed50ea1f6162d1945156d2ea6af6cd1f9",
-                "reference": "e09f219ed50ea1f6162d1945156d2ea6af6cd1f9",
+                "url": "https://api.github.com/repos/googleapis/gax-php/zipball/cae100c34c518e150db4adb6a1cfa6d5335d63f9",
+                "reference": "cae100c34c518e150db4adb6a1cfa6d5335d63f9",
                 "shasum": ""
             },
             "require": {
-                "google/auth": "~0.9|^1.0",
-                "google/protobuf": "^3.4",
+                "google/auth": "^1.2.0",
+                "google/protobuf": "^3.5.1",
                 "grpc/grpc": "^1.4",
+                "guzzlehttp/promises": "^1.3",
+                "guzzlehttp/psr7": "^1.2",
                 "php": ">=5.5"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.8.*",
+                "phpunit/phpunit": "^4.8.36",
                 "squizlabs/php_codesniffer": "2.*"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Google\\GAX\\": "src/",
-                    "Google\\GAX\\UnitTests\\": "tests/",
-                    "Google\\": "src/generated/Google/",
-                    "GPBMetadata\\": "src/generated/GPBMetadata/"
+                    "Google\\Api\\": "src/Api",
+                    "Google\\ApiCore\\": "src/ApiCore",
+                    "Google\\Cloud\\": "src/Cloud",
+                    "Google\\Iam\\": "src/Iam",
+                    "Google\\Jison\\": "src/Jison",
+                    "Google\\LongRunning\\": "src/LongRunning",
+                    "Google\\Rpc\\": "src/Rpc",
+                    "Google\\Type\\": "src/Type",
+                    "GPBMetadata\\Google\\": "metadata"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
-            "description": "Google API Extensions for PHP",
+            "description": "Google API Core for PHP",
             "homepage": "https://github.com/googleapis/gax-php",
             "keywords": [
                 "google"
             ],
-            "time": "2017-08-31 21:40:57"
+            "time": "2018-04-17T15:26:29+00:00"
         },
         {
             "name": "google/proto-client",
-            "version": "0.23.0",
+            "version": "0.38.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/proto-client-php.git",
-                "reference": "b159f408b6acdba55bf727c3639d03bb0117fc27"
+                "reference": "45c3ea33f016fa96735bd65455798579c3180889"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/proto-client-php/zipball/b159f408b6acdba55bf727c3639d03bb0117fc27",
-                "reference": "b159f408b6acdba55bf727c3639d03bb0117fc27",
+                "url": "https://api.github.com/repos/googleapis/proto-client-php/zipball/45c3ea33f016fa96735bd65455798579c3180889",
+                "reference": "45c3ea33f016fa96735bd65455798579c3180889",
                 "shasum": ""
             },
             "require": {
-                "google/protobuf": "^3.3.2",
+                "google/protobuf": "^3.4",
                 "php": ">=5.5"
             },
             "require-dev": {
-                "google/gax": ">=0.20.0",
-                "phpunit/phpunit": "4.8.*"
+                "google/gax": ">=0.25.0",
+                "phpunit/phpunit": "^4.8.36"
             },
             "type": "library",
             "autoload": {
@@ -304,20 +349,20 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-09-01 22:33:04"
+            "time": "2018-05-07T20:03:13+00:00"
         },
         {
             "name": "google/protobuf",
-            "version": "v3.4.1",
+            "version": "v3.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/protobuf.git",
-                "reference": "b04e5cba356212e4e8c66c61bbe0c3a20537c5b9"
+                "reference": "b5fbb742af122b565925987e65c08957739976a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/protobuf/zipball/b04e5cba356212e4e8c66c61bbe0c3a20537c5b9",
-                "reference": "b04e5cba356212e4e8c66c61bbe0c3a20537c5b9",
+                "url": "https://api.github.com/repos/google/protobuf/zipball/b5fbb742af122b565925987e65c08957739976a7",
+                "reference": "b5fbb742af122b565925987e65c08957739976a7",
                 "shasum": ""
             },
             "require": {
@@ -345,20 +390,20 @@
             "keywords": [
                 "proto"
             ],
-            "time": "2017-09-14 19:24:28"
+            "time": "2018-03-06T03:54:18+00:00"
         },
         {
             "name": "grpc/grpc",
-            "version": "1.6.0",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/grpc/grpc-php.git",
-                "reference": "8d190d91ddb9d980f685d9caf79bca62d7edc1e6"
+                "reference": "741f59bac86c7b5e45818c8f2eec6980921bce23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/grpc/grpc-php/zipball/8d190d91ddb9d980f685d9caf79bca62d7edc1e6",
-                "reference": "8d190d91ddb9d980f685d9caf79bca62d7edc1e6",
+                "url": "https://api.github.com/repos/grpc/grpc-php/zipball/741f59bac86c7b5e45818c8f2eec6980921bce23",
+                "reference": "741f59bac86c7b5e45818c8f2eec6980921bce23",
                 "shasum": ""
             },
             "require": {
@@ -386,20 +431,20 @@
             "keywords": [
                 "rpc"
             ],
-            "time": "2017-09-11 20:50:39"
+            "time": "2018-03-28T22:54:08+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.3.0",
+            "version": "6.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699"
+                "reference": "407b0cb880ace85c9b63c5f9551db498cb2d50ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/f4db5a78a5ea468d4831de7f0bf9d9415e348699",
-                "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/407b0cb880ace85c9b63c5f9551db498cb2d50ba",
+                "reference": "407b0cb880ace85c9b63c5f9551db498cb2d50ba",
                 "shasum": ""
             },
             "require": {
@@ -409,7 +454,7 @@
             },
             "require-dev": {
                 "ext-curl": "*",
-                "phpunit/phpunit": "^4.0 || ^5.0",
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.4 || ^7.0",
                 "psr/log": "^1.0"
             },
             "suggest": {
@@ -418,7 +463,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.2-dev"
+                    "dev-master": "6.3-dev"
                 }
             },
             "autoload": {
@@ -451,7 +496,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2017-06-22 18:50:49"
+            "time": "2018-04-22T15:46:56+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -502,7 +547,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-12-20 10:07:11"
+            "time": "2016-12-20T10:07:11+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -567,7 +612,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2017-03-20 17:10:46"
+            "time": "2017-03-20T17:10:46+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -645,20 +690,20 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2017-06-19 01:22:40"
+            "time": "2017-06-19T01:22:40+00:00"
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.10",
+            "version": "v2.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "634bae8e911eefa89c1abfbf1b66da679ac8f54d"
+                "reference": "258c89a6b97de7dfaf5b8c7607d0478e236b04fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/634bae8e911eefa89c1abfbf1b66da679ac8f54d",
-                "reference": "634bae8e911eefa89c1abfbf1b66da679ac8f54d",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/258c89a6b97de7dfaf5b8c7607d0478e236b04fb",
+                "reference": "258c89a6b97de7dfaf5b8c7607d0478e236b04fb",
                 "shasum": ""
             },
             "require": {
@@ -693,7 +738,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2017-03-13 16:27:32"
+            "time": "2018-04-04T21:24:14+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -739,7 +784,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2013-11-22 08:30:29"
+            "time": "2013-11-22T08:30:29+00:00"
         },
         {
             "name": "psr/cache",
@@ -785,7 +830,7 @@
                 "psr",
                 "psr-6"
             ],
-            "time": "2016-08-06 20:24:11"
+            "time": "2016-08-06T20:24:11+00:00"
         },
         {
             "name": "psr/http-message",
@@ -835,7 +880,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06 14:39:51"
+            "time": "2016-08-06T14:39:51+00:00"
         },
         {
             "name": "psr/log",
@@ -882,20 +927,20 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "ramsey/uuid",
-            "version": "3.7.1",
+            "version": "3.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "45cffe822057a09e05f7bd09ec5fb88eeecd2334"
+                "reference": "44abcdad877d9a46685a3a4d221e3b2c4b87cb76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/45cffe822057a09e05f7bd09ec5fb88eeecd2334",
-                "reference": "45cffe822057a09e05f7bd09ec5fb88eeecd2334",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/44abcdad877d9a46685a3a4d221e3b2c4b87cb76",
+                "reference": "44abcdad877d9a46685a3a4d221e3b2c4b87cb76",
                 "shasum": ""
             },
             "require": {
@@ -906,17 +951,15 @@
                 "rhumsaa/uuid": "self.version"
             },
             "require-dev": {
-                "apigen/apigen": "^4.1",
-                "codeception/aspect-mock": "^1.0 | ^2.0",
+                "codeception/aspect-mock": "^1.0 | ~2.0.0",
                 "doctrine/annotations": "~1.2.0",
                 "goaop/framework": "1.0.0-alpha.2 | ^1.0 | ^2.1",
                 "ircmaxell/random-lib": "^1.1",
                 "jakub-onderka/php-parallel-lint": "^0.9.0",
-                "mockery/mockery": "^0.9.4",
+                "mockery/mockery": "^0.9.9",
                 "moontoast/math": "^1.1",
                 "php-mock/php-mock-phpunit": "^0.3|^1.1",
-                "phpunit/phpunit": "^4.7|>=5.0 <5.4",
-                "satooshi/php-coveralls": "^0.6.1",
+                "phpunit/phpunit": "^4.7|^5.0",
                 "squizlabs/php_codesniffer": "^2.3"
             },
             "suggest": {
@@ -964,7 +1007,7 @@
                 "identifier",
                 "uuid"
             ],
-            "time": "2017-09-22 20:46:04"
+            "time": "2018-01-20T00:28:24+00:00"
         },
         {
             "name": "rize/uri-template",
@@ -1008,7 +1051,7 @@
                 "template",
                 "uri"
             ],
-            "time": "2017-06-14 03:57:53"
+            "time": "2017-06-14T03:57:53+00:00"
         },
         {
             "name": "silex/silex",
@@ -1085,20 +1128,20 @@
             "keywords": [
                 "microframework"
             ],
-            "time": "2017-04-30 16:26:54"
+            "time": "2017-04-30T16:26:54+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.3.9",
+            "version": "v3.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "8beb24eec70b345c313640962df933499373a944"
+                "reference": "1b95888cfd996484527cb41e8952d9a5eaf7454f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/8beb24eec70b345c313640962df933499373a944",
-                "reference": "8beb24eec70b345c313640962df933499373a944",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/1b95888cfd996484527cb41e8952d9a5eaf7454f",
+                "reference": "1b95888cfd996484527cb41e8952d9a5eaf7454f",
                 "shasum": ""
             },
             "require": {
@@ -1109,12 +1152,12 @@
                 "symfony/http-kernel": ">=2.3,<2.3.24|~2.4.0|>=2.5,<2.5.9|>=2.6,<2.6.2"
             },
             "require-dev": {
-                "symfony/http-kernel": "~2.8|~3.0"
+                "symfony/http-kernel": "~2.8|~3.0|~4.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -1141,7 +1184,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-09-01 13:23:39"
+            "time": "2018-04-30T16:53:52+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1201,7 +1244,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-19 10:44:15"
+            "time": "2016-07-19T10:44:15+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -1254,7 +1297,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-17 13:54:30"
+            "time": "2016-07-17T13:54:30+00:00"
         },
         {
             "name": "symfony/http-kernel",
@@ -1336,20 +1379,20 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-30 09:10:37"
+            "time": "2016-07-30T09:10:37+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.5.0",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "7c8fae0ac1d216eb54349e6a8baa57d515fe8803"
+                "reference": "3296adf6a6454a050679cde90f95350ad604b171"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7c8fae0ac1d216eb54349e6a8baa57d515fe8803",
-                "reference": "7c8fae0ac1d216eb54349e6a8baa57d515fe8803",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/3296adf6a6454a050679cde90f95350ad604b171",
+                "reference": "3296adf6a6454a050679cde90f95350ad604b171",
                 "shasum": ""
             },
             "require": {
@@ -1361,7 +1404,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5-dev"
+                    "dev-master": "1.8-dev"
                 }
             },
             "autoload": {
@@ -1395,7 +1438,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-06-14 15:44:48"
+            "time": "2018-04-26T10:06:28+00:00"
         },
         {
             "name": "symfony/routing",
@@ -1470,7 +1513,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2016-06-29 05:40:00"
+            "time": "2016-06-29T05:40:00+00:00"
         }
     ],
     "packages-dev": [],
@@ -1480,7 +1523,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "7.1.*",
+        "php": "7.2.*",
         "ext-grpc": "*",
         "ext-mailparse": "*",
         "ext-mbstring": "*",
