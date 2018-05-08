@@ -127,7 +127,7 @@ steps:
     waitFor: ['php56-custom-build', 'test-network']
     id: php56-custom-app
   - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', 'gcr.io/${_GOOGLE_PROJECT_ID}/ubuntu-php-test-runner:$_TAG', '/workspace/testapps/php56_custom']
+    args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', '--env', 'EXTRA_COMPOSER_FLAGS=--ignore-platform-reqs', 'gcr.io/${_GOOGLE_PROJECT_ID}/ubuntu-php-test-runner:$_TAG', '/workspace/testapps/php56_custom']
     waitFor: ['php56-custom-app', 'test-runner']
     id: php56-custom-test
 

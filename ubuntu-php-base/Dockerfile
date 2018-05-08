@@ -16,6 +16,13 @@
 
 FROM gcr.io/gcp-runtimes/ubuntu_16_0_4
 
+# Install build scripts - composer, nginx, php
+COPY build-scripts /build-scripts
+# Files for stackdriver setup
+COPY stackdriver-files /stackdriver-files
+
+RUN chown -R www-data /build-scripts /stackdriver-files
+
 RUN apt-get update -y && \
     apt-get -y upgrade && \
     apt-get install -y --no-install-recommends \
@@ -41,10 +48,12 @@ RUN apt-get update -y && \
     libxml2 \
     libxslt1.1 \
     mercurial \
+    nginx-extras \
     sasl2-bin \
     subversion \
     supervisor \
-    zlib1g
+    zlib1g && \
+    /bin/bash /build-scripts/apt-cleanup.sh
 
 ENV NGINX_DIR=/etc/nginx \
     PHP_DIR=/opt/php \
@@ -63,13 +72,6 @@ ENV NGINX_DIR=/etc/nginx \
     DOCUMENT_ROOT=/app \
     FRONT_CONTROLLER_FILE=index.php
 
-# Install build scripts - composer, nginx, php
-COPY build-scripts /build-scripts
-# Files for stackdriver setup
-COPY stackdriver-files /stackdriver-files
-
-RUN chown -R www-data /build-scripts /stackdriver-files
-
 ARG RUNTIME_DISTRIBUTION="gcp-php-runtime-xenial-unstable"
 
 RUN mkdir -p $PHP_CONFIG_TEMPLATE
@@ -81,7 +83,7 @@ RUN (echo "deb http://packages.cloud.google.com/apt ${RUNTIME_DISTRIBUTION} main
       | apt-key add -) && \
     apt-get -y update && \
     /bin/bash /build-scripts/dump_php_versions.sh && \
-    /bin/bash /build-scripts/install_nginx.sh
+    /bin/bash /build-scripts/apt-cleanup.sh
 
 EXPOSE 8080
 

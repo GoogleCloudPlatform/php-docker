@@ -18,27 +18,16 @@
 # A shell script for installing PHP 7.1.x.
 set -xe
 
-apt-get install -y \
+apt-get update -y
+apt-get install -y --no-install-recommends \
         gcp-php71 \
         gcp-php71-apcu \
         gcp-php71-apcu-bc \
-        gcp-php71-cassandra \
-        gcp-php71-ev \
-        gcp-php71-event \
-        gcp-php71-grpc \
-        gcp-php71-imagick \
         gcp-php71-libsodium \
         gcp-php71-mailparse \
-        gcp-php71-memcached \
-        gcp-php71-mongodb \
-        gcp-php71-oauth \
-        gcp-php71-opencensus \
-        gcp-php71-pq \
-        gcp-php71-protobuf \
-        gcp-php71-rdkafka \
-        gcp-php71-redis \
-        gcp-php71-stackdriver-debugger \
-        --no-install-recommends
+        gcp-php71-memcached
+
+/bin/bash /build-scripts/apt-cleanup.sh
 
 # Enable some extensions for backward compatibility
 ln -sf ${PHP71_DIR}/bin/php71-enmod ${PHP71_DIR}/bin/php-enmod

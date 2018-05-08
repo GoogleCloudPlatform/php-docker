@@ -1,6 +1,8 @@
 {
     "require": {
         "php": "7.2.*",
+        "ext-grpc": "*",
+        "ext-pdo_sqlite": "*",
         "google/cloud": "*",
         "grpc/grpc": "*",
         "silex/silex": "^1.3"

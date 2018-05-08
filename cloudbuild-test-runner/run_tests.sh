@@ -22,7 +22,7 @@ fi
 cd ${TEST_DIR}
 
 if [ -f composer.json ]; then
-    composer install --no-scripts --no-interaction --no-ansi --no-progress
+    composer install --no-scripts --no-interaction --no-ansi --no-progress ${EXTRA_COMPOSER_FLAGS}
 fi
 
 phpunit

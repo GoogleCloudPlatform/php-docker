@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2017 Google Inc.
+# Copyright 2018 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,12 @@
 # limitations under the License.
 
 
-# A shell script for installing nginx.
-set -xe
+# A shell script for cleaning up the apt files
+set -e
 
-apt-get install -y nginx-extras --no-install-recommends
+# Remove apt repo lists except for ours
+rm -f /var/lib/apt/lists/archive*
+rm -f /var/lib/apt/lists/security*
+
+# No need for the cache
+rm -rf /var/cache/apt
