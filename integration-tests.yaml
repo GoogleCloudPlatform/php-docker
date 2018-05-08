@@ -52,3 +52,15 @@ steps:
     - 'E2E_PROJECT_ID=${_E2E_PROJECT_ID}'
     - 'RUNTIME_BUILDER_ROOT=${_RUNTIME_BUILDER_ROOT}'
     - 'TEST_VM_IMAGE=${_TEST_VM_IMAGE}'
+
+  # ubuntu based image deployment test
+  - name: gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG
+    args: ['/workspace/testapps/ubuntu_php72/tests']
+    waitFor: ['test-runner']
+    id: ubuntu-php72
+    env:
+    - 'SERVICE_ACCOUNT_JSON=${_SERVICE_ACCOUNT_JSON}'
+    - 'TAG=${_TAG}-u-php72'
+    - 'E2E_PROJECT_ID=${_E2E_PROJECT_ID}'
+    - 'RUNTIME_BUILDER_ROOT=${_RUNTIME_BUILDER_ROOT}'
+    - 'TEST_VM_IMAGE=${_TEST_VM_IMAGE}'

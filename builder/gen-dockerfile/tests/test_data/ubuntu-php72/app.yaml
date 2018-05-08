@@ -1,0 +1,7 @@
+env: flex
+runtime: php
+
+runtime_config:
+  base_os: ubuntu16
+  document_root: /app
+

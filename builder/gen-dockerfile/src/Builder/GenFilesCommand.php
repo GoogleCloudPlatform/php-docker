@@ -50,9 +50,6 @@ class GenFilesCommand extends Command
     private $twig;
 
     /* @var string */
-    private $baseImage;
-
-    /* @var string */
     private $detectedPhpVersion;
 
     protected function configure()
@@ -83,6 +80,30 @@ class GenFilesCommand extends Command
                 null,
                 InputOption::VALUE_REQUIRED,
                 'The PHP 56 base image of the Dockerfile'
+            )
+            ->addOption(
+                'ubuntu-php72-image',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'The PHP 72 ubuntu base image of the Dockerfile'
+            )
+            ->addOption(
+                'ubuntu-php71-image',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'The PHP 71 ubuntu base image of the Dockerfile'
+            )
+            ->addOption(
+                'ubuntu-php70-image',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'The PHP 70 ubuntu base image of the Dockerfile'
+            )
+            ->addOption(
+                'ubuntu-php56-image',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'The PHP 56 ubuntu base image of the Dockerfile'
             )
             ->addOption(
                 'workspace',
@@ -122,29 +143,52 @@ Using PHP version 7.2.x...</info>
             );
         }
         if (substr($version, 0, 3) === '5.6') {
-            $this->baseImage = $input->getOption('php56-image');
             $this->detectedPhpVersion = '5.6';
         } elseif (substr($version, 0, 3) === '7.0') {
-            $this->baseImage = $input->getOption('php70-image');
             $this->detectedPhpVersion = '7.0';
         } elseif (substr($version, 0, 3) === '7.1') {
-            $this->baseImage = $input->getOption('php71-image');
             $this->detectedPhpVersion = '7.1';
         } else {
-            $this->baseImage = $input->getOption('php72-image');
             $this->detectedPhpVersion = '7.2';
         }
         $yamlPath = getenv('GAE_APPLICATION_YAML_PATH')
             ?: self::DEFAULT_YAML_PATH;
         if (file_exists($this->workspace . '/' . $yamlPath)) {
             $this->appYaml = Yaml::parse(
-                file_get_contents($this->workspace . '/' . $yamlPath));
+                file_get_contents($this->workspace . '/' . $yamlPath)
+            );
         }
     }
 
+    protected function determineBaseOS()
+    {
+        $defaultOS = 'debian8';
+        $availableOptions = ['debian8', 'ubuntu16'];
+        if (!is_array($this->appYaml) || !array_key_exists('runtime_config', $this->appYaml)) {
+            return $defaultOS;
+        }
+        $runtimeConfig = $this->appYaml['runtime_config'];
+        $baseOS = (array_key_exists('base_os', $runtimeConfig)
+                   && in_array($runtimeConfig['base_os'], $availableOptions))
+            ? $runtimeConfig['base_os']
+            : $defaultOS;
+        return $baseOS;
+    }
+
+    protected function determineBaseImage(InputInterface $input, OutputInterface $output)
+    {
+        $imageOption = 'php'
+            . str_replace('.', '', $this->detectedPhpVersion)
+            . '-image';
+        $baseOS = $this->determineBaseOS();
+        if ($baseOS === 'ubuntu16') {
+            $imageOption = 'ubuntu-' . $imageOption;
+        }
+        return $input->getOption($imageOption);
+    }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->createDockerfile($this->baseImage);
+        $this->createDockerfile($this->determineBaseImage($input, $output));
         $this->createDockerignore();
     }
 
@@ -227,7 +271,8 @@ Using PHP version 7.2.x...</info>
                 } elseif ($v === 'BUILDER_DEBUG_OUTPUT'
                           || $v === 'SKIP_LOCKDOWN_DOCUMENT_ROOT') {
                     $ret[$v] = filter_var(
-                        $runtimeConfig[$k], FILTER_VALIDATE_BOOLEAN
+                        $runtimeConfig[$k],
+                        FILTER_VALIDATE_BOOLEAN
                     )
                         ? 'true'
                         : 'false';
