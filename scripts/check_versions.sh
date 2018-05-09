@@ -29,8 +29,8 @@ gcloud auth activate-service-account \
 SRC_TMP=$(mktemp -d)
 
 # build the php test runner
-export PHP_56_IMAGE="gcr.io/google-appengine/php56:latest"
-envsubst '${PHP_56_IMAGE}' \
+export TEST_RUNNER_BASE_IMAGE="gcr.io/google-appengine/php56:latest"
+envsubst '${TEST_RUNNER_BASE_IMAGE}' \
          < cloudbuild-test-runner/Dockerfile.in \
          > cloudbuild-test-runner/Dockerfile
 

@@ -34,6 +34,7 @@ fi
 export PHP_BASE_IMAGE="gcr.io/google-appengine/php-base"
 export BASE_IMAGE="gcr.io/google-appengine/php"
 export PHP_56_IMAGE="gcr.io/google-appengine/php56"
+export TEST_RUNNER_BASE_IMAGE=${PHP_56_IMAGE}
 
 for TEMPLATE in `find . -name Dockerfile.in`
 do
