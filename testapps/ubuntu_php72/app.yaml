@@ -1,0 +1,8 @@
+runtime: php
+env: flex
+
+runtime_config:
+  document_root: web
+  whitelist_functions: phpinfo,exec
+  base_os: ubuntu16
+  enable_stackdriver_integration: true
