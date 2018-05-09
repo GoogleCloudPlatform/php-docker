@@ -24,9 +24,11 @@ if [ -z "${SKIP_CS_CHECK}" ]; then
     vendor/bin/php-cs-fixer fix --dry-run --diff
 fi
 
-# Then build the images and run the tests.
-scripts/build_images.sh
+# Build the debian images
+RUN_E2E_TESTS='' scripts/build_images.sh
 
-# clear this envvar for ubuntu repo
+# Clear this envvar for ubuntu repo
 unset RUNTIME_DISTRIBUTION
+
+# Build the ubuntu images
 scripts/build_images.sh ubuntu
