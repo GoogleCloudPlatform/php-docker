@@ -42,14 +42,13 @@ class CollectDeploymentLatencyTest extends TestCase
         copy(__DIR__ . '/files/app.yaml', $tempDir . '/app.yaml');
         copy(__DIR__ . '/files/web/index.php', $tempDir . '/web/index.php');
         chdir($tempDir);
-        self::execWithError(
-            'composer require google/cloud',
-            'composer require google/cloud'
-        );
-        self::execWithError(
-            'composer --ignore-platform-reqs require php:' . $phpVersion . '.*',
-            'composer require php'
-        );
+        $composerJSON = [
+            'require' => [
+                'php' => $phpVersion . '.*',
+                'google/cloud' => '*'
+            ]
+        ];
+        file_put_contents('composer.json', json_encode($composerJSON));
         return $tempDir;
     }
 
@@ -58,49 +57,66 @@ class CollectDeploymentLatencyTest extends TestCase
         $phpVersions = [
             '5.6',
             '7.0',
-            '7.1'
+            '7.1',
+            '7.2'
         ];
         $types = [
-            'xrt',
-            'builder'
+            'debian8',
+            'ubuntu16'
         ];
         $gcloudTrack = getenv('GCLOUD_TRACK') === 'beta' ? 'beta' : '';
         foreach ($phpVersions as $phpVersion) {
-            $dir = self::createApp($phpVersion);
-            chdir($dir);
             foreach ($types as $type) {
-                $reportName = sprintf('%s-%s', $type, $phpVersion);
-                $failureCount = 0;
-                $command = 'gcloud -q ' . $gcloudTrack . ' app deploy'
-                    . ' --version '
-                    . str_replace('.', '', $reportName)
-                    . ' --no-stop-previous-version --no-promote';
-                $configCmd = 'gcloud config set app/use_runtime_builders '
-                    . ($type === 'xrt' ? 'false' : 'true');
-                self::execWithError($configCmd, 'runtime-builders-config');
-                $latency = 0.0;
-                while ($failureCount < self::DEPLOYMENT_MAX_RETRY) {
-                    $start = microtime(true);
-                    $ret = self::execWithResult($command);
-                    if ($ret === 0) {
-                        $latency = microtime(true) - $start;
-                        break;
+                $dir = self::createApp($phpVersion);
+                chdir($dir);
+                try {
+                    $reportName = sprintf('%s-%s', $type, $phpVersion);
+                    $failureCount = 0;
+                    $command = 'gcloud -q ' . $gcloudTrack . ' app deploy'
+                        . ' --version '
+                        . str_replace('.', '', $reportName)
+                        . ' --no-stop-previous-version --no-promote';
+                    $configCmd = 'gcloud config set app/use_runtime_builders true';
+                    self::execWithError($configCmd, 'runtime-builders-config');
+                    $f = fopen('app.yaml', 'a+');
+                    fwrite($f, "  base_os: $type\n");
+                    $latency = 0.0;
+                    while ($failureCount < self::DEPLOYMENT_MAX_RETRY) {
+                        $start = microtime(true);
+                        $ret = self::execWithResult($command);
+                        if ($ret === 0) {
+                            $latency = microtime(true) - $start;
+                            break;
+                        }
+                        $failureCount++;
                     }
-                    $failureCount++;
+                    self::$bigQuery = self::createBigQueryClient();
+                    $dataset = self::$bigQuery->dataset(self::DATASET_ID);
+                    $table = $dataset->table(self::TABLE_ID);
+                    $timestamp = self::$bigQuery->timestamp(new \DateTime());
+                    $row = [
+                        'deployment_latency_seconds' => $latency,
+                        'report_name' => $reportName,
+                        'failure_count' => $failureCount,
+                        't' => $timestamp
+                    ];
+                    $table->insertRow($row);
+                    echo "Inserted: $reportName failure: $failureCount" . PHP_EOL;
+                    echo "Inserted: $reportName latency: $latency" . PHP_EOL;
+                } finally {
+                    $command = 'gcloud -q ' . $gcloudTrack . ' app versions delete '
+                        . str_replace('.', '', $reportName);
+                    $failureCount = 0;
+                    while ($failureCount < self::DEPLOYMENT_MAX_RETRY) {
+                        $start = microtime(true);
+                        $ret = self::execWithResult($command);
+                        if ($ret === 0) {
+                            break;
+                        }
+                        $failureCount++;
+                    }
+                    exec("rm -rf $dir");
                 }
-                self::$bigQuery = self::createBigQueryClient();
-                $dataset = self::$bigQuery->dataset(self::DATASET_ID);
-                $table = $dataset->table(self::TABLE_ID);
-                $timestamp = self::$bigQuery->timestamp(new \DateTime());
-                $row = [
-                    'deployment_latency_seconds' => $latency,
-                    'report_name' => $reportName,
-                    'failure_count' => $failureCount,
-                    't' => $timestamp
-                ];
-                $table->insertRow($row);
-                echo "Inserted: $reportName failure: $failureCount" . PHP_EOL;
-                echo "Inserted: $reportName latency: $latency" . PHP_EOL;
             }
         }
     }

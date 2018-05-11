@@ -32,8 +32,8 @@ TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
 
 if [ -n "${REBUILD_TEST_RUNNER}" ]; then
     # build the php test runner
-    export PHP_56_IMAGE="gcr.io/google-appengine/php56:latest"
-    envsubst '${PHP_56_IMAGE}' \
+    export TEST_RUNNER_BASE_IMAGE="gcr.io/google-appengine/ubuntu-php72:latest"
+    envsubst '${TEST_RUNNER_BASE_IMAGE}' \
              < cloudbuild-test-runner/Dockerfile.in \
              > cloudbuild-test-runner/Dockerfile
     gcloud -q container builds submit --tag "${TEST_RUNNER}" \
