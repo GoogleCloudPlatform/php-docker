@@ -38,7 +38,7 @@ export TEST_RUNNER_BASE_IMAGE=${PHP_56_IMAGE}
 
 for TEMPLATE in `find . -name Dockerfile.in`
 do
-    envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_56_IMAGE}' \
+    envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_56_IMAGE} ${TEST_RUNNER_BASE_IMAGE}' \
              < ${TEMPLATE} \
              > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
 done
