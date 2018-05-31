@@ -262,6 +262,18 @@ steps:
     waitFor: ['php72-extensions-build']
     id: php72-extensions-test
 
+  # php72-extensions-legacy test
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php72-extensions:$_TAG', '.']
+    dir: testapps/php72_extensions
+    waitFor: ['php-onbuild']
+    id: php72-extensions-legacy-build
+  - name: gcr.io/cloud-builders/docker
+    args: ['run', 'gcr.io/${_GOOGLE_PROJECT_ID}/php72-extensions:$_TAG', 'vendor/bin/phpunit']
+    dir: testapps/php72_extensions
+    waitFor: ['php72-extensions-build']
+    id: php72-extensions-legacy-test
+
 images:
   - gcr.io/${_GOOGLE_PROJECT_ID}/ubuntu-php-base:$_TAG
   - gcr.io/${_GOOGLE_PROJECT_ID}/ubuntu-php:$_TAG
