@@ -25,17 +25,10 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
     exit 1
 fi
 
-if [ $# == 1 ] && [ $1 == 'ubuntu' ]; then
-    echo "Building ubuntu images"
-    DEFAULT_RUNTIME_DISTRIBUTION="gcp-php-runtime-xenial-unstable"
-    CLOUDBUILD_CONFIG="cloudbuild-ubuntu.yaml"
-    IMAGE_PREFIX="ubuntu-"
-else
-    echo "Building debian images"
-    CLOUDBUILD_CONFIG="cloudbuild.yaml"
-    DEFAULT_RUNTIME_DISTRIBUTION="gcp-php-runtime-jessie"
-    IMAGE_PREFIX=""
-fi
+echo "Building ubuntu images"
+DEFAULT_RUNTIME_DISTRIBUTION="gcp-php-runtime-xenial-unstable"
+CLOUDBUILD_CONFIG="cloudbuild-ubuntu.yaml"
+IMAGE_PREFIX="ubuntu-"
 
 export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE_PREFIX}php-base:${TAG}"
 export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE_PREFIX}php:${TAG}"
