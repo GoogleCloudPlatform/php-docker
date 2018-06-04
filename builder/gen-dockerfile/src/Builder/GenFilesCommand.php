@@ -82,30 +82,6 @@ class GenFilesCommand extends Command
                 'The PHP 56 base image of the Dockerfile'
             )
             ->addOption(
-                'ubuntu-php72-image',
-                null,
-                InputOption::VALUE_REQUIRED,
-                'The PHP 72 ubuntu base image of the Dockerfile'
-            )
-            ->addOption(
-                'ubuntu-php71-image',
-                null,
-                InputOption::VALUE_REQUIRED,
-                'The PHP 71 ubuntu base image of the Dockerfile'
-            )
-            ->addOption(
-                'ubuntu-php70-image',
-                null,
-                InputOption::VALUE_REQUIRED,
-                'The PHP 70 ubuntu base image of the Dockerfile'
-            )
-            ->addOption(
-                'ubuntu-php56-image',
-                null,
-                InputOption::VALUE_REQUIRED,
-                'The PHP 56 ubuntu base image of the Dockerfile'
-            )
-            ->addOption(
                 'workspace',
                 'w',
                 InputOption::VALUE_REQUIRED,
