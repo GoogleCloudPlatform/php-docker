@@ -12,7 +12,7 @@ machine:
     GOOGLE_PROJECT_ID: php-mvm-a
     E2E_PROJECT_ID: php-mvm-a
     TAG: circle-${CIRCLE_BUILD_NUM}
-    RUNTIME_DISTRIBUTION: gcp-php-runtime-jessie-unstable
+    RUNTIME_DISTRIBUTION: gcp-php-runtime-xenial-unstable
     BUILDER_TARGET_IMAGE: gcr.io/${GOOGLE_PROJECT_ID}/php
     RUN_E2E_TESTS: true
 

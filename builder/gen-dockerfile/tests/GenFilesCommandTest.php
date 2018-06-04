@@ -80,10 +80,6 @@ class GenFilesCommandTest extends TestCase
                     '--php70-image' => 'gcr.io/google-appengine/php70:latest',
                     '--php71-image' => 'gcr.io/google-appengine/php71:latest',
                     '--php72-image' => 'gcr.io/google-appengine/php72:latest',
-                    '--ubuntu-php56-image' => 'gcr.io/google-appengine/ubuntu-php56:latest',
-                    '--ubuntu-php70-image' => 'gcr.io/google-appengine/ubuntu-php70:latest',
-                    '--ubuntu-php71-image' => 'gcr.io/google-appengine/ubuntu-php71:latest',
-                    '--ubuntu-php72-image' => 'gcr.io/google-appengine/ubuntu-php72:latest',
                 ];
         }
         if ($expectedException !== null) {
@@ -238,58 +234,6 @@ class GenFilesCommandTest extends TestCase
                 '/app',
                 'added by the php runtime builder',
                 'gcr.io/google-appengine/php72:latest',
-                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
-                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
-                 "DETECTED_PHP_VERSION='7.2' \n"
-                ]
-            ],
-            [
-                // Ubuntu PHP 5.6
-                __DIR__ . '/test_data/ubuntu-php56',
-                null,
-                '',
-                '/app',
-                'added by the php runtime builder',
-                'gcr.io/google-appengine/ubuntu-php56:latest',
-                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
-                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
-                 "DETECTED_PHP_VERSION='5.6' \n"
-                ]
-            ],
-            [
-                // PHP 7.0
-                __DIR__ . '/test_data/ubuntu-php70',
-                null,
-                '',
-                '/app',
-                'added by the php runtime builder',
-                'gcr.io/google-appengine/ubuntu-php70:latest',
-                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
-                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
-                 "DETECTED_PHP_VERSION='7.0' \n"
-                ]
-            ],
-            [
-                // PHP 7.1
-                __DIR__ . '/test_data/ubuntu-php71',
-                null,
-                '',
-                '/app',
-                'added by the php runtime builder',
-                'gcr.io/google-appengine/ubuntu-php71:latest',
-                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
-                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
-                 "DETECTED_PHP_VERSION='7.1' \n"
-                ]
-            ],
-            [
-                // PHP 7.2
-                __DIR__ . '/test_data/ubuntu-php72',
-                null,
-                '',
-                '/app',
-                'added by the php runtime builder',
-                'gcr.io/google-appengine/ubuntu-php72:latest',
                 ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
                  "FRONT_CONTROLLER_FILE='index.php' \\\n",
                  "DETECTED_PHP_VERSION='7.2' \n"

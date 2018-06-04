@@ -18,7 +18,8 @@
 # A shell script for installing PHP 7.2.x.
 set -xe
 
-apt-get install -y \
+apt-get update -y
+apt-get install -y --no-install-recommends \
         gcp-php72 \
         gcp-php72-apcu \
         gcp-php72-apcu-bc \
@@ -36,9 +37,9 @@ apt-get install -y \
         gcp-php72-protobuf \
         gcp-php72-rdkafka \
         gcp-php72-redis \
-        gcp-php72-stackdriver-debugger \
-        libsodium18 \
-        --no-install-recommends
+        gcp-php72-stackdriver-debugger
+
+/bin/bash /build-scripts/apt-cleanup.sh
 
 # Enable some extensions for backward compatibility
 ln -sf ${PHP72_DIR}/bin/php72-enmod ${PHP72_DIR}/bin/php-enmod

@@ -25,23 +25,15 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
     exit 1
 fi
 
-if [ $# == 1 ] && [ $1 == 'ubuntu' ]; then
-    echo "Building ubuntu images"
-    DEFAULT_RUNTIME_DISTRIBUTION="gcp-php-runtime-xenial-unstable"
-    CLOUDBUILD_CONFIG="cloudbuild-ubuntu.yaml"
-    IMAGE_PREFIX="ubuntu-"
-else
-    echo "Building debian images"
-    CLOUDBUILD_CONFIG="cloudbuild.yaml"
-    DEFAULT_RUNTIME_DISTRIBUTION="gcp-php-runtime-jessie"
-    IMAGE_PREFIX=""
-fi
+echo "Building ubuntu images"
+DEFAULT_RUNTIME_DISTRIBUTION="gcp-php-runtime-xenial-unstable"
+CLOUDBUILD_CONFIG="cloudbuild-ubuntu.yaml"
 
-export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE_PREFIX}php-base:${TAG}"
-export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE_PREFIX}php:${TAG}"
-export PHP_56_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE_PREFIX}php56:${TAG}"
-export PHP_71_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE_PREFIX}php71:${TAG}"
-export PHP_72_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/${IMAGE_PREFIX}php71:${TAG}"
+export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
+export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
+export PHP_56_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php56:${TAG}"
+export PHP_71_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php71:${TAG}"
+export PHP_72_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php71:${TAG}"
 export TEST_RUNNER_BASE_IMAGE=${PHP_56_IMAGE}
 
 if [ -z "${RUNTIME_DISTRIBUTION}" ]; then
@@ -73,7 +65,7 @@ else
     fi
 
     # replace runtime builder pipeline :latest with our newly tagged images
-    sed -e "s/google-appengine\//${GOOGLE_PROJECT_ID}\/${IMAGE_PREFIX}/g" \
+    sed -e "s/google-appengine\//${GOOGLE_PROJECT_ID}/g" \
         -e "s/gcp-runtimes/${GOOGLE_PROJECT_ID}/g" \
         -e "/docker:latest/!s/:latest/:${TAG}/g" builder/php-latest.yaml > builder/php-test.yaml
 

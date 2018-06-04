@@ -18,7 +18,8 @@
 # A shell script for installing PHP 7.0.x.
 set -xe
 
-apt-get install -y \
+apt-get update -y
+apt-get install -y --no-install-recommends \
         gcp-php70 \
         gcp-php70-apcu \
         gcp-php70-apcu-bc \
@@ -38,8 +39,9 @@ apt-get install -y \
         gcp-php70-protobuf \
         gcp-php70-rdkafka \
         gcp-php70-redis \
-        gcp-php70-stackdriver-debugger \
-        --no-install-recommends
+        gcp-php70-stackdriver-debugger
+
+/bin/bash /build-scripts/apt-cleanup.sh
 
 # Enable some extensions for backward compatibility
 ln -sf ${PHP70_DIR}/bin/php70-enmod ${PHP70_DIR}/bin/php-enmod

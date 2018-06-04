@@ -1,1 +1,0 @@
-debian/ext-${EXT_NAME}.ini opt/php${SHORT_VERSION}/lib/ext.available
