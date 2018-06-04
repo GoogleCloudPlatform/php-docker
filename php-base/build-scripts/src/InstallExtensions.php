@@ -148,7 +148,8 @@ class InstallExtensions
 
     public function packageName($extension)
     {
-        return 'gcp-php' . str_replace('.', '', $this->phpVersion) . '-' . $extension;
+        return 'gcp-php' . str_replace('.', '', $this->phpVersion) . '-'
+            . str_replace('_', '-', $extension);
     }
 
     private function defaultConfigFile()

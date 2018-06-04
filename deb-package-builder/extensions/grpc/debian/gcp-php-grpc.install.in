@@ -1,1 +1,0 @@
-debian/ext-grpc.ini opt/php${SHORT_VERSION}/lib/ext.available

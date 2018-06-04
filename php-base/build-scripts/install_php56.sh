@@ -18,7 +18,8 @@
 # A shell script for installing PHP 5.6.x.
 set -xe
 
-apt-get install -y \
+apt-get update -y
+apt-get install -y --no-install-recommends \
         gcp-php56 \
         gcp-php56-apcu \
         gcp-php56-cassandra \
@@ -38,8 +39,9 @@ apt-get install -y \
         gcp-php56-protobuf \
         gcp-php56-rdkafka \
         gcp-php56-redis \
-        gcp-php56-suhosin \
-        --no-install-recommends
+        gcp-php56-suhosin
+
+/bin/bash /build-scripts/apt-cleanup.sh
 
 # Enable some extensions for backward compatibility
 ln -sf ${PHP56_DIR}/bin/php56-enmod ${PHP56_DIR}/bin/php-enmod

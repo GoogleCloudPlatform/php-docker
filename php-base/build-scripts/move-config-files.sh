@@ -48,14 +48,17 @@ fi
 # Move user-provided nginx config files.
 if [ -f "${NGINX_CONF_INCLUDE}" ]; then
     cp "${NGINX_CONF_INCLUDE}" "${NGINX_USER_CONF_DIR}/nginx-app.conf"
+    chgrp www-data "${NGINX_USER_CONF_DIR}/nginx-app.conf"
 fi
 
 if [ -f "${NGINX_CONF_HTTP_INCLUDE}" ]; then
     cp "${NGINX_CONF_HTTP_INCLUDE}" "${NGINX_USER_CONF_DIR}/nginx-http.conf"
+    chgrp www-data "${NGINX_USER_CONF_DIR}/nginx-http.conf"
 fi
 
 if [ -f "${NGINX_CONF_OVERRIDE}" ]; then
     cp "${NGINX_CONF_OVERRIDE}" "${NGINX_DIR}/nginx.conf"
+    chgrp www-data "${NGINX_DIR}/nginx.conf"
 fi
 
 # User provided php-fpm.conf
@@ -68,6 +71,7 @@ fi
 # Move user-provided php-fpm config file.
 if [ -f "${PHP_FPM_CONF_OVERRIDE}" ]; then
     cp "${PHP_FPM_CONF_OVERRIDE}" "${PHP_DIR}/etc/php-fpm-user.conf"
+    chgrp www-data "${PHP_DIR}/etc/php-fpm-user.conf"
 fi
 
 # User provided php.ini
@@ -80,6 +84,7 @@ fi
 # Move user-provided php.ini.
 if [ -f "${PHP_INI_OVERRIDE}" ]; then
     cp "${PHP_INI_OVERRIDE}" "${PHP_DIR}/lib/conf.d"
+    chgrp www-data ${PHP_DIR}/lib/conf.d/*
 fi
 
 # User provided supervisord.conf
@@ -98,8 +103,10 @@ fi
 # Move user-provided supervisord.conf.
 if [ -f "${SUPERVISORD_CONF_ADDITION}" ]; then
     cp "${SUPERVISORD_CONF_ADDITION}" /etc/supervisor/conf.d
+    chgrp www-data /etc/supervisor/conf.d/*
 fi
 
 if [ -f "${SUPERVISORD_CONF_OVERRIDE}" ]; then
     cp "${SUPERVISORD_CONF_OVERRIDE}" /etc/supervisor/supervisord.conf
+    chgrp www-data /etc/supervisor/supervisord.conf
 fi

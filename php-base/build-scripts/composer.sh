@@ -54,20 +54,17 @@ EOF
             apt-get -y update
             /bin/bash /build-scripts/install_php56.sh
             apt-get remove -y gcp-php71
-            rm -rf /var/lib/apt/lists/*
         fi
 
         if [ "${PHP_VERSION}" == "7.0" ]; then
             apt-get -y update
             /bin/bash /build-scripts/install_php70.sh
             apt-get remove -y gcp-php71
-            rm -rf /var/lib/apt/lists/*
         fi
         if [ "${PHP_VERSION}" == "7.2" ]; then
             apt-get -y update
             /bin/bash /build-scripts/install_php72.sh
             apt-get remove -y gcp-php71
-            rm -rf /var/lib/apt/lists/*
         fi
     fi
 
@@ -80,6 +77,7 @@ EOF
     echo "Install PHP extensions..."
     # Auto install extensions
     php -d auto_prepend_file='' /build-scripts/install_extensions.php ${APP_DIR}/composer.json ${PHP_DIR}/lib/conf.d/extensions.ini ${PHP_VERSION}
+    /bin/bash /build-scripts/apt-cleanup.sh
 
     echo "Running composer..."
     # Run Composer.
