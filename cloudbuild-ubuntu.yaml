@@ -84,6 +84,24 @@ steps:
     waitFor: ['php-onbuild']
     id: php-onbuild-structure
 
+  # gen-dockerfile
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php/gen-dockerfile:$_TAG', '.']
+    dir: builder/gen-dockerfile
+    waitFor: ['php-onbuild']
+    id: gen-dockerfile
+  - name: gcr.io/cloud-builders/docker
+    args: ['run', '-v', '/workspace/builder/gen-dockerfile:/workspace', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG']
+    waitFor: ['test-runner']
+  - name: gcr.io/${_GOOGLE_PROJECT_ID}/php/gen-dockerfile:$_TAG
+    args: ['--workspace', '/workspace/testapps/builder_test', '--php56-image', 'gcr.io/${_GOOGLE_PROJECT_ID}/php56:$_TAG', '--php70-image', 'gcr.io/${_GOOGLE_PROJECT_ID}/php70:$_TAG', '--php71-image', 'gcr.io/${_GOOGLE_PROJECT_ID}/php71:$_TAG']
+    waitFor: ['gen-dockerfile']
+    id: gen-dockerfile-run
+  - name: gcr.io/cloud-builders/docker
+    args: ['run', '-v', '/workspace/testapps/builder_test:/workspace', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG']
+    waitFor: ['gen-dockerfile-run', 'test-runner']
+    id: gen-dockerfile-test
+
   # php-default test
   - name: gcr.io/cloud-builders/docker
     args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-default:$_TAG', '.']
@@ -281,4 +299,5 @@ images:
   - gcr.io/${_GOOGLE_PROJECT_ID}/php71:$_TAG
   - gcr.io/${_GOOGLE_PROJECT_ID}/php70:$_TAG
   - gcr.io/${_GOOGLE_PROJECT_ID}/php56:$_TAG
+  - gcr.io/${_GOOGLE_PROJECT_ID}/php/gen-dockerfile:$_TAG
   - gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG
