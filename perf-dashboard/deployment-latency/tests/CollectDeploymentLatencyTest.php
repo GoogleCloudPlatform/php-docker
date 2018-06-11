@@ -61,7 +61,6 @@ class CollectDeploymentLatencyTest extends TestCase
             '7.2'
         ];
         $types = [
-            'debian8',
             'ubuntu16'
         ];
         $gcloudTrack = getenv('GCLOUD_TRACK') === 'beta' ? 'beta' : '';
