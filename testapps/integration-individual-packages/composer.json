@@ -9,9 +9,8 @@
     "ext-grpc": "*",
     "ext-protobuf": "*",
     "silex/silex": "^1.3",
-    "google/cloud-logging": "^1.7.0",
-    "google/cloud-error-reporting": "^0.7.0",
-    "google/gax": "^0.27"
+    "google/cloud-logging": "^1.11",
+    "google/cloud-error-reporting": "^0.10"
   },
   "require-dev": {
     "behat/mink": "^1.7",
