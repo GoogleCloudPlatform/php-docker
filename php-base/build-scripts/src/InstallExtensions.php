@@ -88,7 +88,6 @@ class InstallExtensions
         'memcache' => ['7.0', '7.1', '7.2'],
         'mongo' => ['7.0', '7.1', '7.2'],
         'opencensus' => ['5.6'],
-        'phalcon' => ['7.1', '7.2'],
         'stackdriver_debugger' => ['5.6'],
         'v8js' => ['5.6'],
         'vips' => ['5.6'],
