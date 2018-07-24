@@ -34,7 +34,7 @@ fi
 for VERSION in $(echo ${PHP_VERSIONS} | tr "," "\n")
 do
     echo "Building packages for PHP ${VERSION}"
-    gcloud container builds submit . --config=build-packages.yaml \
+    gcloud builds submit . --config=build-packages.yaml \
                                      --substitutions _PHP_VERSION=${VERSION},_GOOGLE_PROJECT_ID=${GOOGLE_PROJECT_ID},_BUCKET=${BUCKET} \
                                      --timeout=180m
 done
