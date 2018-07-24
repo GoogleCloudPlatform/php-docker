@@ -49,7 +49,7 @@ do
     > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
 done
 
-gcloud container builds submit . \
+gcloud builds submit . \
   --config "${CLOUDBUILD_CONFIG}" \
   --timeout 3600 \
   --substitutions _GOOGLE_PROJECT_ID=$GOOGLE_PROJECT_ID,_TAG=$TAG,_RUNTIME_DISTRIBUTION=$RUNTIME_DISTRIBUTION
@@ -72,7 +72,7 @@ else
     echo "Using test build pipeline:"
     cat builder/php-test.yaml
 
-    gcloud container builds submit . \
+    gcloud builds submit . \
       --config integration-tests.yaml \
       --timeout 3600 \
       --substitutions _GOOGLE_PROJECT_ID=$GOOGLE_PROJECT_ID,_TAG=$TAG,_SERVICE_ACCOUNT_JSON=$SERVICE_ACCOUNT_JSON,_E2E_PROJECT_ID=$E2E_PROJECT_ID,_RUNTIME_BUILDER_ROOT=file:///workspace/builder/,_TEST_VM_IMAGE=
