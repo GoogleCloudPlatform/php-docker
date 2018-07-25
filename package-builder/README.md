@@ -59,7 +59,7 @@ We currently support the latest patch version of 5.6, 7.0, 7.1, and 7.2. See
 1. Install `gcloud` utils.
 2. `GOOGLE_PROJECT_ID=my_project_id ./build_packages.sh`
 
-This will use Google Cloud Container Builder to compile packages using docker. The compiled .deb files will be
+This will use Google Cloud Build to compile packages using docker. The compiled .deb files will be
 uploaded to the bucket named `$BUCKET` (defaults to the project id).
 
 If you want to build for specific versions of PHP, set the `$PHP_VERSIONS` environment variable to a comma separated list

@@ -9,7 +9,7 @@ of this repo:
     [Google Developers Console](https://console.developers.google.com/) and
     choose an existing project or create a new project.
 1.  Under `APIs & auth`, enable `App Engine Admin API` and
-   `Google Cloud Container Builder API`
+   `Google Cloud Build API`
 1.  Under `APIs & auth`, choose `Credentials`.
 1.  Click `Add credentials`, and then click `Service account`.
 1.  Select `New service account`, assign a name, and under Role, add `Project` > `Editor`
