@@ -71,7 +71,7 @@ EOF
     echo "Using PHP version: ${PHP_VERSION}"
 
     # Workaround for https://github.com/docker/docker/issues/6047
-    # We want to remove when Container Builder starts to use newer Docker.
+    # We want to remove when Cloud Build starts to use newer Docker.
     rm -rf ${APP_DIR}/vendor
 
     echo "Install PHP extensions..."
