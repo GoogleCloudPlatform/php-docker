@@ -51,12 +51,3 @@ if [ "${ADD_STAGING_TAG}" = "true" ]; then
     gcloud -q beta container images add-tag "${PHP56_IMAGE_NAME}" "${DOCKER_NAMESPACE}/php56:staging"
     gcloud -q beta container images add-tag "${BUILDER_IMAGE_NAME}" "${BUILDER_DOCKER_NAMESPACE}/php/gen-dockerfile:staging"
 fi
-
-METADATA=$(pwd)/METADATA
-cd $KOKORO_PIPER_DIR/google3/third_party/runtimes_common/kokoro
-python note.py php -m ${METADATA} -t ${TAG}
-python note.py php-base -m ${METADATA} -t ${TAG}
-python note.py php72 -m ${METADATA} -t ${TAG}
-python note.py php71 -m ${METADATA} -t ${TAG}
-python note.py php70 -m ${METADATA} -t ${TAG}
-python note.py php56 -m ${METADATA} -t ${TAG}
