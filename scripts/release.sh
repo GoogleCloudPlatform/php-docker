@@ -3,7 +3,7 @@ set -ex
 source $KOKORO_GFILE_DIR/common.sh
 gcloud -q components update beta
 
-cd guthub/php-docker
+cd github/php-docker
 
 if [ -z "$TAG" ]
 then
