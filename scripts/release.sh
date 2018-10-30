@@ -3,6 +3,8 @@ set -ex
 source $KOKORO_GFILE_DIR/common.sh
 gcloud -q components update beta
 
+cd guthub/php-docker
+
 if [ -z "$TAG" ]
 then
   export TAG=$(date +%Y-%m-%d-%H-%M)
