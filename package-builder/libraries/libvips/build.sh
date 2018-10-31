@@ -7,7 +7,7 @@ source ${DEB_BUILDER_DIR}/functions.sh
 echo "Building libvips"
 
 PNAME="libvips"
-VERSION="8.6.3"
+VERSION="8.7.0"
 
 OUTPUT_FILE="${PNAME}_${VERSION}-1~gcp8+1_amd64.deb"
 
@@ -15,7 +15,7 @@ apt-get install -y libtiff5-dev libgsf-1-dev
 
 if [ ! -f "${ARTIFACT_LIB_DIR}/${OUTPUT_FILE}" ]; then
     # Download the source
-    download_from_tarball https://github.com/jcupitt/libvips/releases/download/v${VERSION}/vips-${VERSION}.tar.gz ${VERSION}
+    download_from_tarball https://github.com/libvips/libvips/releases/download/v${VERSION}/vips-${VERSION}.tar.gz ${VERSION}
 
     cp -R ${DEB_BUILDER_DIR}/libraries/libvips/debian ${PACKAGE_DIR}
 
