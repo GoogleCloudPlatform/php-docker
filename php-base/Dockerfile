@@ -74,16 +74,19 @@ ENV NGINX_DIR=/etc/nginx \
 
 ARG RUNTIME_DISTRIBUTION="gcp-php-runtime-xenial-unstable"
 
+COPY ${RUNTIME_DISTRUBTION} /${RUNTIME_DISTRUBTION}
+
 RUN mkdir -p $PHP_CONFIG_TEMPLATE
 COPY php-fpm.conf php.ini php-cli.ini "${PHP_CONFIG_TEMPLATE}/"
 
-RUN (echo "deb http://packages.cloud.google.com/apt ${RUNTIME_DISTRIBUTION} main" \
-    | tee /etc/apt/sources.list.d/gcp-php-runtime.list) && \
+RUN apt-get -y update && \
+	dpkg -i --force-depends /${RUNTIME_DISTRIBUTION}/*.deb && \
+	apt-get install -yf --no-install-recommends && \
     (curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
-      | apt-key add -) && \
-    apt-get -y update && \
-    /bin/bash /build-scripts/dump_php_versions.sh && \
-    /bin/bash /build-scripts/apt-cleanup.sh
+    | apt-key add -) && \
+	/bin/bash /build-scripts/dump_php_versions.sh && \
+	/bin/bash /build-scripts/apt-cleanup.sh && \
+	rm -rf /${RUNTIME_DISTRIBUTION}
 
 EXPOSE 8080
 
