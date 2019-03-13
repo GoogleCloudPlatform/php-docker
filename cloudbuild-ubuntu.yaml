@@ -5,11 +5,17 @@ steps:
     waitFor: ['-']
     id: test-network
 
+  # grab gcp-php packages from GCS
+  - name: gcr.io/cloud-builders/gsutil
+    args: ['-m', 'cp', '-r', 'gs://gcp-php-packages/$_RUNTIME_DISTRIBUTION', '/workspace/php-base']
+    waitFor: ['-']
+    id: gsutil
+
   # php-base
   - name: gcr.io/cloud-builders/docker
     args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-base:$_TAG', '--build-arg', 'RUNTIME_DISTRIBUTION=$_RUNTIME_DISTRIBUTION', '.']
     dir: php-base
-    waitFor: ['-']
+    waitFor: ['gsutil']
     id: php-base
   - name: gcr.io/gcp-runtimes/structure_test
     args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-base:$_TAG', '--config', '/workspace/php-base/php-base.yaml', '-v']

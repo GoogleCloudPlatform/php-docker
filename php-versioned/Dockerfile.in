@@ -23,6 +23,8 @@ RUN /bin/bash /build-scripts/install_php.sh && \
     chgrp www-data /build-scripts/detect_php_version.php && \
     # Temporary enable the shell for www-data
     # We will disable it in lockdown.sh
+    cp /composer.json /build-scripts/ && \
+    chown -R www-data:www-data /build-scripts/ && \
     chsh -s /bin/bash www-data && \
       cd /build-scripts && \
       su www-data -c "php /usr/local/bin/composer require composer/semver"
