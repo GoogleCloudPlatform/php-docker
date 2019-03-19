@@ -26,7 +26,7 @@ override_dh_auto_configure:
 	--enable-intl=shared \
 	--enable-mbstring \
 	--enable-mysqlnd \
-	--enable-opcache \
+	--enable-opcache-file \
 	--enable-pcntl \
 	--enable-shared \
 	--enable-shmop=shared \
