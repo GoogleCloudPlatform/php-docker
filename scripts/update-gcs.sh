@@ -19,11 +19,11 @@ fi
 if [ "${1}" == "debian" ]; then
     GCS_PATH=${DEBIAN_GCS_PATH}
     TARGET_DIR=${DEB_TMP_DIR}/debian
-    RAPTURE_REPO='gcp-php-runtime-jessie'
+    GCS_DESTINATION='gcp-php-runtime-jessie'
 else
     GCS_PATH=${UBUNTU_GCS_PATH}
     TARGET_DIR=${DEB_TMP_DIR}/ubuntu
-    RAPTURE_REPO='gcp-php-runtime-xenial'
+    GCS_DESTINATION='gcp-php-runtime-xenial'
 fi
 
 mkdir -p ${TARGET_DIR}
@@ -48,13 +48,13 @@ php /google/data/ro/teams/php-cloud/php-debian-package-dedup/dedup.php "${1}"
 
 # We're going to mirror rapture's naming scheme to make the switch to GCS as
 # seamless as possible.
-gsutil -m rm -r gs://gcp-php-packages/${RAPTURE_REPO}
-gsutil -m rm -r gs://gcp-php-packages/${RAPTURE_REPO}-unstable
+gsutil -m rm -r gs://gcp-php-packages/${GCS_DESTINATION}
+gsutil -m rm -r gs://gcp-php-packages/${GCS_DESTINATION}-unstable
 
-gsutil -m cp ${TARGET_DIR}/*.deb gs://gcp-php-packages/${RAPTURE_REPO}
-gsutil -m cp ${TARGET_DIR}/*.deb gs://gcp-php-packages/${RAPTURE_REPO}-unstable
+gsutil -m cp ${TARGET_DIR}/*.deb gs://gcp-php-packages/${GCS_DESTINATION}
+gsutil -m cp ${TARGET_DIR}/*.deb gs://gcp-php-packages/${GCS_DESTINATION}-unstable
 
-readonly RUNTIME_DIST="${RAPTURE_REPO}-$(date +%Y%m%d-1)"
+readonly RUNTIME_DIST="${GCS_DESTINATION}-$(date +%Y%m%d-1)"
 gsutil -m cp ${TARGET_DIR}/*.deb "gs://gcp-php-packages/${RUNTIME_DIST}"
 
 echo ""
