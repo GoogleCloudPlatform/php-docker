@@ -9,13 +9,13 @@ cd ${KOKORO_GITHUB_DIR}/php_docker
 
 export TAG=`date +%Y-%m-%d-%H-%M`
 
-cp "${KOKORO_ROOT}/src/keystore/72508_php_e2e_service_account" \
+cp "${PHP_DOCKER_GOOGLE_CREDENTIALS}" \
     ./service_account.json
 
 # For nightly build
 if [ "${GOOGLE_PROJECT_ID}" = "php-mvm-a" ]; then
     gcloud auth activate-service-account \
-           --key-file="${KOKORO_ROOT}/src/keystore/72508_php_e2e_service_account"
+           --key-file="${PHP_DOCKER_GOOGLE_CREDENTIALS}"
     gcloud config set project php-mvm-a
 fi
 
