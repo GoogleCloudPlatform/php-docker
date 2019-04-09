@@ -1,9 +1,11 @@
 #!/bin/bash
 set -ex
-source $KOKORO_PIPER_DIR/google3/third_party/runtimes_common/kokoro/common.sh
+export KOKORO_GITHUB_DIR=${KOKORO_ROOT}/src/github
+source ${KOKORO_GFILE_DIR}/kokoro/common.sh
+
 gcloud -q components update beta
 
-cd $KOKORO_PIPER_DIR/google3/third_party/php_docker
+cd ${KOKORO_GITHUB_DIR}/php_docker
 
 if [ -z "$TAG" ]
 then
@@ -53,7 +55,7 @@ if [ "${ADD_STAGING_TAG}" = "true" ]; then
 fi
 
 METADATA=$(pwd)/METADATA
-cd $KOKORO_PIPER_DIR/google3/third_party/runtimes_common/kokoro
+cd ${KOKORO_GFILE_DIR}/kokoro
 python note.py php -m ${METADATA} -t ${TAG}
 python note.py php-base -m ${METADATA} -t ${TAG}
 python note.py php72 -m ${METADATA} -t ${TAG}
