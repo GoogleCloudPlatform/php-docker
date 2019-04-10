@@ -43,11 +43,4 @@ class InstallExtensionsTest extends TestCase
         unlink($output);
     }
 
-    public function testDisallowsBlacklistedCombo()
-    {
-        $output = tempnam("/tmp", "php.ini");
-        $installer = new InstallExtensions(__DIR__ . '/samples/bad_combo.json', $output, '7.1');
-        $this->assertFalse($installer->installExtensions());
-        $this->assertNotEmpty($installer->errors());
-    }
 }
