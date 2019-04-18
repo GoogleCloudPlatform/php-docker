@@ -52,3 +52,6 @@ steps:
     - 'E2E_PROJECT_ID=${_E2E_PROJECT_ID}'
     - 'RUNTIME_BUILDER_ROOT=${_RUNTIME_BUILDER_ROOT}'
     - 'TEST_VM_IMAGE=${_TEST_VM_IMAGE}'
+
+options:
+  machineType: 'N1_HIGHCPU_8'
