@@ -307,3 +307,6 @@ images:
   - gcr.io/${_GOOGLE_PROJECT_ID}/php56:$_TAG
   - gcr.io/${_GOOGLE_PROJECT_ID}/php/gen-dockerfile:$_TAG
   - gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG
+
+options:
+  machineType: 'N1_HIGHCPU_8'
