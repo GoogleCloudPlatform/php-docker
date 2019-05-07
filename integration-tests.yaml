@@ -29,18 +29,6 @@ steps:
     - 'RUNTIME_BUILDER_ROOT=${_RUNTIME_BUILDER_ROOT}'
     - 'TEST_VM_IMAGE=${_TEST_VM_IMAGE}'
 
-  # build_pipeline_56 test
-  - name: gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG
-    args: ['/workspace/testapps/build_pipeline_php56/tests']
-    waitFor: ['test-runner']
-    id: build_pipeline_php56
-    env:
-    - 'SERVICE_ACCOUNT_JSON=${_SERVICE_ACCOUNT_JSON}'
-    - 'TAG=${_TAG}-bp-php56'
-    - 'E2E_PROJECT_ID=${_E2E_PROJECT_ID}'
-    - 'RUNTIME_BUILDER_ROOT=${_RUNTIME_BUILDER_ROOT}'
-    - 'TEST_VM_IMAGE=${_TEST_VM_IMAGE}'
-
   # build_pipeline_stackdriver test
   - name: gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG
     args: ['/workspace/testapps/build_pipeline_std/tests']

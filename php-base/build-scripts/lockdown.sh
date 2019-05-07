@@ -32,11 +32,6 @@ fi
 # Change the www-data's shell back to /usr/sbin/nologin
 chsh -s /usr/sbin/nologin www-data
 
-# Enable suhosin for PHP 5.6.x
-if [ -x "${PHP56_DIR}/bin/php56-enmod" ]; then
-    ${PHP56_DIR}/bin/php56-enmod suhosin
-fi
-
 # Whitelist functions
 ${PHP_DIR}/bin/php -d auto_prepend_file='' \
           /build-scripts/whitelist_functions.php
