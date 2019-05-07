@@ -4,12 +4,6 @@ commandTests:
     command: ["which", "php"]
     exitCode: 1
     expectedOutput: [""]
-  - name: "php56-version"
-    command: ["cat", "/opt/php56_version"]
-    expectedOutput: ["5\\.6.*"]
-  - name: "php70-version"
-    command: ["cat", "/opt/php70_version"]
-    expectedOutput: ["7\\.0.*"]
   - name: "php71-version"
     command: ["cat", "/opt/php71_version"]
     expectedOutput: ["7\\.1.*"]

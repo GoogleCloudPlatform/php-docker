@@ -73,8 +73,6 @@ class DetectPhpVersion
         return [
             trim(file_get_contents('/opt/php72_version')),
             trim(file_get_contents('/opt/php71_version')),
-            trim(file_get_contents('/opt/php70_version')),
-            trim(file_get_contents('/opt/php56_version'))
         ];
     }
 }

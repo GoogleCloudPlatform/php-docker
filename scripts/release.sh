@@ -29,8 +29,6 @@ IMAGE_NAME="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
 BASE_IMAGE_NAME="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
 PHP72_IMAGE_NAME="gcr.io/${GOOGLE_PROJECT_ID}/php72:${TAG}"
 PHP71_IMAGE_NAME="gcr.io/${GOOGLE_PROJECT_ID}/php71:${TAG}"
-PHP70_IMAGE_NAME="gcr.io/${GOOGLE_PROJECT_ID}/php70:${TAG}"
-PHP56_IMAGE_NAME="gcr.io/${GOOGLE_PROJECT_ID}/php56:${TAG}"
 BUILDER_IMAGE_NAME="gcr.io/${GOOGLE_PROJECT_ID}/php/gen-dockerfile:${TAG}"
 
 if [ "${ADD_CANDIDATE_TAG}" = "true" ]; then
@@ -39,8 +37,6 @@ if [ "${ADD_CANDIDATE_TAG}" = "true" ]; then
     gcloud -q beta container images add-tag "${BASE_IMAGE_NAME}" "${DOCKER_NAMESPACE}/php-base:${CANDIDATE_TAG}"
     gcloud -q beta container images add-tag "${PHP72_IMAGE_NAME}" "${DOCKER_NAMESPACE}/php72:${CANDIDATE_TAG}"
     gcloud -q beta container images add-tag "${PHP71_IMAGE_NAME}" "${DOCKER_NAMESPACE}/php71:${CANDIDATE_TAG}"
-    gcloud -q beta container images add-tag "${PHP70_IMAGE_NAME}" "${DOCKER_NAMESPACE}/php70:${CANDIDATE_TAG}"
-    gcloud -q beta container images add-tag "${PHP56_IMAGE_NAME}" "${DOCKER_NAMESPACE}/php56:${CANDIDATE_TAG}"
 fi
 
 
@@ -49,8 +45,6 @@ if [ "${ADD_STAGING_TAG}" = "true" ]; then
     gcloud -q beta container images add-tag "${BASE_IMAGE_NAME}" "${DOCKER_NAMESPACE}/php-base:staging"
     gcloud -q beta container images add-tag "${PHP72_IMAGE_NAME}" "${DOCKER_NAMESPACE}/php72:staging"
     gcloud -q beta container images add-tag "${PHP71_IMAGE_NAME}" "${DOCKER_NAMESPACE}/php71:staging"
-    gcloud -q beta container images add-tag "${PHP70_IMAGE_NAME}" "${DOCKER_NAMESPACE}/php70:staging"
-    gcloud -q beta container images add-tag "${PHP56_IMAGE_NAME}" "${DOCKER_NAMESPACE}/php56:staging"
     gcloud -q beta container images add-tag "${BUILDER_IMAGE_NAME}" "${BUILDER_DOCKER_NAMESPACE}/php/gen-dockerfile:staging"
 fi
 
@@ -60,5 +54,3 @@ python note.py php -m ${METADATA} -t ${TAG}
 python note.py php-base -m ${METADATA} -t ${TAG}
 python note.py php72 -m ${METADATA} -t ${TAG}
 python note.py php71 -m ${METADATA} -t ${TAG}
-python note.py php70 -m ${METADATA} -t ${TAG}
-python note.py php56 -m ${METADATA} -t ${TAG}

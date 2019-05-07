@@ -31,10 +31,9 @@ CLOUDBUILD_CONFIG="cloudbuild-ubuntu.yaml"
 
 export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
 export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
-export PHP_56_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php56:${TAG}"
 export PHP_71_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php71:${TAG}"
 export PHP_72_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php71:${TAG}"
-export TEST_RUNNER_BASE_IMAGE=${PHP_56_IMAGE}
+export TEST_RUNNER_BASE_IMAGE=${PHP_71_IMAGE}
 
 if [ -z "${RUNTIME_DISTRIBUTION}" ]; then
     RUNTIME_DISTRIBUTION="${DEFAULT_RUNTIME_DISTRIBUTION}"
@@ -44,7 +43,7 @@ export RUNTIME_DISTRIBUTION
 
 for TEMPLATE in `find . -name Dockerfile.in`
 do
-  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_71_IMAGE} ${PHP_56_IMAGE} ${PHP_72_IMAGE} ${TEST_RUNNER_BASE_IMAGE}' \
+  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_71_IMAGE} ${PHP_72_IMAGE} ${TEST_RUNNER_BASE_IMAGE}' \
     < ${TEMPLATE} \
     > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
 done
