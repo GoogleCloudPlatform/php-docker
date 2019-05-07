@@ -33,12 +33,12 @@ fi
 
 export PHP_BASE_IMAGE="gcr.io/google-appengine/php-base"
 export BASE_IMAGE="gcr.io/google-appengine/php"
-export PHP_56_IMAGE="gcr.io/google-appengine/php56"
-export TEST_RUNNER_BASE_IMAGE=${PHP_56_IMAGE}
+export PHP_71_IMAGE="gcr.io/google-appengine/php71"
+export TEST_RUNNER_BASE_IMAGE=${PHP_71_IMAGE}
 
 for TEMPLATE in `find . -name Dockerfile.in`
 do
-    envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_56_IMAGE} ${TEST_RUNNER_BASE_IMAGE}' \
+    envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_71_IMAGE} ${TEST_RUNNER_BASE_IMAGE}' \
              < ${TEMPLATE} \
              > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
 done

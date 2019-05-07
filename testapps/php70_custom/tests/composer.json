@@ -1,6 +1,0 @@
-{
-    "require-dev": {
-        "guzzlehttp/guzzle": "~6.0",
-        "symfony/browser-kit": "~2"
-    }
-}

@@ -22,18 +22,14 @@ require_once(__DIR__ . "/../build-scripts/src/DetectPhpVersion.php");
 class DetectPhpVersionTest extends TestCase
 {
     const PHP_71 = '7.1.3';
-    const PHP_70 = '7.0.17';
-    const PHP_56 = '5.6.30';
     const AVAILABLE_VERSIONS = [
         self::PHP_71,
-        self::PHP_70,
-        self::PHP_56
     ];
 
     public function testDetectsPhpVersionFromComposer()
     {
         $version = DetectPhpVersion::versionFromComposer(__DIR__ . '/samples/phalcon.json', self::AVAILABLE_VERSIONS);
-        $this->assertEquals(self::PHP_70, $version);
+        $this->assertEquals(self::PHP_71, $version);
     }
 
     public function testDetectsHighestVersion()

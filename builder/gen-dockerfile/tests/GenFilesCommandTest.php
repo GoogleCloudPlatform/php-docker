@@ -76,8 +76,6 @@ class GenFilesCommandTest extends TestCase
         if ($baseImages === null) {
             $baseImages =
                 [
-                    '--php56-image' => 'gcr.io/google-appengine/php56:latest',
-                    '--php70-image' => 'gcr.io/google-appengine/php70:latest',
                     '--php71-image' => 'gcr.io/google-appengine/php71:latest',
                     '--php72-image' => 'gcr.io/google-appengine/php72:latest',
                 ];
@@ -188,32 +186,6 @@ class GenFilesCommandTest extends TestCase
                 '\\Google\\Cloud\\Runtimes\\Builder\\Exception\\InvalidComposerFlagsException'
             ],
             [
-                // PHP 5.6
-                __DIR__ . '/test_data/php56',
-                null,
-                '',
-                '/app',
-                'added by the php runtime builder',
-                'gcr.io/google-appengine/php56:latest',
-                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
-                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
-                 "DETECTED_PHP_VERSION='5.6' \n"
-                ]
-            ],
-            [
-                // PHP 7.0
-                __DIR__ . '/test_data/php70',
-                null,
-                '',
-                '/app',
-                'added by the php runtime builder',
-                'gcr.io/google-appengine/php70:latest',
-                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
-                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
-                 "DETECTED_PHP_VERSION='7.0' \n"
-                ]
-            ],
-            [
                 // PHP 7.1
                 __DIR__ . '/test_data/php71',
                 null,
@@ -314,8 +286,6 @@ class GenFilesCommandTest extends TestCase
                 // Overrides baseImage
                 __DIR__ . '/test_data/simplest',
                 [
-                    '--php56-image' => 'gcr.io/php-mvm-a/php56:latest',
-                    '--php70-image' => 'gcr.io/php-mvm-a/php70:latest',
                     '--php71-image' => 'gcr.io/php-mvm-a/php71:latest',
                     '--php72-image' => 'gcr.io/php-mvm-a/php72:latest',
                 ],
