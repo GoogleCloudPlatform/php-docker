@@ -29,22 +29,6 @@ class VersionTest extends TestCase
         $response = $client->request('GET', '/downloads.php');
         $body = $response->getBody();
 
-        $pattern = '/PHP (5\.6\.\d+)/';
-        if (preg_match($pattern, $body, $matches)) {
-            self::$versions['php56'] = $matches[1];
-        } else {
-            self::$versions['php56'] =
-                'Failed to detect the latest PHP56 version';
-        }
-
-        $pattern = '/PHP (7\.0\.\d+)/';
-        if (preg_match($pattern, $body, $matches)) {
-            self::$versions['php70'] = $matches[1];
-        } else {
-            self::$versions['php70'] =
-                'Failed to detect the latest PHP70 version';
-        }
-
         $pattern = '/PHP (7\.1\.\d+)/';
         if (preg_match($pattern, $body, $matches)) {
             self::$versions['php71'] = $matches[1];
@@ -62,28 +46,6 @@ class VersionTest extends TestCase
         }
 
         exec('apt-get update');
-    }
-
-    public function testPHP56Version()
-    {
-        $output = exec('apt-cache madison gcp-php56');
-        $pattern = '/(5\.6\.\d+)/';
-        if (preg_match($pattern, $output, $matches)) {
-            $this->assertEquals($matches[1], self::$versions['php56']);
-        } else {
-            $this->fail('Failed to detect the current php56 version');
-        }
-    }
-
-    public function testPHP70Version()
-    {
-        $output = exec('apt-cache madison gcp-php70');
-        $pattern = '/(7\.0\.\d+)/';
-        if (preg_match($pattern, $output, $matches)) {
-            $this->assertEquals($matches[1], self::$versions['php70']);
-        } else {
-            $this->fail('Failed to detect the current php70 version');
-        }
     }
 
     public function testPHP71Version()
