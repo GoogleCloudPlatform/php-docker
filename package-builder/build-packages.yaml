@@ -11,22 +11,22 @@ steps:
     id: artifact-dirs
 
   # create gs folders if necessary or rsync fails
-  - name: gcr.io/cloud-builders/gsutil
-    args: ['cp', '/workspace/pkg/.gitkeep', 'gs://${_BUCKET}/ubuntu-packages/libraries/']
+  - name: google/cloud-sdk:252.0.0-slim
+    args: ['gsutil', 'cp', '/workspace/pkg/.gitkeep', 'gs://${_BUCKET}/ubuntu-packages/libraries/']
     waitFor: ['-']
     id: ensure-libraries-folder
-  - name: gcr.io/cloud-builders/gsutil
-    args: ['cp', '/workspace/pkg/.gitkeep', 'gs://${_BUCKET}/ubuntu-packages/${_PHP_VERSION}/']
+  - name: google/cloud-sdk:252.0.0-slim
+    args: ['gsutil', 'cp', '/workspace/pkg/.gitkeep', 'gs://${_BUCKET}/ubuntu-packages/${_PHP_VERSION}/']
     waitFor: ['-']
     id: ensure-packages-folder
 
   # rsync already created packages so we don't rebuild
-  - name: gcr.io/cloud-builders/gsutil
-    args: ['-m', 'rsync', 'gs://${_BUCKET}/ubuntu-packages/libraries', '/workspace/pkg/libraries']
+  - name: google/cloud-sdk:252.0.0-slim
+    args: ['gsutil', '-m', 'rsync', 'gs://${_BUCKET}/ubuntu-packages/libraries', '/workspace/pkg/libraries']
     waitFor: ['artifact-dirs', 'ensure-libraries-folder']
     id: import-libraries
-  - name: gcr.io/cloud-builders/gsutil
-    args: ['-m', 'rsync', 'gs://${_BUCKET}/ubuntu-packages/${_PHP_VERSION}', '/workspace/pkg/${_PHP_VERSION}']
+  - name: google/cloud-sdk:252.0.0-slim
+    args: ['gsutil', '-m', 'rsync', 'gs://${_BUCKET}/ubuntu-packages/${_PHP_VERSION}', '/workspace/pkg/${_PHP_VERSION}']
     waitFor: ['artifact-dirs', 'ensure-packages-folder']
     id: import-packages
 
@@ -37,11 +37,11 @@ steps:
     id: package-build
 
   # export artifacts to gs
-  - name: gcr.io/cloud-builders/gsutil
-    args: ['-m', 'rsync', '/workspace/pkg/libraries/', 'gs://${_BUCKET}/ubuntu-packages/libraries/']
+  - name: google/cloud-sdk:252.0.0-slim
+    args: ['gsutil', '-m', 'rsync', '/workspace/pkg/libraries/', 'gs://${_BUCKET}/ubuntu-packages/libraries/']
     waitFor: ['package-build']
     id: 'export-libraries'
-  - name: gcr.io/cloud-builders/gsutil
-    args: ['-m', 'rsync', '/workspace/pkg/${_PHP_VERSION}/', 'gs://${_BUCKET}/ubuntu-packages/${_PHP_VERSION}/']
+  - name: google/cloud-sdk:252.0.0-slim
+    args: ['gsutil', '-m', 'rsync', '/workspace/pkg/${_PHP_VERSION}/', 'gs://${_BUCKET}/ubuntu-packages/${_PHP_VERSION}/']
     waitFor: ['package-build']
     id: 'export-packages'
