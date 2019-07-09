@@ -6,8 +6,8 @@ steps:
     id: test-network
 
   # grab gcp-php packages from GCS
-  - name: gcr.io/cloud-builders/gsutil
-    args: ['-m', 'cp', '-r', 'gs://gcp-php-packages/$_RUNTIME_DISTRIBUTION', '/workspace/php-base']
+  - name: google/cloud-sdk:252.0.0-slim
+    args: ['gsutil', '-m', 'cp', '-r', 'gs://gcp-php-packages/$_RUNTIME_DISTRIBUTION', '/workspace/php-base']
     waitFor: ['-']
     id: gsutil
 
