@@ -14,6 +14,6 @@ fi
 install_last_package "libv8"
 
 # Download the source
-download_from_pecl v8js
+download_from_pecl v8js 2.1.0
 
 build_package v8js
