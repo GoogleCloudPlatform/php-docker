@@ -26,7 +26,6 @@
         "ext-soap": "*",
         "ext-sqlite3": "*",
         "ext-stomp": "*",
-        "ext-swoole": "*",
         "ext-sync": "*",
         "ext-tcpwrap": "*",
         "ext-timezonedb": "*",
