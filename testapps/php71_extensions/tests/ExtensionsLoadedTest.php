@@ -46,7 +46,6 @@ class ExtensionsLoadedTest extends TestCase
             ['seaslog'],
             ['stackdriver_debugger'],
             ['stomp'],
-            ['swoole'],
             ['sync'],
             ['tcpwrap'],
             ['timezonedb'],
