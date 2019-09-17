@@ -55,8 +55,6 @@ class CollectDeploymentLatencyTest extends TestCase
     public function testDeploymentLatency()
     {
         $phpVersions = [
-            '5.6',
-            '7.0',
             '7.1',
             '7.2'
         ];
