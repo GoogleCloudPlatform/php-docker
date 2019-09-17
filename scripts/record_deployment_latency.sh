@@ -36,11 +36,11 @@ if [ -n "${REBUILD_TEST_RUNNER}" ]; then
     envsubst '${TEST_RUNNER_BASE_IMAGE}' \
              < cloudbuild-test-runner/Dockerfile.in \
              > cloudbuild-test-runner/Dockerfile
-    gcloud -q container builds submit --tag "${TEST_RUNNER}" \
+    gcloud -q builds submit --tag "${TEST_RUNNER}" \
            cloudbuild-test-runner
 fi
 
-gcloud -q container builds submit perf-dashboard/deployment-latency\
+gcloud -q builds submit perf-dashboard/deployment-latency\
        --timeout 7200 \
        --config perf-dashboard/deployment-latency/cloudbuild.yaml \
        --substitutions _TEST_RUNNER="${TEST_RUNNER}",_GCLOUD_TRACK="${GCLOUD_TRACK}",_GOOGLE_PROJECT_ID=${GOOGLE_PROJECT_ID}
