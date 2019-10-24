@@ -100,7 +100,14 @@ RUN apt-get update -y && \
         fakeroot \
         libtool \
         automake \
-        autotools-dev
+        autotools-dev \
+        wget \
+        software-properties-common \
+        apt-transport-https
+
+RUN wget -qO - https://packages.confluent.io/deb/5.0/archive.key | apt-key add - && \
+        add-apt-repository "deb [arch=amd64] https://packages.confluent.io/deb/5.0 stable main" && \
+        apt-get update && apt-get install -y librdkafka-dev librdkafka1
 
 COPY build.sh /
 RUN chmod 0755 /build.sh
