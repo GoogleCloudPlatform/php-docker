@@ -52,8 +52,15 @@ RUN apt-get update -y && \
     sasl2-bin \
     subversion \
     supervisor \
+    wget \
+    software-properties-common \
+    apt-transport-https \
     zlib1g && \
     /bin/bash /build-scripts/apt-cleanup.sh
+
+RUN wget -qO - https://packages.confluent.io/deb/5.0/archive.key | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://packages.confluent.io/deb/5.0 stable main" && \
+    apt-get update && apt-get install -y librdkafka-dev librdkafka1
 
 ENV NGINX_DIR=/etc/nginx \
     PHP_DIR=/opt/php \
