@@ -7,6 +7,6 @@ echo "Building timezonedb for gcp-php${SHORT_VERSION}"
 PNAME="gcp-php${SHORT_VERSION}-timezonedb"
 
 # Download the source
-download_from_pecl timezonedb 2017.2
+download_from_pecl timezonedb 2019.3
 
 build_package timezonedb
