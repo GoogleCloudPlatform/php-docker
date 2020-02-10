@@ -46,7 +46,7 @@ class StackdriverIntegration
         }
 
         if (!$this->validLoggingVersion()) {
-            throw new Exception('You must include either google/cloud >= 0.33.0 or google/logging >= 1.3.0');
+            throw new Exception('You must include either google/cloud >= 0.33.0 or google/cloud-logging >= 1.3.0');
         }
 
         $file = null;
