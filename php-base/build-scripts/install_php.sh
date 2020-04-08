@@ -19,6 +19,9 @@
 set -xe
 
 case $PHP_VERSION in
+    7.3*)
+        /bin/bash /build-scripts/install_php73.sh
+        ;;
     7.2*)
         /bin/bash /build-scripts/install_php72.sh
         ;;

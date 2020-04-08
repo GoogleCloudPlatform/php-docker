@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Dockerfile for PHP 7.1/7.2 using nginx as the webserver.
+# Dockerfile for PHP 7.1/7.2/7.3 using nginx as the webserver.
 
 FROM gcr.io/gcp-runtimes/ubuntu_16_0_4
 
@@ -67,6 +67,7 @@ ENV NGINX_DIR=/etc/nginx \
     PHP_CONFIG_TEMPLATE=/opt/php-configs \
     PHP71_DIR=/opt/php71 \
     PHP72_DIR=/opt/php72 \
+    PHP73_DIR=/opt/php73 \
     APP_DIR=/app \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
     UPLOAD_DIR=/upload \

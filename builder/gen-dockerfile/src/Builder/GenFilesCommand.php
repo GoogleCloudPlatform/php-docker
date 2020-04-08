@@ -58,6 +58,12 @@ class GenFilesCommand extends Command
             ->setName('create')
             ->setDescription('Create Dockerfile and .dockerignore file')
             ->addOption(
+                'php73-image',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'The PHP 73 base image of the Dockerfile'
+            )
+            ->addOption(
                 'php72-image',
                 null,
                 InputOption::VALUE_REQUIRED,
