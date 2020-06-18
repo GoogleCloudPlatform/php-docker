@@ -47,15 +47,6 @@ class EndToEndTest extends TestCase
             self::fail('Please set ' . self::SERVICE_ACCOUNT_ENV . ' env var.');
         }
 
- /*
-        self::execWithError(
-            sprintf(
-                'gsutil cp %s /service_account.json',
-                $service_account_json
-            ),
-            'Failed to download the service account json file: '
-        );
- */
         self::execWithError(
             sprintf(
                 'gcloud config set project %s',
@@ -63,13 +54,6 @@ class EndToEndTest extends TestCase
             ),
             'Failed to set project_id: '
         );
- /*
-        self::execWithError(
-            'gcloud -q auth activate-service-account '
-                . '--key-file=/service_account.json',
-            'Failed to activate the service account: '
-        );
- */
         self::deploy($project_id, $e2e_test_version);
     }
 

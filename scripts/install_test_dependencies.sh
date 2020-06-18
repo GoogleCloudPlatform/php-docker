@@ -74,10 +74,6 @@ if [ ! -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
     exit 1
 fi
 
-# Use the service account for gcloud operations.
-gcloud auth activate-service-account \
-    --key-file "${PHP_DOCKER_GOOGLE_CREDENTIALS}"
-
 
 if [ "${CIRCLECI}" == "true" ]; then
     # Need sudo on circleci:
