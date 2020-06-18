@@ -13,10 +13,8 @@ cp "${PHP_DOCKER_GOOGLE_CREDENTIALS}" \
     ./service_account.json
 
 # For nightly build
-if [ "${GOOGLE_PROJECT_ID}" = "php-mvm-a" ]; then
-    gcloud auth activate-service-account \
-           --key-file="${PHP_DOCKER_GOOGLE_CREDENTIALS}"
-    gcloud config set project php-mvm-a
+if [ "${GOOGLE_PROJECT_ID}" = "php-mvm-a-28051" ]; then
+    gcloud config set project php-mvm-a-28051
 fi
 
 scripts/run_acceptance_tests.sh
