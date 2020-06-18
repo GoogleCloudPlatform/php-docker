@@ -13,11 +13,6 @@ then
 fi
 export CANDIDATE_TAG=${TAG}
 
-# For nightly build
-if [ "${GOOGLE_PROJECT_ID}" = "php-mvm-a" ]; then
-    gcloud auth activate-service-account \
-           --key-file="${PHP_DOCKER_GOOGLE_CREDENTIALS}"
-fi
 gcloud config set project ${GOOGLE_PROJECT_ID}
 
 scripts/build_images.sh
