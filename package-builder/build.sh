@@ -97,11 +97,17 @@ build_php_version()
           curl -sL "https://php.net/get/php-${PHP_VERSION}.tar.gz.asc/from/this/mirror" \
               > php-${PHP_VERSION}.tar.gz.asc
       fi
-      cat ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}/* | gpg --dearmor \
-          > ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}.gpg
-      gpg --no-default-keyring --keyring \
-          ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}.gpg \
-          --verify php-${PHP_VERSION}.tar.gz.asc
+      if [ -f "${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}/php-keyring.gpg" ]; then
+          gpg --no-default-keyring --keyring \
+              ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}/php-keyring.gpg \
+              --verify php-${PHP_VERSION}.tar.gz.asc
+      else
+          cat ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}/* | gpg --dearmor \
+              > ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}.gpg
+          gpg --no-default-keyring --keyring \
+              ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}.gpg \
+              --verify php-${PHP_VERSION}.tar.gz.asc
+      fi
 
       rm php-${PHP_VERSION}.tar.gz.asc
       mv php-${PHP_VERSION}.tar.gz \
