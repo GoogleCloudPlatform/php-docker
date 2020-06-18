@@ -18,8 +18,8 @@ set -ex
 export TEST_BUILD_DIR="${WORKSPACE}"
 export HOME="${JENKINS_HOME}"
 export GCLOUD_DIR="${HOME}/gcloud"
-export GOOGLE_PROJECT_ID=php-mvm-a
-export E2E_PROJECT_ID=php-mvm-a
+export GOOGLE_PROJECT_ID=php-mvm-a-28051
+export E2E_PROJECT_ID=php-mvm-a-28051
 export CLOUDSDK_CORE_DISABLE_PROMPTS=1
 export PATH=${GCLOUD_DIR}/google-cloud-sdk/bin:${PATH}
 export CLOUDSDK_ACTIVE_CONFIG_NAME=php-docker-e2e
