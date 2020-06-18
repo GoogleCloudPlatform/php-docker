@@ -54,22 +54,10 @@ class EndToEndTest extends TestCase
 
         self::execWithError(
             sprintf(
-                'gsutil cp %s /service_account.json',
-                $service_account_json
-            ),
-            'Failed to download the service account json file: '
-        );
-        self::execWithError(
-            sprintf(
                 'gcloud config set project %s',
                 $project_id
             ),
             'Failed to set project_id: '
-        );
-        self::execWithError(
-            'gcloud -q auth activate-service-account '
-                . '--key-file=/service_account.json',
-            'Failed to activate the service account: '
         );
         self::execWithError(
             'gcloud config set app/use_runtime_builders true',

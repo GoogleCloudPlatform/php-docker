@@ -9,11 +9,11 @@ if [ -z "${DEB_TMP_DIR}" ]; then
 fi
 
 if [ -z "${DEBIAN_GCS_PATH}" ]; then
-    DEBIAN_GCS_PATH='gs://php-mvm-a/packages'
+    DEBIAN_GCS_PATH='gs://php-mvm-a-28051/packages'
 fi
 
 if [ -z "${UBUNTU_GCS_PATH}" ]; then
-    UBUNTU_GCS_PATH='gs://php-mvm-a/ubuntu-packages'
+    UBUNTU_GCS_PATH='gs://php-mvm-a-28051/ubuntu-packages'
 fi
 
 if [ "${1}" == "debian" ]; then
