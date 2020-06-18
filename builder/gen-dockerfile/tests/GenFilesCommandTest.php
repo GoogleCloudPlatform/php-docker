@@ -286,13 +286,13 @@ class GenFilesCommandTest extends TestCase
                 // Overrides baseImage
                 __DIR__ . '/test_data/simplest',
                 [
-                    '--php71-image' => 'gcr.io/php-mvm-a/php71:latest',
-                    '--php72-image' => 'gcr.io/php-mvm-a/php72:latest',
+                    '--php71-image' => 'gcr.io/php-mvm-a-28051/php71:latest',
+                    '--php72-image' => 'gcr.io/php-mvm-a-28051/php72:latest',
                 ],
                 '',
                 '/app',
                 'added by the php runtime builder',
-                'gcr.io/php-mvm-a/php72:latest'
+                'gcr.io/php-mvm-a-28051/php72:latest'
             ],
             [
                 // Has document_root set
