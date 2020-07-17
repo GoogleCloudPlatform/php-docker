@@ -174,6 +174,11 @@ for VERSION in $(echo ${PHP_VERSIONS} | tr "," "\n"); do
     ln -sf /opt/php${SHORT_VERSION} ${PHP_DIR}
 
     # build extensions
+    if [[ "${SHORT_VERSION}" > "72" ]]; then
+        EXTENSIONS=$(echo $EXTENSIONS | sed -e 's/apm,//g')
+        EXTENSIONS=$(echo $EXTENSIONS | sed -e 's/cassandra,//g')
+        EXTENSIONS=$(echo $EXTENSIONS | sed -e 's/v8js,//g')
+    fi
     for EXTENSION in $(echo ${EXTENSIONS} | tr "," "\n"); do
         build_php_extension $EXTENSION
     done

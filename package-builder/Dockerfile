@@ -72,6 +72,7 @@ RUN apt-get update -y && \
         libpng-dev \
         libpq-dev \
         libreadline6-dev \
+        libreadline-dev \
         librecode-dev \
         libsasl2-dev \
         libsqlite3-dev \
@@ -80,11 +81,16 @@ RUN apt-get update -y && \
         libxml2-dev \
         libxslt1-dev \
         zlib1g-dev \
+        libzip-dev \
+        libzip4 \
+        openssl \
+        nginx \
         # build tools
         build-essential \
         autoconf \
         bison \
         file \
+        flex \
         g++ \
         gcc \
         libc-dev \
