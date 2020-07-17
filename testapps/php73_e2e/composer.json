@@ -1,0 +1,13 @@
+{
+    "require": {
+        "php": "7.3.*",
+        "ext-grpc": "*",
+        "ext-pdo_sqlite": "*",
+        "google/cloud": "*",
+        "grpc/grpc": "*",
+        "silex/silex": "^1.3"
+    },
+    "autoload": {
+        "classmap": ["web"]
+    }
+}

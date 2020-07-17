@@ -1,0 +1,22 @@
+{
+    "require": {
+        "php": "7.3.*",
+        "ext-bcmath": "*",
+        "ext-calendar": "*",
+        "ext-exif": "*",
+        "ext-ftp": "*",
+        "ext-gd": "*",
+        "ext-gettext": "*",
+        "ext-intl": "*",
+        "ext-shmop": "*",
+        "ext-soap": "*",
+        "ext-sqlite3": "*",
+        "ext-pdo_sqlite": "*",
+        "ext-xmlrpc": "*",
+        "ext-xsl": "*",
+        "ext-mongodb": "*",
+        "ext-redis": "*",
+        "ext-imagick": "*",
+        "silex/silex": "^1.3"
+    }
+}
