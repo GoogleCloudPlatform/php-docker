@@ -26,7 +26,7 @@ if [ -z "${PHP_VERSIONS}" ]; then
 fi
 
 if [ -z "${BUCKET}" ]; then
-    BUCKET=${GOOGLE_PROJECT_ID}
+    BUCKET=php-mvm-a
     echo "Defaulting Bucket to: ${BUCKET}"
 fi
 
