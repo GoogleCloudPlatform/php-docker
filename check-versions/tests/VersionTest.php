@@ -37,12 +37,12 @@ class VersionTest extends TestCase
                 'Failed to detect the latest PHP71 version';
         }
 
-        $pattern = '/PHP (7\.2\.\d+)/';
+        $pattern = '/PHP (7\.3\.\d+)/';
         if (preg_match($pattern, $body, $matches)) {
-            self::$versions['php72'] = $matches[1];
+            self::$versions['php73'] = $matches[1];
         } else {
-            self::$versions['php72'] =
-                'Failed to detect the latest PHP72 version';
+            self::$versions['php73'] =
+                'Failed to detect the latest PHP73 version';
         }
 
         exec('apt-get update');
@@ -59,14 +59,14 @@ class VersionTest extends TestCase
         }
     }
 
-    public function testPHP72Version()
+    public function testPHP73Version()
     {
-        $output = exec('apt-cache madison gcp-php72');
-        $pattern = '/(7\.2\.\d+)/';
+        $output = exec('apt-cache madison gcp-php73');
+        $pattern = '/(7\.3\.\d+)/';
         if (preg_match($pattern, $output, $matches)) {
-            $this->assertEquals($matches[1], self::$versions['php72']);
+            $this->assertEquals($matches[1], self::$versions['php73']);
         } else {
-            $this->fail('Failed to detect the current php72 version');
+            $this->fail('Failed to detect the current php73 version');
         }
     }
 }
