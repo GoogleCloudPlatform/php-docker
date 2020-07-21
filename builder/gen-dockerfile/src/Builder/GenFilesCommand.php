@@ -99,17 +99,17 @@ class GenFilesCommand extends Command
             $output->writeln("<info>
 There is no PHP runtime version specified in composer.json, or
 we don't support the version you specified. Google App Engine
-uses the latest 7.2.x version.
+uses the latest 7.3.x version.
 We recommend pinning your PHP version by running:
 
-composer require php 7.2.* (replace it with your desired minor version)
+composer require php 7.3.* (replace it with your desired minor version)
 
-Using PHP version 7.2.x...</info>
+Using PHP version 7.3.x...</info>
 ");
         } elseif ($version === DetectPhpVersion::EXACT_VERSION_SPECIFIED) {
             throw new ExactVersionException(
                 "An exact PHP version was specified in composer.json. Please pin your" .
-                "PHP version to a minor version such as '7.2.*'."
+                "PHP version to a minor version such as '7.3.*'."
             );
         }
         if (substr($version, 0, 3) === '5.6') {
@@ -118,8 +118,10 @@ Using PHP version 7.2.x...</info>
             $this->detectedPhpVersion = '7.0';
         } elseif (substr($version, 0, 3) === '7.1') {
             $this->detectedPhpVersion = '7.1';
-        } else {
+        } elseif (substr($version, 0, 3) === '7.2') {
             $this->detectedPhpVersion = '7.2';
+        } else {
+            $this->detectedPhpVersion = '7.3';
         }
         $yamlPath = getenv('GAE_APPLICATION_YAML_PATH')
             ?: self::DEFAULT_YAML_PATH;

@@ -3,7 +3,6 @@
         "php": "7.2.*",
         "phpunit/phpunit": "^4.8.35",
         "ext-amqp": "*",
-        "ext-apm": "*",
         "ext-bcmath": "*",
         "ext-calendar": "*",
         "ext-couchbase": "*",

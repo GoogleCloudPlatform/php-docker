@@ -30,7 +30,6 @@ class ExtensionsLoadedTest extends TestCase
     {
         return [
             ['amqp'],
-            ['apm'],
             ['bitset'],
             ['couchbase'],
             ['ds'],
