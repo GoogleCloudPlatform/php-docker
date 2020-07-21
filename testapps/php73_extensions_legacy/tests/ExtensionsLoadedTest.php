@@ -30,7 +30,6 @@ class ExtensionsLoadedTest extends TestCase
     {
         return [
             ['amqp'],
-            ['apm'],
             ['bitset'],
             ['couchbase'],
             ['ds'],
@@ -49,7 +48,6 @@ class ExtensionsLoadedTest extends TestCase
             ['sync'],
             ['tcpwrap'],
             ['timezonedb'],
-            ['v8js'],
             ['vips'],
             ['yaconf'],
             ['yaf'],

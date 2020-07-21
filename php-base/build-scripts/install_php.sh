@@ -18,6 +18,8 @@
 # A shell script for installing PHP depending on the PHP_VERSION environment variable
 set -xe
 
+echo "PHP_VERSION is $PHP_VERSION"
+
 case $PHP_VERSION in
     7.3*)
         /bin/bash /build-scripts/install_php73.sh
