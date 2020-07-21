@@ -64,7 +64,7 @@ else
     fi
 
     # replace runtime builder pipeline :latest with our newly tagged images
-    sed -e "s/google-appengine\//${GOOGLE_PROJECT_ID}/g" \
+    sed -e "s/google-appengine/${GOOGLE_PROJECT_ID}/g" \
         -e "s/gcp-runtimes/${GOOGLE_PROJECT_ID}/g" \
         -e "/docker:latest/!s/:latest/:${TAG}/g" builder/php-latest.yaml > builder/php-test.yaml
 
