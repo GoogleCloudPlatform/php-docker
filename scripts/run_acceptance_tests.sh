@@ -26,11 +26,6 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
     exit 1
 fi
 
-if [ -z "${SERVICE_ACCOUNT_JSON}" ]; then
-    echo "You need to set SERVICE_ACCOUNT_JSON envvar pointing to a json file in GCS."
-    exit 1
-fi
-
 export PHP_BASE_IMAGE="gcr.io/google-appengine/php-base"
 export BASE_IMAGE="gcr.io/google-appengine/php"
 export PHP_71_IMAGE="gcr.io/google-appengine/php71"
