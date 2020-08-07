@@ -32,11 +32,11 @@ envsubst '${TEST_RUNNER_BASE_IMAGE}' \
 
 TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
 
-gcloud -q container builds submit --tag "${TEST_RUNNER}" \
+gcloud -q builds submit --tag "${TEST_RUNNER}" \
     cloudbuild-test-runner
 
 # Check the version
-gcloud -q container builds submit check-versions \
+gcloud -q builds submit check-versions \
        --config check-versions/cloudbuild.yaml \
        --substitutions _TEST_RUNNER="${TEST_RUNNER}"
 
