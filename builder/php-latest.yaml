@@ -1,6 +1,6 @@
 steps:
   - name: 'gcr.io/gcp-runtimes/php/gen-dockerfile:latest'
-    args: ['--php73-image', 'gcr.io/google-appengine/php73:latest', '--php72-image', 'gcr.io/google-appengine/php72:latest', '--php71-image', 'gcr.io/google-appengine/php71:latest']
+    args: ['--php73-image', 'gcr.io/google-appengine/php73:latest', '--php72-image', 'gcr.io/google-appengine/php72:latest', '--php71-image', 'gcr.io/google-appengine/php71:latest', '--php70-image', 'gcr.io/google-appengine/php70:latest', '--php56-image', 'gcr.io/google-appengine/php56:latest']
     env: 'GAE_APPLICATION_YAML_PATH=$_GAE_APPLICATION_YAML_PATH'
   - name: 'gcr.io/kaniko-project/executor:v0.6.0'
     args: ['--destination=$_OUTPUT_IMAGE']
