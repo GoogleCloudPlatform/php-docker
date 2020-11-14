@@ -58,6 +58,12 @@ class GenFilesCommand extends Command
             ->setName('create')
             ->setDescription('Create Dockerfile and .dockerignore file')
             ->addOption(
+                'php74-image',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'The PHP 74 base image of the Dockerfile'
+            )
+            ->addOption(
                 'php73-image',
                 null,
                 InputOption::VALUE_REQUIRED,
@@ -111,17 +117,17 @@ class GenFilesCommand extends Command
             $output->writeln("<info>
 There is no PHP runtime version specified in composer.json, or
 we don't support the version you specified. Google App Engine
-uses the latest 7.3.x version.
+uses the latest 7.4.x version.
 We recommend pinning your PHP version by running:
 
-composer require php 7.3.* (replace it with your desired minor version)
+composer require php 7.4.* (replace it with your desired minor version)
 
-Using PHP version 7.3.x...</info>
+Using PHP version 7.4.x...</info>
 ");
         } elseif ($version === DetectPhpVersion::EXACT_VERSION_SPECIFIED) {
             throw new ExactVersionException(
                 "An exact PHP version was specified in composer.json. Please pin your" .
-                "PHP version to a minor version such as '7.3.*'."
+                "PHP version to a minor version such as '7.4.*'."
             );
         }
         if (substr($version, 0, 3) === '5.6') {
@@ -132,8 +138,10 @@ Using PHP version 7.3.x...</info>
             $this->detectedPhpVersion = '7.1';
         } elseif (substr($version, 0, 3) === '7.2') {
             $this->detectedPhpVersion = '7.2';
-        } else {
+        } elseif (substr($version, 0, 3) === '7.3') {
             $this->detectedPhpVersion = '7.3';
+        } else {
+            $this->detectedPhpVersion = '7.4';
         }
         $yamlPath = getenv('GAE_APPLICATION_YAML_PATH')
             ?: self::DEFAULT_YAML_PATH;
