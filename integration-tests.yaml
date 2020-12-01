@@ -6,6 +6,17 @@ steps:
     waitFor: ['-']
     id: test-runner
 
+  # php74_e2e test
+  - name: gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG
+    args: ['/workspace/testapps/php74_e2e/tests']
+    waitFor: ['test-runner']
+    id: php74_e2e
+    env:
+      - 'SERVICE_ACCOUNT_JSON=${_SERVICE_ACCOUNT_JSON}'
+      - 'TAG=${_TAG}-e2e'
+      - 'E2E_PROJECT_ID=${_E2E_PROJECT_ID}'
+      - 'TEST_VM_IMAGE=${_TEST_VM_IMAGE}'
+
   # php73_e2e test
   - name: gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG
     args: ['/workspace/testapps/php73_e2e/tests']
