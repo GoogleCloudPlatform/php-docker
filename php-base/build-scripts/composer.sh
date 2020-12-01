@@ -23,7 +23,7 @@ else
     set -e
 fi
 
-DEFAULT_PHP_VERSION="7.3"
+DEFAULT_PHP_VERSION="7.4"
 
 if [ -f ${APP_DIR}/composer.json ]; then
     if [ -n "${DETECTED_PHP_VERSION}" ]; then
@@ -36,16 +36,16 @@ if [ -f ${APP_DIR}/composer.json ]; then
 
         if [ "${PHP_VERSION}" == "exact" ]; then
             cat<<EOF
-An exact PHP version was specified in composer.json. Please pin your PHP version to a minor version such as '7.3.*'.
+An exact PHP version was specified in composer.json. Please pin your PHP version to a minor version such as '7.4.*'.
 EOF
             exit 1
-        elif [ "${PHP_VERSION}" != "7.1" ] && [ "${PHP_VERSION}" != "7.2" ] && [ "${PHP_VERSION}" != "7.3" ]; then
+        elif [ "${PHP_VERSION}" != "7.1" ] && [ "${PHP_VERSION}" != "7.2" ] && [ "${PHP_VERSION}" != "7.3" ] && [ "${PHP_VERSION}" != "7.4" ]; then
             cat<<EOF
-There is no PHP runtime version specified in composer.json, or we don't support the version you specified. Google App Engine uses the latest 7.3.x version. We recommend pinning your PHP version by running:
+There is no PHP runtime version specified in composer.json, or we don't support the version you specified. Google App Engine uses the latest 7.4.x version. We recommend pinning your PHP version by running:
 
-composer require php 7.3.* (replace it with your desired minor version)
+composer require php 7.4.* (replace it with your desired minor version)
 
-Using PHP version 7.3.x...
+Using PHP version 7.4.x...
 EOF
             PHP_VERSION=${DEFAULT_PHP_VERSION}
         fi
@@ -57,6 +57,10 @@ EOF
         elif [ "${PHP_VERSION}" == "7.3" ]; then
             apt-get -y update
             /bin/bash /build-scripts/install_php73.sh
+            apt-get remove -y gcp-php71
+        elif [ "${PHP_VERSION}" == "7.4" ]; then
+            apt-get -y update
+            /bin/bash /build-scripts/install_php74.sh
             apt-get remove -y gcp-php71
         fi
     fi
