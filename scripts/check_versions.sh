@@ -46,5 +46,5 @@ gcloud -q builds submit --tag "${TEST_RUNNER}" \
 # Check the version
 gcloud -q builds submit check-versions \
        --config check-versions/cloudbuild.yaml \
-       --substitutions _TEST_RUNNER="${TEST_RUNNER}" _CONTAINER_REGISTRY="${GOOGLE_CONTAINER_REGISTRY}"
+       --substitutions _TEST_RUNNER="${TEST_RUNNER}",_CONTAINER_REGISTRY="${GOOGLE_CONTAINER_REGISTRY}"
 
