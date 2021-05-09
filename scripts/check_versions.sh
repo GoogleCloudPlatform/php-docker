@@ -32,7 +32,7 @@ envsubst '${TEST_RUNNER_BASE_IMAGE}' \
 
 TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
 
-gcloud -q builds submit --tag "${TEST_RUNNER}" \
+gcloud -q builds submit --verbosity="debug" --tag "${TEST_RUNNER}" \
     cloudbuild-test-runner
 
 # Check the version
