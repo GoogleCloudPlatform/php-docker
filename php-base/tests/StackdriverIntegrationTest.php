@@ -23,6 +23,12 @@ class StackdriverIntegrationTest extends TestCase
 
     public function setUp(): void
     {
+        if (!extension_loaded('stackdriver_debugger')) {
+            $this->markTestSkipped(
+                'The stackdriver_debugger extension is not available.'
+            );
+        }
+
         parent::setUp();
         $this->oldpwd = getcwd();
     }

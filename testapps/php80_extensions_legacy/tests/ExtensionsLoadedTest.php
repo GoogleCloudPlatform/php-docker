@@ -43,7 +43,7 @@ class ExtensionsLoadedTest extends TestCase
             ['opencensus'],
             ['raphf'],
             ['seaslog'],
-            ['stackdriver_debugger'],
+            // ['stackdriver_debugger'],
             ['stomp'],
             ['sync'],
             // ['tcpwrap'],

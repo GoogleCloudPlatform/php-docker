@@ -89,8 +89,8 @@ class InstallExtensions
         'mongo' => ['7.0', '7.1', '7.2', '7.3', '7.4', '8.0'],
         'opencensus' => ['5.6'],
         'phalcon' => ['8.0'],
-        'stackdriver_debugger' => ['5.6'],
-        'v8js' => ['5.6'],
+        'stackdriver_debugger' => ['5.6', '8.0'],
+        'v8js' => ['5.6', '7.3', '7.4', '8.0'],
         'vips' => ['5.6'],
         'yaconf' => ['5.6']
     ];

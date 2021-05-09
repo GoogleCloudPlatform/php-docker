@@ -40,7 +40,7 @@ class ExtensionsLoadedTest extends TestCase
             ['memprof'],
             ['opencensus'],
             ['seaslog'],
-            ['stackdriver_debugger'],
+            // ['stackdriver_debugger'],
             ['stomp'],
             ['sync'],
             ['timezonedb'],
