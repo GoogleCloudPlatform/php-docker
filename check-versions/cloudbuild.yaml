@@ -1,4 +1,4 @@
 steps:
         - name: gcr.io/cloud-builders/docker
-          args: ['pull', 'gcr.io/google-appengine/php']
+          args: ['pull', 'gcr.io/${_CONTAINER_REGISTRY}/php']
         - name: ${_TEST_RUNNER}
