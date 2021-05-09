@@ -26,8 +26,10 @@ fi
 
 export BUILD_DIR
 export ARTIFACT_DIR='/workspace/pkg'
+export ARTIFACT_LOG_DIR='/workspace/log'
 export ARTIFACT_LIB_DIR="${ARTIFACT_DIR}/libraries"
 export DEB_BUILDER_DIR='/workspace'
+source ${DEB_BUILDER_DIR}/functions.sh
 
 mkdir -p ${BUILD_DIR} ${ARTIFACT_LIB_DIR}
 
@@ -46,7 +48,7 @@ fi
 
 LIBRARIES=${3}
 if [ -z "$LIBRARIES" ]; then
-    LIBRARIES="cassandra-cpp-driver,libv8,libvips"
+    LIBRARIES="cassandra-cpp-driver,libv8,libvips,librabbitmq"
 fi
 
 
@@ -65,9 +67,9 @@ build_php_version()
     export PACKAGE_NAME="gcp-php${SHORT_VERSION}"
     PHP_PACKAGE="gcp-php${SHORT_VERSION}_${FULL_VERSION}_amd64.deb"
     export ARTIFACT_PKG_DIR="${ARTIFACT_DIR}/${FULL_VERSION}"
-    if [ "${SHORT_VERSION}" == "72" ]; then
-        export EXTRA_DEPS="libsodium18, "
-        export EXTRA_OPTS="--with-sodium"
+    if [[ "${SHORT_VERSION}" == "74"]] || [["${SHORT_VERSION}" == "80" ]]; then
+        export EXTRA_DEPS="libicu60, libpng16-16, libreadline7, libreadline-dev"
+        export EXTRA_OPTS="--with-pear --with-sodium"
     else
         export EXTRA_DEPS=""
         export EXTRA_OPTS=""
@@ -92,11 +94,12 @@ build_php_version()
           curl -sL "${PRE_GA_PACKAGE_BASE_URL}php-${PHP_VERSION}.tar.gz.asc" \
               > php-${PHP_VERSION}.tar.gz.asc
       else
-          curl -sL "https://php.net/get/php-${PHP_VERSION}.tar.gz/from/this/mirror" \
+          curl -sL "https://php.net/distributions/php-${PHP_VERSION}.tar.gz" \
               > php-${PHP_VERSION}.tar.gz
-          curl -sL "https://php.net/get/php-${PHP_VERSION}.tar.gz.asc/from/this/mirror" \
+          curl -sL "https://php.net/distributions/php-${PHP_VERSION}.tar.gz.asc" \
               > php-${PHP_VERSION}.tar.gz.asc
       fi
+
       cat ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}/* | gpg --dearmor \
           > ${DEB_BUILDER_DIR}/gpgkeys/php${SHORT_VERSION}.gpg
       gpg --no-default-keyring --keyring \
@@ -174,11 +177,17 @@ for VERSION in $(echo ${PHP_VERSIONS} | tr "," "\n"); do
     ln -sf /opt/php${SHORT_VERSION} ${PHP_DIR}
 
     # build extensions
-    if [[ "${SHORT_VERSION}" > "72" ]]; then
-        EXTENSIONS=$(echo $EXTENSIONS | sed -e 's/apm,//g')
-        EXTENSIONS=$(echo $EXTENSIONS | sed -e 's/cassandra,//g')
-        EXTENSIONS=$(echo $EXTENSIONS | sed -e 's/v8js,//g')
+    EXTENSIONS=$(echo $EXTENSIONS | sed -e 's/apm,//g')
+    EXTENSIONS=$(echo $EXTENSIONS | sed -e 's/cassandra,//g')
+    EXTENSIONS=$(echo $EXTENSIONS | sed -e 's/v8js,//g')
+
+
+    if [[ "${SHORT_VERSION}" == "80" ]]; then
+        PHP_MAJOR_VERSION=8
+    elif [[ "${SHORT_VERSION}" < "80" ]]; then
+        PHP_MAJOR_VERSION=7
     fi
+
     for EXTENSION in $(echo ${EXTENSIONS} | tr "," "\n"); do
         build_php_extension $EXTENSION
     done

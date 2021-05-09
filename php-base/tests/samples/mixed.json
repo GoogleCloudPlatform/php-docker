@@ -1,7 +1,7 @@
 {
     "require": {
-        "php": "7.1.*",
-        "ext-phalcon": "*",
+        "php": "8.0.*",
+        "ext-oauth": "*",
         "ext-sqlite3": "*"
     }
 }

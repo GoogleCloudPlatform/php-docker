@@ -17,18 +17,6 @@
  */
 $value = 'STRINGTOBECACHED';
 
-if (true === apc_store('artificialkey', $value)) {
-    echo('success storing in apc bc' . PHP_EOL);
-}
-
-if ($value === apc_fetch('artificialkey')) {
-    echo('success fetching from apc bc' . PHP_EOL);
-}
-
-if (true === apc_delete('artificialkey')) {
-    echo('success deleting from apc bc' . PHP_EOL);
-}
-
 if (true === apcu_add('artificialkey', $value)) {
     echo('success storing in apcu' . PHP_EOL);
 }

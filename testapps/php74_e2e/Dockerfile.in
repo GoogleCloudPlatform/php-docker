@@ -12,6 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM ${BASE_IMAGE}
+FROM ${PHP_74_IMAGE}
 
 ENV DOCUMENT_ROOT /app/web

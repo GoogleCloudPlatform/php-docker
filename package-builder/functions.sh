@@ -24,6 +24,39 @@ with_retry()
     done
 }
 
+curl_latest_from_pecl()
+{
+    # Download the source code, rename, extract it for debian package
+    # Usage:
+    # curl_latest_from_pecl mailparse # for the latest
+    # curl_latest_from_pecl mailparse 2.1.6 # for a specific version
+    if [ -z "$1" ]; then
+        echo 'missing argument for curl_from_pecl'
+        exit $E_PARAM_ERR
+    fi
+    PACKAGE_SHORT_NAME=$1
+
+    if [ -z "$2" ]; then
+        with_retry "curl -fsSOJL https://pecl.php.net/get/${PACKAGE_SHORT_NAME}" 6
+
+        # determine the downloaded version
+        EXT_VERSION=$(ls ${PACKAGE_SHORT_NAME}-*.tgz | \
+                sed -E "s/${PACKAGE_SHORT_NAME}-([0-9]+\.[0-9]+(\.[0-9]+)+.*)\.tgz/\1/")
+    else
+        EXT_VERSION="${2}"
+        with_retry "curl -fsSOJL https://pecl.php.net/get/${PACKAGE_SHORT_NAME}-${EXT_VERSION}.tgz" 6
+    fi
+
+    PACKAGE_VERSION="${EXT_VERSION}-${PHP_VERSION}"
+    PACKAGE_FULL_VERSION="${EXT_VERSION}-${FULL_VERSION}"
+    PACKAGE_DIR=${PNAME}-${PACKAGE_VERSION}
+    mv ${PACKAGE_SHORT_NAME}-${EXT_VERSION}.tgz \
+       ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz
+    mkdir -p ${PACKAGE_DIR}
+    tar zxf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz \
+        -C ${PACKAGE_DIR} --strip-components=1
+}
+
 download_from_pecl()
 {
     # Download the source code, rename, extract it for debian package
@@ -63,6 +96,32 @@ download_from_pecl()
         -C ${PACKAGE_DIR} --strip-components=1
 }
 
+download_from_git()
+{
+    # Clone the source code and build debian package
+    # TODO: specify branch and commit sha?
+    # Usage:
+    # download_from_git https://github.com/phalcon/cphalcon.git 3.0.4
+    if [ -z "$1" ]; then
+        echo 'missing argument for download_from_git'
+        exit $E_PARAM_ERR
+    fi
+    if [ -z "$2" ]; then
+        echo 'missing argument for download_from_git'
+        exit $E_PARAM_ERR
+    fi
+
+    EXT_VERSION=$2
+    PACKAGE_VERSION="${EXT_VERSION}-${PHP_VERSION}"
+    PACKAGE_FULL_VERSION="${EXT_VERSION}-${FULL_VERSION}"
+    PACKAGE_DIR=${PNAME}-${PACKAGE_VERSION}
+
+    # Download the file
+    mkdir -p ${PACKAGE_DIR}
+
+    with_retry "git clone $1 ${PACKAGE_DIR}" 6
+}
+
 download_from_tarball()
 {
     # Download the source code, rename, extract it for debian package
@@ -78,12 +137,24 @@ download_from_tarball()
     fi
 
     EXT_VERSION=$2
-    PACKAGE_VERSION="${EXT_VERSION}-${PHP_VERSION}"
-    PACKAGE_FULL_VERSION="${EXT_VERSION}-${FULL_VERSION}"
+
+    if [ -z "$PHP_VERSION" ]; then
+        PACKAGE_VERSION="${EXT_VERSION}"
+    else
+        PACKAGE_VERSION="${EXT_VERSION}-${PHP_VERSION}"
+    fi
+
+    if [ -z "$FULL_VERSION" ]; then
+        PACKAGE_FULL_VERSION="${EXT_VERSION}"
+    else
+        PACKAGE_FULL_VERSION="${EXT_VERSION}-${FULL_VERSION}"
+    fi
+
     PACKAGE_DIR=${PNAME}-${PACKAGE_VERSION}
 
     # Download the file
     with_retry "curl -L $1 -o ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz" 6
+    pwd
     mkdir -p ${PACKAGE_DIR}
     tar zxf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz \
         -C ${PACKAGE_DIR} --strip-components=1

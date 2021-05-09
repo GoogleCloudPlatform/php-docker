@@ -1,0 +1,1 @@
+C:37:"PHPUnit\Runner\DefaultTestResultCache":302:{a:2:{s:7:"defects";a:3:{s:29:"VersionTest::testPHP73Version";i:3;s:29:"VersionTest::testPHP74Version";i:3;s:29:"VersionTest::testPHP80Version";i:3;}s:5:"times";a:3:{s:29:"VersionTest::testPHP73Version";d:0.105;s:29:"VersionTest::testPHP74Version";d:0.076;s:29:"VersionTest::testPHP80Version";d:0.075;}}}

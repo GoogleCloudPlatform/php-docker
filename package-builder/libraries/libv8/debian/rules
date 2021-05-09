@@ -4,7 +4,7 @@
 	dh $@
 
 override_dh_auto_configure:
-	tools/dev/v8gen.py -vv x64.release -- is_component_build=true
+	CXX=g++-8 tools/dev/v8gen.py -vv x64.release -- is_component_build=true
 
 override_dh_auto_test:
 

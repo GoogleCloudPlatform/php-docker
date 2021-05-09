@@ -31,7 +31,7 @@ class GenFilesCommandTest extends TestCase
             'composer.json'
     ];
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$testDir = tempnam(sys_get_temp_dir(), 'GenFilesTest');
         if (file_exists(self::$testDir)) {
@@ -40,18 +40,18 @@ class GenFilesCommandTest extends TestCase
         mkdir(self::$testDir);
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         rmdir(self::$testDir);
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         // Set default envvar
         putenv('GAE_APPLICATION_YAML_PATH=app.yaml');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         foreach (self::$files as $file) {
             if (file_exists(self::$testDir . '/' . $file)) {
@@ -101,23 +101,23 @@ class GenFilesCommandTest extends TestCase
 
         $dockerfile = file_get_contents(self::$testDir . '/Dockerfile');
         $this->assertNotFalse($dockerfile, 'Dockerfile should exist');
-        $this->assertContains(
+        $this->assertStringContainsString(
             "DOCUMENT_ROOT='$expectedDocRoot'",
             $dockerfile
         );
-        $this->assertContains('FROM ' . $expectedFrom, $dockerfile);
+        $this->assertStringContainsString('FROM ' . $expectedFrom, $dockerfile);
         $genFiles->createDockerignore();
         $dockerignore = file_get_contents(self::$testDir . '/.dockerignore');
         $this->assertNotFalse($dockerignore, '.dockerignore should exist');
-        $this->assertContains(
+        $this->assertStringContainsString(
             $expectedDockerIgnore,
             $dockerignore
         );
         if (!empty($appYamlEnv)) {
-            $this->assertContains($appYamlEnv, $dockerignore);
+            $this->assertStringContainsString($appYamlEnv, $dockerignore);
         }
         foreach ($otherExpectations as $expectation) {
-            $this->assertContains($expectation, $dockerfile);
+            $this->assertStringContainsString($expectation, $dockerfile);
         }
     }
 
@@ -294,7 +294,7 @@ class GenFilesCommandTest extends TestCase
                 'my.yaml',
                 '/app',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php74:latest'
+                'gcr.io/google-appengine/php80:latest'
             ],
             [
                 // Overrides baseImage
@@ -316,7 +316,7 @@ class GenFilesCommandTest extends TestCase
                 '',
                 '/app/web',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php74:latest'
+                'gcr.io/google-appengine/php80:latest'
             ],
             [
                 // Has document_root set in env_variables

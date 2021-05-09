@@ -22,13 +22,13 @@ class VersionTest extends TestCase
 {
     private static $versions;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$versions = array();
         $client = new Client(['base_uri' => 'http://www.php.net']);
         $response = $client->request('GET', '/downloads.php');
         $body = $response->getBody();
-
+        echo $body . "/n";
         $pattern = '/PHP (7\.3\.\d+)/';
         if (preg_match($pattern, $body, $matches)) {
             self::$versions['php73'] = $matches[1];
@@ -58,7 +58,7 @@ class VersionTest extends TestCase
 
     public function testPHP73Version()
     {
-        $output = exec('apt-cache madison gcp-php73');
+        $output = exec('apt-cache show gcp-php73');
         $pattern = '/(7\.3\.\d+)/';
         if (preg_match($pattern, $output, $matches)) {
             $this->assertEquals($matches[1], self::$versions['php73']);
@@ -69,7 +69,7 @@ class VersionTest extends TestCase
 
     public function testPHP74Version()
     {
-        $output = exec('apt-cache madison gcp-php74');
+        $output = exec('apt-cache show gcp-php74');
         $pattern = '/(7\.4\.\d+)/';
         if (preg_match($pattern, $output, $matches)) {
             $this->assertEquals($matches[1], self::$versions['php74']);
@@ -80,7 +80,7 @@ class VersionTest extends TestCase
 
     public function testPHP80Version()
     {
-        $output = exec('apt-cache madison gcp-php80');
+        $output = exec('apt-cache show gcp-php80');
         $pattern = '/(8\.0\.\d+)/';
         if (preg_match($pattern, $output, $matches)) {
             $this->assertEquals($matches[1], self::$versions['php80']);

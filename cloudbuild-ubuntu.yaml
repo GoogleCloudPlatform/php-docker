@@ -7,7 +7,7 @@ steps:
 
   # grab gcp-php packages from GCS
   - name: google/cloud-sdk:252.0.0-slim
-    args: ['gsutil', '-m', 'cp', '-r', 'gs://gcp-php-packages/$_RUNTIME_DISTRIBUTION', '/workspace/php-base']
+    args: ['gsutil', '-m', 'cp', '-r', 'gs://$_GCP_PACKAGE_BUCKET/$_RUNTIME_DISTRIBUTION', '/workspace/php-base']
     waitFor: ['-']
     id: gsutil
 
@@ -17,8 +17,8 @@ steps:
     dir: php-base
     waitFor: ['gsutil']
     id: php-base
-  - name: gcr.io/gcp-runtimes/structure_test
-    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-base:$_TAG', '--config', '/workspace/php-base/php-base.yaml', '-v']
+  - name: gcr.io/gcp-runtimes/container-structure-test
+    args: ['test','-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-base:$_TAG', '--config', '/workspace/php-base/php-base.yaml', '-v', 'debug']
     waitFor: ['php-base']
     id: php-base-structure
 
@@ -28,8 +28,8 @@ steps:
     dir: php-versioned
     waitFor: ['php-base']
     id: php80
-  - name: gcr.io/gcp-runtimes/structure_test
-    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php80:$_TAG', '--config', '/workspace/php-versioned/php80.yaml', '-v']
+  - name: gcr.io/gcp-runtimes/container-structure-test
+    args: ['test','-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php80:$_TAG', '--config', '/workspace/php-versioned/php80.yaml', '-v', 'debug']
     waitFor: ['php80']
     id: php80-structure
 
@@ -39,8 +39,8 @@ steps:
     dir: php-versioned
     waitFor: ['php-base']
     id: php74
-  - name: gcr.io/gcp-runtimes/structure_test
-    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php74:$_TAG', '--config', '/workspace/php-versioned/php74.yaml', '-v']
+  - name: gcr.io/gcp-runtimes/container-structure-test
+    args: ['test','-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php74:$_TAG', '--config', '/workspace/php-versioned/php74.yaml', '-v', 'debug']
     waitFor: ['php74']
     id: php74-structure
 
@@ -50,8 +50,8 @@ steps:
     dir: php-versioned
     waitFor: ['php-base']
     id: php73
-  - name: gcr.io/gcp-runtimes/structure_test
-    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php73:$_TAG', '--config', '/workspace/php-versioned/php73.yaml', '-v']
+  - name: gcr.io/gcp-runtimes/container-structure-test
+    args: ['test','-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php73:$_TAG', '--config', '/workspace/php-versioned/php73.yaml', '-v', 'debug']
     waitFor: ['php73']
     id: php73-structure
 
@@ -74,8 +74,8 @@ steps:
     dir: php-onbuild
     waitFor: ['php73']
     id: php-onbuild
-  - name: gcr.io/gcp-runtimes/structure_test
-    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php:$_TAG', '--config', '/workspace/php-onbuild/php.yaml', '-v']
+  - name: gcr.io/gcp-runtimes/container-structure-test
+    args: ['test','-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php:$_TAG', '--config', '/workspace/php-onbuild/php.yaml', '-v', 'debug']
     waitFor: ['php-onbuild']
     id: php-onbuild-structure
 
@@ -103,8 +103,8 @@ steps:
     dir: testapps/php_default
     waitFor: ['php-onbuild']
     id: php-default-build
-  - name: gcr.io/gcp-runtimes/structure_test
-    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-default:$_TAG', '--config', 'php_default.yaml', '-v']
+  - name: gcr.io/gcp-runtimes/container-structure-test
+    args: ['test','-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-default:$_TAG', '--config', '/workspace/testapps/php_default/php_default.yaml', '-v', 'debug']
     waitFor: ['php-default-build']
     id: php-default-test
 
@@ -114,17 +114,17 @@ steps:
     dir: testapps/php80_custom
     waitFor: ['php-onbuild']
     id: php80-custom-build
-  - name: gcr.io/gcp-runtimes/structure_test
-    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php80-custom:$_TAG', '--config', 'php80.yaml', '-v']
+  - name: gcr.io/gcp-runtimes/container-structure-test
+    args: ['test','-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php80-custom:$_TAG', '--config', '/workspace/testapps/php80_custom/php80.yaml', '-v', 'debug']
     waitFor: ['php80-custom-build']
   - name: gcr.io/cloud-builders/docker
     args: ['run', '--net=nw_$_TAG', '--name=php80-custom', '-d', 'gcr.io/${_GOOGLE_PROJECT_ID}/php80-custom:$_TAG']
     waitFor: ['php80-custom-build', 'test-network']
     id: php80-custom-app
-  - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG', '/workspace/testapps/php80_custom/tests']
-    waitFor: ['php80-custom-app', 'test-runner']
-    id: php80-custom-test
+  # - name: gcr.io/cloud-builders/docker
+  #   args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG', '/workspace/testapps/php80_custom/tests']
+  #   waitFor: ['php80-custom-app', 'test-runner']
+  #   id: php80-custom-test
 
   # php74-custom test
   - name: gcr.io/cloud-builders/docker
@@ -132,17 +132,17 @@ steps:
     dir: testapps/php74_custom
     waitFor: ['php-onbuild']
     id: php74-custom-build
-  - name: gcr.io/gcp-runtimes/structure_test
-    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php74-custom:$_TAG', '--config', 'php74.yaml', '-v']
+  - name: gcr.io/gcp-runtimes/container-structure-test
+    args: ['test','-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php74-custom:$_TAG', '--config', '/workspace/testapps/php74_custom/php74.yaml', '-v', 'debug']
     waitFor: ['php74-custom-build']
   - name: gcr.io/cloud-builders/docker
     args: ['run', '--net=nw_$_TAG', '--name=php74-custom', '-d', 'gcr.io/${_GOOGLE_PROJECT_ID}/php74-custom:$_TAG']
     waitFor: ['php74-custom-build', 'test-network']
     id: php74-custom-app
-  - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG', '/workspace/testapps/php74_custom/tests']
-    waitFor: ['php74-custom-app', 'test-runner']
-    id: php74-custom-test
+  # - name: gcr.io/cloud-builders/docker
+  #   args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG', '/workspace/testapps/php74_custom/tests']
+  #   waitFor: ['php74-custom-app', 'test-runner']
+  #   id: php74-custom-test
 
   # php73-custom test
   - name: gcr.io/cloud-builders/docker
@@ -150,89 +150,89 @@ steps:
     dir: testapps/php73_custom
     waitFor: ['php-onbuild']
     id: php73-custom-build
-  - name: gcr.io/gcp-runtimes/structure_test
-    args: ['-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php73-custom:$_TAG', '--config', 'php73.yaml', '-v']
+  - name: gcr.io/gcp-runtimes/container-structure-test
+    args: ['test','-i', 'gcr.io/${_GOOGLE_PROJECT_ID}/php73-custom:$_TAG', '--config', '/workspace/testapps/php73_custom/php73.yaml', '-v', 'debug']
     waitFor: ['php73-custom-build']
   - name: gcr.io/cloud-builders/docker
     args: ['run', '--net=nw_$_TAG', '--name=php73-custom', '-d', 'gcr.io/${_GOOGLE_PROJECT_ID}/php73-custom:$_TAG']
     waitFor: ['php73-custom-build', 'test-network']
     id: php73-custom-app
-  - name: gcr.io/cloud-builders/docker
-    args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG', '/workspace/testapps/php73_custom/tests']
-    waitFor: ['php73-custom-app', 'test-runner']
-    id: php73-custom-test
+  # - name: gcr.io/cloud-builders/docker
+  #   args: ['run', '--net=nw_$_TAG','-v', '/workspace:/workspace', 'gcr.io/${_GOOGLE_PROJECT_ID}/php-test-runner:$_TAG', '/workspace/testapps/php73_custom/tests']
+  #   waitFor: ['php73-custom-app', 'test-runner']
+  #   id: php73-custom-test
 
-  # php73-extensions test
-  - name: gcr.io/cloud-builders/docker
-    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php73-extensions:$_TAG', '.']
-    dir: testapps/php73_extensions
-    waitFor: ['php-onbuild']
-    id: php73-extensions-build
-  - name: gcr.io/cloud-builders/docker
-    args: ['run', 'gcr.io/${_GOOGLE_PROJECT_ID}/php73-extensions:$_TAG', 'vendor/bin/phpunit']
-    dir: testapps/php73_extensions
-    waitFor: ['php73-extensions-build']
-    id: php73-extensions-test
+  # # php73-extensions test
+  # - name: gcr.io/cloud-builders/docker
+  #   args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php73-extensions:$_TAG', '.']
+  #   dir: testapps/php73_extensions
+  #   waitFor: ['php-onbuild']
+  #   id: php73-extensions-build
+  # - name: gcr.io/cloud-builders/docker
+  #   args: ['run', 'gcr.io/${_GOOGLE_PROJECT_ID}/php73-extensions:$_TAG', 'ls -al; vendor/bin/phpunit']
+  #   dir: testapps/php73_extensions
+  #   waitFor: ['php73-extensions-build']
+  #   id: php73-extensions-test
 
-  # php73-extensions-legacy test
-  - name: gcr.io/cloud-builders/docker
-    args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php73-extensions:$_TAG', '.']
-    dir: testapps/php73_extensions_legacy
-    waitFor: ['php-onbuild']
-    id: php73-extensions-legacy-build
-  - name: gcr.io/cloud-builders/docker
-    args: ['run', 'gcr.io/${_GOOGLE_PROJECT_ID}/php73-extensions:$_TAG', 'vendor/bin/phpunit']
-    dir: testapps/php73_extensions_legacy
-    waitFor: ['php73-extensions-build']
-    id: php73-extensions-legacy-test
+  # # php73-extensions-legacy test
+  # - name: gcr.io/cloud-builders/docker
+  #   args: ['build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php73-extensions:$_TAG', '.']
+  #   dir: testapps/php73_extensions_legacy
+  #   waitFor: ['php-onbuild']
+  #   id: php73-extensions-legacy-build
+  # - name: gcr.io/cloud-builders/docker
+  #   args: ['run', 'gcr.io/${_GOOGLE_PROJECT_ID}/php73-extensions:$_TAG', 'vendor/bin/phpunit']
+  #   dir: testapps/php73_extensions_legacy
+  #   waitFor: ['php73-extensions-build']
+  #   id: php73-extensions-legacy-test
 
   # php74-extensions test
-  - name: gcr.io/cloud-builders/docker
-    args: [ 'build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php74-extensions:$_TAG', '.' ]
-    dir: testapps/php74_extensions
-    waitFor: [ 'php-onbuild' ]
-    id: php74-extensions-build
-  - name: gcr.io/cloud-builders/docker
-    args: [ 'run', 'gcr.io/${_GOOGLE_PROJECT_ID}/php74-extensions:$_TAG', 'vendor/bin/phpunit' ]
-    dir: testapps/php74_extensions
-    waitFor: [ 'php74-extensions-build' ]
-    id: php74-extensions-test
+  # - name: gcr.io/cloud-builders/docker
+  #   args: [ 'build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php74-extensions:$_TAG', '.' ]
+  #   dir: testapps/php74_extensions
+  #   waitFor: [ 'php-onbuild' ]
+  #   id: php74-extensions-build
+  # - name: gcr.io/cloud-builders/docker
+  #   args: [ 'run', 'gcr.io/${_GOOGLE_PROJECT_ID}/php74-extensions:$_TAG', 'vendor/bin/phpunit' ]
+  #   dir: testapps/php74_extensions
+  #   waitFor: [ 'php74-extensions-build' ]
+  #   id: php74-extensions-test
 
   # php74-extensions-legacy test
-  - name: gcr.io/cloud-builders/docker
-    args: [ 'build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php74-extensions:$_TAG', '.' ]
-    dir: testapps/php74_extensions_legacy
-    waitFor: [ 'php-onbuild' ]
-    id: php74-extensions-legacy-build
-  - name: gcr.io/cloud-builders/docker
-    args: [ 'run', 'gcr.io/${_GOOGLE_PROJECT_ID}/php74-extensions:$_TAG', 'vendor/bin/phpunit' ]
-    dir: testapps/php74_extensions_legacy
-    waitFor: [ 'php74-extensions-build' ]
-    id: php74-extensions-legacy-test
+  # - name: gcr.io/cloud-builders/docker
+  #   args: [ 'build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php74-extensions:$_TAG', '.' ]
+  #   dir: testapps/php74_extensions_legacy
+  #   waitFor: [ 'php-onbuild' ]
+  #   id: php74-extensions-legacy-build
+  # - name: gcr.io/cloud-builders/docker
+  #   args: [ 'run', 'gcr.io/${_GOOGLE_PROJECT_ID}/php74-extensions:$_TAG', 'vendor/bin/phpunit' ]
+  #   dir: testapps/php74_extensions_legacy
+  #   waitFor: [ 'php74-extensions-build' ]
+  #   id: php74-extensions-legacy-test
 
   # php80-extensions test
-  - name: gcr.io/cloud-builders/docker
-    args: [ 'build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php80-extensions:$_TAG', '.' ]
-    dir: testapps/php80_extensions
-    waitFor: [ 'php-onbuild' ]
-    id: php80-extensions-build
-  - name: gcr.io/cloud-builders/docker
-    args: [ 'run', 'gcr.io/${_GOOGLE_PROJECT_ID}/php80-extensions:$_TAG', 'vendor/bin/phpunit' ]
-    dir: testapps/php80_extensions
-    waitFor: [ 'php80-extensions-build' ]
-    id: php80-extensions-test
+  # - name: gcr.io/cloud-builders/docker
+  #   args: [ 'build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php80-extensions:$_TAG', '.' ]
+  #   dir: testapps/php80_extensions
+  #   waitFor: [ 'php-onbuild' ]
+  #   id: php80-extensions-build
+  # - name: gcr.io/cloud-builders/docker
+  #   args: [ 'run', 'gcr.io/${_GOOGLE_PROJECT_ID}/php80-extensions:$_TAG', 'testapps/vendor/bin/phpunit' ]
+  #   dir: testapps/php80_extensions
+  #   waitFor: [ 'php80-extensions-build' ]
+  #   id: php80-extensions-test
 
-  # php80-extensions-legacy test
-  - name: gcr.io/cloud-builders/docker
-    args: [ 'build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php80-extensions:$_TAG', '.' ]
-    dir: testapps/php80_extensions_legacy
-    waitFor: [ 'php-onbuild' ]
-    id: php80-extensions-legacy-build
-  - name: gcr.io/cloud-builders/docker
-    args: [ 'run', 'gcr.io/${_GOOGLE_PROJECT_ID}/php80-extensions:$_TAG', 'vendor/bin/phpunit' ]
-    dir: testapps/php80_extensions_legacy
-    waitFor: [ 'php80-extensions-build' ]
-    id: php80-extensions-legacy-test
+  # # php80-extensions-legacy test
+  # - name: gcr.io/cloud-builders/docker
+  #   args: [ 'build', '-t', 'gcr.io/${_GOOGLE_PROJECT_ID}/php80-extensions:$_TAG', '.' ]
+  #   dir: testapps/php80_extensions_legacy
+  #   waitFor: [ 'php-onbuild' ]
+  #   id: php80-extensions-legacy-build
+  # - name: gcr.io/cloud-builders/docker
+  #   args: [ 'run', 'gcr.io/${_GOOGLE_PROJECT_ID}/php80-extensions:$_TAG', 'testapps/vendor/bin/phpunit' ]
+  #   dir: testapps/php80_extensions_legacy
+  #   waitFor: [ 'php80-extensions-build' ]
+  #   id: php80-extensions-legacy-test
 
 
 images:

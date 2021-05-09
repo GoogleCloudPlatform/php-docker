@@ -1,11 +1,10 @@
-schemaVersion: "1.0.0"
+schemaVersion: "2.0.0"
 commandTests:
   - name: "php-path"
-    command: ["which", "php"]
+    command: "which"
+    args: ["php"]
     expectedOutput: ["/opt/php/bin/php"]
   - name: "version"
-    command: ["php", "-v"]
-    expectedOutput: ["PHP 7\\.1.*"]
-licenseTests:
-  - debian: true
-    files: []
+    command: "php"
+    args: ["-v"]
+    expectedOutput: ["PHP 8\\.0.*"]

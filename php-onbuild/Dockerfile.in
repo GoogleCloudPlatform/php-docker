@@ -14,7 +14,7 @@
 
 # Dockerfile for PHP 7.3/7.4/8.0 using nginx as the webserver.
 
-FROM ${PHP_73_IMAGE}
+FROM ${PHP_80_IMAGE}
 
 # Allow customizing some composer flags
 ONBUILD ARG COMPOSER_FLAGS='--no-scripts --no-dev --prefer-dist'

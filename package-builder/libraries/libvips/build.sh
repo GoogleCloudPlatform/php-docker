@@ -7,11 +7,20 @@ source ${DEB_BUILDER_DIR}/functions.sh
 echo "Building libvips"
 
 PNAME="libvips"
-VERSION="8.7.0"
+VERSION="8.10.6"
 
 OUTPUT_FILE="${PNAME}_${VERSION}-1~gcp8+1_amd64.deb"
 
-apt-get install -y libtiff5-dev libgsf-1-dev
+apt-get install -y \
+    libexif-dev \
+    libexpat-dev \
+    libgif-dev \
+    libglib2.0-dev \
+    libjpeg-dev \
+    liblcms2-dev \
+    liborc-dev \
+    libpng-dev \
+    librsvg2-dev
 
 if [ ! -f "${ARTIFACT_LIB_DIR}/${OUTPUT_FILE}" ]; then
     # Download the source

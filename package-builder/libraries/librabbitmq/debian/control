@@ -1,0 +1,19 @@
+Source: librabbitmq
+Section: libs
+Priority: optional
+Maintainer: Brian Bradshaw <brian@frost-byte.net>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/alanxz/rabbitmq-c
+
+Package: librabbitmq
+Section: libs
+Architecture: any
+Depends: libssl1.1, libc6 (>= 2.17)
+Description: AMQP client library written in C
+
+Package: librabbitmq-dev
+Section: libdevel
+Architecture: any
+Depends: librabbitmq (>= 0.11.0), libssl-dev (>= 1.1.1)
+Description: AMQP client library written in C

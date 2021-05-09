@@ -53,15 +53,15 @@ EOF
         if [ "${PHP_VERSION}" == "7.3" ]; then
             apt-get -y update
             /bin/bash /build-scripts/install_php73.sh
-            apt-get remove -y gcp-php71
+            # apt-get remove -y gcp-php73
         elif [ "${PHP_VERSION}" == "7.4" ]; then
             apt-get -y update
             /bin/bash /build-scripts/install_php74.sh
-            apt-get remove -y gcp-php71
+            # apt-get remove -y gcp-php74
         elif [ "${PHP_VERSION}" == "8.0" ]; then
             apt-get -y update
             /bin/bash /build-scripts/install_php80.sh
-            apt-get remove -y gcp-php71
+            # apt-get remove -y gcp-php80
         fi
     fi
 

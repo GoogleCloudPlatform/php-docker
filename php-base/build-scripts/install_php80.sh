@@ -22,7 +22,6 @@ apt-get update -y
 apt-get install -y --no-install-recommends \
         gcp-php80 \
         gcp-php80-apcu \
-        gcp-php80-apcu-bc \
         gcp-php80-ev \
         gcp-php80-event \
         gcp-php80-grpc \
@@ -31,19 +30,17 @@ apt-get install -y --no-install-recommends \
         gcp-php80-memcached \
         gcp-php80-mongodb \
         gcp-php80-oauth \
-        gcp-php80-opencensus \
         gcp-php80-pq \
         gcp-php80-protobuf \
         gcp-php80-rdkafka \
-        gcp-php80-redis \
-        gcp-php80-stackdriver-debugger
+        gcp-php80-redis
 
 /bin/bash /build-scripts/apt-cleanup.sh
 
 # Enable some extensions for backward compatibility
 ln -sf ${PHP80_DIR}/bin/php80-enmod ${PHP80_DIR}/bin/php-enmod
 ln -sf ${PHP80_DIR}/bin/php80-dismod  ${PHP80_DIR}/bin/php-dismod
-${PHP80_DIR}/bin/php80-enmod apcu-bc
+#${PHP80_DIR}/bin/php80-enmod apcu-bc
 ${PHP80_DIR}/bin/php80-enmod mailparse
 ${PHP80_DIR}/bin/php80-enmod memcached
 

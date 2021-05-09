@@ -1,7 +1,7 @@
 {
     "require": {
         "php": "8.0.*",
-        "phpunit/phpunit": "^4.8.35",
+        "phpunit/phpunit": "^9.5",
         "ext-amqp": "*",
         "ext-bcmath": "*",
         "ext-calendar": "*",
@@ -12,11 +12,8 @@
         "ext-ftp": "*",
         "ext-gd": "*",
         "ext-gettext": "*",
-        "ext-hprose": "*",
         "ext-intl": "*",
-        "ext-jsond": "*",
         "ext-krb5": "*",
-        "ext-lua": "*",
         "ext-lzf": "*",
         "ext-memprof": "*",
         "ext-pdo_sqlite": "*",
@@ -26,7 +23,6 @@
         "ext-sqlite3": "*",
         "ext-stomp": "*",
         "ext-sync": "*",
-        "ext-tcpwrap": "*",
         "ext-timezonedb": "*",
         "ext-vips": "*",
         "ext-yaconf": "*",

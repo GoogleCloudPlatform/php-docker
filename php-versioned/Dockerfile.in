@@ -12,19 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Dockerfile for PHP 5.6/7.0/7.1 using nginx as the webserver.
+# Dockerfile for PHP 5.6/7.0/7.1/7.2/7.3/7.4/8.0 using nginx as the webserver.
 
 FROM ${PHP_BASE_IMAGE}
 
-ARG PHP_VERSION=7.1
+ARG PHP_VERSION=8.0
 
-RUN /bin/bash /build-scripts/install_php.sh && \
-    /bin/bash /build-scripts/install_composer.sh && \
-    chgrp www-data /build-scripts/detect_php_version.php && \
+RUN /bin/bash /build-scripts/install_php.sh
+RUN /bin/bash /build-scripts/install_composer.sh
+RUN chgrp www-data /build-scripts/detect_php_version.php
     # Temporary enable the shell for www-data
     # We will disable it in lockdown.sh
-    cp /composer.json /build-scripts/ && \
-    chown -R www-data:www-data /build-scripts/ && \
+    # ls -al && \
+RUN if [ -f "/composer.json" ]; then cp /composer.json /build-scripts/ ; fi
+RUN chown -R www-data:www-data /build-scripts/ && \
     chsh -s /bin/bash www-data && \
-      cd /build-scripts && \
-      su www-data -c "php /usr/local/bin/composer require composer/semver"
+    cd /build-scripts && \
+    su www-data -c "php /usr/local/bin/composer require composer/semver"

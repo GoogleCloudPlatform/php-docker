@@ -1,7 +1,7 @@
 {
     "require": {
         "php": "7.4.*",
-        "phpunit/phpunit": "^4.8.35",
+        "phpunit/phpunit": "^9.5",
         "ext-amqp": "*",
         "ext-bcmath": "*",
         "ext-calendar": "*",

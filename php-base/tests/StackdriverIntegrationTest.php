@@ -21,13 +21,13 @@ class StackdriverIntegrationTest extends TestCase
 {
     private $oldpwd;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->oldpwd = getcwd();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         chdir($this->oldpwd);
         parent::tearDown();
@@ -70,7 +70,7 @@ class StackdriverIntegrationTest extends TestCase
 
         exec("php stackdriver-files/enable_stackdriver_prepend.php -a $dir", $output, $retVal);
         $this->assertNotEquals(0, $retVal, 'command: ' . implode(';', $output) . ' should have failed.');
-        $this->assertContains('You must include', $output[0]);
+        $this->assertStringContainsString('You must include', $output[0]);
     }
 
     public function invalidVersions()
@@ -88,6 +88,6 @@ class StackdriverIntegrationTest extends TestCase
         $dir = realpath(__DIR__ . '/samples/no_composer');
         exec("php stackdriver-files/enable_stackdriver_prepend.php -a $dir", $output, $retVal);
         $this->assertNotEquals(0, $retVal, 'command: ' . implode(';', $output) . ' should have failed.');
-        $this->assertContains('You must include', $output[0]);
+        $this->assertStringContainsString('You must include', $output[0]);
     }
 }

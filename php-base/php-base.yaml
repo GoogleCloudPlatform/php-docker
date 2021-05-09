@@ -1,12 +1,11 @@
-schemaVersion: "1.0.0"
+schemaVersion: "2.0.0"
 commandTests:
   - name: "php-missing"
-    command: ["which", "php"]
+    command: "which"
+    args: ["php"]
     exitCode: 1
     expectedOutput: [""]
   - name: "php73-version"
-    command: ["cat", "/opt/php73_version"]
+    command: "cat"
+    args: ["/opt/php73_version"]
     expectedOutput: ["7\\.3.*"]
-licenseTests:
-  - debian: true
-    files: []

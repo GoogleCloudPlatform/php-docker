@@ -25,14 +25,21 @@ if [ -z "${GOOGLE_PROJECT_ID}" ]; then
     exit 1
 fi
 
+if [ -z "${GCP_PACKAGE_BUCKET}" ]; then
+    GCP_PACKAGE_BUCKET='gcp-php-packages'
+fi
+
 echo "Building ubuntu images"
-DEFAULT_RUNTIME_DISTRIBUTION="gcp-php-runtime-xenial-unstable"
+DEFAULT_RUNTIME_DISTRIBUTION="gcp-php-runtime-bionic-unstable"
 CLOUDBUILD_CONFIG="cloudbuild-ubuntu.yaml"
 
 export PHP_BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php-base:${TAG}"
 export BASE_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php:${TAG}"
 export PHP_73_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php73:${TAG}"
-export TEST_RUNNER_BASE_IMAGE=${PHP_73_IMAGE}
+export PHP_74_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php74:${TAG}"
+export PHP_80_IMAGE="gcr.io/${GOOGLE_PROJECT_ID}/php80:${TAG}"
+export TEST_RUNNER_BASE_IMAGE=${PHP_80_IMAGE}
+# export TEST_RUNNER_BASE_IMAGE=${PHP_73_IMAGE}
 
 if [ -z "${RUNTIME_DISTRIBUTION}" ]; then
     RUNTIME_DISTRIBUTION="${DEFAULT_RUNTIME_DISTRIBUTION}"
@@ -42,7 +49,7 @@ export RUNTIME_DISTRIBUTION
 
 for TEMPLATE in `find . -name Dockerfile.in`
 do
-  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_73_IMAGE} ${TEST_RUNNER_BASE_IMAGE}' \
+  envsubst '${BASE_IMAGE} ${PHP_BASE_IMAGE} ${PHP_73_IMAGE} ${PHP_74_IMAGE} ${PHP_80_IMAGE} ${TEST_RUNNER_BASE_IMAGE}' \
     < ${TEMPLATE} \
     > $(dirname ${TEMPLATE})/$(basename -s .in ${TEMPLATE})
 done
@@ -50,7 +57,8 @@ done
 gcloud builds submit . \
   --config "${CLOUDBUILD_CONFIG}" \
   --timeout 3600 \
-  --substitutions _GOOGLE_PROJECT_ID=$GOOGLE_PROJECT_ID,_TAG=$TAG,_RUNTIME_DISTRIBUTION=$RUNTIME_DISTRIBUTION
+  --substitutions _GOOGLE_PROJECT_ID=$GOOGLE_PROJECT_ID,_TAG=$TAG,_GCP_PACKAGE_BUCKET=$GCP_PACKAGE_BUCKET,_RUNTIME_DISTRIBUTION=$RUNTIME_DISTRIBUTION
+  --verbosity="debug"
 
 if [ -z "${RUN_E2E_TESTS}" ]
 then

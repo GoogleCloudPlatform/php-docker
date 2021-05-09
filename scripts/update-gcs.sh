@@ -8,6 +8,10 @@ if [ -z "${DEB_TMP_DIR}" ]; then
     DEB_TMP_DIR='/tmp/php-build'
 fi
 
+if [ -z "${GCP_PACKAGE_BUCKET}" ]; then
+    GCP_PACKAGE_BUCKET='gcp-php-packages'
+fi
+
 if [ -z "${DEBIAN_GCS_PATH}" ]; then
     DEBIAN_GCS_PATH='gs://php-mvm-a/packages'
 fi
@@ -23,7 +27,7 @@ if [ "${1}" == "debian" ]; then
 else
     GCS_PATH=${UBUNTU_GCS_PATH}
     TARGET_DIR=${DEB_TMP_DIR}/ubuntu
-    GCS_DESTINATION='gcp-php-runtime-xenial'
+    GCS_DESTINATION='gcp-php-runtime-bionic'
 fi
 
 mkdir -p ${TARGET_DIR}
@@ -44,18 +48,18 @@ gsutil -m cp "${GCS_PATH}/libraries/*.deb" $TARGET_DIR
 echo 'Dedupping deb packages'
 echo '============================================='
 
-php /google/data/ro/teams/php-cloud/php-debian-package-dedup/dedup.php "${1}"
+#php /google/data/ro/teams/php-cloud/php-debian-package-dedup/dedup.php "${1}"
 
 # We're going to mirror rapture's naming scheme to make the switch to GCS as
 # seamless as possible.
-gsutil -m rm -r gs://gcp-php-packages/${GCS_DESTINATION}
-gsutil -m rm -r gs://gcp-php-packages/${GCS_DESTINATION}-unstable
+#gsutil -m rm -r gs://${GCP_PACKAGE_BUCKET}/${GCS_DESTINATION}
+#gsutil -m rm -r gs://${GCP_PACKAGE_BUCKET}/${GCS_DESTINATION}-unstable
 
-gsutil -m cp ${TARGET_DIR}/*.deb gs://gcp-php-packages/${GCS_DESTINATION}
-gsutil -m cp ${TARGET_DIR}/*.deb gs://gcp-php-packages/${GCS_DESTINATION}-unstable
+gsutil -m cp ${TARGET_DIR}/*.deb gs://${GCP_PACKAGE_BUCKET}/${GCS_DESTINATION}
+gsutil -m cp ${TARGET_DIR}/*.deb gs://${GCP_PACKAGE_BUCKET}/${GCS_DESTINATION}-unstable
 
 readonly RUNTIME_DIST="${GCS_DESTINATION}-$(date +%Y%m%d-1)"
-gsutil -m cp ${TARGET_DIR}/*.deb "gs://gcp-php-packages/${RUNTIME_DIST}"
+gsutil -m cp ${TARGET_DIR}/*.deb "gs://${GCP_PACKAGE_BUCKET}/${RUNTIME_DIST}"
 
 echo ""
 echo "-----------------------------------------------------------------------"

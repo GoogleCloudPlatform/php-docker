@@ -11,7 +11,10 @@ if [ ${SHORT_VERSION} == '56' ]; then
     exit 0
 fi
 
-apt-get install -y libtiff5-dev libjpeg-turbo8-dev libgsf-1-dev
+apt-get install -y \
+    libtiff5-dev \
+    libjpeg-turbo8-dev \
+    libgsf-1-dev
 
 install_last_package libvips
 install_last_package libvips-dev
