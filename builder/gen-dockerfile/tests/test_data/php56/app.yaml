@@ -1,6 +1,0 @@
-env: flex
-runtime: php
-
-runtime_config:
-  document_root: /app
-

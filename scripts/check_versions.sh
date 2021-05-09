@@ -25,14 +25,14 @@ fi
 SRC_TMP=$(mktemp -d)
 
 # build the php test runner
-export TEST_RUNNER_BASE_IMAGE="gcr.io/google-appengine/php71:latest"
+export TEST_RUNNER_BASE_IMAGE="gcr.io/google-appengine/php73:latest"
 envsubst '${TEST_RUNNER_BASE_IMAGE}' \
          < cloudbuild-test-runner/Dockerfile.in \
          > cloudbuild-test-runner/Dockerfile
 
 TEST_RUNNER="gcr.io/${GOOGLE_PROJECT_ID}/php-test-runner:${TAG}"
 
-gcloud -q builds submit --verbosity="debug" --tag "${TEST_RUNNER}" \
+gcloud -q builds submit --tag "${TEST_RUNNER}" \
     cloudbuild-test-runner
 
 # Check the version

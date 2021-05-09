@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Dockerfile for PHP 7.1/7.2/7.3/7.4 using nginx as the webserver.
+# Dockerfile for PHP 7.3/7.4/8.0 using nginx as the webserver.
 
 FROM gcr.io/gcp-runtimes/ubuntu_16_0_4
 
@@ -65,10 +65,9 @@ RUN wget -qO - https://packages.confluent.io/deb/5.0/archive.key | apt-key add -
 ENV NGINX_DIR=/etc/nginx \
     PHP_DIR=/opt/php \
     PHP_CONFIG_TEMPLATE=/opt/php-configs \
-    PHP71_DIR=/opt/php71 \
-    PHP72_DIR=/opt/php72 \
     PHP73_DIR=/opt/php73 \
     PHP74_DIR=/opt/php74 \
+    PHP80_DIR=/opt/php80 \
     APP_DIR=/app \
     NGINX_USER_CONF_DIR=/etc/nginx/conf.d \
     UPLOAD_DIR=/upload \

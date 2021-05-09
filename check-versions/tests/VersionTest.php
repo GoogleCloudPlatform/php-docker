@@ -29,14 +29,6 @@ class VersionTest extends TestCase
         $response = $client->request('GET', '/downloads.php');
         $body = $response->getBody();
 
-        $pattern = '/PHP (7\.1\.\d+)/';
-        if (preg_match($pattern, $body, $matches)) {
-            self::$versions['php71'] = $matches[1];
-        } else {
-            self::$versions['php71'] =
-                'Failed to detect the latest PHP71 version';
-        }
-
         $pattern = '/PHP (7\.3\.\d+)/';
         if (preg_match($pattern, $body, $matches)) {
             self::$versions['php73'] = $matches[1];
@@ -53,18 +45,15 @@ class VersionTest extends TestCase
                 'Failed to detect the latest PHP74 version';
         }
 
-        exec('apt-get update');
-    }
-
-    public function testPHP71Version()
-    {
-        $output = exec('apt-cache madison gcp-php71');
-        $pattern = '/(7\.1\.\d+)/';
-        if (preg_match($pattern, $output, $matches)) {
-            $this->assertEquals($matches[1], self::$versions['php71']);
+        $pattern = '/PHP (8\.0\.\d+)/';
+        if (preg_match($pattern, $body, $matches)) {
+            self::$versions['php80'] = $matches[1];
         } else {
-            $this->fail('Failed to detect the current php71 version');
+            self::$versions['php80'] =
+                'Failed to detect the latest PHP80 version';
         }
+
+        exec('apt-get update');
     }
 
     public function testPHP73Version()
@@ -86,6 +75,17 @@ class VersionTest extends TestCase
             $this->assertEquals($matches[1], self::$versions['php74']);
         } else {
             $this->fail('Failed to detect the current php74 version');
+        }
+    }
+
+    public function testPHP80Version()
+    {
+        $output = exec('apt-cache madison gcp-php80');
+        $pattern = '/(8\.0\.\d+)/';
+        if (preg_match($pattern, $output, $matches)) {
+            $this->assertEquals($matches[1], self::$versions['php80']);
+        } else {
+            $this->fail('Failed to detect the current php80 version');
         }
     }
 }

@@ -98,10 +98,9 @@ class DetectPhpVersion
     private static function detectAvailableVersions()
     {
         return [
+            trim(file_get_contents('/opt/php80_version')),
             trim(file_get_contents('/opt/php74_version')),
             trim(file_get_contents('/opt/php73_version')),
-            trim(file_get_contents('/opt/php72_version')),
-            trim(file_get_contents('/opt/php71_version')),
         ];
     }
 }

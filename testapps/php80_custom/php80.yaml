@@ -1,10 +1,5 @@
 schemaVersion: "1.0.0"
-
 commandTests:
   - name: "version"
     command: ["/opt/php/bin/php", "-v"]
     expectedOutput: ["PHP 8\\.0.*"]
-
-  - name: "path"
-    command: ["printenv", "PATH"]
-    expectedOutput: [".*\\/opt\\/php\\/bin.*"]

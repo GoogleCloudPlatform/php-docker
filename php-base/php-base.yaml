@@ -4,9 +4,9 @@ commandTests:
     command: ["which", "php"]
     exitCode: 1
     expectedOutput: [""]
-  - name: "php71-version"
-    command: ["cat", "/opt/php71_version"]
-    expectedOutput: ["7\\.1.*"]
+  - name: "php73-version"
+    command: ["cat", "/opt/php73_version"]
+    expectedOutput: ["7\\.3.*"]
 licenseTests:
   - debian: true
     files: []
