@@ -95,3 +95,8 @@ GCP_PACKAGE_BUCKET={your_unique_id}-gcp-php-packages TAG={custom-tag} GOOGLE_PRO
 - Sodium is included in 7.4 and 8.0, re-enable tests if necessary
 - PhalconTest removed for 8.0, determine if annotation can skip instead
 - Determine how to enable lua module for bionic nginx OR determine if using PPA is suitable
+- Review Changes/Additions to `package-build/functions.sh`
+- Reconfigure travis settings for testing custom build, if necessary
+- `VersionTest.php`
+    - Review changes
+    - Need to point to custom built artifacts, not ones affiliated with Google.

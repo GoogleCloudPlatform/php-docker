@@ -22,10 +22,18 @@ if [ ! -f "${PHP_DOCKER_GOOGLE_CREDENTIALS}" ]; then
     exit 1
 fi
 
+if [ -z "${GOOGLE_CONTAINER_REGISTRY}" ]; then
+    GOOGLE_CONTAINER_REGISTRY="google-appengine"
+fi
+
+if [ -z "${TEST_RUNNER_BASE_TAG}" ]; then
+    TEST_RUNNER_BASE_TAG="latest"
+fi
+
 SRC_TMP=$(mktemp -d)
 
 # build the php test runner
-export TEST_RUNNER_BASE_IMAGE="gcr.io/google-appengine/php73:latest"
+export TEST_RUNNER_BASE_IMAGE="gcr.io/${GOOGLE_CONTAINER_REGISTRY}/php80:${TEST_RUNNER_BASE_TAG}"
 envsubst '${TEST_RUNNER_BASE_IMAGE}' \
          < cloudbuild-test-runner/Dockerfile.in \
          > cloudbuild-test-runner/Dockerfile
