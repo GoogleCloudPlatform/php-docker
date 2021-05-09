@@ -14,7 +14,7 @@
 
 # Dockerfile used to build php binaries.
 # Example usage:
-#   docker run -v /mydir:/workspace deb-package-builder 7.3.28-1,7.4.18-1,8.0.5-1
+#   docker run -v /mydir:/workspace deb-package-builder 7.3.28-1,7.4.19-1,8.0.6-1
 # Then you'll get deb packages in /mydir.
 
 FROM gcr.io/gcp-runtimes/ubuntu_18_0_4
@@ -51,7 +51,7 @@ RUN apt-get update -y && \
         librecode0 \
         libsasl2-modules \
         libsqlite3-0 \
-        libopenexr22 \
+        libvips-dev \
         libxml2 \
         libxslt1.1 \
         sasl2-bin \
@@ -63,28 +63,18 @@ RUN apt-get update -y && \
         # headers
         libbz2-dev \
         libcurl4-gnutls-dev \
-        fftw-dev \
-        libfreetype6-dev \
         libgd-dev \
         libgettextpo-dev \
-        libcfitsio-dev \
-        libgif-dev \
         libgmp-dev \
         libicu-dev \
         libjpeg-turbo8-dev \
         libjson-c-dev \
         liblua5.3-dev \
         libmagick++-dev \
-        libmatio-dev \
         libmcrypt-dev \
         libmemcached-dev \
-        libopenslide-dev \
-        liborc-0.4-dev \
         libonig-dev \
-        libpango1.0-dev \
         libpcre3-dev \
-        libpng-dev \
-        libpoppler-glib-dev \
         libpq-dev \
         libreadline6-dev \
         libreadline-dev \
@@ -92,10 +82,9 @@ RUN apt-get update -y && \
         libsasl2-dev \
         libsqlite3-dev \
         libsodium-dev \
-        libwebp-dev \
+        libvips-dev \
         libxml2-dev \
         libxslt1-dev \
-        zlib1g-dev \
         libzip-dev \
         libzip4 \
         # out of date 1.0.2g ->

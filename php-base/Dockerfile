@@ -28,7 +28,6 @@ RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
     curl \
     libssl1.1 \
-    libssl-dev \
     openssl \
     gettext \
     git \
@@ -40,14 +39,15 @@ RUN apt-get update -y && \
     libevent-openssl-2.1-6 \
     libeio1 \
     libext2fs2 \
+    # gd
+    libfontconfig1 \
+    libfreetype6 \
+    libxpm4 \
     libgd-dev \
+    libgd3 \
     libgmp10 \
-    libgsf-1-114 \
-    libgsf-1-dev \
     libicu60 \
-    libilmbase12 \
     libjpeg-turbo8 \
-    libjpeg-turbo8-dev \
     libjudydebian1 \
     liblua5.3-0 \
     libmcrypt4 \
@@ -55,18 +55,15 @@ RUN apt-get update -y && \
     libmemcachedutil2 \
     libonig4 \
     libexif12 \
-    libopenexr22 \
     libpcre2-dev \
     libpcre3 \
-    libpng16-16 \
     libpq5 \
     libreadline7 \
     librecode0 \
-    librsvg2-2 \
     libsasl2-modules \
     libsodium23 \
     libsqlite3-0 \
-    libtiff5-dev \
+    libtiff5 \
     libwrap0 \
     libxml2 \
     libxslt1.1 \
@@ -74,6 +71,27 @@ RUN apt-get update -y && \
     libzip4 \
     imagemagick \
     mercurial \
+    # vips
+    liborc-0.4-0 \
+    libgif7 \
+    libglib2.0-0 \
+    libgsf-1-114 \
+    libjpeg8 \
+    liblcms2-2 \
+    libmatio4 \
+    libpng16-16 \
+    libpoppler-glib8 \
+    librsvg2-2 \
+    libwebp6 \
+    libcairo2 \
+    libcfitsio5 \
+    fftw3 \
+    libopenexr22 \
+    libopenslide0 \
+    libpango-1.0-0 \
+    libwebpdemux2 \
+    libwebpmux3 \
+    libvips42 \
     # nginx-extras \
     gnupg \
     ca-certificates \

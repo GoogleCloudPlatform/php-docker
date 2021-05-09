@@ -52,7 +52,6 @@ class PHP7CustomTest extends TestCase
         'Phar',
         'posix',
         'readline',
-        'recode',
         'Reflection',
         'mysqlnd',
         'SimpleXML',
@@ -87,13 +86,13 @@ class PHP7CustomTest extends TestCase
         'imagick',
     );
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         // Wait for nginx to start
         sleep(3);
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->client = new Client(['base_uri' => 'http://php74-custom:8080/']);
     }

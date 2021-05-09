@@ -16,17 +16,14 @@
  */
 
 use PHPUnit\Framework\TestCase;
-use InvalidVersionException;
-use ExactVersionException;
-use NoSpecifiedVersionException;
 
 require_once(__DIR__ . "/../build-scripts/src/DetectPhpVersion.php");
 
 class DetectPhpVersionTest extends TestCase
 {
     const PHP_73 = '7.3.28';
-    const PHP_74 = '7.4.18';
-    const PHP_80 = '8.0.5';
+    const PHP_74 = '7.4.19';
+    const PHP_80 = '8.0.6';
     const AVAILABLE_VERSIONS = [
         self::PHP_73,
         self::PHP_74,

@@ -19,7 +19,6 @@
 set -xe
 
 PHP_SHORT_NAMES=(php73 php74 php80)
-# PHP_SHORT_NAMES=(php73 php74 php80)
 
 for PHP_SHORT_NAME in "${PHP_SHORT_NAMES[@]}"
 do

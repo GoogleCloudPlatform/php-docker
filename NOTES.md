@@ -79,24 +79,75 @@ GCP_PACKAGE_BUCKET="{your-unique-id}-gcp-php-packages" \
 ```bash
 cd php-docker
 GCP_PACKAGE_BUCKET={your_unique_id}-gcp-php-packages TAG={custom-tag} GOOGLE_PROJECT_ID=your-project-123456 ./scripts/build_images.sh
-```    
+```
 
 ## TODO
-- Fix Packaging for librabbitmq
-- Re-enable all Structure tests
-    - Fix licensing tests or white list the couple of packages causing an issue
-- Re-enable Extension and Custom tests
-- The following extensions need updates to be compatible with php8
-    - hprose
-    - lua
-    - phalcon
-    - tcpwrap
-    - v8js
-- Sodium is included in 7.4 and 8.0, re-enable tests if necessary
-- PhalconTest removed for 8.0, determine if annotation can skip instead
-- Determine how to enable lua module for bionic nginx OR determine if using PPA is suitable
-- Review Changes/Additions to `package-build/functions.sh`
-- Reconfigure travis settings for testing custom build, if necessary
-- `VersionTest.php`
-    - Review changes
-    - Need to point to custom built artifacts, not ones affiliated with Google.
+- Build Process (`php-docker/package-builder`)
+    - Scripts
+        - Review Changes/Additions to `functions.sh`
+            - [x] `download_from_git` - still needed in interim
+    - Libraries
+        - [x] Fix Packaging for librabbitmq
+        - [x] Remove Build of libvips, use bionic version
+    - Extensions
+        - References
+            - [Pagely PHP Versions and Supported Extensions](https://support.pagely.com/hc/en-us/articles/360057574951-PHP-Versions-and-Supported-Extensions-Reference)
+        - apcu
+            - [x] Enabled in php8.0
+        - apcu_bc
+            - [x] Obsolete in php8.0
+        - cassandra
+            - [x] Fix invalid symlink for libcassandra.so
+        - jsond/jsonc
+            - included natively in 7.4+
+        - Sodium
+            - [ ] Enabled and test in 7.4 and 8.0
+        - Phalcon
+            - Requires v5.0 to be released for php8 support
+            - [ ] PhalconTest removed for 8.0, determine how to skip/ignore
+        - php-80
+            - [ ] amqp
+                - [ ] Test
+            - [x] apcu
+            - [ ] cassandra
+            - [ ] hprose
+            - [ ] lua
+            - [ ] phalcon
+            - [ ] stackdriver_debugger
+                - [ ] Test
+                - [ ] Submit PR
+            - [ ] tcpwrap
+            - [ ] v8js
+            - [x] vips
+            - [x] xmlrpc - added as extension
+            - [x] xsl - part of xml,dom
+- Tests
+    - Structure
+        - Switched to [container-structure-test](https://github.com/GoogleContainerTools/container-structure-test)
+        - Fix licensing tests or exclude the couple of packages causing an issue?
+        - [ ] php-73
+        - [ ] php-74
+        - [ ] php-80
+            - Cannot find the copyright files for the following libraries
+            - libext2fs `/usr/share/doc/libext2fs/copyright`
+            - libssl-dev `../libssl1.1/copyright` in `/usr/share/doc/libssl-dev/copyright`
+            - openssl `../libssl1.1/copyright` in `/usr/share/doc/openssl/copyright`
+    - Extension
+        - [ ] php-73
+        - [ ] php-74
+        - [ ] php-80
+    - Legacy Extension
+        - [ ] php-73
+        - [ ] php-74
+        - [ ] php-80
+    - Custom
+        - [ ] php-73
+        - [ ] php-74
+        - [ ] php-80
+    - Travis - check_versions
+        - `VersionTest.php`
+            - [x] Fix failures when searching for gcp-phpXX packages
+            - [x] Need to point to custom built artifacts, not ones affiliated with Google.
+        - [x] Reconfigure travis settings for testing custom build, if necessary
+- nginx
+    - [ ] Determine how to enable `ngx_http_lua_module` for bionic nginx OR determine if using PPA `ondrej/nginx-mainline` is suitable. (*see* `php-base/nginx.conf`)

@@ -4,3 +4,6 @@ commandTests:
     command: "/opt/php/bin/php"
     args: ["-v"]
     expectedOutput: ["PHP 8\\.0.*"]
+# licenseTests:
+# - debian: true
+#   files: []

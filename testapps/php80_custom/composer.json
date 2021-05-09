@@ -1,6 +1,7 @@
 {
     "require": {
         "php": "8.0.*",
+        "ext-apcu": "*",
         "ext-bcmath": "*",
         "ext-calendar": "*",
         "ext-exif": "*",

@@ -25,7 +25,6 @@ override_dh_auto_configure:
 	--enable-exif=shared \
 	--enable-fpm \
 	--enable-ftp=shared \
-	--enable-gd \
 	--enable-intl=shared \
 	--enable-mbstring \
 	--enable-mysqlnd \
@@ -35,31 +34,44 @@ override_dh_auto_configure:
 	--enable-shmop=shared \
 	--enable-soap=shared \
 	--enable-sockets \
+	--enable-libxml \
 	--enable-zip \
 	--with-bz2 \
 	--with-curl \
 	--with-gettext=shared \
 	--with-external-gd=shared \
+	--with-gd=shared \
 	--with-gmp \
 	--with-freetype \
+	--with-freetype-dir=/usr \
 	--with-jpeg \
+	--with-jpeg-dir=/usr \
 	--with-mcrypt \
+	--with-pdo_sqlite=shared,/usr \
+	--without-pdo-sqlite=shared,/usr \
 	--with-pdo-pgsql \
 	--with-pear \
 	--with-pgsql \
 	--with-xmlrpc=shared \
+	--with-libxml \
 	--with-xsl=shared \
 	--with-fpm-user=www-data \
 	--with-fpm-group=www-data \
-	--with-mysql \
+	--with-mysql=mysqlnd \
 	--with-mysqli=mysqlnd \
 	--with-pdo-mysql=mysqlnd \
 	--with-openssl \
 	--with-readline \
 	--with-recode \
-	--with-sodium=shared \
+	--with-sodium=/usr \
+	--with-png-dir=/usr \
+	--with-webp \
+	--with-webp-dir=/usr \
+	--with-xpm \
+	--with-xpm-dir=shared \
 	--with-zip \
-	--with-zlib
+	--with-zlib \
+	--with-zlib-dir=/usr
 
 override_dh_auto_test:
 

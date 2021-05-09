@@ -30,8 +30,6 @@ class PHP80CustomTest extends TestCase
         'openssl',
         'pcre',
         'zlib',
-        'apc',
-        'apcu',
         'bz2',
         'ctype',
         'curl',
@@ -52,7 +50,6 @@ class PHP80CustomTest extends TestCase
         'Phar',
         'posix',
         'readline',
-        'recode',
         'Reflection',
         'mysqlnd',
         'SimpleXML',
@@ -66,6 +63,7 @@ class PHP80CustomTest extends TestCase
         'zip',
         'cgi-fcgi',
         # shared
+        'apcu',
         'bcmath',
         'calendar',
         'exif',
@@ -87,13 +85,13 @@ class PHP80CustomTest extends TestCase
         'imagick',
     );
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         // Wait for nginx to start
         sleep(3);
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->client = new Client(['base_uri' => 'http://php80-custom:8080/']);
     }

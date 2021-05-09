@@ -58,7 +58,6 @@ gcloud builds submit . \
   --config "${CLOUDBUILD_CONFIG}" \
   --timeout 3600 \
   --substitutions _GOOGLE_PROJECT_ID=$GOOGLE_PROJECT_ID,_TAG=$TAG,_GCP_PACKAGE_BUCKET=$GCP_PACKAGE_BUCKET,_RUNTIME_DISTRIBUTION=$RUNTIME_DISTRIBUTION
-  --verbosity="debug"
 
 if [ -z "${RUN_E2E_TESTS}" ]
 then

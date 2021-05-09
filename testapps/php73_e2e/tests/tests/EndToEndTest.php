@@ -32,7 +32,7 @@ class EndToEndTest extends TestCase
     const VERSION_ENV = 'TAG';
     const SERVICE_ACCOUNT_ENV = 'SERVICE_ACCOUNT_JSON';
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         $project_id = getenv(self::PROJECT_ENV);
         $e2e_test_version = getenv(self::VERSION_ENV);
@@ -94,7 +94,7 @@ class EndToEndTest extends TestCase
     }
 
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         // TODO: check the return value and maybe retry?
         $cmd = sprintf(
@@ -122,7 +122,7 @@ class EndToEndTest extends TestCase
         }
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->eventuallyConsistentRetryCount = 10;
         $this->catchAllExceptions = true;

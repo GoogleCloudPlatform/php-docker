@@ -70,7 +70,7 @@ class PHP7CustomTest extends TestCase
         'calendar',
         'exif',
         'ftp',
-        'gd',
+        // 'gd',
         'gettext',
         'intl',
         'mbstring',
@@ -87,13 +87,13 @@ class PHP7CustomTest extends TestCase
         'imagick',
     );
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         // Wait for nginx to start
         sleep(3);
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->client = new Client(['base_uri' => 'http://php73-custom:8080/']);
     }

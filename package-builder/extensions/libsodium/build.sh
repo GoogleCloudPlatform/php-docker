@@ -9,8 +9,8 @@ PNAME="gcp-php${SHORT_VERSION}-libsodium"
 # Download the source
 if [ ${SHORT_VERSION} == '56' ]; then
     download_from_pecl libsodium 1.0.7
-elif [ ${SHORT_VERSION} == '72' ] || [ ${SHORT_VERSION} == '80' ]; then
-    echo "no need for building libsodium for gcp-php${SHORT_VERSION}"
+elif [ ${SHORT_VERSION} == '73' ] || [ ${SHORT_VERSION} == '74' ] || [ ${SHORT_VERSION} == '80' ]; then
+    echo "Sodium already builtin for gcp-php${SHORT_VERSION}"
     exit 0
 else
     download_from_pecl libsodium 2.0.23

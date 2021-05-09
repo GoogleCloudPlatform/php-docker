@@ -40,7 +40,7 @@ apt-get install -y --no-install-recommends \
 # Enable some extensions for backward compatibility
 ln -sf ${PHP80_DIR}/bin/php80-enmod ${PHP80_DIR}/bin/php-enmod
 ln -sf ${PHP80_DIR}/bin/php80-dismod  ${PHP80_DIR}/bin/php-dismod
-#${PHP80_DIR}/bin/php80-enmod apcu-bc
+${PHP80_DIR}/bin/php80-enmod apcu
 ${PHP80_DIR}/bin/php80-enmod mailparse
 ${PHP80_DIR}/bin/php80-enmod memcached
 

@@ -24,39 +24,6 @@ with_retry()
     done
 }
 
-curl_latest_from_pecl()
-{
-    # Download the source code, rename, extract it for debian package
-    # Usage:
-    # curl_latest_from_pecl mailparse # for the latest
-    # curl_latest_from_pecl mailparse 2.1.6 # for a specific version
-    if [ -z "$1" ]; then
-        echo 'missing argument for curl_from_pecl'
-        exit $E_PARAM_ERR
-    fi
-    PACKAGE_SHORT_NAME=$1
-
-    if [ -z "$2" ]; then
-        with_retry "curl -fsSOJL https://pecl.php.net/get/${PACKAGE_SHORT_NAME}" 6
-
-        # determine the downloaded version
-        EXT_VERSION=$(ls ${PACKAGE_SHORT_NAME}-*.tgz | \
-                sed -E "s/${PACKAGE_SHORT_NAME}-([0-9]+\.[0-9]+(\.[0-9]+)+.*)\.tgz/\1/")
-    else
-        EXT_VERSION="${2}"
-        with_retry "curl -fsSOJL https://pecl.php.net/get/${PACKAGE_SHORT_NAME}-${EXT_VERSION}.tgz" 6
-    fi
-
-    PACKAGE_VERSION="${EXT_VERSION}-${PHP_VERSION}"
-    PACKAGE_FULL_VERSION="${EXT_VERSION}-${FULL_VERSION}"
-    PACKAGE_DIR=${PNAME}-${PACKAGE_VERSION}
-    mv ${PACKAGE_SHORT_NAME}-${EXT_VERSION}.tgz \
-       ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz
-    mkdir -p ${PACKAGE_DIR}
-    tar zxf ${PNAME}-${PACKAGE_VERSION}.orig.tar.gz \
-        -C ${PACKAGE_DIR} --strip-components=1
-}
-
 download_from_pecl()
 {
     # Download the source code, rename, extract it for debian package
@@ -72,9 +39,11 @@ download_from_pecl()
     # chop off optional -beta from the package name. it is needed to specify
     # we are downloading a beta version, but is not actually part of the
     # package name
+    # Also remove any release candidate suffix
     PACKAGE_SHORT_NAME=$(basename ${PECL_PACKAGE_NAME} -beta)
     PACKAGE_SHORT_NAME=$(basename ${PACKAGE_SHORT_NAME} -alpha)
     PACKAGE_SHORT_NAME=$(basename ${PACKAGE_SHORT_NAME} -devel)
+    PACKAGE_SHORT_NAME=$(echo ${PACKAGE_SHORT_NAME} | sed -E "s/(.*)RC[0-9]$/\1/")
 
     if [ -z "$2" ]; then
         with_retry "pecl download ${PECL_PACKAGE_NAME}" 6
