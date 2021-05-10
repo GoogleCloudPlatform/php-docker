@@ -9,13 +9,13 @@ echo "Building apcu_bc for gcp-php${SHORT_VERSION}"
 PNAME="gcp-php${SHORT_VERSION}-apcu-bc"
 
 # Download the source
-if [ ${SHORT_VERSION} == '56' ]; then
+if [ ${SHORT_VERSION} == '56' ] || [ ${SHORT_VERSION} == '80' ]; then
     echo 'No need to build apcu_bc'
     exit 0
 else
     # We need to install the build dep
     install_last_package "gcp-php${SHORT_VERSION}-apcu"
-    download_from_pecl apcu_bc-beta
+    download_from_pecl apcu_bc 1.0.5
 fi
 
 cp -R ${DEB_BUILDER_DIR}/extensions/apcu_bc/debian ${PACKAGE_DIR}

@@ -17,7 +17,7 @@ PNAME="gcp-php${SHORT_VERSION}-pq"
 if [ ${SHORT_VERSION} == "56" ]; then
     download_from_pecl pq 1.1.1
 else
-    download_from_pecl pq
+    download_from_git https://github.com/m6w6/ext-pq.git 2.1.9
 fi
 
 build_package pq

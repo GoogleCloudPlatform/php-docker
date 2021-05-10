@@ -4,7 +4,7 @@ This directory contains the code to build all of our debian packages for php and
 
 ## PHP Versions
 
-We currently support the latest patch version of 5.6, 7.0, 7.1, and 7.2. See
+We currently support the latest patch version of 7.3, 7.4 and 8.0. See
 [releases](https://github.com/GoogleCloudPlatform/php-docker/releases) for exact versions.
 
 ## Extensions
@@ -19,12 +19,12 @@ We currently support the latest patch version of 5.6, 7.0, 7.1, and 7.2. See
 * ev
 * event
 * gprc
-* hprose
+* hprose (7.3, 7.4)
 * imagick
 * jsonc
 * jsond
 * krb5
-* libsodium (7.0, 7.1)
+* libsodium (7.3) (built-in 7.4, 8.0)
 * lua (7.0+)
 * LZF
 * mailparse
@@ -43,12 +43,12 @@ We currently support the latest patch version of 5.6, 7.0, 7.1, and 7.2. See
 * SeasLog
 * stackdriver_debugger
 * stomp
-* suhosin
+* suhosin (5.6)
 * swoole
 * sync
 * tcpwrap
 * timezonedb
-* v8js (7.0+)
+* v8js (7.3, 7.4)
 * vips (7.0+)
 * yaconf (7.0+)
 * yaf
@@ -56,6 +56,7 @@ We currently support the latest patch version of 5.6, 7.0, 7.1, and 7.2. See
 
 ## Building Packages
 
+### Cloud Build
 1. Install `gcloud` utils.
 2. `GOOGLE_PROJECT_ID=my_project_id ./build_packages.sh`
 
@@ -64,6 +65,15 @@ uploaded to the bucket named `$BUCKET` (defaults to the project id).
 
 If you want to build for specific versions of PHP, set the `$PHP_VERSIONS` environment variable to a comma separated list
 of PHP versions. This defaults to a hard-coded list defined in the `build_packages.sh` file
+
+### Local using Docker
+1.  Install `docker`.
+2.  `cd php-docker/package-builder`
+3.  `docker build -t deb-package-builder .`
+4.  Create directory for built packages: `mkdir -p ~/gcloud/packages`
+5.  `docker run --rm -it -v ~/gcloud/packages/:/workspace deb-package-builder:latest`
+6.  You can pass a comma separated list of PHP versions, followed by a comma separated list of extensions, and optionally
+    a comma separated list of libraries to build. *see package-builder/build_packages.sh*
 
 ## Adding New Extensions
 

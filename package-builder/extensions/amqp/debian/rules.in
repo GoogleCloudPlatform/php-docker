@@ -1,11 +1,10 @@
 #!/usr/bin/make -f
-
 %:
 	dh $@
 
 override_dh_auto_configure:
 	phpize && \
-	./configure
+	./configure --enable-debug
 
 override_dh_auto_test:
 

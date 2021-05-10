@@ -21,60 +21,69 @@ require_once(__DIR__ . "/../build-scripts/src/DetectPhpVersion.php");
 
 class DetectPhpVersionTest extends TestCase
 {
-    const PHP_71 = '7.1.3';
+    const PHP_73 = '7.3.28';
+    const PHP_74 = '7.4.19';
+    const PHP_80 = '8.0.6';
     const AVAILABLE_VERSIONS = [
-        self::PHP_71,
+        self::PHP_73,
+        self::PHP_74,
+        self::PHP_80,
     ];
 
     public function testDetectsPhpVersionFromComposer()
     {
-        $version = DetectPhpVersion::versionFromComposer(__DIR__ . '/samples/phalcon.json', self::AVAILABLE_VERSIONS);
-        $this->assertEquals(self::PHP_71, $version);
+        $version = DetectPhpVersion::versionFromComposer(__DIR__ . '/samples/oauth.json', self::AVAILABLE_VERSIONS);
+        $this->assertEquals(self::PHP_80, $version);
     }
 
     public function testDetectsHighestVersion()
     {
-        $version = DetectPhpVersion::version('^7', self::AVAILABLE_VERSIONS);
-        $this->assertEquals(self::PHP_71, $version);
+        $version = DetectPhpVersion::version('^8', self::AVAILABLE_VERSIONS);
+        $this->assertEquals(self::PHP_80, $version);
     }
 
     /**
-     * @expectedException \ExactVersionException
+     * @expectedException ExactVersionException
      */
     public function testExactVersionDirect()
     {
-        $version = DetectPhpVersion::version('7.1.10', self::AVAILABLE_VERSIONS);
+        $this->expectException(ExactVersionException::class);
+        $version = DetectPhpVersion::version('8.0.3', self::AVAILABLE_VERSIONS);
     }
 
     /**
-     * @expectedException \InvalidVersionException
+     * @expectedException InvalidVersionException
      */
     public function testInvalidVersionDirect()
     {
-        $version = DetectPhpVersion::version('^7.1.100', self::AVAILABLE_VERSIONS);
+        $this->expectException(InvalidVersionException::class);
+        $version = DetectPhpVersion::version('^8.0.100', self::AVAILABLE_VERSIONS);
     }
 
     /**
-     * @expectedException \ExactVersionException
+     * @expectedException ExactVersionException
      */
     public function testExactVersion()
     {
+        $this->expectException(ExactVersionException::class);
         $version = DetectPhpVersion::versionFromComposer(__DIR__ . '/samples/exact.json', self::AVAILABLE_VERSIONS);
     }
 
     /**
-     * @expectedException \NoSpecifiedVersionException
+     * @expectedException NoSpecifiedVersionException
      */
     public function testNoVersionString()
     {
+        $this->expectException(NoSpecifiedVersionException::class);
         $version = DetectPhpVersion::versionFromComposer(__DIR__ . '/samples/no_version.json', self::AVAILABLE_VERSIONS);
     }
 
     /**
-     * @expectedException \InvalidVersionException
+     * @expectedException InvalidVersionException
      */
     public function testInvalidVersion()
     {
+        $this->expectException(InvalidVersionException::class);
         $version = DetectPhpVersion::versionFromComposer(__DIR__ . '/samples/invalid.json', self::AVAILABLE_VERSIONS);
     }
 }

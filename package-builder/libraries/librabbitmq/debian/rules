@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+NUMJOBS=1
+
+%:
+	dh $@ -v
+
+# Copy built files to base package and dev package directories
+override_dh_auto_install:
+	mkdir -p debian/tmp/usr/include
+	mkdir -p debian/tmp/usr/lib/${DEB_HOST_MULTIARCH}/cmake/rabbitmq-c
+	mkdir -p debian/tmp/usr/lib/${DEB_HOST_MULTIARCH}/pkgconfig
+	mkdir -p debian/tmp/usr/share
+	cp -R usr debian/tmp/usr
+
+override_dh_auto_configure:
+override_dh_auto_build:
+override_dh_auto_test:
+override_dh_auto_clean:

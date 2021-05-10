@@ -20,9 +20,13 @@ class ImagickTest extends TestCase
 {
     private $success = false;
 
-    public function testExtensionLoaded()
+    protected function setUp(): void
     {
-        $this->assertTrue(extension_loaded('imagick'));
+        if (!extension_loaded('imagick')) {
+            $this->markTestSkipped(
+                'The imagick extension is not available.'
+            );
+        }
     }
 
     public function testLoadImage()

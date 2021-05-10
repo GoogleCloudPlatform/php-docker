@@ -52,7 +52,6 @@ class PHP7CustomTest extends TestCase
         'Phar',
         'posix',
         'readline',
-        'recode',
         'Reflection',
         'mysqlnd',
         'SimpleXML',
@@ -87,13 +86,13 @@ class PHP7CustomTest extends TestCase
         'imagick',
     );
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         // Wait for nginx to start
         sleep(3);
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->client = new Client(['base_uri' => 'http://php74-custom:8080/']);
     }
@@ -103,7 +102,7 @@ class PHP7CustomTest extends TestCase
         $resp = $this->client->get('extensions.php');
         $loaded = $resp->getBody()->getContents();
         foreach (self::$extensions as $ext) {
-            $this->assertContains($ext, $loaded);
+            $this->assertStringContainsString($ext, $loaded);
         }
     }
 
@@ -112,12 +111,12 @@ class PHP7CustomTest extends TestCase
         $resp = $this->client->get('apc.php');
         $body = $resp->getBody()->getContents();
 
-        $this->assertContains('success storing in apc bc', $body);
-        $this->assertContains('success fetching from apc bc', $body);
-        $this->assertContains('success deleting from apc bc', $body);
-        $this->assertContains('success storing in apcu', $body);
-        $this->assertContains('success fetching from apcu', $body);
-        $this->assertContains('success deleting from apcu', $body);
+        $this->assertStringContainsString('success storing in apc bc', $body);
+        $this->assertStringContainsString('success fetching from apc bc', $body);
+        $this->assertStringContainsString('success deleting from apc bc', $body);
+        $this->assertStringContainsString('success storing in apcu', $body);
+        $this->assertStringContainsString('success fetching from apcu', $body);
+        $this->assertStringContainsString('success deleting from apcu', $body);
     }
 
     public function testImagickCanLoad()
@@ -126,7 +125,7 @@ class PHP7CustomTest extends TestCase
         $body = $resp->getBody()->getContents();
 
         // test image should by 300px by 1px
-        $this->assertContains('300x1', $body);
+        $this->assertStringContainsString('300x1', $body);
     }
 
     public function testFrontControllerFileEnv()
@@ -134,6 +133,6 @@ class PHP7CustomTest extends TestCase
         // Access the top page and it should be served by app.php
         $resp = $this->client->get('');
         $body = $resp->getBody()->getContents();
-        $this->assertContains('FRONT_CONTROLLER_FILE works', $body);
+        $this->assertStringContainsString('FRONT_CONTROLLER_FILE works', $body);
     }
 }
