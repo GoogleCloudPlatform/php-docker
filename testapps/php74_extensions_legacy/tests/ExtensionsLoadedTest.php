@@ -29,7 +29,7 @@ class ExtensionsLoadedTest extends TestCase
     public function extensions()
     {
         return [
-            ['amqp'],
+            // ['amqp'],
             ['bitset'],
             ['couchbase'],
             ['ds'],

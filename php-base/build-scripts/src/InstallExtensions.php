@@ -84,12 +84,13 @@ class InstallExtensions
         'apm' => ['5.6'],
         'couchbase' => ['5.6'],
         'ds' => ['5.6'],
-        'lua' => ['5.6'],
+        'lua' => ['5.6','8.0'],
         'memcache' => ['7.0', '7.1', '7.2'],
-        'mongo' => ['7.0', '7.1', '7.2'],
+        'mongo' => ['7.0', '7.1', '7.2', '7.3', '7.4', '8.0'],
         'opencensus' => ['5.6'],
-        'stackdriver_debugger' => ['5.6'],
-        'v8js' => ['5.6'],
+        'phalcon' => ['8.0'],
+        'stackdriver_debugger' => ['5.6', '8.0'],
+        'v8js' => ['5.6', '7.3', '7.4', '8.0'],
         'vips' => ['5.6'],
         'yaconf' => ['5.6']
     ];
@@ -105,6 +106,8 @@ class InstallExtensions
         $this->phpVersion = $phpVersion;
         $this->configFile = $configFile ?: $this->defaultConfigFile();
         $composer = json_decode(file_get_contents($filename), true);
+
+        print_r(get_loaded_extensions());
         if (is_array($composer) && array_key_exists('require', $composer)) {
             foreach ($composer['require'] as $package => $version) {
                 if (substr($package, 0, 4) == 'ext-') {
@@ -121,6 +124,11 @@ class InstallExtensions
 
     public function errors()
     {
+        if (is_array($this->errors)) {
+            echo json_encode($this->errors, JSON_PRETTY_PRINT);
+        } else {
+            echo $this->errors;
+        }
         return $this->errors;
     }
 
@@ -153,19 +161,22 @@ class InstallExtensions
 
     private function defaultConfigFile()
     {
-        return implode([
-            getenv('PHP_DIR'),
-            'lib',
-            'conf.d',
-            'extensions.ini'
-        ], '/');
+        return implode(
+            '/',
+            [
+                getenv('PHP_DIR'),
+                'lib',
+                'conf.d',
+                'extensions.ini'
+            ]
+        );
     }
 
     private function installPackages()
     {
         system('apt-get -y update');
         $command = 'apt-get install -y --no-install-recommends '
-            . implode(array_map([$this, 'packageName'], $this->extensionsToInstall), ' ');
+            . implode(' ', array_map([$this, 'packageName'], $this->extensionsToInstall));
         echo $command . PHP_EOL;
         system($command);
     }

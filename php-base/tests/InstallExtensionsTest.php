@@ -23,14 +23,25 @@ class InstallExtensionsTest extends TestCase
 {
     public function testDetectsPackagedExtensions()
     {
-        $installer = new InstallExtensions(__DIR__ . '/samples/phalcon.json');
-        $this->assertEquals(['phalcon'], $installer->extensions(), implode(',', $installer->errors()));
+        $output = null;
+        $retval = null;
+
+        echo "Available PHP Modules \n";
+        exec('php -m', $output, $retval);
+        print_r($output);
+        echo "\n";
+        echo "Nginx Modules\n";
+        exec('ls -al /usr/lib/nginx/modules', $output, $retval);
+        print_r($output);
+
+        $installer = new InstallExtensions(__DIR__ . '/samples/oauth.json');
+        $this->assertEquals(['oauth'], $installer->extensions(), implode(',', $installer->errors()));
     }
 
     public function testDetectsSharedExtensions()
     {
         $installer = new InstallExtensions(__DIR__ . '/samples/shared.json');
-        $this->assertEquals(['sqlite3'], $installer->extensions());
+        $this->assertEquals(['ev'], $installer->extensions());
     }
 
     public function testInstallsExtensions()
@@ -38,7 +49,7 @@ class InstallExtensionsTest extends TestCase
         $output = tempnam("/tmp", "php.ini");
         $installer = new InstallExtensions(__DIR__ . '/samples/shared.json', $output);
         $this->assertTrue($installer->installExtensions());
-        $this->assertEquals("extension=sqlite3.so\n", file_get_contents($output));
+        $this->assertEquals("extension=ev.so\n", file_get_contents($output));
 
         unlink($output);
     }

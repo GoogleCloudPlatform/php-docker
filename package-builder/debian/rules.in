@@ -2,7 +2,8 @@
 # -*- makefile -*-
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+export DH_VERBOSE=1
+export VERBOSE=1
 
 %:
 	dh $@
@@ -12,6 +13,7 @@ override_dh_auto_configure:
 	&& ./buildconf --force \
 	&& ln -sf /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h \
 	&& dh_auto_configure -- --prefix=/opt/php${SHORT_VERSION} ${EXTRA_OPTS} \
+	--verbose \
 	--with-config-file-path=/opt/php${SHORT_VERSION}/lib \
 	--with-config-file-scan-dir=/opt/php${SHORT_VERSION}/lib/ext.enabled:/opt/php${SHORT_VERSION}/lib/conf.d \
 	--enable-sysvsem \
@@ -32,31 +34,44 @@ override_dh_auto_configure:
 	--enable-shmop=shared \
 	--enable-soap=shared \
 	--enable-sockets \
+	--enable-libxml \
 	--enable-zip \
 	--with-bz2 \
 	--with-curl \
 	--with-gettext=shared \
+	--with-external-gd=shared \
 	--with-gd=shared \
 	--with-gmp \
+	--with-freetype \
 	--with-freetype-dir=/usr \
+	--with-jpeg \
 	--with-jpeg-dir=/usr \
 	--with-mcrypt \
 	--with-pdo_sqlite=shared,/usr \
+	--without-pdo-sqlite=shared,/usr \
 	--with-pdo-pgsql \
+	--with-pear \
 	--with-pgsql \
-	--with-sqlite3=shared,/usr \
 	--with-xmlrpc=shared \
+	--with-libxml \
 	--with-xsl=shared \
 	--with-fpm-user=www-data \
 	--with-fpm-group=www-data \
-	--with-mysql \
+	--with-mysql=mysqlnd \
 	--with-mysqli=mysqlnd \
 	--with-pdo-mysql=mysqlnd \
 	--with-openssl \
-	--with-pcre-regex \
 	--with-readline \
 	--with-recode \
-	--with-zlib
+	--with-sodium=/usr \
+	--with-png-dir=/usr \
+	--with-webp \
+	--with-webp-dir=/usr \
+	--with-xpm \
+	--with-xpm-dir=shared \
+	--with-zip \
+	--with-zlib \
+	--with-zlib-dir=/usr
 
 override_dh_auto_test:
 

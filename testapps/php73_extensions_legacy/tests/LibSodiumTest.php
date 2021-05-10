@@ -18,9 +18,13 @@ use PHPUnit\Framework\TestCase;
 
 class LibsodiumTest extends TestCase
 {
-    public function testExtensionLoaded()
+    protected function setUp(): void
     {
-        $this->assertTrue(extension_loaded('sodium'));
+        if (!extension_loaded('sodium')) {
+            $this->markTestSkipped(
+                'The Sodium extension is not available.'
+            );
+        }
     }
 
     public function testLoadImage()

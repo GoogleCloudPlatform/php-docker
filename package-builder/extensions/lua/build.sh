@@ -9,6 +9,9 @@ PNAME="gcp-php${SHORT_VERSION}-lua"
 if [ ${SHORT_VERSION} == '56' ]; then
     echo "lua extension only for PHP 7.0+"
     exit 0
+elif [ ${SHORT_VERSION} == '80' ]; then
+    echo "lua extension is not supported in PHP 8.0 yet"
+    exit 0
 fi
 
 ln -sf /usr/include/lua5.3 /usr/include/lua

@@ -32,7 +32,7 @@ class EndToEndTest extends TestCase
     const VERSION_ENV = 'TAG';
     const SERVICE_ACCOUNT_ENV = 'SERVICE_ACCOUNT_JSON';
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         $project_id = getenv(self::PROJECT_ENV);
         $e2e_test_version = getenv(self::VERSION_ENV);
@@ -94,7 +94,7 @@ class EndToEndTest extends TestCase
     }
 
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         // TODO: check the return value and maybe retry?
         $cmd = sprintf(
@@ -122,7 +122,7 @@ class EndToEndTest extends TestCase
         }
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->eventuallyConsistentRetryCount = 10;
         $this->catchAllExceptions = true;
@@ -141,7 +141,7 @@ class EndToEndTest extends TestCase
             $resp = $this->client->get('index.php');
             $this->assertEquals('200', $resp->getStatusCode(),
                                 'index.php status code');
-            $this->assertContains('Hello World', $resp->getBody()->getContents());
+            $this->assertStringContainsString('Hello World', $resp->getBody()->getContents());
         });
     }
 
@@ -152,7 +152,7 @@ class EndToEndTest extends TestCase
             $resp = $this->client->get('https-env.php');
             $this->assertEquals('200', $resp->getStatusCode(),
                                 'https-env.php status code');
-            $this->assertContains('HTTPS: on', $resp->getBody()->getContents());
+            $this->assertStringContainsString('HTTPS: on', $resp->getBody()->getContents());
         });
     }
 
@@ -164,7 +164,7 @@ class EndToEndTest extends TestCase
             $resp = $this->client->get('/goodbye');
             $this->assertEquals('200', $resp->getStatusCode(),
                                 '/goodbye status code');
-            $this->assertContains('Goodbye World',
+            $this->assertStringContainsString('Goodbye World',
                                   $resp->getBody()->getContents());
         });
     }
@@ -191,7 +191,7 @@ class EndToEndTest extends TestCase
                 $resp->getStatusCode(),
                 'exec.php status code'
             );
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'exec succeeded.',
                 $resp->getBody()->getContents()
             );
@@ -205,7 +205,7 @@ class EndToEndTest extends TestCase
             $resp = $this->client->get('pdo_sqlite.php');
             $this->assertEquals('200', $resp->getStatusCode(),
                                 'pdo_sqlite.php status code');
-            $this->assertContains('Hello pdo_sqlite',
+            $this->assertStringContainsString('Hello pdo_sqlite',
                                   $resp->getBody()->getContents());
         });
     }
@@ -217,7 +217,7 @@ class EndToEndTest extends TestCase
             $resp = $this->client->get('session_save_handler.php');
             $this->assertEquals('200', $resp->getStatusCode(),
                                 'session_save_handler status code');
-            $this->assertContains('memcached',
+            $this->assertStringContainsString('memcached',
                                   $resp->getBody()->getContents());
         });
     }

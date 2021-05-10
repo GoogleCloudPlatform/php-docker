@@ -31,7 +31,7 @@ class GenFilesCommandTest extends TestCase
             'composer.json'
     ];
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$testDir = tempnam(sys_get_temp_dir(), 'GenFilesTest');
         if (file_exists(self::$testDir)) {
@@ -40,18 +40,18 @@ class GenFilesCommandTest extends TestCase
         mkdir(self::$testDir);
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         rmdir(self::$testDir);
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         // Set default envvar
         putenv('GAE_APPLICATION_YAML_PATH=app.yaml');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         foreach (self::$files as $file) {
             if (file_exists(self::$testDir . '/' . $file)) {
@@ -76,10 +76,9 @@ class GenFilesCommandTest extends TestCase
         if ($baseImages === null) {
             $baseImages =
                 [
-                    '--php71-image' => 'gcr.io/google-appengine/php71:latest',
-                    '--php72-image' => 'gcr.io/google-appengine/php72:latest',
                     '--php73-image' => 'gcr.io/google-appengine/php73:latest',
                     '--php74-image' => 'gcr.io/google-appengine/php74:latest',
+                    '--php80-image' => 'gcr.io/google-appengine/php80:latest',
                 ];
         }
         if ($expectedException !== null) {
@@ -102,23 +101,23 @@ class GenFilesCommandTest extends TestCase
 
         $dockerfile = file_get_contents(self::$testDir . '/Dockerfile');
         $this->assertNotFalse($dockerfile, 'Dockerfile should exist');
-        $this->assertContains(
+        $this->assertStringContainsString(
             "DOCUMENT_ROOT='$expectedDocRoot'",
             $dockerfile
         );
-        $this->assertContains('FROM ' . $expectedFrom, $dockerfile);
+        $this->assertStringContainsString('FROM ' . $expectedFrom, $dockerfile);
         $genFiles->createDockerignore();
         $dockerignore = file_get_contents(self::$testDir . '/.dockerignore');
         $this->assertNotFalse($dockerignore, '.dockerignore should exist');
-        $this->assertContains(
+        $this->assertStringContainsString(
             $expectedDockerIgnore,
             $dockerignore
         );
         if (!empty($appYamlEnv)) {
-            $this->assertContains($appYamlEnv, $dockerignore);
+            $this->assertStringContainsString($appYamlEnv, $dockerignore);
         }
         foreach ($otherExpectations as $expectation) {
-            $this->assertContains($expectation, $dockerfile);
+            $this->assertStringContainsString($expectation, $dockerfile);
         }
     }
 
@@ -132,10 +131,10 @@ class GenFilesCommandTest extends TestCase
                 '',
                 '/app',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php74:latest',
+                'gcr.io/google-appengine/php80:latest',
                 ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
                  "FRONT_CONTROLLER_FILE='index.php' \\\n",
-                 "DETECTED_PHP_VERSION='7.4' \n"
+                 "DETECTED_PHP_VERSION='8.0' \n"
                 ]
             ],
             [
@@ -145,11 +144,11 @@ class GenFilesCommandTest extends TestCase
                 '',
                 '/app',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php74:latest',
+                'gcr.io/google-appengine/php80:latest',
                 ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
                  "FRONT_CONTROLLER_FILE='index.php' \\\n",
                  "SKIP_LOCKDOWN_DOCUMENT_ROOT='true' \\\n",
-                 "DETECTED_PHP_VERSION='7.4' \n"
+                 "DETECTED_PHP_VERSION='8.0' \n"
                 ]
             ],
             [
@@ -170,10 +169,10 @@ class GenFilesCommandTest extends TestCase
                 '',
                 '/app',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php74:latest',
+                'gcr.io/google-appengine/php80:latest',
                 ["COMPOSER_FLAGS='--prefer-dist --no-dev --no-script' \\\n",
                  "FRONT_CONTROLLER_FILE='index.php' \\\n",
-                 "DETECTED_PHP_VERSION='7.4' \n"
+                 "DETECTED_PHP_VERSION='8.0' \n"
                 ]
             ],
             [
@@ -186,19 +185,6 @@ class GenFilesCommandTest extends TestCase
                 '',
                 [],
                 '\\Google\\Cloud\\Runtimes\\Builder\\Exception\\InvalidComposerFlagsException'
-            ],
-            [
-                // PHP 7.1
-                __DIR__ . '/test_data/php71',
-                null,
-                '',
-                '/app',
-                'added by the php runtime builder',
-                'gcr.io/google-appengine/php71:latest',
-                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
-                 "FRONT_CONTROLLER_FILE='index.php' \\\n",
-                 "DETECTED_PHP_VERSION='7.1' \n"
-                ]
             ],
             [
                 // PHP 7.3
@@ -227,13 +213,26 @@ class GenFilesCommandTest extends TestCase
                 ]
             ],
             [
+                // PHP 8.0
+                __DIR__ . '/test_data/php80',
+                null,
+                '',
+                '/app',
+                'added by the php runtime builder',
+                'gcr.io/google-appengine/php80:latest',
+                ["COMPOSER_FLAGS='--no-dev --prefer-dist' \\\n",
+                    "FRONT_CONTROLLER_FILE='index.php' \\\n",
+                    "DETECTED_PHP_VERSION='8.0' \n"
+                ]
+            ],
+            [
                 // values on env_variables
                 __DIR__ . '/test_data/values_only_on_env',
                 null,
                 '',
                 '/app',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php74:latest',
+                'gcr.io/google-appengine/php80:latest',
                 [
                     "WHITELIST_FUNCTIONS='exec' \\\n",
                     "FRONT_CONTROLLER_FILE='app.php'",
@@ -253,7 +252,7 @@ class GenFilesCommandTest extends TestCase
                 '',
                 '/app',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php74:latest',
+                'gcr.io/google-appengine/php80:latest',
                 [],
                 '\\Google\\Cloud\\Runtimes\\Builder\\Exception\\MissingDocumentRootException'
             ],
@@ -264,7 +263,7 @@ class GenFilesCommandTest extends TestCase
                 '',
                 '/app',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php74:latest',
+                'gcr.io/google-appengine/php80:latest',
                 [
                     "WHITELIST_FUNCTIONS='exec' \\\n",
                     "FRONT_CONTROLLER_FILE='app.php'",
@@ -285,7 +284,7 @@ class GenFilesCommandTest extends TestCase
                 '',
                 '/app',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php74:latest',
+                'gcr.io/google-appengine/php80:latest',
                 ["FRONT_CONTROLLER_FILE='app.php' \\\n"]
             ],
             [
@@ -295,23 +294,20 @@ class GenFilesCommandTest extends TestCase
                 'my.yaml',
                 '/app',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php74:latest'
+                'gcr.io/google-appengine/php80:latest'
             ],
             [
                 // Overrides baseImage
                 __DIR__ . '/test_data/simplest',
                 [
-                    '--php56-image' => 'gcr.io/php-mvm-a-28051/php56:latest',
-                    '--php70-image' => 'gcr.io/php-mvm-a-28051/php70:latest',
-                    '--php71-image' => 'gcr.io/php-mvm-a-28051/php71:latest',
-                    '--php72-image' => 'gcr.io/php-mvm-a-28051/php72:latest',
                     '--php73-image' => 'gcr.io/php-mvm-a-28051/php73:latest',
                     '--php74-image' => 'gcr.io/php-mvm-a-28051/php74:latest',
+                    '--php80-image' => 'gcr.io/php-mvm-a-28051/php80:latest',
                 ],
                 '',
                 '/app',
                 'added by the php runtime builder',
-                'gcr.io/php-mvm-a-28051/php74:latest'
+                'gcr.io/php-mvm-a-28051/php80:latest'
             ],
             [
                 // Has document_root set
@@ -320,7 +316,7 @@ class GenFilesCommandTest extends TestCase
                 '',
                 '/app/web',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php74:latest'
+                'gcr.io/google-appengine/php80:latest'
             ],
             [
                 // Has document_root set in env_variables
@@ -329,7 +325,7 @@ class GenFilesCommandTest extends TestCase
                 '',
                 '/app/web',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php74:latest'
+                'gcr.io/google-appengine/php80:latest'
             ],
             [
                 // document_root in both will throw exception
@@ -338,7 +334,7 @@ class GenFilesCommandTest extends TestCase
                 '',
                 '/app/web',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php74:latest',
+                'gcr.io/google-appengine/php80:latest',
                 [],
                 '\\Google\\Cloud\\Runtimes\\Builder\\Exception\\EnvConflictException'
             ],
@@ -358,7 +354,7 @@ class GenFilesCommandTest extends TestCase
                 '',
                 '/app',
                 'added by the php runtime builder',
-                'gcr.io/google-appengine/php74:latest',
+                'gcr.io/google-appengine/php80:latest',
                 [],
                 '\\Google\\Cloud\\Runtimes\\Builder\\Exception\\ExactVersionException'
             ]

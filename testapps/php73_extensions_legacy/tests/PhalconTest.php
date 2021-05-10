@@ -20,9 +20,17 @@ class PhalconTest extends TestCase
 {
     private $success = false;
 
+    protected function setUp(): void
+    {
+        if (!extension_loaded('phalcon')) {
+            $this->markTestSkipped(
+                'The phalcon extension is not available.'
+            );
+        }
+    }
+
     public function testExtensionLoaded()
     {
-        $this->markTestSkipped('Phalcon is not available for PHP 7.1 yet.');
-        // $this->assertTrue(extension_loaded('phalcon'));
+        $this->assertTrue(extension_loaded('phalcon'));
     }
 }

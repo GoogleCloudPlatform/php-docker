@@ -1,5 +1,6 @@
-schemaVersion: "1.0.0"
+schemaVersion: "2.0.0"
 commandTests:
   - name: "version"
-    command: ["/opt/php/bin/php", "-v"]
+    command: "/opt/php/bin/php"
+    args: ["-v"]
     expectedOutput: ["PHP 7\\.3.*"]

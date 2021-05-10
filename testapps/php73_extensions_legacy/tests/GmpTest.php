@@ -18,9 +18,13 @@ use PHPUnit\Framework\TestCase;
 
 class GmpTest extends TestCase
 {
-    public function testExtensionLoaded()
+    protected function setUp(): void
     {
-        $this->assertTrue(extension_loaded('gmp'));
+        if (!extension_loaded('gmp')) {
+            $this->markTestSkipped(
+                'The gmp extension is not available.'
+            );
+        }
     }
 
     public function testGcd()

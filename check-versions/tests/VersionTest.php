@@ -22,23 +22,16 @@ class VersionTest extends TestCase
 {
     private static $versions;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$versions = array();
         $client = new Client(['base_uri' => 'http://www.php.net']);
         $response = $client->request('GET', '/downloads.php');
         $body = $response->getBody();
-
-        $pattern = '/PHP (7\.1\.\d+)/';
-        if (preg_match($pattern, $body, $matches)) {
-            self::$versions['php71'] = $matches[1];
-        } else {
-            self::$versions['php71'] =
-                'Failed to detect the latest PHP71 version';
-        }
-
         $pattern = '/PHP (7\.3\.\d+)/';
+
         if (preg_match($pattern, $body, $matches)) {
+            echo "setUp => 7.3 -> matched\n";
             self::$versions['php73'] = $matches[1];
         } else {
             self::$versions['php73'] =
@@ -47,29 +40,39 @@ class VersionTest extends TestCase
 
         $pattern = '/PHP (7\.4\.\d+)/';
         if (preg_match($pattern, $body, $matches)) {
+            echo "setUp => 7.4 -> matched\n";
             self::$versions['php74'] = $matches[1];
         } else {
             self::$versions['php74'] =
                 'Failed to detect the latest PHP74 version';
         }
 
-        exec('apt-get update');
-    }
-
-    public function testPHP71Version()
-    {
-        $output = exec('apt-cache madison gcp-php71');
-        $pattern = '/(7\.1\.\d+)/';
-        if (preg_match($pattern, $output, $matches)) {
-            $this->assertEquals($matches[1], self::$versions['php71']);
+        $pattern = '/PHP (8\.0\.\d+)/';
+        if (preg_match($pattern, $body, $matches)) {
+            echo "setUp => 8.0 -> matched\n";
+            self::$versions['php80'] = $matches[1];
         } else {
-            $this->fail('Failed to detect the current php71 version');
+            self::$versions['php80'] =
+                'Failed to detect the latest PHP80 version';
+        }
+        echo "versions: " . json_encode(self::$versions, JSON_PRETTY_PRINT) . "\n";
+        exec('apt-get update');
+        $output = [];
+        exec('apt-cache search gcp-php', $output);
+        echo json_encode($output, JSON_PRETTY_PRINT) . "\n";
+
+        foreach (self::$versions as $key => $version) {
+            exec("apt-cache policy gcp-$key", $output);
+            echo json_encode($output, JSON_PRETTY_PRINT) . "\n";
         }
     }
 
     public function testPHP73Version()
     {
-        $output = exec('apt-cache madison gcp-php73');
+        $eoutput = [];
+        exec('apt-cache policy gcp-php73', $eoutput);
+        $output = json_encode($eoutput);
+
         $pattern = '/(7\.3\.\d+)/';
         if (preg_match($pattern, $output, $matches)) {
             $this->assertEquals($matches[1], self::$versions['php73']);
@@ -80,12 +83,29 @@ class VersionTest extends TestCase
 
     public function testPHP74Version()
     {
-        $output = exec('apt-cache madison gcp-php74');
+        $eoutput = [];
+        exec('apt-cache policy gcp-php74', $eoutput);
+        $output = json_encode($eoutput);
+
         $pattern = '/(7\.4\.\d+)/';
         if (preg_match($pattern, $output, $matches)) {
             $this->assertEquals($matches[1], self::$versions['php74']);
         } else {
             $this->fail('Failed to detect the current php74 version');
+        }
+    }
+
+    public function testPHP80Version()
+    {
+        $eoutput = [];
+        exec('apt-cache policy gcp-php80', $eoutput);
+        $output = json_encode($eoutput);
+        $pattern = '/(8\.0\.\d+)/';
+
+        if (preg_match($pattern, $output, $matches)) {
+            $this->assertEquals($matches[1], self::$versions['php80']);
+        } else {
+            $this->fail('Failed to detect the current php80 version');
         }
     }
 }

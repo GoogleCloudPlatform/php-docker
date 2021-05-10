@@ -58,6 +58,12 @@ class GenFilesCommand extends Command
             ->setName('create')
             ->setDescription('Create Dockerfile and .dockerignore file')
             ->addOption(
+                'php80-image',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'The PHP 80 base image of the Dockerfile'
+            )
+            ->addOption(
                 'php74-image',
                 null,
                 InputOption::VALUE_REQUIRED,
@@ -68,30 +74,6 @@ class GenFilesCommand extends Command
                 null,
                 InputOption::VALUE_REQUIRED,
                 'The PHP 73 base image of the Dockerfile'
-            )
-            ->addOption(
-                'php72-image',
-                null,
-                InputOption::VALUE_REQUIRED,
-                'The PHP 72 base image of the Dockerfile'
-            )
-            ->addOption(
-                'php71-image',
-                null,
-                InputOption::VALUE_REQUIRED,
-                'The PHP 71 base image of the Dockerfile'
-            )
-            ->addOption(
-                'php70-image',
-                null,
-                InputOption::VALUE_REQUIRED,
-                'The PHP 70 base image of the Dockerfile'
-            )
-            ->addOption(
-                'php56-image',
-                null,
-                InputOption::VALUE_REQUIRED,
-                'The PHP 56 base image of the Dockerfile'
             )
             ->addOption(
                 'workspace',
@@ -117,32 +99,27 @@ class GenFilesCommand extends Command
             $output->writeln("<info>
 There is no PHP runtime version specified in composer.json, or
 we don't support the version you specified. Google App Engine
-uses the latest 7.4.x version.
+uses the latest 8.0.x version.
 We recommend pinning your PHP version by running:
 
-composer require php 7.4.* (replace it with your desired minor version)
+composer require php 8.0.* (replace it with your desired minor version)
 
-Using PHP version 7.4.x...</info>
+Using PHP version 8.0.x...</info>
 ");
         } elseif ($version === DetectPhpVersion::EXACT_VERSION_SPECIFIED) {
             throw new ExactVersionException(
                 "An exact PHP version was specified in composer.json. Please pin your" .
-                "PHP version to a minor version such as '7.4.*'."
+                "PHP version to a minor version such as '8.0.*'."
             );
         }
-        if (substr($version, 0, 3) === '5.6') {
-            $this->detectedPhpVersion = '5.6';
-        } elseif (substr($version, 0, 3) === '7.0') {
-            $this->detectedPhpVersion = '7.0';
-        } elseif (substr($version, 0, 3) === '7.1') {
-            $this->detectedPhpVersion = '7.1';
-        } elseif (substr($version, 0, 3) === '7.2') {
-            $this->detectedPhpVersion = '7.2';
-        } elseif (substr($version, 0, 3) === '7.3') {
+        if (substr($version, 0, 3) === '7.3') {
             $this->detectedPhpVersion = '7.3';
-        } else {
+        } elseif (substr($version, 0, 3) === '7.4') {
             $this->detectedPhpVersion = '7.4';
+        } else {
+            $this->detectedPhpVersion = '8.0';
         }
+
         $yamlPath = getenv('GAE_APPLICATION_YAML_PATH')
             ?: self::DEFAULT_YAML_PATH;
         if (file_exists($this->workspace . '/' . $yamlPath)) {

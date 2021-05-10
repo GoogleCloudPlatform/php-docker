@@ -5,7 +5,7 @@
 
 override_dh_auto_configure:
 	phpize && \
-	./configure --with-v8js=/opt/v8
+	PHP_LIBDIR=/opt/v8 ./configure --with-v8js=/opt/v8 LDFLAGS="-lstdc++" CPPFLAGS="-DV8_COMPRESS_POINTERS"
 
 override_dh_auto_test:
 

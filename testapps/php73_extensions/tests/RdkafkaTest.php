@@ -20,6 +20,15 @@ class RdkafkaTest extends TestCase
 {
     private $success = false;
 
+    protected function setUp(): void
+    {
+        if (!extension_loaded('rdkafka')) {
+            $this->markTestSkipped(
+                'The rdkafka extension is not available.'
+            );
+        }
+    }
+
     public function testExtensionLoaded()
     {
         $this->assertTrue(extension_loaded('rdkafka'));

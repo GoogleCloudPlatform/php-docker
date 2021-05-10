@@ -18,7 +18,7 @@
 # A shell script for dumping php versions to files.
 set -xe
 
-PHP_SHORT_NAMES=(php71 php72 php73 php74)
+PHP_SHORT_NAMES=(php73 php74 php80)
 
 for PHP_SHORT_NAME in "${PHP_SHORT_NAMES[@]}"
 do

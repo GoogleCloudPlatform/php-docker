@@ -18,9 +18,13 @@ use PHPUnit\Framework\TestCase;
 
 class GdTest extends TestCase
 {
-    public function testExtensionLoaded()
+    protected function setUp(): void
     {
-        $this->assertTrue(extension_loaded('gd'));
+        if (!extension_loaded('gd')) {
+            $this->markTestSkipped(
+                'The gd extension is not available.'
+            );
+        }
     }
 
     public function testFreetypeSupport()

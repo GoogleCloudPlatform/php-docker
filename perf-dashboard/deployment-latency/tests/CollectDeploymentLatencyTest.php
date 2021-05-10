@@ -55,11 +55,12 @@ class CollectDeploymentLatencyTest extends TestCase
     public function testDeploymentLatency()
     {
         $phpVersions = [
-            '7.1',
-            '7.2'
+            '7.3',
+            '7.4',
+            '8.0'
         ];
         $types = [
-            'ubuntu16'
+            'ubuntu18'
         ];
         $gcloudTrack = getenv('GCLOUD_TRACK') === 'beta' ? 'beta' : '';
         foreach ($phpVersions as $phpVersion) {

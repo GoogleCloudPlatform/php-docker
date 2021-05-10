@@ -9,6 +9,6 @@ echo "Building redis for gcp-php${SHORT_VERSION}"
 PNAME="gcp-php${SHORT_VERSION}-redis"
 
 # Download the source
-download_from_pecl redis 3.1.6
+download_from_pecl redis 5.3.4
 
 build_package redis
