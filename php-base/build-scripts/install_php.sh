@@ -21,16 +21,13 @@ set -xe
 echo "PHP_VERSION is $PHP_VERSION"
 
 case $PHP_VERSION in
+    8.0*)
+        /bin/bash /build-scripts/install_php80.sh
+        ;;
     7.4*)
         /bin/bash /build-scripts/install_php74.sh
         ;;
-    7.3*)
-        /bin/bash /build-scripts/install_php73.sh
-        ;;
-    7.2*)
-        /bin/bash /build-scripts/install_php72.sh
-        ;;
     *)
-        /bin/bash /build-scripts/install_php71.sh
+        /bin/bash /build-scripts/install_php73.sh
         ;;
 esac

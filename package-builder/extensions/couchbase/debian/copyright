@@ -4,7 +4,7 @@ Upstream-Contact: Sergey Avseyev <sergey.avseyev@gmail.com>
 Source: https://pecl.php.net/package/couchbase
 
 Files: *
-Copyright: 2016-2017 Couchbase Inc.
+Copyright: 2016-2021 Couchbase Inc.
 License: Apache-2.0
 
 Files: debian/*

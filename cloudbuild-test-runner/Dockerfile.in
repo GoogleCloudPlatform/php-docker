@@ -24,7 +24,7 @@ COPY test-runner-php.ini /opt/php/lib/conf.d
 # Install PHP and tools
 RUN apt-get update && \
     apt-get -y install wget zip && \
-    wget -nv -O phpunit.phar https://phar.phpunit.de/phpunit-5.7.phar && \
+    wget -nv -O phpunit.phar https://phar.phpunit.de/phpunit-9.phar && \
     chmod +x phpunit.phar && \
     mv phpunit.phar /usr/local/bin/phpunit && \
     wget -nv https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.zip && \

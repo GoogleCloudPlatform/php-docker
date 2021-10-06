@@ -12,7 +12,7 @@ PNAME="gcp-php${SHORT_VERSION}-apcu"
 if [ ${SHORT_VERSION} == '56' ]; then
     download_from_pecl apcu 4.0.11
 else
-    download_from_pecl apcu
+    download_from_pecl apcu 5.1.20
 fi
 
 build_package apcu

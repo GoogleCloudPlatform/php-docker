@@ -29,6 +29,10 @@ elif [ ${SHORT_VERSION} == "72" ]; then
     download_from_tarball https://github.com/phalcon/cphalcon/archive/v3.4.2.tar.gz 3.4.2
     # No json as it's inside php from php 7
     PACKAGE_DIR=${PACKAGE_DIR}/build/php7/64bits/
+elif [ ${SHORT_VERSION} == '73' ] || [ ${SHORT_VERSION} == '74' ]; then
+    download_from_tarball https://github.com/phalcon/cphalcon/archive/v4.1.2.tar.gz 4.1.2
+    # No json as it's inside php from php 7
+    PACKAGE_DIR=${PACKAGE_DIR}/build/php7/64bits/
 else
     echo "skipping Phalcon for gcp-php${SHORT_VERSION} - not yet supported"
     exit 0

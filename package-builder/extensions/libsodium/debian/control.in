@@ -8,5 +8,5 @@ Homepage: https://pecl.php.net/package/libsodium
 
 Package: gcp-php${SHORT_VERSION}-libsodium
 Architecture: any
-Depends: libsodium18, libc6 (>= 2.4), gcp-php${SHORT_VERSION}
+Depends: libsodium23, libc6 (>= 2.4), gcp-php${SHORT_VERSION}
 Description: libsodium extension module for gcp-php${SHORT_VERSION}
