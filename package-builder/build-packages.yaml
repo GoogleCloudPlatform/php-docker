@@ -35,7 +35,7 @@ steps:
     args: ['${_PHP_VERSION}']
     waitFor: ['ubuntu-package-builder', 'import-libraries', 'import-packages']
     id: package-build
-    timeout: 240m
+    timeout: 14400s
 
   # export artifacts to gs
   - name: google/cloud-sdk:251.0.0-slim
