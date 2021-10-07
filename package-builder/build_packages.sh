@@ -36,5 +36,5 @@ do
     echo "Building packages for PHP ${VERSION}"
     gcloud builds submit . --config=build-packages.yaml \
                                      --substitutions _PHP_VERSION=${VERSION},_GOOGLE_PROJECT_ID=${GOOGLE_PROJECT_ID},_BUCKET=${BUCKET} \
-                                     --timeout=180m
+                                     --timeout=240m
 done
