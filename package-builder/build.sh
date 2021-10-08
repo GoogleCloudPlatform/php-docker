@@ -48,7 +48,7 @@ fi
 
 LIBRARIES=${3}
 if [ -z "$LIBRARIES" ]; then
-    LIBRARIES="cassandra-cpp-driver,libv8,librabbitmq"
+    LIBRARIES="librabbitmq,cassandra-cpp-driver,libv8"
 fi
 
 
