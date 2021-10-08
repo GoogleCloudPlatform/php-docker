@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@
+	dh $@ --parallel
 
 override_dh_auto_configure:
 	CXX=g++-8 tools/dev/v8gen.py -vv x64.release -- is_component_build=true
